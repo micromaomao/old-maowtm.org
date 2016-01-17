@@ -21,3 +21,10 @@ https.createServer({
     key: fs.readFileSync(process.env.N_SSLKEY),
     cert: fs.readFileSync(process.env.N_SSLCERT)
 }, app).listen(443, process.env.N_LISTEN);
+if(process.env.N_LISTEN2) {
+    http.createServer(app).listen(80, process.env.N_LISTEN2);
+    https.createServer({
+        key: fs.readFileSync(process.env.N_SSLKEY),
+        cert: fs.readFileSync(process.env.N_SSLCERT)
+    }, app).listen(443, process.env.N_LISTEN2);
+}
