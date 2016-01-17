@@ -17,14 +17,22 @@ app.use(function(req, res, next) {
 app.use(require('./subs/main'));
 
 http.createServer(app).listen(80, process.env.N_LISTEN);
-https.createServer({
+const httpsopts = {
     key: fs.readFileSync(process.env.N_SSLKEY),
-    cert: fs.readFileSync(process.env.N_SSLCERT)
-}, app).listen(443, process.env.N_LISTEN);
+    cert: fs.readFileSync(process.env.N_SSLCERT),
+    ciphers: [
+        "ECDHE-RSA-AES256-SHA384",
+        "DHE-RSA-AES256-SHA384",
+        "ECDHE-RSA-AES256-SHA256",
+        "DHE-RSA-AES256-SHA256",
+        "ECDHE-RSA-AES128-SHA256",
+        "DHE-RSA-AES128-SHA256",
+        "HIGH",
+        "!aNULL", "!eNULL", "!EXPORT", "!DES", "!RC4", "!MD5", "!PSK", "!SRP", "!CAMELLIA"
+    ].join(':')
+};
+https.createServer(httpsopts, app).listen(443, process.env.N_LISTEN);
 if(process.env.N_LISTEN2) {
     http.createServer(app).listen(80, process.env.N_LISTEN2);
-    https.createServer({
-        key: fs.readFileSync(process.env.N_SSLKEY),
-        cert: fs.readFileSync(process.env.N_SSLCERT)
-    }, app).listen(443, process.env.N_LISTEN2);
+    https.createServer(httpsopts, app).listen(443, process.env.N_LISTEN2);
 }
