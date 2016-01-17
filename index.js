@@ -29,7 +29,8 @@ const httpsopts = {
         "DHE-RSA-AES128-SHA256",
         "HIGH",
         "!aNULL", "!eNULL", "!EXPORT", "!DES", "!RC4", "!MD5", "!PSK", "!SRP", "!CAMELLIA"
-    ].join(':')
+    ].join(':'),
+    honorCipherOrder: true
 };
 https.createServer(httpsopts, app).listen(443, process.env.N_LISTEN);
 if(process.env.N_LISTEN2) {
