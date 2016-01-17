@@ -4,7 +4,7 @@
   "description": "My website",
   "main": "index.js",
   "scripts": {
-    "test": "node test"
+    "test": "node ./test"
   },
   "repository": {
     "type": "git",
