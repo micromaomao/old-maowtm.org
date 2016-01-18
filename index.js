@@ -15,6 +15,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(require('./subs/main'));
+app.use(require('./subs/static'));
 
 http.createServer(app).listen(80, process.env.N_LISTEN);
 const httpsopts = {
