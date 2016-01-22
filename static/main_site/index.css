@@ -1,0 +1,45 @@
+.index-h1 {
+    font-family: serif;
+    text-align: center;
+    font-size: 2rem;
+    color: #dd1c1a;
+}
+.index-info {
+    text-align: center;
+    max-width: 30rem;
+    margin: 0 auto;
+}
+.index-info a {
+    margin: 0 0.5rem;
+}
+.index-info .dot {
+    vertical-align: middle;
+    display: inline-block;
+    background-color: #000;
+    margin: 0 0.5rem;
+    height: 0.3rem;
+    width: 0.3rem;
+    border-radius: 0.15rem;
+    opacity: 0.5;
+}
+.index-avatar {
+    width: 15%;
+    display: block;
+    margin: 0.5rem auto;
+    border-radius: 100%;
+    box-shadow: 0 0 10rem rgba(0, 0, 0, 0.5);
+}
+.index-h1 .mline {
+    display: inline-block;
+    width: 10%;
+    height: 0.1rem;
+    background-color: #f0c808;
+    margin: 0 1rem;
+    vertical-align: middle;
+}
+.header {
+    background-image: url(https://static.maowtm.org/main_site/maze.png);
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: 50% 50%;
+}
