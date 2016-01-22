@@ -1,5 +1,5 @@
 const express = require('express');
-const https = require('https');
+const https = require('spdy');
 const http = require('http');
 const fs = require('fs');
 const app = express();
@@ -22,13 +22,7 @@ const httpsopts = {
     key: fs.readFileSync(process.env.N_SSLKEY),
     cert: fs.readFileSync(process.env.N_SSLCERT),
     ciphers: [
-        "ECDHE-RSA-AES256-SHA384",
-        "DHE-RSA-AES256-SHA384",
-        "ECDHE-RSA-AES256-SHA256",
-        "DHE-RSA-AES256-SHA256",
-        "ECDHE-RSA-AES128-SHA256",
-        "DHE-RSA-AES128-SHA256",
-        "HIGH",
+        "ECDHE-RSA-AES128-GCM-SHA256",
         "!aNULL", "!eNULL", "!EXPORT", "!DES", "!RC4", "!MD5", "!PSK", "!SRP", "!CAMELLIA"
     ].join(':'),
     honorCipherOrder: true
