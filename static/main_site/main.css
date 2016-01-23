@@ -18,6 +18,18 @@ h1 {
     margin: 0;
     padding: 0.5rem 1rem;
 }
+h2 {
+    font-size: 1.3rem;
+    font-weight: inherit;
+    margin: 0;
+    padding: 0.5rem;
+}
+h3 {
+    font-size: 1.1rem;
+    font-weight: inherit;
+    margin: 0;
+    padding: 0.2rem;
+}
 p {
     margin: 0;
     padding: 0.3rem 0.5rem;
@@ -68,4 +80,10 @@ a {
 }
 a:hover {
     color: #37669c;
+}
+pre {
+    overflow: auto;
+    width: 100%;
+    max-height: 30rem;
+    background-color: rgba(255, 255, 255, 0.3);
 }

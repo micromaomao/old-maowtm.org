@@ -2,6 +2,7 @@ const express = require('express');
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
+const url = require('url');
 const app = express();
 
 // HTTP Redirect to HTTPS
@@ -10,6 +11,16 @@ app.use(function(req, res, next) {
         res.redirect(302, 'https://' + req.hostname + req.originalUrl);
     } else {
         res.set('Strict-Transport-Security', 'max-age=10886400; includeSubdomains; preload');
+        next();
+    }
+});
+app.use(function(req, res, next) {
+    var prasedUrl = url.parse(req.originalUrl, false);
+    if(req.method == 'GET' && prasedUrl.pathname.substr(-1) != '/'
+        && req.hostname != 'static.maowtm.org') {
+        prasedUrl.pathname += '/';
+        res.redirect(302, url.format(prasedUrl));
+    } else {
         next();
     }
 });

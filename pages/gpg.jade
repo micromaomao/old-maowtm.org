@@ -1,0 +1,47 @@
+extends sub_main_layout
+
+block head
+    -if (keys)
+        title GPG Public Key: #{key.hash}
+    -else
+        title GPG Public keys
+block location
+    -if (key)
+        div
+            a(href="../..") Public Identity
+        div
+            a(href="..") GPG Public Keys
+        div #{key.hash}
+    -else
+        div
+            a(href="..") Public Identity
+        div GPG Public Keys
+block content
+    -if (key)
+        h1
+            | Key:
+            != '&nbsp;'
+            code= key.name
+        ul
+            li
+                | Hash:
+                != '&nbsp;'
+                code= key.hash
+            li
+                | Expire:
+                != '&nbsp;'
+                = key.expire
+            li
+                | Creation date:
+                != '&nbsp;'
+                = key.date
+            li
+                | Algorithm and key size:
+                != '&nbsp;'
+                = key.algo
+            li
+                | Nickname:
+                != '&nbsp;'
+                code= key.nick
+        h2 Get the key
+        pre $ gpg --recv-keys #{key.hash}
