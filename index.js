@@ -4,7 +4,7 @@ const http = require('http');
 const fs = require('fs');
 const url = require('url');
 const app = express();
-const mongoose = new (require('mongoose').Mongoose)();
+const mongoose = require('mongoose');
 mongoose.connect(process.env.N_DB);
 const db = mongoose.connection;
 db.on('error', function (err) {
@@ -32,10 +32,6 @@ db.on('open', function() {
         } else {
             next();
         }
-    });
-    app.use(function(req, res, next) {
-        req.db = db;
-        next();
     });
 
     app.use(require('./subs/main'));
