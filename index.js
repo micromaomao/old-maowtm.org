@@ -8,8 +8,9 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.N_DB);
 const db = mongoose.connection;
 var redisClient = require("redis").createClient({
-    host: '127.6.0.233'
+    host: process.env.N_REDIS
 });
+debugger;
 global.lock = require("redis-lock")(redisClient);
 db.on('error', function (err) {
     console.error(err);
