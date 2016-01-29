@@ -20,7 +20,10 @@
     "express": "^4.13.3",
     "jade": "^1.11.0",
     "jstransformer-marked": "^1.0.1",
+    "lwip": "0.0.8",
     "marked": "^0.3.5",
-    "mongoose": "^4.3.7"
+    "mongoose": "^4.3.7",
+    "redis": "^2.4.2",
+    "redis-lock": "^0.1.0"
   }
 }
