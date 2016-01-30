@@ -60,6 +60,9 @@ r_main.get('/countdown/:event/:subevent', function (req, res, next) {
     }
     res.send(pages.countdown({time: subevent, subevent: req.params.subevent, event: req.params.event}));
 });
+r_main.get('/html-stuff/chunk-chunk/', function(req, res, next) {
+    res.send(pages.htmlstuff({title: 'Chunk-chunk', src: 'https://micromaomao.github.io/Chunk-chunk/'}));
+});
 
 module.exports = function(req, res, next) {
     if(req.hostname == 'www.maowtm.org') {
