@@ -1,4 +1,7 @@
 $(function() {
+    var requestAnimationFrame = window.requestAnimationFrame || function(x) {
+        setTimeout(x, 50);
+    };
     var dest = window.dest;
     var countdownBox = $('<div class="countdownBox"></div>');
     $('.error').after(countdownBox).remove();
