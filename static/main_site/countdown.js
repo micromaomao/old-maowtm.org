@@ -4,7 +4,9 @@ $(function() {
     };
     var dest = window.dest;
     var countdownBox = $('<div class="countdownBox"></div>');
-    $('.error').after(countdownBox).remove();
+    var countdownBoxpr = $('<div class="pr"></div>');
+    countdownBoxpr.append(countdownBox);
+    $('.error').after(countdownBoxpr).remove();
     $.fn.extend({
         changeText: function(text) {
             if(this.text() != text)
@@ -25,7 +27,7 @@ $(function() {
     sc.append(sline);
     var desttime = $('<div class="desttime"></div>');
     desttime.text('which is ' + dest.toString());
-    countdownBox.before(desttime);
+    countdownBoxpr.before(desttime);
     var oneday = 1000*60*60*24;
     var onehour = oneday / 24;
     var oneminute = onehour / 60;
@@ -68,7 +70,9 @@ $(function() {
     ptc();
 
     var share = $('<div class="share"></div>');
-    countdownBox.after(share);
+    var sharepr = $('<div class="pr"></div>');
+    sharepr.append(share);
+    countdownBoxpr.after(sharepr);
     var link = $('<div class="link">Link: </div>');
     share.append(link);
     var ah = $('<a class="ah"></a>');

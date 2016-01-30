@@ -33,10 +33,9 @@ h1 .event {
     text-align: center;
     border: solid 1px #fff;
     position: relative;
-    width: auto;
     font-family: 'PT Sans Narrow', sans-serif;
     font-weight: 400;
-    overflow: auto;
+    display: inline-block;
 }
 body.large .countdownBox {
     font-size: 5rem;
@@ -49,10 +48,12 @@ body.small .countdownBox {
     background-color: rgba(0, 0, 0, 0.2);
 }
 body.large .countdownBox .number {
-    margin-right: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 body.small .countdownBox .number {
-    margin-right: 0.5rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
 }
 .countdownBox .second .sline {
     position: absolute;
@@ -65,12 +66,17 @@ body.small .countdownBox .number {
 .countdownBox .pasted {
     font-size: 1.5rem;
 }
+.pr {
+    text-align: center;
+    overflow: auto;
+}
 .share {
     margin: 1rem auto;
     text-align: left;
     max-width: 50rem;
     border-top: solid 1px #fff;
     padding: 1rem;
+    display: inline-block;
 }
 .share .ah {
     color: inherit;
