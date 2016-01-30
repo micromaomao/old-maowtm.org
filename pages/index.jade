@@ -1,8 +1,9 @@
 extends sub_main_layout
 
 block head
-    title Coming soon...
+    title Mao Wtm
     link(rel="stylesheet",href="https://static.maowtm.org/main_site/index.css")
+    script(src="https://static.maowtm.org/main_site/index.js")
 block header_0
     img.index-avatar(src="https://img.maowtm.org/avatar.png?width=200")
     h1.index-h1
@@ -18,11 +19,12 @@ block header_0
 block location
     div index
 block content
-    h1 Hello world
-    p
-        | Hi! This is my website (maowtm.org), but I'm currently building it and it don't even have a
-        | index page yet. My blog is currently at
-        !="&nbsp;"
-        a(href="https://micromaomao.github.io/") micromaomao.github.io
-        !="&nbsp;"
-        | .
+    h1 Activities
+    .actpr
+        .act
+            .evt
+                .time Sat Jan 30 2016 14:00:00 GMT+0800
+                p.desc
+                    | Created a 
+                    a(href="https://maowtm.org/countdown/spring-holiday/end/") countdown for my holiday
+                    | .
