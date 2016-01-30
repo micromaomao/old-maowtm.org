@@ -20,6 +20,9 @@ $(function() {
     countdownBox.append(sc);
     sc.append(s);
     sc.append(sline);
+    var desttime = $('<div class="desttime"></div>');
+    desttime.text('which is ' + dest.toString());
+    countdownBox.before(desttime);
     var oneday = 1000*60*60*24;
     var onehour = oneday / 24;
     var oneminute = onehour / 60;

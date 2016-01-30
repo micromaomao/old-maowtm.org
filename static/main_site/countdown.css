@@ -75,3 +75,9 @@ body.small .countdownBox .number {
 .share .ah {
     color: inherit;
 }
+.desttime {
+    text-align: center;
+}
+body.large .desttime {
+    padding-left: 6rem;
+}
