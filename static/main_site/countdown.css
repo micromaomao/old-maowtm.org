@@ -1,0 +1,77 @@
+body {
+    background-color: #1a535c;
+    color: #f7fff7;
+}
+h1 {
+    text-align: center;
+    font-weight: 400;
+    font-family: 'Josefin Slab';
+}
+body.large h1 {
+    font-size: 4rem;
+}
+body.small h1 {
+    font-size: 2rem;
+}
+h1 > * {
+    vertical-align: middle;
+}
+h1 .of {
+    opacity: 0.7;
+}
+h1 .event {
+    font-weight: 700;
+    font-size: 115%;
+}
+.error {
+    text-align: center;
+    font-size: 1rem;
+}
+.countdownBox {
+    margin: 1rem auto;
+    padding: 0.5rem;
+    text-align: center;
+    border: solid 1px #fff;
+    position: relative;
+    width: auto;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 400;
+    overflow: auto;
+}
+body.large .countdownBox {
+    font-size: 5rem;
+}
+body.small .countdownBox {
+    font-size: 3rem;
+}
+.countdownBox .number {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+body.large .countdownBox .number {
+    margin-right: 2rem;
+}
+body.small .countdownBox .number {
+    margin-right: 0.5rem;
+}
+.countdownBox .second .sline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0.2rem;
+    background-color: #fff;
+}
+.countdownBox .pasted {
+    font-size: 1.5rem;
+}
+.share {
+    margin: 1rem auto;
+    text-align: left;
+    max-width: 50rem;
+    border-top: solid 1px #fff;
+    padding: 1rem;
+}
+.share .ah {
+    color: inherit;
+}

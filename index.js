@@ -10,7 +10,6 @@ const db = mongoose.connection;
 var redisClient = require("redis").createClient({
     host: process.env.N_REDIS
 });
-debugger;
 global.lock = require("redis-lock")(redisClient);
 db.on('error', function (err) {
     console.error(err);

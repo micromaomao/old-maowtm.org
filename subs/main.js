@@ -29,6 +29,37 @@ r_main.get(/^\/auth\/gpg\/((\w+)\/)?$/, function(req, res, next) {
         }
     }
 });
+var countdownEvents = {
+    'spring-holiday': {
+        'start': new Date('2016-01-30'),
+        'end': new Date('2016-02-19')
+    }
+};
+r_main.get('/countdown/:event', function (req, res, next) {
+    var event = countdownEvents[req.params.event];
+    if (!event) {
+        next();
+        return;
+    }
+    var now = Date.now();
+    if(now > event.start)
+        res.redirect(302, req.path + 'end');
+    else
+        res.redirect(302, req.path + 'start');
+});
+r_main.get('/countdown/:event/:subevent', function (req, res, next) {
+    var event = countdownEvents[req.params.event];
+    if (!event) {
+        next();
+        return;
+    }
+    var subevent = event[req.params.subevent];
+    if (!subevent) {
+        next();
+        return;
+    }
+    res.send(pages.countdown({time: subevent, subevent: req.params.subevent, event: req.params.event}));
+});
 
 module.exports = function(req, res, next) {
     if(req.hostname == 'www.maowtm.org') {
