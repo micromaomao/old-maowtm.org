@@ -31,8 +31,8 @@ r_main.get(/^\/auth\/gpg\/((\w+)\/)?$/, function(req, res, next) {
 });
 var countdownEvents = {
     'spring-holiday': {
-        'start': new Date('2016-01-30'),
-        'end': new Date('2016-02-19')
+        'start': new Date('2016-01-30 00:00:00 (CST)'),
+        'end': new Date('2016-02-19 00:00:00 (CST)')
     }
 };
 r_main.get('/countdown/:event', function (req, res, next) {
