@@ -7,13 +7,16 @@ block head
     link(rel="stylesheet",href="https://static.maowtm.org/main_site/index.css")
     script(src="https://static.maowtm.org/main_site/index.js")
 block header_0
-    img.index-avatar(src="https://img.maowtm.org/avatar.png?width=200")
-    h1.index-h1
-        span.mline
-        | Mao Wtm
-        span.mline
+    -if (!cord)
+        img.index-avatar(src="https://img.maowtm.org/avatar.png?width=200")
+        h1.index-h1
+            span.mline
+            | Mao Wtm
+            span.mline
     .index-info
         -if (!cord)
+            .ping
+                pre ping6 me.maowtm.org # <- Test out if I'm online
             a(href="mailto:micromaomao@gmail.com",target="_blank") micromaomao@gmail.com
             .dot
             a(href="https://github.com/micromaomao") Github

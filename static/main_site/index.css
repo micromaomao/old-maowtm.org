@@ -22,6 +22,9 @@
     border-radius: 0.15rem;
     opacity: 0.5;
 }
+.index-info .ping pre {
+    margin: 0.2rem 0.5rem;
+}
 .index-avatar {
     width: 15%;
     display: block;
