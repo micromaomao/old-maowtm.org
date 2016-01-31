@@ -250,6 +250,59 @@ r_main.get('/articles/:id', function(req, res, next) {
         res.send(pages.article({ct: act, activs: [act]}));
     });
 });
+r_main.get('/tag/:tagname', function (req, res, next) {
+    var tagname = req.params.tagname;
+    if(typeof tagname != 'string') {
+        next();
+        return;
+    }
+    activity.find({tags: tagname}).sort({date: -1}).limit(15).exec(function(err, actis) {
+        if(err) {
+            res.error(err);
+            return;
+        }
+        res.send(pages.index({activs: actis, cord: "include tag: " + tagname}));
+    });
+});
+r_main.get('/as/:format', function (req, res, next) {
+    var skip = parseInt(req.query.skip || 0);
+    var limit = parseInt(req.query.limit);
+    if (!(skip >= 0)) {
+        res.error(403, new Error('Invaild skip.'));
+        return;
+    }
+    if (!(limit >= 0))
+        limit = 15;
+    if(limit > 30)
+        limit = 30;
+    var find;
+    try {
+        find = JSON.parse(req.query.find);
+        if (typeof find != 'object') {
+            throw new Error('Query must be an object.');
+        }
+    } catch (e) {
+        res.error(403, e);
+        return;
+    }
+    activity.find(find).skip(skip).limit(limit).exec(function (err, r) {
+        var format = req.params.format;
+        if (err) {
+            res.error(err);
+            return;
+        }
+        switch (format) {
+            case 'html':
+                res.send(pages.activ_list({activs: r}));
+                break;
+            case 'json':
+                res.send(r);
+                break;
+            default:
+                res.error(403, new Error("Format not supported"));
+        }
+    });
+});
 
 module.exports = function(req, res, next) {
     if(req.hostname == 'www.maowtm.org') {

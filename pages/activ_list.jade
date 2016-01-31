@@ -6,7 +6,8 @@
         .time.raw= act.date.getTime()
         .tags
             -for (var j = 0; j < act.tags.length; j ++)
-                .tag= act.tags[j]
+                .tag
+                    a(href="/tag/" + act.tags[j])= act.tags[j]
         .desc!= act.desc
         -if (act.blogContent && !ct)
             .articlelink

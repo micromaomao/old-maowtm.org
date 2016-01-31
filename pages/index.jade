@@ -13,15 +13,24 @@ block header_0
         | Mao Wtm
         span.mline
     .index-info
-        a(href="mailto:micromaomao@gmail.com",target="_blank") micromaomao@gmail.com
-        .dot
-        a(href="https://github.com/micromaomao") Github
-        .dot
-        a(href="auth") Public Identity
+        -if (!cord)
+            a(href="mailto:micromaomao@gmail.com",target="_blank") micromaomao@gmail.com
+            .dot
+            a(href="https://github.com/micromaomao") Github
+            .dot
+            a(href="auth") Public Identity
+        -else
+            h1 Activities which #{cord}
+            a(href="/") Show all activities
 block location
-    div index
+    -if (!cord)
+        div index
+    -else
+        div Acitvities which
+        div= cord
 block content
-    h1 Recent Activities
+    -if (!cord)
+        h1 Recent Activities
     .actpr
         .act
             include activ_list
