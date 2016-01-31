@@ -32,7 +32,7 @@
     {
         "_id": "intro-tmux",
         "desc": "![tmux logo](https://tmux.github.io/logo.png)\n\nWrote this to recommand the Terminal spliting tool tmux - stop opening and laying out lots of terminal windows.",
-        "date": "Sun Jan 31 2016 22:50:00",
+        "date": "Sun Jan 31 2016 22:50:00 GMT+0800",
         "tags": ["linux", "intro", "terminal", "dev-tools"],
         "_blogMd": "blogcontents/intro-tmux.md",
         "title": "Tmux: stop opening and laying out lots of terminal windows."
