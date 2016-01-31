@@ -298,6 +298,9 @@ r_main.get('/as/:format', function (req, res, next) {
             case 'json':
                 res.send(r);
                 break;
+            case 'page':
+                res.send(pages.index({activs: r, cord: "match " + JSON.stringify(find)}));
+                break;
             default:
                 res.error(403, new Error("Format not supported"));
         }
