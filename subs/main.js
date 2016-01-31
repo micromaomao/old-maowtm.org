@@ -24,7 +24,7 @@ activitySchema.static('import', function (data, callback, cd) {
     try {
         var activities = JSON.parse(data);
     } catch (e) {
-        callback(null);
+        callback(new Error("JSON Error: " + e.toString()));
         return;
     }
     function importOne(activ, blogc, callback) {
@@ -99,6 +99,7 @@ activityImportLogSchema.static('importFile', function (filepath, force, callback
             return;
         }
         if(log) {
+            debugger;
             fs.stat(filepath, function(err, stat) {
                 if(err) {
                     callback(err);
@@ -110,7 +111,7 @@ activityImportLogSchema.static('importFile', function (filepath, force, callback
                 }
                 var lastModified = stat.mtime;
                 if(log.date < lastModified) {
-                    fs.readFile(filepath, function (err, data) {
+                    fs.readFile(filepath, {encoding: "utf8"}, function (err, data) {
                         if(err) {
                             callback(err);
                             return;
@@ -143,7 +144,7 @@ activityImportLogSchema.static('importFile', function (filepath, force, callback
                 }
                 var lastModified = stat.mtime;
                 log.set('date', lastModified);
-                fs.readFile(filepath, function(err, data) {
+                fs.readFile(filepath, {encoding: "utf8"}, function(err, data) {
                     if(err) {
                         callback(err);
                         return;

@@ -105,7 +105,12 @@ db.on('open', function() {
             }
             return;
         }
-        activityImportLog.importFile(activityFiles[i], function (err) {
+        var fname = activityFiles[i];
+        if(!fname.match(/^[a-zA-Z0-9]+\.json$/)) {
+            doAddActivities(i + 1);
+            return;
+        }
+        activityImportLog.importFile(fname, function (err) {
             if(err) {
                 console.error(err);
                 console.error('Faild to import ' + activityFiles[i] + ' .');
