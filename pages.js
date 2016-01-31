@@ -7,5 +7,6 @@ module.exports = {
     countdown: jade.compileFile('pages/countdown.jade'),
     htmlstuff: jade.compileFile('pages/htmlstuff.jade'),
     activ_list: jade.compileFile('pages/activ_list.jade'),
-    article: jade.compileFile('pages/article.jade')
+    article: jade.compileFile('pages/article.jade'),
+    error: jade.compileFile('pages/error.jade')
 };

@@ -7,6 +7,7 @@ const app = express();
 const mongoose = require('mongoose');
 mongoose.connect(process.env.N_DB);
 const db = mongoose.connection;
+const pages = require('./pages');
 var redisClient = require("redis").createClient({
     host: process.env.N_REDIS
 });
@@ -28,6 +29,18 @@ db.on('open', function() {
         }
     });
 
+    app.use(function(req, res, next) {
+        res.error = function (status, error) {
+            if (typeof status != 'number') {
+                error = status;
+                status = 501;
+            }
+            res.status(status);
+            res.send(pages.error({error: error, status: status, req: req}));
+        };
+        next();
+    });
+
     app.use(require('./subs/static'));
 
     app.use(function(req, res, next) {
@@ -41,6 +54,10 @@ db.on('open', function() {
     });
 
     app.use(require('./subs/main'));
+    
+    app.use(function(req, res) {
+        res.error(404, "Not find");
+    });
 
     var image = mongoose.model('image');
     var imgs = [{

@@ -302,7 +302,7 @@ r_main.get('/as/:format', function (req, res, next) {
                 res.send(pages.index({activs: r, cord: "match " + JSON.stringify(find)}));
                 break;
             default:
-                res.error(403, new Error("Format not supported"));
+                res.error(501, new Error("Format not supported"));
         }
     });
 });
