@@ -69,6 +69,9 @@ db.on('open', function() {
     }, {
         name: "maze.png",
         path: "static/imgs/maze.png"
+    }, {
+        name: "avatar-favicon.png",
+        path: "static/imgs/avatar-favicon.png"
     }];
     var doAddActivities;
     var activityFiles;
