@@ -53,8 +53,35 @@ db.on('open', function() {
         name: "maze.png",
         path: "static/imgs/maze.png"
     }];
+    var doAddActivities;
+    var activityFiles;
+    var actcd = __dirname + '/data/activities';
     function doAddImg(i) {
         if (i >= imgs.length) {
+            fs.readdir(actcd, function (err, files) {
+                if(err) {
+                    console.error(err);
+                    process.exit(1);
+                } else {
+                    activityFiles = files;
+                    doAddActivities(0);
+                }
+            });
+        } else {
+            image.addImageIfNotExist(imgs[i].name, __dirname + '/' + imgs[i].path, function (err) {
+                if(err) {
+                    console.error(err);
+                    console.error('Faild to load image: ' + imgs[i].name);
+                    process.exit(1);
+                } else {
+                    doAddImg(i + 1);
+                }
+            });
+        }
+    }
+    var activityImportLog = mongoose.model('activityImportLog');
+    doAddActivities = function (i) {
+        if(i >= activityFiles.length) {
             http.createServer(app).listen(80, process.env.N_LISTEN);
             const httpsopts = {
                 key: fs.readFileSync(process.env.N_SSLKEY),
@@ -76,17 +103,17 @@ db.on('open', function() {
                 http.createServer(app).listen(80, process.env.N_LISTEN2);
                 https.createServer(httpsopts, app).listen(443, process.env.N_LISTEN2);
             }
-        } else {
-            image.addImageIfNotExist(imgs[i].name, __dirname + '/' + imgs[i].path, function (err) {
-                if(err) {
-                    console.error(err);
-                    console.error('Faild to load image: ' + imgs[i].name);
-                    process.exit(1);
-                } else {
-                    doAddImg(i + 1);
-                }
-            });
+            return;
         }
+        activityImportLog.importFile(activityFiles[i], function (err) {
+            if(err) {
+                console.error(err);
+                console.error('Faild to import ' + activityFiles[i] + ' .');
+                process.exit(1);
+            } else {
+                doAddActivities(i + 1);
+            }
+        }, actcd);
     }
     doAddImg(0);
 });

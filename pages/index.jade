@@ -2,6 +2,8 @@ extends sub_main_layout
 
 block head
     title Mao Wtm
+    link(rel="stylesheet",href="https://static.maowtm.org/main_site/acts.css")
+    script(src="https://static.maowtm.org/main_site/acts.js")
     link(rel="stylesheet",href="https://static.maowtm.org/main_site/index.css")
     script(src="https://static.maowtm.org/main_site/index.js")
 block header_0
@@ -19,39 +21,7 @@ block header_0
 block location
     div index
 block content
-    h1 Activities
+    h1 Recent Activities
     .actpr
         .act
-            .evt
-                .time Sat Jan 30 2016 21:13:00 GMT+0800
-                p.desc
-                    | Created a activities list on the index page of 
-                    a(href="https://maowtm.org/") maowtm.org
-                    | .
-            .evt
-                .time Sat Jan 30 2016 14:00:00 GMT+0800
-                p.desc
-                    | Created a 
-                    a(href="https://maowtm.org/countdown/spring-holiday/end/") countdown for my holiday
-                    | .
-            .evt
-                .time Sat Jan 30 2016 01:30:00 GMT+0800
-                p.desc
-                    | Implemented a image resize function on image.maowtm.org
-                .more
-                    pre.
-                        https://img.maowtm.org/avatar.png?width=200
-                                                                ^^^
-                    p Scaled so that image width is within +-50 of the width specified. Ratio is kept.
-            .evt
-                .time Mon Jan 25 2016 21:54:52 GMT+0800
-                p.desc
-                    | Developed the 
-                    a(href="https://maowtm.org/html-stuff/chunk-chunk/") Chunk-chunk
-                    |  game.
-            .evt
-                .time Sat Jan 23 2016 23:19:28 GMT+0800
-                p.desc
-                    | Moved the 
-                    a(href="https://maowtm.org/auth/") Public Identity
-                    |  page to maowtm.org
+            include activ_list

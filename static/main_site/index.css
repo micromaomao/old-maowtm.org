@@ -43,7 +43,6 @@
     background-repeat: repeat;
     background-position: 50% 50%;
 }
-
 .actpr {
     text-align: center;
     margin: 0.5rem;
@@ -55,15 +54,4 @@
     max-width: 50rem;
     border-left: solid 0.15rem #bbb;
     padding: 1rem;
-}
-.act .evt {
-    background-color: #fff;
-    box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
-    padding: 1rem;
-    margin: 0.5rem;
-}
-.act .evt .time {
-    font-size: 0.8rem;
-    color: #999;
-    min-width: 17rem;
 }
