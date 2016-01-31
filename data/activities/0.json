@@ -1,0 +1,32 @@
+[
+    {
+        "_id": "maowtm-public-id",
+        "desc": "Moved the [Public Identity](https://maowtm.org/auth/) page to maowtm.org",
+        "date": "Sat Jan 23 2016 23:19:28 GMT+0800",
+        "tags": ["maowtm.org", "website", "Mao Wtm"]
+    },
+    {
+        "_id": "Chunk-chunk",
+        "desc": "Developed the [Chunk-chunk](https://maowtm.org/html-stuff/chunk-chunk/) game.",
+        "date": "Mon Jan 25 2016 21:54:52 GMT+0800",
+        "tags": ["web games", "dev", "html-stuff", "project"]
+    },
+    {
+        "_id": "img.maowtm.org-width",
+        "desc": "Implemented a image resize function on img.maowtm.org .\n\n    https://img.maowtm.org/avatar.png?width=200\n                                            ^^^\n\nScaled so that image width is within +-50 of the width specified. Ratio is kept.",
+        "date": "Sat Jan 30 2016 01:30:00 GMT+0800",
+        "tags": ["node.js", "web development", "dev", "maowtm.org"]
+    },
+    {
+        "_id": "countdown-holiday-s16",
+        "desc": "Created a [countdown for my holiday](https://maowtm.org/countdown/spring-holiday/end/).",
+        "date": "Sat Jan 30 2016 14:00:00 GMT+0800",
+        "tags": ["html-stuff", "maowtm.org", "dev"]
+    },
+    {
+        "_id": "activity-list-created",
+        "desc": "Created a activities list on the [index page of maowtm.org](https://maowtm.org).",
+        "date": "Sat Jan 30 2016 21:13:00 GMT+0800",
+        "tags": ["maowtm.org", "website", "Mao Wtm", "dev"]
+    }
+]

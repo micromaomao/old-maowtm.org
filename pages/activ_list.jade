@@ -1,0 +1,14 @@
+-for (var i = 0; i < activs.length; i ++)
+    -var act = activs[i]
+    div(class=act.deleted?'evt deled':'evt',data-id=act._id)
+        -if (act.deleted)
+            .delmsg This activity is deleted, but content still accessible.
+        .time.raw= act.date.getTime()
+        .tags
+            -for (var j = 0; j < act.tags.length; j ++)
+                .tag
+                    a(href="/tag/" + act.tags[j])= act.tags[j]
+        .desc!= act.desc
+        -if (act.blogContent && !ct)
+            .articlelink
+                a(href="/articles/"+act._id+'/') Read the article

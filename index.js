@@ -7,6 +7,7 @@ const app = express();
 const mongoose = require('mongoose');
 mongoose.connect(process.env.N_DB);
 const db = mongoose.connection;
+const pages = require('./pages');
 var redisClient = require("redis").createClient({
     host: process.env.N_REDIS
 });
@@ -28,6 +29,18 @@ db.on('open', function() {
         }
     });
 
+    app.use(function(req, res, next) {
+        res.error = function (status, error) {
+            if (typeof status != 'number') {
+                error = status;
+                status = 501;
+            }
+            res.status(status);
+            res.send(pages.error({error: error, status: status, req: req}));
+        };
+        next();
+    });
+
     app.use(require('./subs/static'));
 
     app.use(function(req, res, next) {
@@ -41,6 +54,10 @@ db.on('open', function() {
     });
 
     app.use(require('./subs/main'));
+    
+    app.use(function(req, res) {
+        res.error(404, "Not find");
+    });
 
     var image = mongoose.model('image');
     var imgs = [{
@@ -53,8 +70,35 @@ db.on('open', function() {
         name: "maze.png",
         path: "static/imgs/maze.png"
     }];
+    var doAddActivities;
+    var activityFiles;
+    var actcd = __dirname + '/data/activities';
     function doAddImg(i) {
         if (i >= imgs.length) {
+            fs.readdir(actcd, function (err, files) {
+                if(err) {
+                    console.error(err);
+                    process.exit(1);
+                } else {
+                    activityFiles = files;
+                    doAddActivities(0);
+                }
+            });
+        } else {
+            image.addImageIfNotExist(imgs[i].name, __dirname + '/' + imgs[i].path, function (err) {
+                if(err) {
+                    console.error(err);
+                    console.error('Faild to load image: ' + imgs[i].name);
+                    process.exit(1);
+                } else {
+                    doAddImg(i + 1);
+                }
+            });
+        }
+    }
+    var activityImportLog = mongoose.model('activityImportLog');
+    doAddActivities = function (i) {
+        if(i >= activityFiles.length) {
             http.createServer(app).listen(80, process.env.N_LISTEN);
             const httpsopts = {
                 key: fs.readFileSync(process.env.N_SSLKEY),
@@ -76,17 +120,22 @@ db.on('open', function() {
                 http.createServer(app).listen(80, process.env.N_LISTEN2);
                 https.createServer(httpsopts, app).listen(443, process.env.N_LISTEN2);
             }
-        } else {
-            image.addImageIfNotExist(imgs[i].name, __dirname + '/' + imgs[i].path, function (err) {
-                if(err) {
-                    console.error(err);
-                    console.error('Faild to load image: ' + imgs[i].name);
-                    process.exit(1);
-                } else {
-                    doAddImg(i + 1);
-                }
-            });
+            return;
         }
+        var fname = activityFiles[i];
+        if(!fname.match(/^[a-zA-Z0-9]+\.json$/)) {
+            doAddActivities(i + 1);
+            return;
+        }
+        activityImportLog.importFile(fname, function (err) {
+            if(err) {
+                console.error(err);
+                console.error('Faild to import ' + activityFiles[i] + ' .');
+                process.exit(1);
+            } else {
+                doAddActivities(i + 1);
+            }
+        }, actcd);
     }
     doAddImg(0);
 });

@@ -1,0 +1,19 @@
+extends sub_main_layout
+
+block head
+    script.
+        window.fontneeded.push('/css?family=PT+Sans+Narrow');
+    link(rel="stylesheet",href="https://static.maowtm.org/main_site/acts.css")
+    link(rel="stylesheet",href="https://static.maowtm.org/main_site/article.css")
+    script(src="https://static.maowtm.org/main_site/acts.js")
+    title= ct.title
+
+block location
+    div= ct.tags[0]
+    div= ct.title
+
+block content
+    .actpr
+        .act
+            include activ_list
+    .article!= ct.blogContent
