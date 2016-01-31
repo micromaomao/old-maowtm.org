@@ -28,5 +28,13 @@
         "desc": "Created a activities list on the [index page of maowtm.org](https://maowtm.org).",
         "date": "Sat Jan 30 2016 21:13:00 GMT+0800",
         "tags": ["maowtm.org", "website", "Mao Wtm", "dev"]
+    },
+    {
+        "_id": "intro-tmux",
+        "desc": "![tmux logo](https://tmux.github.io/logo.png)\n\nWrote this to recommand the Terminal spliting tool tmux - stop opening and laying out lots of terminal windows.",
+        "date": "Sun Jan 31 2016 22:50:00",
+        "tags": ["linux", "intro", "terminal", "dev-tools"],
+        "_blogMd": "blogcontents/intro-tmux.md",
+        "title": "Tmux: stop opening and laying out lots of terminal windows."
     }
 ]
