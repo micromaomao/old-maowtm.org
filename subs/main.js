@@ -201,7 +201,16 @@ r_main.get(/^\/auth\/gpg\/((\w+)\/)?$/, function(req, res, next) {
 var countdownEvents = {
     'spring-holiday': {
         'start': new Date(Date.UTC(2016, 1 - 1, 29, 16, 0, 0)),
-        'end': new Date(Date.UTC(2016, 2 - 1, 18, 16, 0, 0))
+        'end': new Date(Date.UTC(2016, 2 - 1, 18, 16, 0, 0)),
+        redirects: {}
+    },
+    'ssl-certification-of-maowtm.org': {
+        'expire': new Date('Sat Apr 16 2016 16:30:00 GMT+0800'),
+        'issue': new Date('Sun Jan 17 2016 16:30:00 GMT+0800'),
+        redirects: {
+            'start': 'issue',
+            'end': 'expire'
+        }
     }
 };
 r_main.get('/countdown/:event', function (req, res, next) {
@@ -211,7 +220,7 @@ r_main.get('/countdown/:event', function (req, res, next) {
         return;
     }
     var now = Date.now();
-    if(now > event.start)
+    if(event.redirects.start?now > event[event.redirects.start]:now > event.start)
         res.redirect(302, req.path + 'end');
     else
         res.redirect(302, req.path + 'start');
@@ -222,8 +231,12 @@ r_main.get('/countdown/:event/:subevent', function (req, res, next) {
         next();
         return;
     }
+    if (event.redirects[req.params.subevent]) {
+        res.redirect(302, '../' + event.redirects[req.params.subevent]);
+        return;
+    }
     var subevent = event[req.params.subevent];
-    if (!subevent) {
+    if (!subevent || typeof req.params.subevent == 'redirects') {
         next();
         return;
     }
