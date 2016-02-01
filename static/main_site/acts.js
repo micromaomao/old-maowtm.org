@@ -37,7 +37,7 @@ $(function() {
         }
         return bld(    c/1000/60/60/24/365)+"years " + ago;
     }
-    $('.evt .time.raw').each(function(n, e) {
+    $('.time.raw').each(function(n, e) {
         var e = $(e);
         var dt = new Date(parseInt(e.text()));
         var tl;

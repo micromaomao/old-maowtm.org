@@ -35,5 +35,15 @@ block content
     -if (!cord)
         h1 Recent Activities
     .actpr
+        -if (prevurl)
+            a.npage(href=prevurl) Previous page
+        -else if (ts)
+            .tsignmsg
+                | Showing only articles 
+                .time.raw= ts.getTime()
+                | . 
+                a(href="?") Show latest
         .act
             include activ_list
+        -if (nexturl)
+            a.npage(href=nexturl) Next page
