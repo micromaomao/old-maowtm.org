@@ -21,6 +21,7 @@ db.on('open', function() {
 
     try {
         fs.accessSync('acme-challenge', fs.R_OK);
+        console.log('ACME challenge file read.');
         var ct = fs.readFileSync('acme-challenge', {encoding: 'utf8'});
         app.get('/.well-known/acme-challenge/*', function (req, res) {
             res.send(ct);
