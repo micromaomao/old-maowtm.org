@@ -19,6 +19,15 @@ db.on('error', function (err) {
 });
 db.on('open', function() {
 
+    try {
+        fs.accessSync('acme-challenge', fs.R_OK);
+        var ct = fs.readFileSync('acme-challenge', {encoding: 'utf8'});
+        app.get('/.well-known/acme-challenge/*', function (req, res) {
+            res.send(ct);
+        });
+    } catch (e) {
+    }
+
     // HTTP Redirect to HTTPS
     app.use(function(req, res, next) {
         if(!req.secure) {
