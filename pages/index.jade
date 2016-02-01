@@ -35,5 +35,9 @@ block content
     -if (!cord)
         h1 Recent Activities
     .actpr
+        -if (prevurl)
+            a.npage(href=prevurl) Previous page
         .act
             include activ_list
+        -if (nexturl)
+            a.npage(href=nexturl) Next page

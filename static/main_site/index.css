@@ -58,3 +58,7 @@
     border-left: solid 0.15rem #bbb;
     padding: 1rem;
 }
+.actpr .npage {
+    display: block;
+    margin: 0.5rem 1rem;
+}

@@ -4,6 +4,7 @@ const gpgKeyInfo = require('./gpgKeyInfo');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const marked = require('marked');
+const querystring = require('querystring');
 
 var activitySchema = new mongoose.Schema({
     _id: String,
@@ -168,17 +169,108 @@ var activityImportLog = mongoose.model('activityImportLog', activityImportLogSch
 var r_main = express.Router();
 var r_www = express.Router();
 
+function getQueries(skip, limit, count, timesign) {
+    var queryNext = {};
+    if (count == limit) {
+        queryNext.skip = skip + count;
+        queryNext.limit = limit;
+        queryNext.timesign = timesign;
+    } else {
+        queryNext = null;
+    }
+    var queryPrev = {};
+    if (skip > 0) {
+        var nskip = Math.max(skip - limit, 0);
+        if (nskip > 0)
+            queryPrev.skip = nskip;
+        queryPrev.limit = limit;
+        queryPrev.timesign = timesign;
+    } else {
+        queryPrev = null;
+    }
+    var ret = {};
+    if (queryNext) {
+        ret.next = '?' + querystring.stringify(queryNext);
+    }
+    if (queryPrev) {
+        ret.prev = '?' + querystring.stringify(queryPrev);
+    }
+    return ret;
+}
+var t32 = Math.pow(2, 32);
+function baseurl(buf) {
+    return buf.toString('base64').replace(/\//g, '_').replace(/\+/g, ' ').replace(/=/g, '');
+}
+function debaseurl(b) {
+    return new Buffer(b.replace(/ /g, '+').replace(/_/g, '/'), 'base64');
+}
+function timesign_stringify(time) {
+    var stamp = Math.floor(time.getTime() / 1000);
+    var buf;
+    if (stamp > t32 - 1) {
+        buf = new Buffer(64 / 8);
+        var ln = Math.floor(stamp / t32);
+        var rn = stamp % t32;
+        buf.writeUInt32BE(ln, 0);
+        buf.writeUInt32BE(rn, 32 / 8);
+        return baseurl(buf);
+    } else {
+        buf = new Buffer(32 / 8);
+        buf.writeUInt32BE(stamp);
+        return baseurl(buf);
+    }
+}
+function timesign_parse(s) {
+    var buf = debaseurl(s);
+    var ln = buf.readUInt32BE(0);
+    var rn;
+    if (buf.length > 32 / 8) {
+        rn = buf.readUInt32BE(32 / 8);
+        return new Date((ln * t32 + rn) * 1000);
+    }
+    return new Date(ln * 1000);
+}
+function sendIndex(req, res, find, cord) {
+    var skip = parseInt(req.query.skip || 0);
+    var limit = parseInt(req.query.limit);
+    if (!(skip >= 0)) {
+        res.error(403, new Error('Invaild skip.'));
+        return;
+    }
+    if (!(limit >= 0))
+        limit = 15;
+    if(limit > 30)
+        limit = 30;
+    var timesign = req.query.timesign;
+    var ts = null;
+    if (typeof timesign == 'string') {
+        try {
+            ts = timesign_parse(timesign);
+        } catch (e) {
+            res.error(403, "timesign invaild.");
+            return;
+        }
+    }
+    if (ts === null) {
+        ts = new Date(Math.floor(Date.now()));
+        timesign = timesign_stringify(ts);
+    }
+    var query = Object.create(find);
+    query.date = { $lt: ts };
+    activity.find(query).sort({date: -1}).skip(skip).limit(limit).exec(function (err, actis) {
+        if (err) {
+            res.error(err);
+            return;
+        }
+        var queri = getQueries(skip, limit, actis.length, timesign);
+        res.send(pages.index({activs: actis, nexturl: queri.next, prevurl: queri.prev, cord: cord}));
+    });
+}
 r_www.get('/', function(req, res) {
     res.redirect(302, 'https://maowtm.org');
 });
 r_main.get('/', function(req, res) {
-    activity.find().sort({date: -1}).limit(10).exec(function(err, actis) {
-        if(err) {
-            res.error(err);
-            return;
-        }
-        res.send(pages.index({activs: actis}));
-    });
+    sendIndex(req, res, {}, null);
 });
 r_main.get('/auth', function(req, res) {
     res.send(pages.auth());
@@ -272,12 +364,21 @@ r_main.get('/articles/:id', function(req, res, next) {
     });
 });
 r_main.get('/tag/:tagname', function (req, res, next) {
+    var skip, limit, sln;
+    try {
+        sln = getSkipLimit(req);
+        skip = sln.skip;
+        limit = sln.limit;
+    } catch (e) {
+        res.error(403, e);
+        return;
+    }
     var tagname = req.params.tagname;
     if(typeof tagname != 'string') {
         next();
         return;
     }
-    activity.find({tags: tagname}).sort({date: -1}).limit(15).exec(function(err, actis) {
+    activity.find({tags: tagname}).sort({date: -1}).skip(skip).limit(limit).exec(function(err, actis) {
         if(err) {
             res.error(err);
             return;
@@ -286,16 +387,15 @@ r_main.get('/tag/:tagname', function (req, res, next) {
     });
 });
 r_main.get('/as/:format', function (req, res, next) {
-    var skip = parseInt(req.query.skip || 0);
-    var limit = parseInt(req.query.limit);
-    if (!(skip >= 0)) {
-        res.error(403, new Error('Invaild skip.'));
+    var skip, limit, sln;
+    try {
+        sln = getSkipLimit(req);
+        skip = sln.skip;
+        limit = sln.limit;
+    } catch (e) {
+        res.error(403, e);
         return;
     }
-    if (!(limit >= 0))
-        limit = 15;
-    if(limit > 30)
-        limit = 30;
     var find;
     try {
         find = JSON.parse(req.query.find);
