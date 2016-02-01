@@ -381,15 +381,6 @@ r_main.get('/articles/:id', function(req, res, next) {
     });
 });
 r_main.get('/tag/:tagname', function (req, res, next) {
-    var skip, limit, sln;
-    try {
-        sln = getSkipLimit(req);
-        skip = sln.skip;
-        limit = sln.limit;
-    } catch (e) {
-        res.error(403, e);
-        return;
-    }
     var tagname = req.params.tagname;
     if(typeof tagname != 'string') {
         next();
