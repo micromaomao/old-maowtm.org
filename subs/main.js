@@ -11,6 +11,7 @@ var activitySchema = new mongoose.Schema({
     desc: String, // markdown
     date: Date,
     tags: [String],
+    haveBlogContent: {type: Boolean, default: false},
     blogContent: String, // markdown
     title: {type: String, default: null},
     deleted: Boolean
@@ -37,7 +38,7 @@ activitySchema.static('import', function (data, callback, cd) {
             }
             activity.findByIdAndUpdate(activ._id,
                     {desc: desc, date: date, tags: activ.tags, blogContent: blogc, title: activ.title,
-                        deleted: activ.deleted || false}, {new: true, upsert: true}, callback);
+                        deleted: activ.deleted || false, haveBlogContent: blogc.length > 0}, {new: true, upsert: true}, callback);
         });
     }
     function doImport(i) {

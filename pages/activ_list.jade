@@ -9,6 +9,6 @@
                 .tag
                     a(href="/tag/" + act.tags[j])= act.tags[j]
         .desc!= act.desc
-        -if (act.blogContent && !ct)
+        -if (act.haveBlogContent && !ct)
             .articlelink
                 a(href="/articles/"+act._id+'/') Read the article
