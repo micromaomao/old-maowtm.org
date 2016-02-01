@@ -211,6 +211,14 @@ var countdownEvents = {
             'start': 'issue',
             'end': 'expire'
         }
+    },
+    'domain-maowtm.org': {
+        'expire': new Date('Mon Oct 31 2016 20:36:04 GMT+0800'),
+        'creation': new Date('Sat Oct 31 2015 20:36:04 GMT+0800'),
+        redirects: {
+            'start': 'creation',
+            'end': 'expire'
+        }
     }
 };
 r_main.get('/countdown/:event', function (req, res, next) {
