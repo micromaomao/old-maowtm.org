@@ -244,11 +244,9 @@ function sendIndex(req, res, find, cord, format) {
         limit = 30;
     var timesign = req.query.timesign;
     var ts = null;
-    var tsspecified = false;
     if (typeof timesign == 'string') {
         try {
             ts = timesign_parse(timesign);
-            tsspecified = true;
         } catch (e) {
             res.error(403, "timesign invaild.");
             return;
@@ -278,7 +276,7 @@ function sendIndex(req, res, find, cord, format) {
                 break;
             case 'page':
                 queri = getQueries(skip, limit, actis.length, timesign);
-                res.send(pages.index({activs: actis, nexturl: queri.next, prevurl: queri.prev, cord: cord, ts: (tsspecified?ts:null)}));
+                res.send(pages.index({activs: actis, nexturl: queri.next, prevurl: queri.prev, cord: cord, ts: ts}));
                 break;
             default:
                 res.error(501, new Error("Format not supported"));
