@@ -100,7 +100,6 @@ activityImportLogSchema.static('importFile', function (filepath, force, callback
             return;
         }
         if(log) {
-            debugger;
             fs.stat(filepath, function(err, stat) {
                 if(err) {
                     callback(err);
