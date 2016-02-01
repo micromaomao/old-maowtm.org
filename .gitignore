@@ -1,4 +1,4 @@
 node_modules
-launcher.sh
+launcher*.sh
 *.swp
 *.swo
