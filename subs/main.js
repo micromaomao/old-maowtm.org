@@ -244,9 +244,11 @@ function sendIndex(req, res, find, cord, format) {
         limit = 30;
     var timesign = req.query.timesign;
     var ts = null;
+    var tsspecified = false;
     if (typeof timesign == 'string') {
         try {
             ts = timesign_parse(timesign);
+            tsspecified = true;
         } catch (e) {
             res.error(403, "timesign invaild.");
             return;
@@ -258,6 +260,9 @@ function sendIndex(req, res, find, cord, format) {
     }
     var query = Object.create(find);
     query.date = { $lt: ts };
+    if (typeof req.query.format == "string") {
+        format = req.query.format;
+    }
     activity.find(query).sort({date: -1}).skip(skip).limit(limit).exec(function (err, actis) {
         if (err) {
             res.error(err);
@@ -269,11 +274,11 @@ function sendIndex(req, res, find, cord, format) {
                 res.send(pages.activ_list({activs: actis}));
                 break;
             case 'json':
-                res.send(r);
+                res.send(actis);
                 break;
             case 'page':
                 queri = getQueries(skip, limit, actis.length, timesign);
-                res.send(pages.index({activs: actis, nexturl: queri.next, prevurl: queri.prev, cord: cord}));
+                res.send(pages.index({activs: actis, nexturl: queri.next, prevurl: queri.prev, cord: cord, ts: (tsspecified?ts:null)}));
                 break;
             default:
                 res.error(501, new Error("Format not supported"));
@@ -393,19 +398,6 @@ r_main.get('/tag/:tagname', function (req, res, next) {
         return;
     }
     sendIndex(req, res, {tags: tagname}, "Include tag: " + tagname);
-});
-r_main.get('/as/:format/:find', function (req, res, next) {
-    var find;
-    try {
-        find = JSON.parse(req.params.find);
-        if (typeof find != 'object') {
-            throw new Error('Query must be an object.');
-        }
-    } catch (e) {
-        res.error(403, e);
-        return;
-    }
-    sendIndex(req, res, find, "Match " + JSON.stringify(find), req.params.format);
 });
 
 module.exports = function(req, res, next) {

@@ -62,3 +62,12 @@
     display: block;
     margin: 0.5rem 1rem;
 }
+.tsignmsg .time {
+    display: inline;
+}
+.tsignmsg {
+    display: block;
+    margin: 0.5rem 1rem;
+    font-size: 0.8rem;
+    color: #555;
+}

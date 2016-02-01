@@ -37,6 +37,11 @@ block content
     .actpr
         -if (prevurl)
             a.npage(href=prevurl) Previous page
+        -else if (ts)
+            .tsignmsg
+                | Showing only articles 
+                .time.raw= ts.getTime()
+                | .
         .act
             include activ_list
         -if (nexturl)
