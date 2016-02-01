@@ -10,7 +10,8 @@ block head
     title= ct.title
 
 block location
-    div= ct.tags[0]
+    div
+        a(href="/tag/" + ct.tags[0])= ct.tags[0]
     div= ct.title
 
 block content
