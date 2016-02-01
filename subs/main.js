@@ -261,7 +261,7 @@ function sendIndex(req, res, find, cord, format) {
     if (typeof req.query.format == "string") {
         format = req.query.format;
     }
-    activity.find(query).sort({date: -1}).skip(skip).limit(limit).exec(function (err, actis) {
+    activity.find(query).select({blogContent: 0}).sort({date: -1}).skip(skip).limit(limit).exec(function (err, actis) {
         if (err) {
             res.error(err);
             return;
