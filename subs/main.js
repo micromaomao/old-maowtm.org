@@ -230,7 +230,8 @@ function timesign_parse(s) {
     }
     return new Date(ln * 1000);
 }
-function sendIndex(req, res, find, cord) {
+function sendIndex(req, res, find, cord, format) {
+    format = format || "page"
     var skip = parseInt(req.query.skip || 0);
     var limit = parseInt(req.query.limit);
     if (!(skip >= 0)) {
@@ -262,8 +263,21 @@ function sendIndex(req, res, find, cord) {
             res.error(err);
             return;
         }
-        var queri = getQueries(skip, limit, actis.length, timesign);
-        res.send(pages.index({activs: actis, nexturl: queri.next, prevurl: queri.prev, cord: cord}));
+        var queri;
+        switch (format) {
+            case 'html':
+                res.send(pages.activ_list({activs: actis}));
+                break;
+            case 'json':
+                res.send(r);
+                break;
+            case 'page':
+                queri = getQueries(skip, limit, actis.length, timesign);
+                res.send(pages.index({activs: actis, nexturl: queri.next, prevurl: queri.prev, cord: cord}));
+                break;
+            default:
+                res.error(501, new Error("Format not supported"));
+        }
     });
 }
 r_www.get('/', function(req, res) {
@@ -378,27 +392,12 @@ r_main.get('/tag/:tagname', function (req, res, next) {
         next();
         return;
     }
-    activity.find({tags: tagname}).sort({date: -1}).skip(skip).limit(limit).exec(function(err, actis) {
-        if(err) {
-            res.error(err);
-            return;
-        }
-        res.send(pages.index({activs: actis, cord: "include tag: " + tagname}));
-    });
+    sendIndex(req, res, {tags: tagname}, "Include tag: " + tagname);
 });
-r_main.get('/as/:format', function (req, res, next) {
-    var skip, limit, sln;
-    try {
-        sln = getSkipLimit(req);
-        skip = sln.skip;
-        limit = sln.limit;
-    } catch (e) {
-        res.error(403, e);
-        return;
-    }
+r_main.get('/as/:format/:find', function (req, res, next) {
     var find;
     try {
-        find = JSON.parse(req.query.find);
+        find = JSON.parse(req.params.find);
         if (typeof find != 'object') {
             throw new Error('Query must be an object.');
         }
@@ -406,26 +405,7 @@ r_main.get('/as/:format', function (req, res, next) {
         res.error(403, e);
         return;
     }
-    activity.find(find).skip(skip).limit(limit).exec(function (err, r) {
-        var format = req.params.format;
-        if (err) {
-            res.error(err);
-            return;
-        }
-        switch (format) {
-            case 'html':
-                res.send(pages.activ_list({activs: r}));
-                break;
-            case 'json':
-                res.send(r);
-                break;
-            case 'page':
-                res.send(pages.index({activs: r, cord: "match " + JSON.stringify(find)}));
-                break;
-            default:
-                res.error(501, new Error("Format not supported"));
-        }
-    });
+    sendIndex(req, res, find, "Match " + JSON.stringify(find), req.params.format);
 });
 
 module.exports = function(req, res, next) {
