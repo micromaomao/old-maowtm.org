@@ -1,3 +1,6 @@
+body {
+    background-color: #fff;
+}
 .index-h1 {
     font-family: 'Marck Script', serif;
     text-align: center;
@@ -46,15 +49,23 @@
     background-repeat: repeat;
     background-position: 50% 50%;
 }
-.actpr {
+body.large .actpr {
     margin: 0.5rem;
+}
+body.small .actpr {
+    margin: 0;
 }
 .act {
     margin: 0 auto;
     display: block;
     max-width: 50rem;
-    border-left: solid 0.15rem #bbb;
+}
+body.large .act {
+    border-left: solid 0.1rem #bbb;
     padding: 1rem;
+}
+body.small .act {
+    padding: 0;
 }
 .actpr .npage {
     display: block;
@@ -68,4 +79,9 @@
     margin: 0.5rem 1rem;
     font-size: 0.8rem;
     color: #555;
+}
+
+.evt {
+    box-shadow: none;
+    border-bottom: solid 0.1rem #dddddd;
 }
