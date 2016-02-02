@@ -54,5 +54,13 @@
         "desc": "![Screenshot](https://static.maowtm.org/blog/vertical-F12.png)\n\nVertical F12 turns out to be better for me than horizontal..",
         "date": "Tue Feb 02 2016 11:25:44 GMT+0800",
         "tags": ["dev", "UI", "web development"]
+    },
+    {
+        "_id": "how-maowtm-build",
+        "desc": "Wrote this to mention somethings important or not so important about building a https website using node.js.",
+        "date": "Tue Feb 02 2016 18:03:49 GMT+0800",
+        "tags": ["dev", "maowtm.org", "node.js", "web development", "http", "ssl"],
+        "_blogMd": "blogcontents/how-maowtm-build.md",
+        "title": "How maowtm.org is built: Things to mention"
     }
 ]
