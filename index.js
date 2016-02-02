@@ -35,6 +35,9 @@ db.on('open', function() {
             res.redirect(302, 'https://' + req.hostname + req.originalUrl);
         } else {
             res.set('Strict-Transport-Security', 'max-age=10886400; includeSubdomains; preload');
+            res.set('X-XSS-Protection', '1; mode=block');
+            res.set('X-Frame-Options', 'sameorigin');
+            res.set('X-Content-Type-Options', 'nosniff');
             next();
         }
     });
