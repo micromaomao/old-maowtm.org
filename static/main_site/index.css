@@ -70,6 +70,7 @@ body.small .act {
 .actpr .npage {
     display: block;
     margin: 0.5rem 1rem;
+    text-align: center;
 }
 .tsignmsg .time {
     display: inline;

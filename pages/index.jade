@@ -7,14 +7,15 @@ block head
     link(rel="stylesheet",href="https://static.maowtm.org/main_site/index.css")
     script(src="https://static.maowtm.org/main_site/index.js")
 block header_0
-    -if (!cord)
+    -var showhead = !cord && !prevurl;
+    -if (showhead)
         img.index-avatar(src="https://img.maowtm.org/avatar.png?width=200")
         h1.index-h1
             span.mline
             | Mao Wtm
             span.mline
     .index-info
-        -if (!cord)
+        -if (showhead)
             .ping
                 pre ping6 me.maowtm.org # <- Test out if I'm online
             a(href="mailto:micromaomao@gmail.com",target="_blank") micromaomao@gmail.com
@@ -22,17 +23,17 @@ block header_0
             a(href="https://github.com/micromaomao") Github
             .dot
             a(href="auth") Public Identity
-        -else
+        -else if (cord)
             h1 Activities which #{cord}
             a(href="/") Show all activities
 block location
-    -if (!cord)
+    -if (showhead)
         div index
     -else
         div Acitvities which
         div= cord
 block content
-    -if (!cord)
+    -if (showhead)
         h1 Recent Activities
     .actpr
         -if (prevurl)
