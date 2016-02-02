@@ -12,13 +12,10 @@ h2 {
     font-family: 'PT Sans Narrow', sans-serif;
     font-size: 2rem;
 }
-.actpr {
-    text-align: center;
-}
 .act {
-    text-align: left;
-    display: inline-block;
+    display: block;
     margin: 0.5rem auto;
+    max-width: 50rem;
 }
 .article {
     font-family: 'Josefin Sans', sans-serif;

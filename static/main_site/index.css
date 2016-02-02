@@ -47,13 +47,11 @@
     background-position: 50% 50%;
 }
 .actpr {
-    text-align: center;
     margin: 0.5rem;
 }
 .act {
     margin: 0 auto;
-    display: inline-block;
-    text-align: left;
+    display: block;
     max-width: 50rem;
     border-left: solid 0.15rem #bbb;
     padding: 1rem;
