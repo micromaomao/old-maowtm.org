@@ -32,6 +32,7 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
+    max-height: 12rem;
 }
 .evt .permalink {
     font-size: 0.7rem;
