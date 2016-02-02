@@ -388,6 +388,20 @@ r_main.get('/tag/:tagname', function (req, res, next) {
     }
     sendIndex(req, res, {tags: tagname}, "Include tag: " + tagname);
 });
+r_main.get('/id/:id', function (req, res, next) {
+    var id = req.params.id;
+    activity.findById(id).select({blogContent: 0}).exec(function (err, act) {
+        if(err) {
+            res.error(err);
+            return;
+        }
+        if (!act) {
+            next();
+            return;
+        }
+        res.send(pages.index({activs: [act], cord: 'id = ' + id}));
+    });
+});
 
 module.exports = function(req, res, next) {
     if(req.hostname == 'www.maowtm.org') {

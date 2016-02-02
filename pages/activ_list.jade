@@ -9,6 +9,10 @@
                 .tag
                     a(href="/tag/" + act.tags[j])= act.tags[j]
         .desc!= act.desc
-        -if (act.haveBlogContent && !ct)
-            .articlelink
-                a(href="/articles/"+act._id+'/') Read the article
+        -if (!ct)
+            -if (act.haveBlogContent)
+                .articlelink
+                    a(href="/articles/"+act._id+'/') Read the article
+            -else
+                .permalink
+                    a(href="/id/"+act._id+'/') permalink

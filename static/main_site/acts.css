@@ -33,3 +33,6 @@
     margin-right: auto;
     display: block;
 }
+.evt .permalink {
+    font-size: 0.7rem;
+}
