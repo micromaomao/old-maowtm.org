@@ -1,11 +1,12 @@
 body {
-    background-color: #1a535c;
-    color: #f7fff7;
+    background-color: #f7f7f7;
+    color: #070707;
 }
 h1 {
     text-align: center;
     font-weight: 400;
     font-family: 'Josefin Slab';
+    text-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
 }
 body.large h1 {
     font-size: 4rem;
@@ -23,6 +24,7 @@ h1 .event {
     font-weight: 700;
     font-size: 115%;
     display: block;
+    text-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.4);
 }
 .error {
     text-align: center;
@@ -32,7 +34,7 @@ h1 .event {
     margin: 1rem auto;
     padding: 0.5rem;
     text-align: center;
-    border: solid 1px #fff;
+    border: solid 1px #d7d7d7;
     position: relative;
     font-family: 'PT Sans Narrow', sans-serif;
     font-weight: 400;
@@ -46,7 +48,7 @@ body.small .countdownBox {
 }
 .countdownBox .number {
     position: relative;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: #d7d7d7;
 }
 body.large .countdownBox .number {
     margin-left: 1rem;
@@ -59,10 +61,10 @@ body.small .countdownBox .number {
 .countdownBox .second .sline {
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 50%;
     width: 0;
     height: 0.2rem;
-    background-color: #fff;
+    background-color: #333;
 }
 .countdownBox .pasted {
     font-size: 1.5rem;

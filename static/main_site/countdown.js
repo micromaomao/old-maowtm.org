@@ -32,8 +32,11 @@ $(function() {
     var onehour = oneday / 24;
     var oneminute = onehour / 60;
     var onesecond = oneminute / 60;
-    function easeOut(x) {
-        return 1 - Math.pow(1 - x, 2);
+    function easeIn(x, e) {
+        return Math.pow(x, e || 3);
+    }
+    function easeOut(x, e) {
+        return 1 - Math.pow(1 - x, e || 3);
     }
     function num2digstr(x) {
         if(x < 10) {
@@ -64,7 +67,8 @@ $(function() {
         var seconds = Math.floor(minuterem / onesecond);
         var secondrem = minuterem % onesecond;
         s.changeText(num2digstr(seconds) + 's');
-        sline.css({width: Math.floor(easeOut(1 - secondrem / onesecond) * 100) + '%'});
+        sline.css({width: Math.floor(easeIn(1 - secondrem / onesecond) * 100) + '%', left: Math.floor(easeOut(secondrem / onesecond) * 50) + '%',
+                    opacity: easeOut(secondrem / onesecond, 12)});
         requestAnimationFrame(ptc);
     }
     ptc();
