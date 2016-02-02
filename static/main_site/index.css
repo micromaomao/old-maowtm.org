@@ -86,3 +86,27 @@ body.small .act {
     box-shadow: none;
     border-bottom: solid 0.1rem #dddddd;
 }
+
+.frilinks {
+    text-align: center;
+}
+.frilinks .fri {
+    display: inline-block;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: #ffffff;
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.3);
+    width: 9rem;
+    height: 9rem;
+    overflow: hidden;
+}
+.frilinks .fri img {
+    width: 6rem;
+}
+.frilinks .fri .name {
+    font-size: 1rem;
+}
+.frilinks .fri a {
+    font-size: 0.7rem;
+    color: #888;
+}

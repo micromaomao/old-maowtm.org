@@ -70,19 +70,7 @@ db.on('open', function() {
     });
 
     var image = mongoose.model('image');
-    var imgs = [{
-        name: "avatar.png",
-        path: "static/imgs/avatar.png"
-    }, {
-        name: "bitcoin-mainaddr-qr.png",
-        path: "static/imgs/bitcoin-mainaddr-qr.png"
-    }, {
-        name: "maze.png",
-        path: "static/imgs/maze.png"
-    }, {
-        name: "avatar-favicon.png",
-        path: "static/imgs/avatar-favicon.png"
-    }];
+    var imgs = fs.readdirSync('static/imgs');
     var doAddActivities;
     var activityFiles;
     var actcd = __dirname + '/data/activities';
@@ -98,7 +86,7 @@ db.on('open', function() {
                 }
             });
         } else {
-            image.addImageIfNotExist(imgs[i].name, __dirname + '/' + imgs[i].path, function (err) {
+            image.addImageIfNotExist(imgs[i], __dirname + '/static/imgs/' + imgs[i], function (err) {
                 if(err) {
                     console.error(err);
                     console.error('Faild to load image: ' + imgs[i].name);
