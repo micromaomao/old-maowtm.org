@@ -48,5 +48,11 @@
         "desc": "[Countdown of expire of domain maowtm.org](https://maowtm.org/countdown/domain-maowtm.org/expire/)",
         "date": "Mon Feb 01 2016 19:35:38 GMT+0800",
         "tags": ["countdown", "maowtm.org"]
+    },
+    {
+        "_id": "vertical-F12",
+        "desc": "![Screenshot](https://static.maowtm.org/blog/vertical-F12.png)\n\nVertical F12 turns out to be better for me than horizontal..",
+        "date": "Tue Feb 02 2016 11:25:44 GMT+0800",
+        "tags": ["dev", "UI", "web development"]
     }
 ]
