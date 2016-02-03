@@ -14,6 +14,7 @@ var cachedScaleSchema = new mongoose.Schema({
     scale: 'Number',
     data: 'Buffer'
 });
+var lock;
 imageSchema.static('addImageIfNotExist', function (imgname, filepath, callback) {
     image.findOne({ name: imgname }, function (err, igd) {
         if(err)
@@ -49,7 +50,7 @@ imageSchema.method('queryScale', function (scale, allowEnlarge, callback) {
         return;
     }
     var th = this;
-    global.lock('imageCaching\t' + th._id.toString(), function(done) {
+    lock('imageCaching\t' + th._id.toString(), function(done) {
         cachedScale.findOne({ imgId: th._id, scale: scale }, function (err, doc) {
             if(err) {
                 callback(err, null);
@@ -140,4 +141,8 @@ module.exports =  function(req, res, next) {
     } else {
         next();
     }
+};
+module.exports.setLock = function (l) {
+    lock = l;
+    return module.exports;
 };
