@@ -11,7 +11,7 @@ block location
             a(href="../..") Public Identity
         div
             a(href="..") GPG Public Keys
-        div #{key.hash}
+        div= key.hash
     -else
         div
             a(href="..") Public Identity
@@ -19,29 +19,23 @@ block location
 block content
     -if (key)
         h1
-            | Key:
-            != '&nbsp;'
+            | Key:&nbsp;
             code= key.name
         ul
             li
-                | Hash:
-                != '&nbsp;'
+                | Hash:&nbsp;
                 code= key.hash
             li
-                | Expire:
-                != '&nbsp;'
+                | Expire:&nbsp;
                 = key.expire
             li
-                | Creation date:
-                != '&nbsp;'
+                | Creation date:&nbsp;
                 = key.date
             li
-                | Algorithm and key size:
-                != '&nbsp;'
+                | Algorithm and key size:&nbsp;
                 = key.algo
             li
-                | Nickname:
-                != '&nbsp;'
+                | Nickname:&nbsp;
                 code= key.nick
         h2 Get the key
         pre $ gpg --recv-keys #{key.hash}

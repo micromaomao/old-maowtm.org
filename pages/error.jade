@@ -7,17 +7,16 @@ block head
 block content
     h1= error.toString()
     pre
-        =error.stack?error.stack:error.toString() + '\n    No stack'
-        | 
+        =(error.stack?error.stack:error.toString() + '\n    No stack') + '\n'
         | URL: 
         =req.protocol
         | ://
         =req.hostname
         =req.originalUrl
-        | 
-        | Method: 
+        ='\n'
+        | Method:&nbsp;
         =req.method
     p
         a(href="https://github.com/micromaomao/maowtm.org/issues") Report issue on GitHub
-        |  / 
+        | &nbsp;/&nbsp;
         a(href="/") Home page

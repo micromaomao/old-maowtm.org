@@ -1,12 +1,17 @@
 const jade = require('jade');
+const fs = require('fs');
 
-module.exports = {
-    index: jade.compileFile('pages/index.jade'),
-    auth: jade.compileFile('pages/auth.jade'),
-    gpg: jade.compileFile('pages/gpg.jade'),
-    countdown: jade.compileFile('pages/countdown.jade'),
-    htmlstuff: jade.compileFile('pages/htmlstuff.jade'),
-    activ_list: jade.compileFile('pages/activ_list.jade'),
-    article: jade.compileFile('pages/article.jade'),
-    error: jade.compileFile('pages/error.jade')
-};
+var pages = {};
+var pagesfo = __dirname + '/pages/';
+var list = fs.readdirSync(pagesfo);
+list.forEach(function (fname) {
+    var fnmatch = fname.match(/^([A-Za-z0-9\-_]+)\.jade$/);
+    if (fnmatch) {
+        var name = fnmatch[1];
+        pages[name] = jade.compileFile(pagesfo + fname);
+    } else {
+        console.log('pages: skipped ' + fname + ' .');
+    }
+});
+
+module.exports = pages;
