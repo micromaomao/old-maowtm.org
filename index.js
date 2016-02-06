@@ -50,7 +50,6 @@ var maowtm = function (config) {
         } catch (e) {
         }
 
-        // HTTP Redirect to HTTPS
         app.use(function(req, res, next) {
             if(!req.secure) {
                 res.redirect(302, 'https://' + req.hostname + req.originalUrl);
@@ -77,6 +76,7 @@ var maowtm = function (config) {
 
         app.use(require('./subs/static').setLock(_this.lock));
 
+        // Add trailing / for all GET for all router below. ( i.e. Not including static )
         app.use(function(req, res, next) {
             var prasedUrl = url.parse(req.originalUrl, false);
             if(req.method == 'GET' && prasedUrl.pathname.substr(-1) != '/') {
