@@ -14,14 +14,13 @@ block location
         a(href="/tag/countdown/") Countdowns
     div
         a(href="..")= event
-    div
-        = subevent
+    div= subevent
 
 block content
     h1
         span.subevent= subevent
-        !="&nbsp;"
+        | &nbsp;
         span.of of
-        !="&nbsp;"
+        | &nbsp;
         span.event= event.toUpperCase()
     .error It seems that your broswer has disabled Javascript. We can't show countdown without this. The destination time is #{time.toDateString()} (UTC).

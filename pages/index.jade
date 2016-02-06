@@ -47,9 +47,9 @@ block content
             a.npage(href=prevurl) Previous page
         -else if (ts)
             .tsignmsg
-                | Showing only activities 
+                | Showing only activities&nbsp;
                 .time.raw= ts.getTime()
-                | . 
+                | .&nbsp;
                 a(href=".") Show latest
         .act
             include activ_list
