@@ -55,6 +55,14 @@ body.large .actpr {
 body.small .actpr {
     margin: 0;
 }
+body.small .ping {
+    display: none;
+}
+body.large .content, body.large .header .location {
+    max-width: 60rem;
+    margin: 0 auto;
+    display: block;
+}
 .act {
     margin: 0 auto;
     display: block;
