@@ -21,7 +21,7 @@ var maowtm = function (config) {
     });
     this.lock = redislock(this.redis);
     this._listen = config.listen || "127.0.0.1";
-    if (typeof this._listen == 'array') {
+    if (typeof this._listen == 'object') {
         if (this._listen.length > 2) {
             throw new Error("Can't listen more than 2.");
         }
