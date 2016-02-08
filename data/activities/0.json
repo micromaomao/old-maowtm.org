@@ -3,25 +3,25 @@
         "_id": "maowtm-public-id",
         "desc": "Moved the [Public Identity](https://maowtm.org/auth/) page to maowtm.org",
         "date": "Sat Jan 23 2016 23:19:28 GMT+0800",
-        "tags": ["maowtm.org", "website", "Mao Wtm"]
+        "tags": ["Mao Wtm", "maowtm.org", "website"]
     },
     {
         "_id": "Chunk-chunk",
         "desc": "![logo](https://micromaomao.github.io/Chunk-chunk/logo.png)\n\nDeveloped the [Chunk-chunk](https://maowtm.org/html-stuff/chunk-chunk/) game.",
         "date": "Mon Jan 25 2016 21:54:52 GMT+0800",
-        "tags": ["web games", "html-stuff", "project"]
+        "tags": ["html-stuff", "web games", "project"]
     },
     {
         "_id": "img.maowtm.org-width",
         "desc": "Implemented a image resize function on img.maowtm.org .\n\n    https://img.maowtm.org/avatar.png?width=200\n                                            ^^^\n\nScaled so that image width is within +-50 of the width specified. Ratio is kept.",
         "date": "Sat Jan 30 2016 01:30:00 GMT+0800",
-        "tags": ["node.js", "web development", "maowtm.org"]
+        "tags": ["web development", "node.js", "maowtm.org"]
     },
     {
         "_id": "countdown-holiday-s16",
         "desc": "Created a [countdown for my holiday](https://maowtm.org/countdown/spring-holiday/end/).",
         "date": "Sat Jan 30 2016 14:00:00 GMT+0800",
-        "tags": ["html-stuff", "countdown"]
+        "tags": ["countdown", "html-stuff"]
     },
     {
         "_id": "activity-list-created",
@@ -33,7 +33,7 @@
         "_id": "intro-tmux",
         "desc": "![tmux logo](https://tmux.github.io/logo.png)\n\nWrote this to recommand the Terminal spliting tool tmux - stop opening and laying out lots of terminal windows.",
         "date": "Sun Jan 31 2016 22:50:00 GMT+0800",
-        "tags": ["linux", "intro", "terminal", "dev-tools"],
+        "tags": ["dev-tools", "linux", "intro", "terminal"],
         "_blogMd": "blogcontents/intro-tmux.md",
         "title": "Tmux: stop opening and laying out lots of terminal windows."
     },
@@ -53,13 +53,13 @@
         "_id": "vertical-F12",
         "desc": "![Screenshot](https://static.maowtm.org/blog/vertical-F12.png)\n\nVertical F12 turns out to be better for me than horizontal..",
         "date": "Tue Feb 02 2016 11:25:44 GMT+0800",
-        "tags": ["dev", "UI", "web development"]
+        "tags": ["web development", "dev", "UI"]
     },
     {
         "_id": "how-maowtm-build",
         "desc": "Wrote this to mention somethings important or not so important about building a https website using node.js.",
         "date": "Tue Feb 02 2016 18:03:49 GMT+0800",
-        "tags": ["dev", "maowtm.org", "node.js", "web development", "http", "ssl"],
+        "tags": ["web development", "dev", "maowtm.org", "node.js", "http", "ssl"],
         "_blogMd": "blogcontents/how-maowtm-build.md",
         "title": "How maowtm.org is built: Things to mention"
     },
@@ -67,7 +67,7 @@
         "_id": "oracle-java-installer-downloads-sucks",
         "desc": "![java-installer](https://static.maowtm.org/blog/oracle-java-installer-downloads-sucks/intro.png)I was installing oracle java through `oracle-java8-installer`, and it shows that download takes 1 hours..",
         "date": "Mon Feb 08 2016 16:49:52 GMT+0800",
-        "tags": ["ubuntu", "linux", "get-things-work"],
+        "tags": ["get-things-work", "ubuntu", "linux"],
         "_blogMd": "blogcontents/oracle-java-installer-downloads-sucks.md",
         "title": "How to install `oracle-java8-installer` faster"
     }
