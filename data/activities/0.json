@@ -62,5 +62,13 @@
         "tags": ["dev", "maowtm.org", "node.js", "web development", "http", "ssl"],
         "_blogMd": "blogcontents/how-maowtm-build.md",
         "title": "How maowtm.org is built: Things to mention"
+    },
+    {
+        "_id": "oracle-java-installer-downloads-sucks",
+        "desc": "![java-installer](https://static.maowtm.org/blog/oracle-java-installer-downloads-sucks/intro.png)I was installing oracle java through `oracle-java8-installer`, and it shows that download takes 1 hours..",
+        "date": "Mon Feb 08 2016 16:49:52 GMT+0800",
+        "tags": ["ubuntu", "linux", "get-things-work"],
+        "_blogMd": "blogcontents/oracle-java-installer-downloads-sucks.md",
+        "title": "How to install `oracle-java8-installer` faster"
     }
 ]
