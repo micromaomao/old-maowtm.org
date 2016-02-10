@@ -9,8 +9,19 @@ body {
 }
 .index-info {
     text-align: center;
-    max-width: 30rem;
+    max-width: 40rem;
     margin: 0 auto;
+}
+.index-info ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: inline;
+}
+.index-info li {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
 }
 .index-info a {
     margin: 0 0.5rem;

@@ -18,11 +18,15 @@ block header_0
         -if (showhead)
             .ping
                 pre ping6 me.maowtm.org # <- Test out if I'm online
-            a(href="mailto:micromaomao@gmail.com",target="_blank") micromaomao@gmail.com
-            .dot
-            a(href="https://github.com/micromaomao") Github
-            .dot
-            a(href="auth") Public Identity
+            ul
+                li
+                    a(href="mailto:micromaomao@gmail.com",target="_blank") micromaomao@gmail.com
+                    .dot
+                li
+                    a(href="https://github.com/micromaomao") Github
+                    .dot
+                li
+                    a(href="auth") Public Identity
         -else if (cord)
             h1 Activities which #{cord}
             a(href="/") Show all activities
