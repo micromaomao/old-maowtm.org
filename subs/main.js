@@ -402,6 +402,9 @@ r_main.get('/id/:id', function (req, res, next) {
         res.send(pages.index({activs: [act], cord: 'id = ' + id}));
     });
 });
+r_main.get('/about/', function (req, res) {
+    res.send(pages.about());
+});
 
 module.exports = function(req, res, next) {
     if(req.hostname == 'www.maowtm.org') {
