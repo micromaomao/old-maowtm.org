@@ -3,6 +3,7 @@ body {
     color: #ffffff;
     margin: 0;
     padding: 0;
+    font-family: 'Raleway', sans-serif;
 }
 .content {
     margin: 0;
@@ -65,6 +66,24 @@ body.small .fixed .a1 .line {
 }
 .fixed .a2 {
     font-size: 16px;
+}
+.fixed .b1, .fixed .b2 {
+    font-size: 20px;
+    text-align: center;
+}
+.fixed .b1 img, .fixed .b2 img {
+    display: block;
+    width: 120px;
+    height: 120px;
+    margin: 8px auto;
+}
+.fixed .b1 h2, .fixed .b2 h2 {
+    font-weight: normal;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 40px;
+    margin: 8px;
+    padding: 0;
 }
 .data {
 }

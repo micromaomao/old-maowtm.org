@@ -111,5 +111,46 @@ $(function () {
             tl.addKeyFrame(3800, function (t) {});
             return tl;
         })());
+        jmp.addTimeline((function () {
+            var tl = new jumpable.TimeLine();
+            var b1 = data.find('.b1');
+            var b2 = data.find('.b2');
+            b1.remove();
+            b2.remove();
+            fixed.append(b1);
+            fixed.append(b2);
+            var base = 1800;
+            tl.addKeyFrame(0, function (t) {
+                b1.css({display: 'none'});
+                b2.css({display: 'none'});
+            });
+            tl.addKeyFrame(base, function (t) {
+                b1.css({display: 'block', position: 'absolute', top: (tr[1] + 300 - (t / 500) * 100)
+                       + 'px', left: '0', right: '0', opacity: t / 500});
+            });
+            tl.addKeyFrame(base + 500, function (t) {
+                b2.css({display: 'none'});
+            });
+            tl.addKeyFrame(base + 1500, function (t) {
+                b1.css({opacity: 1 - (t / 500), top: (tr[1] + 200 - (t / 500) * 100) + 'px'});
+                if (t == 500) {
+                    b1.css({display: 'none'});
+                } else {
+                    b1.css({display: 'block'});
+                }
+                b2.css({display: 'block', position: 'absolute', top: (tr[1] + 300 - (t / 500) * 100)
+                       + 'px', left: '0', right: '0', opacity: t / 500});
+            });
+            tl.addKeyFrame(base + 2000, function (t) {});
+            tl.addKeyFrame(base + 3500, function (t) {
+                b2.css({opacity: 1 - (t / 500)});
+                if (t == 500) {
+                    b2.css({display: 'none'});
+                } else {
+                    b2.css({display: 'block'});
+                }
+            });
+            return tl;
+        })());
     });
 });
