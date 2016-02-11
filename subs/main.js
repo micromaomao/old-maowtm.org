@@ -359,8 +359,36 @@ r_main.get('/countdown/:event/:subevent', function (req, res, next) {
     }
     res.send(pages.countdown({time: subevent, subevent: req.params.subevent, event: req.params.event}));
 });
-r_main.get('/html-stuff/chunk-chunk/', function(req, res, next) {
-    res.send(pages.htmlstuff({title: 'Chunk-chunk', src: 'https://micromaomao.github.io/Chunk-chunk/'}));
+var htmlstuffes = [
+    {
+        title: 'Chunk-chunk',
+        path: 'chunk-chunk',
+        src: 'https://micromaomao.github.io/Chunk-chunk/',
+        gh: 'https://github.com/micromaomao/Chunk-chunk'
+    },
+    {
+        title: 'MatchGame',
+        path: 'matchgame',
+        src: 'https://micromaomao.github.io/matchgame/',
+        gh: 'https://github.com/micromaomao/matchgame'
+    },
+    {
+        title: 'Notebook',
+        path: 'notebook',
+        src: 'https://micromaomao.github.io/Notebook/',
+        gh: 'https://github.com/micromaomao/Notebook'
+    },
+    {
+        title: 'Brainfuck tape',
+        path: 'brainfuck-tape',
+        src: 'https://micromaomao.github.io/brainfuck-tape/',
+        gh: 'https://github.com/micromaomao/brainfuck-tape'
+    }
+];
+htmlstuffes.forEach(function (cv) {
+    r_main.get('/html-stuff/' + cv.path + '/', function(req, res, next) {
+        res.send(pages.htmlstuff({title: cv.title, src: cv.src, gh: cv.gh}));
+    });
 });
 r_main.get('/articles/:id', function(req, res, next) {
     var id = req.params.id;
@@ -387,6 +415,10 @@ r_main.get('/tag/:tagname', function (req, res, next) {
         return;
     }
     sendIndex(req, res, {tags: tagname}, "Include tag: " + tagname);
+});
+r_main.get(/^\/tag\/(([^\/\s]+\/){2,})/, function (req, res, next) {
+    var tags = req.params[0].split('/').slice(0, -1);
+    sendIndex(req, res, {tags: { $all: tags } }, "Include tag: " + tags.join(' and '));
 });
 r_main.get('/id/:id', function (req, res, next) {
     var id = req.params.id;

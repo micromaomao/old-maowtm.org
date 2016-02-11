@@ -5,6 +5,12 @@ body {
     padding: 0;
     font-family: 'Raleway', sans-serif;
 }
+a {
+    color: #a0d5ff;
+}
+a:hover {
+    color: #ece38c;
+}
 .content {
     margin: 0;
     padding: 0;
@@ -160,6 +166,11 @@ body.large .fixed .dx .it > .icon {
 body.small .fixed .dx .it > .icon {
     margin: 25px auto;
     font-size: 100px;
+}
+.fixed .dx .it h3 {
+    font-weight: normal;
+    font-family: 'Lato', sans-serif;
+    font-size: 30px;
 }
 .data {
 }
