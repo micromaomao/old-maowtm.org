@@ -159,7 +159,7 @@ body.large .fixed .dx .it > .icon {
 }
 body.small .fixed .dx .it > .icon {
     margin: 25px auto;
-    font-size: 50px;
+    font-size: 100px;
 }
 .data {
 }
