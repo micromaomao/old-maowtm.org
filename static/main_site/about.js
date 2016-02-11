@@ -6,7 +6,7 @@ $(function () {
         window.scrollTo(0, t);
     }
     wsstep(0);
-    var totallen = 10000; // Time unit used in the below code for jumpable is "px".
+    var totallen = 20000; // Time unit used in the below code for jumpable is "px".
     require(["jumpable", "jmpcontrol", "jquery"], function (jumpable, jmpcontrol, $) {
         data.css({display: "none"});
         placeholder.css({height: totallen + "px"});
@@ -191,7 +191,33 @@ $(function () {
                     e.css({top: (20 - (t / 500) * 20) + 'px'});
                 });
                 tl.addKeyFrame(base_it + 1000, function (t) {});
+                var outdistY = 50 + n * 50;
+                var odtl = new jumpable.TimeLine();
+                jmp.addTimeline(odtl);
+                var bnt = base + 5000 - n * 200;
+                odtl.addKeyFrame(bnt, function (t) {
+                    e.css({top: ((t / 500) * outdistY) + 'px', opacity: 1 - (t / 500)});
+                });
+                odtl.addKeyFrame(bnt + 500, function (t){});
             });
+            tl.addKeyFrame(base + 6000, function (t) {
+                if (t === 0)
+                    c1.css({display: 'block'});
+                else
+                    c1.css({display: 'none'});
+            });
+            return tl;
+        })());
+        jmp.addTimeline((function () {
+            var tl = new jumpable.TimeLine();
+            var base = 10800;
+            tl.addKeyFrame(base, function (t) {
+                var tp = t / 500;
+                // 76, 175, 80
+                fixed.css({'background-color': 'rgb('+ parseInt(233 - 157 * tp) +', ' +
+                          parseInt(30 + 145 * tp) + ', ' + parseInt(99 - 19 * tp) + ')'});
+            });
+            tl.addKeyFrame(base + 500, function () {});
             return tl;
         })());
     });
