@@ -24,10 +24,21 @@ body {
     left: 0;
     right: 0;
     top: 60%;
-    font-size: 30px;
     font-family: 'Lato', sans-serif;
     font-weight: 300;
     text-align: center;
+}
+body.large .fixed .a0 {
+    font-size: 30px;
+}
+body.small .fixed .a0 {
+    font-size: 18px;
+}
+body.large .fixed .a0 h1 {
+    font-size: 50px;
+}
+body.small .fixed .a0 h1 {
+    font-size: 30px;
 }
 .fixed .a1 {
     font-weight: normal;
@@ -123,6 +134,32 @@ body.small .fixed .c1 .it h3 {
 }
 .fixed .c1 .it p {
     padding: 0 10px 0 80px;
+}
+.fixed .dx {
+    position: absolute;
+    overflow: hidden;
+    bottom: 10px;
+    width: 70%;
+    text-align: center;
+}
+body.large .fixed .dx {
+    top: 150px;
+}
+body.small .fixed .dx {
+    top: 100px;
+}
+.fixed .dx .it > .icon {
+    display: inline-block;
+    font-weight: normal;
+    font-family: 'Lato', sans-serif;
+}
+body.large .fixed .dx .it > .icon {
+    margin: 10px auto;
+    font-size: 200px;
+}
+body.small .fixed .dx .it > .icon {
+    margin: 25px auto;
+    font-size: 50px;
 }
 .data {
 }

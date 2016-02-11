@@ -210,7 +210,13 @@ $(function () {
         })());
         jmp.addTimeline((function () {
             var tl = new jumpable.TimeLine();
+            var d1 = data.find('.d1');
+            d1.remove();
+            fixed.append(d1);
             var base = 10800;
+            tl.addKeyFrame(0, function (t) {
+                d1.css({display: 'none'});
+            });
             tl.addKeyFrame(base, function (t) {
                 var tp = t / 500;
                 // 76, 175, 80
@@ -218,6 +224,11 @@ $(function () {
                           parseInt(30 + 145 * tp) + ', ' + parseInt(99 - 19 * tp) + ')'});
             });
             tl.addKeyFrame(base + 500, function () {});
+            tl.addKeyFrame(base + 500, function (t) {
+                d1.css({left: (100 - (t / 500) * 85) + '%', opacity: t / 500,
+                       display: 'block'});
+            });
+            tl.addKeyFrame(base + 1000, function (t) {});
             return tl;
         })());
     });
