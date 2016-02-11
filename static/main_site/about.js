@@ -305,6 +305,22 @@ $(function () {
                 });
                 tl.addKeyFrame(base_it + 2500, function (t) {});
             });
+            tl.addKeyFrame(base + 8690, function (t) {
+                d1.css({display: (t===0?'block':'none')});
+            });
+            return tl;
+        })());
+        // ex
+        jmp.addTimeline((function () {
+            var tl = new jumpable.TimeLine();
+            var base = 18990;
+            backgroundColor_tl.addKeyFrame(base, function (t) {
+                // 0, 150, 136
+                fixed.css({'background-color': 'rgb(' + parseInt(76 * (1 - t / 500)) + ', ' +
+                          parseInt(175 - 25 * t / 500) + ', ' + parseInt(80 + 56 * t / 500) +')'});
+            });
+            backgroundColor_tl.addKeyFrame(base + 500, function (t) {
+            });
             return tl;
         })());
     });
