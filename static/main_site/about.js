@@ -15,7 +15,7 @@ $(function () {
             var offy = evt.originalEvent.deltaY * 5;
             wscroll.stop(true, false)
                 .animate({top: Math.min(Math.max(window.scrollY + offy, 0),
-                                        totallen - window.innerHeight) + "px"}, {
+                                        totallen - $(window).height()) + "px"}, {
                 duration: 200,
                 step: wsstep
             });
@@ -23,7 +23,7 @@ $(function () {
         var largebody = true;
         var tr = [null, null];
         function calcSize() {
-            var wid = window.innerWidth;
+            var wid = $(window).width();
             if (wid < 800)
                 largebody = false;
             else
@@ -39,7 +39,7 @@ $(function () {
         var ctrl = new jmpcontrol.Control(jmp, totallen);
         ctrl.jumpTo(0);
         function jumpctrl () {
-            ctrl.jumpTo((window.scrollY / (totallen - window.innerHeight)) * totallen);
+            ctrl.jumpTo((window.scrollY / (totallen - $(window).height())) * totallen);
         }
         $(window).on('scroll resize', function () {
             jumpctrl();
