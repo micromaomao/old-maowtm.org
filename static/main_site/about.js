@@ -130,9 +130,10 @@ $(function () {
             });
             tl.addKeyFrame(base + 500, function (t) {
                 b2.css({display: 'none'});
+                b1.css({top: (tr[1] + 200 - (t / 1000) * 100) + 'px'});
             });
             tl.addKeyFrame(base + 1500, function (t) {
-                b1.css({opacity: 1 - (t / 500), top: (tr[1] + 200 - (t / 500) * 100) + 'px'});
+                b1.css({opacity: 1 - (t / 500), top: (tr[1] + 100 - (t / 500) * 100) + 'px'});
                 if (t == 500) {
                     b1.css({display: 'none'});
                 } else {
@@ -141,15 +142,18 @@ $(function () {
                 b2.css({display: 'block', position: 'absolute', top: (tr[1] + 300 - (t / 500) * 100)
                        + 'px', left: '0', right: '0', opacity: t / 500});
             });
-            tl.addKeyFrame(base + 2000, function (t) {});
-            tl.addKeyFrame(base + 3500, function (t) {
-                b2.css({opacity: 1 - (t / 500)});
+            tl.addKeyFrame(base + 2000, function (t) {
+                b2.css({top: (tr[1] + 200 - (t / 1000) * 100) + 'px'});
+            });
+            tl.addKeyFrame(base + 3000, function (t) {
+                b2.css({opacity: 1 - (t / 500), top: (tr[1] + 100 - (t / 500) * 100) + 'px'});
                 if (t == 500) {
                     b2.css({display: 'none'});
                 } else {
                     b2.css({display: 'block'});
                 }
             });
+            tl.addKeyFrame(base + 3500, function (t) {});
             return tl;
         })());
     });
