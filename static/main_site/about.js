@@ -38,11 +38,16 @@ $(function () {
         var jmp = new jumpable.Jumpable();
         var ctrl = new jmpcontrol.Control(jmp, totallen);
         ctrl.jumpTo(0);
-        function jumpctrl () {
-            ctrl.jumpTo((window.scrollY / (totallen - $(window).height())) * totallen);
+        function getJumpTime () {
+            return (window.scrollY / (totallen - $(window).height())) * totallen;
+        }
+        function getWindowScroll (jumpTime) {
+            // wolfram: (y / (l - h)) * l = j solve for y
+            //  -> y = j-(h j)/l and l!=0 and h!=l
+            return jumpTime - ( $(window).height() * jumpTime ) / totallen;
         }
         $(window).on('scroll resize', function () {
-            jumpctrl();
+            ctrl.jumpTo(getJumpTime());
             if (wscroll.queue().length > 0)
                 return;
             wscroll.css({top: window.scrollY + "px"});
@@ -53,10 +58,35 @@ $(function () {
                 if (lastlarge != largebody) {
                     lastlarge = largebody;
                     ctrl.jumpTo(0);
-                    jumpctrl();
+                    ctrl.jumpTo(getJumpTime());
                 }
             });
         });
+
+        function hashChange() {
+            var nv = parseInt(window.location.hash.substr(1));
+            var ts = getWindowScroll(nv);
+            window.scrollTo(0, ts);
+        }
+        hashChange();
+        $(window).on('hashchange', hashChange);
+        jmp.addTimeline((function () {
+            var tl = new jumpable.TimeLine();
+            var jt = 0;
+            tl.addKeyFrame(0, function (t) {
+                jt = t;
+            });
+            var lastjt = jt;
+            setInterval(function () {
+                if (lastjt == jt) {
+                    return;
+                } else {
+                    lastjt = jt;
+                }
+                window.location.replace('#' + Math.round(jt));
+            }, 600);
+            return tl;
+        })());
 
         var backgroundColor_tl = new jumpable.TimeLine();
         backgroundColor_tl.addKeyFrame(0, function (t) {
