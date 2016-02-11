@@ -58,14 +58,13 @@ $(function () {
             });
         });
 
-        jmp.addTimeline((function () {
-            var tl = new jumpable.TimeLine();
-            tl.addKeyFrame(0, function (t) {
-                if (t === 0)
-                    fixed.css({'background-color': '#000000'});
-            });
-            return tl;
-        })());
+        var backgroundColor_tl = new jumpable.TimeLine();
+        backgroundColor_tl.addKeyFrame(0, function (t) {
+            if (t === 0)
+                fixed.css({'background-color': '#000000'});
+        });
+        jmp.addTimeline(backgroundColor_tl);
+        // a0
         jmp.addTimeline((function () {
             var tl = new jumpable.TimeLine();
             var a0 = data.find('.a0');
@@ -82,6 +81,7 @@ $(function () {
             tl.addKeyFrame(1500, function (t) {});
             return tl;
         })());
+        // a1, a2
         jmp.addTimeline((function () {
             var tl = new jumpable.TimeLine();
             var a1 = data.find('.a1');
@@ -104,7 +104,7 @@ $(function () {
             });
             tl.addKeyFrame(1000, function (t) {});
             tl.addKeyFrame(1300, function (t) {
-                a2.css({display: 'block', position: 'absolute', left: (tr[0] + 150) + 'px',
+                a2.css({display: (t===0?'none':'block'), position: 'absolute', left: (tr[0] + 150) + 'px',
                     top: (tr[1] + (largebody?110:100)), opacity: t / 300});
             });
             tl.addKeyFrame(1600, function (t) {});
@@ -119,6 +119,7 @@ $(function () {
             tl.addKeyFrame(3800, function (t) {});
             return tl;
         })());
+        // bx
         jmp.addTimeline((function () {
             var tl = new jumpable.TimeLine();
             var b1 = data.find('.b1');
@@ -133,8 +134,8 @@ $(function () {
                 b2.css({display: 'none'});
             });
             tl.addKeyFrame(base, function (t) {
-                b1.css({display: 'block', position: 'absolute', top: (tr[1] + 300 - (t / 500) * 100)
-                       + 'px', left: '0', right: '0', opacity: t / 500});
+                b1.css({display: (t===0?'none':'block'), position: 'absolute',
+                       top: (tr[1] + 300 - (t / 500) * 100) + 'px', left: '0', right: '0', opacity: t / 500});
             });
             tl.addKeyFrame(base + 500, function (t) {
                 b2.css({display: 'none'});
@@ -147,8 +148,9 @@ $(function () {
                 } else {
                     b1.css({display: 'block'});
                 }
-                b2.css({display: 'block', position: 'absolute', top: (tr[1] + 300 - (t / 500) * 100)
-                       + 'px', left: '0', right: '0', opacity: t / 500});
+                b2.css({display: (t===0?'none':'block'), position: 'absolute',
+                       top: (tr[1] + 300 - (t / 500) * 100) + 'px', left: '0',
+                       right: '0', opacity: t / 500});
             });
             tl.addKeyFrame(base + 2000, function (t) {
                 b2.css({top: (tr[1] + 200 - (t / 1000) * 100) + 'px'});
@@ -164,6 +166,7 @@ $(function () {
             tl.addKeyFrame(base + 3500, function (t) {});
             return tl;
         })());
+        // cx
         jmp.addTimeline((function () {
             var tl = new jumpable.TimeLine();
             var c1 = data.find('.c1');
@@ -175,13 +178,21 @@ $(function () {
                 c1.find('.it').css({opacity: 0, position: 'relative', top: '50px'});
             });
             tl.addKeyFrame(base, function (t) {
+                if (t === 0) {
+                    c1.css({display: 'none'});
+                } else {
+                    c1.css({display: 'block'});
+                }
+            });
+            backgroundColor_tl.addKeyFrame(base, function (t) {
                 var tp = t / 500;
                 fixed.css({'background-color': 'rgb('+ parseInt(233 * tp) +', ' +
                           parseInt(30 * tp) + ', ' + parseInt(99 * tp) + ')'});
-                c1.css({display: 'block'});
             });
+            backgroundColor_tl.addKeyFrame(base + 500, function (t) {});
             tl.addKeyFrame(base + 500, function (t) {});
-            c1.find('.it').each(function (n, e) {
+            var its = c1.find('.it');
+            its.each(function (n, e) {
                 var e = $(e);
                 var base_it = base + 500 + n * 1100;
                 tl.addKeyFrame(base_it, function (t) {
@@ -191,15 +202,28 @@ $(function () {
                     e.css({top: (20 - (t / 500) * 20) + 'px'});
                 });
                 tl.addKeyFrame(base_it + 1000, function (t) {});
-                var outdistY = 50 + n * 50;
-                var odtl = new jumpable.TimeLine();
-                jmp.addTimeline(odtl);
-                var bnt = base + 5000 - n * 200;
-                odtl.addKeyFrame(bnt, function (t) {
-                    e.css({top: ((t / 500) * outdistY) + 'px', opacity: 1 - (t / 500)});
-                });
-                odtl.addKeyFrame(bnt + 500, function (t){});
             });
+            var bnt = base + 5000;
+            var lbnt = bnt - (its.length - 1) * 200;
+            var mbntn = bnt + 500;
+            tl.addKeyFrame(lbnt, function (t) {
+                t = lbnt + t;
+                its.each(function (n, e) {
+                    var start = bnt - n * 200;
+                    var end = start + 500;
+                    var e = $(e);
+                    var at;
+                    if (t <= start) {
+                        at = 0;
+                    } else if (t >= end) {
+                        at = 500;
+                    } else {
+                        at = t - start;
+                    }
+                    e.css({top: ((at / 500) * (50 + n * 50)) + 'px', opacity: 1 - (at / 500)});
+                });
+            });
+            tl.addKeyFrame(mbntn, function (t) {});
             tl.addKeyFrame(base + 6000, function (t) {
                 if (t === 0)
                     c1.css({display: 'block'});
@@ -208,6 +232,7 @@ $(function () {
             });
             return tl;
         })());
+        // dx
         jmp.addTimeline((function () {
             var tl = new jumpable.TimeLine();
             var d1 = data.find('.d1');
@@ -217,16 +242,16 @@ $(function () {
             tl.addKeyFrame(0, function (t) {
                 d1.css({display: 'none'});
             });
-            tl.addKeyFrame(base, function (t) {
+            backgroundColor_tl.addKeyFrame(base, function (t) {
                 var tp = t / 500;
                 // 76, 175, 80
                 fixed.css({'background-color': 'rgb('+ parseInt(233 - 157 * tp) +', ' +
                           parseInt(30 + 145 * tp) + ', ' + parseInt(99 - 19 * tp) + ')'});
             });
-            tl.addKeyFrame(base + 500, function () {});
+            backgroundColor_tl.addKeyFrame(base + 500, function (t) {});
             tl.addKeyFrame(base + 500, function (t) {
                 d1.css({left: (100 - (t / 500) * 85) + '%', opacity: t / 500,
-                       display: 'block'});
+                       display: (t===0?'none':'block')});
             });
             tl.addKeyFrame(base + 1000, function (t) {});
             return tl;
