@@ -60,6 +60,14 @@ $(function () {
 
         jmp.addTimeline((function () {
             var tl = new jumpable.TimeLine();
+            tl.addKeyFrame(0, function (t) {
+                if (t === 0)
+                    fixed.css({'background-color': '#000000'});
+            });
+            return tl;
+        })());
+        jmp.addTimeline((function () {
+            var tl = new jumpable.TimeLine();
             var a0 = data.find('.a0');
             a0.remove();
             fixed.append(a0);
@@ -154,6 +162,36 @@ $(function () {
                 }
             });
             tl.addKeyFrame(base + 3500, function (t) {});
+            return tl;
+        })());
+        jmp.addTimeline((function () {
+            var tl = new jumpable.TimeLine();
+            var c1 = data.find('.c1');
+            c1.remove();
+            fixed.append(c1);
+            var base = 5300;
+            tl.addKeyFrame(0, function (t) {
+                c1.css({display: 'none'});
+                c1.find('.it').css({opacity: 0, position: 'relative', top: '50px'});
+            });
+            tl.addKeyFrame(base, function (t) {
+                var tp = t / 500;
+                fixed.css({'background-color': 'rgb('+ parseInt(233 * tp) +', ' +
+                          parseInt(30 * tp) + ', ' + parseInt(99 * tp) + ')'});
+                c1.css({display: 'block'});
+            });
+            tl.addKeyFrame(base + 500, function (t) {});
+            c1.find('.it').each(function (n, e) {
+                var e = $(e);
+                var base_it = base + 500 + n * 1100;
+                tl.addKeyFrame(base_it, function (t) {
+                    e.css({top: (70 - (t / 500) * 50) + 'px', opacity: t / 500});
+                });
+                tl.addKeyFrame(base_it + 500, function (t) {
+                    e.css({top: (20 - (t / 500) * 20) + 'px'});
+                });
+                tl.addKeyFrame(base_it + 1000, function (t) {});
+            });
             return tl;
         })());
     });

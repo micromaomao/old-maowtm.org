@@ -9,6 +9,7 @@ block head
     script.
         window.fontneeded.push('/css?family=Lato:300');
         window.fontneeded.push('/css?family=Raleway');
+    script(src="https://static.maowtm.org/main_site/acts.js")
     title About Mao
 
 block location
@@ -31,4 +32,19 @@ block content
         .b2
             img(src="https://img.maowtm.org/en-like.png")
             h2 The English language is awesome!
+        .c1
+            .it
+                img(src="https://img.maowtm.org/birthday-cake.png?width=50")
+                h3.time.raw= new Date('2001-08-21 00:00:00 GMT+0800').getTime()
+                p I can still be called as "child"! -w-
+            .it
+                img(src="https://img.maowtm.org/code.png?width=50")
+                h3 Developer
+                p
+                    | Everyone should learn program!
+            .it
+                img(src="https://img.maowtm.org/lazy.png?width=50")
+                h3 Great Laziness
+                p
+                    | Procrastinate like a pro.
     .placeholder
