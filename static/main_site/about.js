@@ -6,7 +6,7 @@ $(function () {
         window.scrollTo(0, t);
     }
     wsstep(0);
-    var totallen = 20000; // Time unit used in the below code for jumpable is "px".
+    var totallen = 24000; // Time unit used in the below code for jumpable is "px".
     require(["jumpable", "jmpcontrol", "jquery"], function (jumpable, jmpcontrol, $) {
         data.css({display: "none"});
         placeholder.css({height: totallen + "px"});
@@ -238,9 +238,12 @@ $(function () {
             var d1 = data.find('.d1');
             d1.remove();
             fixed.append(d1);
+            var its = d1.find('.it');
             var base = 10800;
             tl.addKeyFrame(0, function (t) {
                 d1.css({display: 'none'});
+                its.css({display: 'none'});
+                its.eq(0).css({display: 'block'});
             });
             backgroundColor_tl.addKeyFrame(base, function (t) {
                 var tp = t / 500;
@@ -250,10 +253,28 @@ $(function () {
             });
             backgroundColor_tl.addKeyFrame(base + 500, function (t) {});
             tl.addKeyFrame(base + 500, function (t) {
-                d1.css({left: (100 - (t / 500) * 85) + '%', opacity: t / 500,
+                d1.css({left: (50 - (t / 500) * 35) + '%', opacity: t / 500,
                        display: (t===0?'none':'block')});
             });
             tl.addKeyFrame(base + 1000, function (t) {});
+            its.each(function (n, e) {
+                var base_it = base + 1100 + n * 2600;
+                var e = $(e);
+                if (n >= 1) {
+                    tl.addKeyFrame(base_it, function (t) {
+                        e.css({display: (t===0?'none':'block'), top: ((1 - t / 500) * 30) + 'px',
+                            opacity: t/500});
+                    });
+                }
+                tl.addKeyFrame(base_it + 500, function (t) {
+                    e.css({top: (-40 * (t / 1500)) + 'px'});
+                });
+                tl.addKeyFrame(base_it + 2000, function (t) {
+                    e.css({display: (t===500?'none':'block'), top: (-40 - (t / 500) * 30) + 'px',
+                        opacity: 1 - (t / 500)});
+                });
+                tl.addKeyFrame(base_it + 2500, function (t) {});
+            });
             return tl;
         })());
     });

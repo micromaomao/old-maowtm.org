@@ -154,6 +154,9 @@ body.large .fixed .dx {
 body.small .fixed .dx {
     top: 100px;
 }
+.fixed .dx .it {
+    position: relative;
+}
 .fixed .dx .it > .icon {
     display: inline-block;
     font-weight: normal;
@@ -171,6 +174,18 @@ body.small .fixed .dx .it > .icon {
     font-weight: normal;
     font-family: 'Lato', sans-serif;
     font-size: 30px;
+}
+.fixed .dx .it .star {
+    font-size: 180%;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+}
+body.large .fixed .dx .it .star {
+    max-height: 240px;
+}
+body.small .fixed .dx .it .star {
+    max-height: 120px;
 }
 .data {
 }
