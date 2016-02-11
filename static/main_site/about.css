@@ -105,7 +105,7 @@ body.small .fixed .a1 .line {
 .fixed .c1 {
     position: absolute;
     overflow: hidden;
-    bottom: 10px;
+    bottom: 0;
     right: 20px;
 }
 body.large .fixed .c1 {
@@ -144,7 +144,7 @@ body.small .fixed .c1 .it h3 {
 .fixed .dx {
     position: absolute;
     overflow: hidden;
-    bottom: 10px;
+    bottom: 0;
     width: 70%;
     text-align: center;
 }
