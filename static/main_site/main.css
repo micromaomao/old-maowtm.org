@@ -87,3 +87,28 @@ pre {
     max-height: 30rem;
     background-color: rgba(255, 255, 255, 0.3);
 }
+
+.imgview {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    z-index: 200;
+    overflow: hidden;
+}
+.imgview .close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #666666;
+    z-index: 202;
+}
+.imgview img {
+    position: absolute;
+    z-index: 201;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+}
