@@ -187,5 +187,30 @@ body.large .fixed .dx .it .star {
 body.small .fixed .dx .it .star {
     max-height: 120px;
 }
+.fixed .e1 {
+    position: absolute;
+    left: 30px;
+    right: 30px;
+    text-align: center;
+}
+body.large .fixed .e1 {
+    top: 200px;
+}
+body.small .fixed .e1 {
+    top: 170px;
+}
+.fixed .e1 h1 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 30px;
+    margin: 0 auto;
+    padding: 0;
+    display: inline-block;
+    line-height: 80px;
+}
+.fixed .e1 svg {
+    position: absolute;
+    z-index: -1;
+}
 .data {
 }

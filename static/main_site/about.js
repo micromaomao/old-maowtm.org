@@ -6,7 +6,7 @@ $(function () {
         window.scrollTo(0, t);
     }
     wsstep(0);
-    var totallen = 24000; // Time unit used in the below code for jumpable is "px".
+    var totallen = 30000; // Time unit used in the below code for jumpable is "px".
     require(["jumpable", "jmpcontrol", "jquery"], function (jumpable, jmpcontrol, $) {
         data.css({display: "none"});
         placeholder.css({height: totallen + "px"});
@@ -313,6 +313,9 @@ $(function () {
         // ex
         jmp.addTimeline((function () {
             var tl = new jumpable.TimeLine();
+            var e1 = data.find('.e1');
+            e1.remove();
+            fixed.append(e1);
             var base = 22170;
             backgroundColor_tl.addKeyFrame(base, function (t) {
                 // 0, 150, 136
@@ -321,6 +324,53 @@ $(function () {
             });
             backgroundColor_tl.addKeyFrame(base + 500, function (t) {
             });
+            tl.addKeyFrame(0, function (t) {
+                e1.css({display: 'none'});
+            });
+            var svg = e1.find('svg');
+            var h1 = e1.find('h1');
+            var rect = svg.find('rect');
+            function relayout_svg () {
+                var width = h1.width() + 50;
+                var wwid = e1.width();
+                var height = 80;
+                svg.css({left: ( wwid / 2 - (width / 2)) + 'px', top: 0, width: width + 'px',
+                    height: height + 'px'});
+                var rct = svg.find('rect');
+                rct.attr({
+                    x: 0,
+                    y: 0,
+                    width: width + 'px',
+                    height: height + 'px'
+                });
+            }
+            $(window).on('resize', relayout_svg);
+            tl.addKeyFrame(base, function (t) {
+                e1.css({display: t===0?'none':'block'});
+                if (t !== 0) {
+                    relayout_svg();
+                    var totLen = parseInt(rect.attr('width')) * 2 + parseInt(rect.attr('height')) * 2;
+                    rect.attr({
+                        'stroke-dasharray': totLen + 'px ' + totLen + 'px',
+                        'stroke-dashoffset': ((1 - Math.min(t / 1500, 1)) * totLen) + 'px'
+                    });
+                }
+                var op = Math.min(Math.max((t - 1000) / 500, 0), 1);
+                h1.css({opacity: op});
+            });
+            tl.addKeyFrame(base + 1500, function (t) {});
+            var last2kt = 500;
+            function layout_2kt(t) {
+                var oritop = largebody?200:170;
+                if (typeof t != 'number') {
+                    t = last2kt;
+                }
+                e1.css({top: (oritop - (t / 500) * ($(window).width()<1200?15:100)) + 'px'});
+                last2kt = t;
+            }
+            $(window).on('resize', layout_2kt);
+            tl.addKeyFrame(base + 2000, layout_2kt);
+            tl.addKeyFrame(base + 2500, function (t) {});
             return tl;
         })());
     });
