@@ -305,7 +305,7 @@ $(function () {
                 });
                 tl.addKeyFrame(base_it + 2500, function (t) {});
             });
-            tl.addKeyFrame(base + 8690, function (t) {
+            tl.addKeyFrame(base + 22200 - 10800, function (t) {
                 d1.css({display: (t===0?'block':'none')});
             });
             return tl;
@@ -313,7 +313,7 @@ $(function () {
         // ex
         jmp.addTimeline((function () {
             var tl = new jumpable.TimeLine();
-            var base = 18990;
+            var base = 22170;
             backgroundColor_tl.addKeyFrame(base, function (t) {
                 // 0, 150, 136
                 fixed.css({'background-color': 'rgb(' + parseInt(76 * (1 - t / 500)) + ', ' +
