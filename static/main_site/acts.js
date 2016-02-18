@@ -35,7 +35,7 @@ $(function() {
         if(c<365*24*60*60*1000){
             return bld(c/1000/60/60/24/7)+"w " + ago;
         }
-        return bld(    c/1000/60/60/24/365)+"years " + ago;
+        return bld(    c/1000/60/60/24/365)+" years " + ago;
     }
     $('.time.raw').each(function(n, e) {
         var e = $(e);

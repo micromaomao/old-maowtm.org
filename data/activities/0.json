@@ -1,5 +1,23 @@
 [
     {
+        "_id": "brainfuck-tape",
+        "desc": "![Brainfuck tape](https://static.maowtm.org/blog/brainfuck-tape.png)\n\nCreated a [Turing-Machine-like-Brainfuck interpreter](https://maowtm.org/html-stuff/brainfuck-tape/)",
+        "date": "Sat Jun 06 2015 11:43:43 GMT+0800",
+        "tags": ["html-stuff", "project", "turing", "dev-tools"]
+    },
+    {
+        "_id": "html-3d-notebook",
+        "desc": "![3d Notebook](https://static.maowtm.org/blog/3d-notebook.png)\n\nCreated a [3d notebook](https://maowtm.org/html-stuff/notebook/) based on Three.js for use of presentation.",
+        "date": "Sat Nov 07 2015 14:37:56 GMT+0800",
+        "tags": ["html-stuff", "project", "3d", "tools"]
+    },
+    {
+        "_id": "matchgame",
+        "desc": "![Match cards](https://static.maowtm.org/blog/matchcard-intro.png)\n\nCreated [this card match game](https://maowtm.org/html-stuff/matchgame/) to help me remember ひらがなs.",
+        "date": "Sun Nov 08 2015 15:02:40 GMT+0800",
+        "tags": ["html-stuff", "project", "web games", "tools"]
+    },
+    {
         "_id": "maowtm-public-id",
         "desc": "Moved the [Public Identity](https://maowtm.org/auth/) page to maowtm.org",
         "date": "Sat Jan 23 2016 23:19:28 GMT+0800",

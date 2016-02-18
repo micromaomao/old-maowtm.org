@@ -1,0 +1,112 @@
+extends sub_main_layout
+
+block script_jquery_0
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.min.js")
+block head
+    link(rel="stylesheet",href="https://static.maowtm.org/main_site/about.css")
+    script(src="https://jumpablejs.github.io/cdn/0.2.min.js")
+    script(src="https://static.maowtm.org/main_site/about.js")
+    script.
+        window.fontneeded.push('/css?family=Lato:300');
+        window.fontneeded.push('/css?family=Raleway');
+    script(src="https://static.maowtm.org/main_site/acts.js")
+    title About Mao
+
+block location
+    div About Mao
+
+block content
+    .fixed
+    .data
+        p You must have Javascript enabled to view it interactively.
+        .a0
+            h1 Welcome
+            p It is nice to meet you... <br>Scroll down...
+        h1.a1
+            img(src="https://img.maowtm.org/avatar.png?width=200")
+            | Mao Wtm
+        p.a2
+            | Or, 王庭茂 is my Chinese name. ( Original name, I could say )
+        .b1
+            img(src="https://img.maowtm.org/zh-dislike.png")
+            h2 I don't like the Chinese language...
+            p A really strange writing system. However it is my first language.
+        .b2
+            img(src="https://img.maowtm.org/en-like.png")
+            h2 English is awesome!
+            p I always dream to be English first, so I don't have to study it now.
+            p Many people around me don't know English, which I feel sad about them for not being able to read documents and StackOverflow.
+        .c1
+            .it
+                img(src="https://img.maowtm.org/birthday-cake.png?width=50")
+                h3.time.raw 998323200000
+                p I can still be called as "child"! -w-
+            .it
+                img(src="https://img.maowtm.org/code.png?width=50")
+                h3 Developer
+                p
+                    | Everyone should learn program! My first line of code was written about&nbsp;
+                    span.time.raw 1234454400000
+                    | .
+            .it
+                img(src="https://img.maowtm.org/lazy.png?width=50")
+                h3 Great Laziness
+                p
+                    | Procrastinate like a pro.
+        .d1.dx
+            .it
+                .icon= "</>"
+                h3 Skill: Web development
+                p
+                    | I started writing code because Javascript. I'm good at this now. Most of my reputation score on StackOverflow
+                    | comes from the Javascript tag.
+                p
+                    | The biggest open source thing I've created with this skill is probably maowtm.org website&nbsp;
+                    a(href="https://github.com/micromaomao/maowtm.org",target="_blank") ( GitHub )&nbsp;
+                    | . There are&nbsp;
+                    a(href="https://maowtm.org/tag/html-stuff/project/",target="_blank") some other interesting stuff I made listed here
+                    | .
+            .it
+                .icon int*
+                h3 Skill: C / C++
+                p
+                    | I started to write C++ a lot&nbsp;
+                    span.time.raw 1419644212000
+                    | . I don't think it is a problematic language and I'm happy to use it. I haven't build many beautiful projects with
+                    | C / C++.
+            .it
+                .icon <span class="star">*</span>nix
+                h3 Linux fan, Mac is good, Windows is problematic.
+                p
+                    span.time.raw 1412121600000
+                    | , I started using Linux. I soon discovered that Linux is really a better OS than Windows for me.
+                p I think every programmer should make use of command line and feel comfortable editing config file ( instead of using GUI config window ).
+            .it
+                .icon Vim
+                h3 I can't express how much I loved Vim
+                p
+                    | Vim is such a great tool that I even want to use it on any input box I could see. I think Vim is the best editor.
+        .e1
+            svg
+                rect(stroke="#fff",stroke-width="4",fill="none")
+            h1 Who am I?
+        .e2
+            .tagp
+                .tag Procrastinating pro
+                .tag Love music
+                .tag Really lazy
+                .tag Love cat ( more than dog )
+                .tag Can't wake up
+                .tag Love Reddit
+        .f1
+            h1 Thanks
+            p
+                | Last update:&nbsp;
+                span.time.raw 1455785718377
+            p
+                a(href="https://maowtm.org") My website
+                | &nbsp;|&nbsp;
+                a(href="#0") Watch again
+            a(href="https://github.com/micromaomao/maowtm.org/blob/master/static/main_site/about.js")
+                img(style="position: fixed; top: 0; right: 0; border: 0;",src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67",alt="Fork me on GitHub",data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png")
+    .placeholder
