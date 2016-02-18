@@ -6,7 +6,7 @@ $(function () {
         window.scrollTo(0, t);
     }
     wsstep(0);
-    var totallen = 30000; // Time unit used in the below code for jumpable is "px".
+    var totallen = 32000; // Time unit used in the below code for jumpable is "px".
     require(["jumpable", "jmpcontrol", "jquery"], function (jumpable, jmpcontrol, $) {
         data.css({display: "none"});
         placeholder.css({height: totallen + "px"});
@@ -134,7 +134,8 @@ $(function () {
             });
             tl.addKeyFrame(1000, function (t) {});
             tl.addKeyFrame(1300, function (t) {
-                a2.css({display: (t===0?'none':'block'), position: 'absolute', left: (tr[0] + 150) + 'px',
+                a2.css({display: (t===0?'none':'block'), position: 'absolute',
+                    left: (tr[0] + 150) + 'px',
                     top: (tr[1] + (largebody?110:100)), opacity: t / 300});
             });
             tl.addKeyFrame(1600, function (t) {});
@@ -147,6 +148,19 @@ $(function () {
                 }
             });
             tl.addKeyFrame(3800, function (t) {});
+            tl.addKeyFrame(29200, function (t) {
+                a1.css({display: 'block', position: 'absolute',
+                       left: tr[0] + 'px',
+                       top: (tr[1] + (t / 500) *
+                             ($(window).height() / 2 - a1.height() / 2 - tr[1])) + 'px'});
+            });
+            tl.addKeyFrame(29700, function (t) {});
+            tl.addKeyFrame(30000, function (t) {
+                a1.css({opacity: 1 - t / 500});
+            });
+            tl.addKeyFrame(30500, function (t) {
+                a1.css({display: t===0?"block":"none"});
+            });
             return tl;
         })());
         // cx
@@ -314,8 +328,11 @@ $(function () {
         jmp.addTimeline((function () {
             var tl = new jumpable.TimeLine();
             var e1 = data.find('.e1');
+            var e2 = data.find('.e2');
             e1.remove();
+            e2.remove();
             fixed.append(e1);
+            fixed.append(e2);
             var base = 22170;
             backgroundColor_tl.addKeyFrame(base, function (t) {
                 // 0, 150, 136
@@ -326,6 +343,7 @@ $(function () {
             });
             tl.addKeyFrame(0, function (t) {
                 e1.css({display: 'none'});
+                e2.css({display: 'none'});
             });
             var svg = e1.find('svg');
             var h1 = e1.find('h1');
@@ -365,12 +383,73 @@ $(function () {
                 if (typeof t != 'number') {
                     t = last2kt;
                 }
-                e1.css({top: (oritop - (t / 500) * ($(window).width()<1200?15:100)) + 'px'});
+                var e1top = (oritop - (t / 500) * ($(window).width()<1200?15:100));
+                e1.css({top: e1top + 'px'});
+                e2.css({top: (e1top + 100) + 'px'});
                 last2kt = t;
             }
             $(window).on('resize', layout_2kt);
             tl.addKeyFrame(base + 2000, layout_2kt);
-            tl.addKeyFrame(base + 2500, function (t) {});
+            tl.addKeyFrame(base + 2500, function (t) {
+                e2.css({display: (t===0?"none":"block"), opacity: t / 500});
+                layout_2kt();
+            });
+            var tags = e2.find('.tag');
+            var anims = [];
+            tags.each(function (n, e) {
+                e = $(e);
+                e.css({marginLeft: (Math.random() * 16 + 8) + 'px',
+                      fontSize: (Math.random() * 40 + 80) + '%',
+                      opacity: 0});
+                var start = Math.random() * 1000;
+                anims[n] = function (t) {
+                    var an;
+                    if (t >= start) {
+                        an = Math.min(1, (t - start) / 500);
+                    } else {
+                        an = 0;
+                    }
+                    e.css({opacity: an, transform: 'scale(' + (1.3 - an * 0.3) + ')'});
+                };
+            });
+            var tagp = e2.find('.tagp');
+            tl.addKeyFrame(base + 3000, function (t) {
+                anims.forEach(function(cv) {cv(t)});
+                tagp.css({top: (-(t / 2500) * 50 + 50) + 'px'});
+            });
+            tl.addKeyFrame(base + 5500, function (t) {
+                tagp.css({top: (-t / 500 * 50) + 'px'});
+                e2.css({opacity: 1 - t / 500});
+            });
+            tl.addKeyFrame(base + 6000, function (t) {
+                e1.css({opacity: 1 - t / 300});
+            });
+            tl.addKeyFrame(base + 6300, function (t) {
+                $([e1[0], e2[0]]).css({display: t===0?"block":"none"});
+                relayout_svg();
+            });
+            return tl;
+        })());
+        // fx
+        jmp.addTimeline((function () {
+            var tl = new jumpable.TimeLine();
+            var f1 = data.find('.f1');
+            var base = 30000;
+            f1.remove();
+            fixed.append(f1);
+            tl.addKeyFrame(0, function (t) {
+                f1.css({display: 'none'});
+            });
+            backgroundColor_tl.addKeyFrame(base, function (t) {
+                // 0, 0, 0
+                fixed.css({'background-color': 'rgb(' + parseInt((1 - t / 500) * 0) + ', ' +
+                          parseInt((1 - t / 500) * 150) + ', ' + parseInt((1 - t / 500) * 136) +')'});
+            });
+            tl.addKeyFrame(base, function (t) {
+                f1.css({display: t===0?'none':'block'});
+                f1.css({opacity: t / 500});
+            });
+            tl.addKeyFrame(base + 500, function (t) {});
             return tl;
         })());
     });
