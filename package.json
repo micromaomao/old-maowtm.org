@@ -22,7 +22,7 @@
     "jstransformer-marked": "^1.0.1",
     "lwip": "0.0.8",
     "marked": "^0.3.5",
-    "mongoose": "^4.3.7",
+    "mongoose": "^4.4.6",
     "redis": "^2.4.2",
     "redis-lock": "^0.1.0"
   }
