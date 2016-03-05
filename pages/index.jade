@@ -6,18 +6,21 @@ block head
     script(src="https://static.maowtm.org/main_site/acts.js")
     link(rel="stylesheet",href="https://static.maowtm.org/main_site/index.css")
     script(src="https://static.maowtm.org/main_site/index.js")
+    script.
+        window.fontneeded.push('/css?family=Montserrat');
 block header_0
+    .background
     -var showhead = !cord && !prevurl;
     -if (showhead)
-        img.index-avatar(src="https://img.maowtm.org/avatar.png?width=200")
-        h1.index-h1
-            span.mline
-            | Mao Wtm
-            span.mline
-    .index-info
-        -if (showhead)
-            .ping
-                pre ping6 me.maowtm.org # <- Test out if I'm online
+        .index-info
+            .big-header-content
+                img.index-avatar(src="https://img.maowtm.org/avatar.png?width=200")
+                h1.index-h1
+                    span.mline
+                    | Mao Wtm
+                    span.mline
+                .ping
+                    pre ping6 me.maowtm.org # <- Test out if I'm online
             ul
                 li
                     a(href="mailto:micromaomao@gmail.com",target="_blank") micromaomao@gmail.com
@@ -30,8 +33,10 @@ block header_0
                     .dot
                 li
                     a(href="about") About me
-        -else if (cord)
-            h1 Activities which #{cord}
+    -else if (cord)
+        .index-info
+            .big-header-content
+                h1 Activities which #{cord}
             a(href="/") Show all activities
 block location
     -if (showhead)
@@ -41,6 +46,7 @@ block location
         div= cord
 block content
     -if (showhead)
+        .ptspace
         h1 Friend links
         .frilinks
             .fri
