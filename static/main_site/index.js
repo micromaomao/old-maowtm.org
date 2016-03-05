@@ -23,7 +23,7 @@ $(function () {
     function am () {
         requestAnimationFrame(am);
         find_bhch();
-        var t = Math.min(window.scrollY / tsy, 1);
+        var t = Math.min($(window).scrollTop() / tsy, 1);
         headbg.css({opacity: 1 - t});
         if (bhch > 0) {
             bhc.css({height: (bhch * (1 - t)) + "px", opacity: 1 - t});
