@@ -50,7 +50,7 @@ $(function() {
                 e.text(tl);
         }, 1500 + n*30);
         e.mouseover(function() {
-            e.text(dt.toString());
+            e.text(dt.toLocaleString());
             hover = true;
         }).mouseleave(function() {
             e.text(tl);
