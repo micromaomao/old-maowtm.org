@@ -314,8 +314,8 @@ var countdownEvents = {
         redirects: {}
     },
     'ssl-certification-of-maowtm.org': {
-        'expire': new Date('Sat Apr 16 2016 16:30:00 GMT+0800'),
-        'issue': new Date('Sun Jan 17 2016 16:30:00 GMT+0800'),
+        'expire': new Date('Sat Jun 25 2016 18:46:00 GMT+0800'),
+        'issue': new Date('Sun Mar 27 2016 18:46:00 GMT+0800'),
         redirects: {
             'start': 'issue',
             'end': 'expire'
