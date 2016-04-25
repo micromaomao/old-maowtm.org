@@ -88,6 +88,7 @@ var maowtm = function (config) {
         });
 
         app.use(require('./subs/main'));
+        app.use(require('./subs/mail'));
         
         app.use(function(req, res) {
             res.error(404, "Not find");
