@@ -118,7 +118,11 @@ r_img.get('/:imgname', function (req, res, next) {
         } else {
             if (scale > img.width) {
                 delete req.query.width;
-                res.redirect(302, req.path + qs.stringify(req.query));
+                var qr = qs.stringify(req.query);
+                if(qr.length > 0) {
+                    qr = "?" + qr;
+                }
+                res.redirect(302, req.path + qr);
                 return;
             }
             img.queryScale(scale || img.width, false, function (err, buff) {
