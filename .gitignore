@@ -3,3 +3,4 @@ launcher*.sh
 launcher*.js
 *.swp
 *.swo
+.env
