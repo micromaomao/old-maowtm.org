@@ -1,6 +1,7 @@
 var gpgKeyInfo = function(keyhash) {
     if(keyhash == '67B4ECEA') {
         return {
+            id: 'A6B2F2B067B4ECEA',
             hash: '67B4ECEA',
             name: 'Wang Ting Mao',
             algo: '2048-RSA',
@@ -11,6 +12,7 @@ var gpgKeyInfo = function(keyhash) {
     }
     if(keyhash == '2B5AF3B7') {
         return {
+            id: '1D264E322B5AF3B7',
             hash: '2B5AF3B7',
             name: 'Wtm mao',
             algo: '4096-RSA',
@@ -21,6 +23,7 @@ var gpgKeyInfo = function(keyhash) {
     }
     if(keyhash == '32DE725D') {
         return {
+            id: '2AE8248632DE725D',
             hash: '32DE725D',
             name: '庭茂 王',
             algo: '4096-RSA',

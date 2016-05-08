@@ -10,10 +10,10 @@ block location
         div
             a(href="../..") Public Identity
         div
-            a(href="..") GPG Public Keys
+            a(href="../..#gnupg") GPG Public Keys
         div= key.hash
     -else
-        div
+       div
             a(href="..") Public Identity
         div GPG Public Keys
 block content
@@ -23,8 +23,8 @@ block content
             code= key.name
         ul
             li
-                | Hash:&nbsp;
-                code= key.hash
+                | Key id:&nbsp;
+                code= key.id
             li
                 | Expire:&nbsp;
                 = key.expire
@@ -38,4 +38,4 @@ block content
                 | Nickname:&nbsp;
                 code= key.nick
         h2 Get the key
-        pre $ gpg --recv-keys #{key.hash}
+        pre $ gpg --recv-keys #{key.id}

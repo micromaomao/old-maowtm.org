@@ -295,7 +295,7 @@ r_main.get('/auth', function(req, res) {
 r_main.get(/^\/auth\/gpg\/((\w+)\/)?$/, function(req, res, next) {
     var keyhash = req.params[1];
     if(!keyhash) {
-        res.send(pages.gpg());
+        res.redirect("../#gnupg");
     } else {
         try {
             res.send(pages.gpg({key: gpgKeyInfo(keyhash)}));
