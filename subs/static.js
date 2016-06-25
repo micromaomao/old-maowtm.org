@@ -15,27 +15,51 @@ var cachedScaleSchema = new mongoose.Schema({
     data: 'Buffer'
 });
 var lock;
-imageSchema.static('addImageIfNotExist', function (imgname, filepath, callback) {
-    image.findOne({ name: imgname }, function (err, igd) {
+
+// These stuff "cache" images ( and their different sizes, when needed ) to database.
+
+/**
+ * Read a image from `filePath`, and add it to the database with name `imgName`.
+ * imgName is unique.
+ * @param imgName string an unique name of the image.
+ * @param filePath string where to find that image, absolute path needed for simplification.
+ * @param callback function(err)
+ */
+imageSchema.static('addImageIfNotExist', function (imgName, filePath, callback) {
+    if (callback && typeof callback != "function") {
+        throw new Error("Illegal callback.");
+    }
+    if (!callback) {
+        callback = function (err) {
+            if (err)
+                console.error(err);
+        };
+    }
+    if (typeof imgName != "string" || imgName.length <= 0
+       || typeof filePath != "string" || filePath.length <= 0) {
+        return callback(new Error("Illegal argument."));
+    }
+    // Find if already exists, Ignore if so.
+    image.findOne({ name: imgName }, function (err, imgFound) {
         if(err)
-            callback(err, null);
-        else if (igd)
-            callback();
+            callback(err);
+        else if (imgFound)
+            callback(null);
         else {
-            lwip.open(filepath, function (err, img) {
+            lwip.open(filePath, function (err, lwipImg) {
                 if(err)
-                    callback(err, null);
+                    callback(err);
                 else {
-                    var imgdoc = new image({
-                        name: imgname,
+                    var imgDoc = new image({
+                        name: imgName,
                         width: img.width()
                     });
-                    img.toBuffer('png', function (err, buff) {
+                    lwipImg.toBuffer('png', function (err, buff) {
                         if(err) {
-                            callback(err, null);
+                            callback(err);
                         } else {
-                            imgdoc.set('src', buff);
-                            imgdoc.save(callback);
+                            imgDoc.set('src', buff);
+                            imgDoc.save(callback);
                         }
                     });
                 }
@@ -43,57 +67,83 @@ imageSchema.static('addImageIfNotExist', function (imgname, filepath, callback) 
         }
     });
 });
+
+/**
+ * Read a image from database. The nearest 50px scale will be returned. If there isn't already
+ * a cached scaled image for the caller to use, one will be created.
+ * @param scale integer in px.
+ * @param allowEnlarge integer should I return an enlarged image if required scale is bigger
+ *  than the image?
+ * @param callback function(err, buffer) the function to give data to.
+ */
 imageSchema.method('queryScale', function (scale, allowEnlarge, callback) {
+    if (callback && typeof callback != "function") {
+        throw new Error("Illegal callback.");
+    }
+    if (!callback) {
+        callback = function (err) {
+            if (err)
+                console.error(err);
+        };
+    }
+    if (!Number.isInteger(scale) || scale <= 0)
+        return callback(new Error("Illegal argument."));
+    if (!allowEnlarge)
+        allowEnlarge = false;
     scale = Math.ceil(scale / 50) * 50;
     if ((scale > this.width && !allowEnlarge) || scale == this.width) {
         callback(null, this.src);
         return;
     }
     var th = this;
+    // Lock the image to prevent double-caching.
     lock('imageCaching\t' + th._id.toString(), function(done) {
-        cachedScale.findOne({ imgId: th._id, scale: scale }, function (err, doc) {
+        cachedScale.findOne({ imgId: th._id, scale: scale }, function (err, cachedDoc) {
             if(err) {
                 callback(err, null);
                 done();
             } else {
-                if(doc) {
-                    callback(null, doc.data);
+                if(cachedDoc) {
+                    callback(null, cachedDoc.data);
                     done();
                 } else {
-                    var doc = new cachedScale({
-                        imgId: th._id,
-                        scale: scale
-                    });
-                    lwip.open(th.src, 'png', function (err, img) {
+                    createImageScale();
+                }
+            }
+        });
+        function createImageScale() {
+            cachedDoc = new cachedScale({
+                imgId: th._id,
+                scale: scale
+            });
+            lwip.open(th.src, 'png', function (err, img) {
+                if(err) {
+                    callback(err, null);
+                    done();
+                } else {
+                    var scalefactor = scale / th.width;
+                    img.scale(scalefactor, function (err, newImage) {
                         if(err) {
                             callback(err, null);
                             done();
                         } else {
-                            var sf = scale / th.width;
-                            img.scale(sf, function (err, nimg) {
+                            newImage.toBuffer('png', function (err, buff) {
                                 if(err) {
                                     callback(err, null);
                                     done();
                                 } else {
-                                    nimg.toBuffer('png', function (err, buff) {
-                                        if(err) {
-                                            callback(err, null);
-                                            done();
-                                        } else {
-                                            doc.set('data', buff);
-                                            doc.save(function(err) {
-                                                callback(null, buff);
-                                                done();
-                                            });
-                                        }
+                                    doc.set('data', buff);
+                                    doc.save(function(err) {
+                                        callback(null, buff);
+                                        done();
                                     });
                                 }
                             });
                         }
                     });
                 }
-            }
-        });
+            });
+        }
     });
 });
 
@@ -108,7 +158,7 @@ var r_img = express.Router({
 r_img.get('/:imgname', function (req, res, next) {
     var scale = parseInt(req.query.width);
     if(req.query.width && (scale.toString() != req.query.width || scale <= 0)) {
-        scale = Infinity;
+        scale = Infinity; // It will be set to the size of that image later.
     }
     image.findOne({ name: req.params.imgname }, function (err, img) {
         if(err)

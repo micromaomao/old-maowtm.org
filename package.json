@@ -22,7 +22,6 @@
     "jade": "^1.11.0",
     "jstransformer-marked": "^1.0.1",
     "lwip": "0.0.8",
-    "marked": "^0.3.5",
     "mongoose": "^4.5.2",
     "redis": "^2.6.2",
     "redis-lock": "^0.1.0"
