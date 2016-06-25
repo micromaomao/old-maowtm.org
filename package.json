@@ -18,6 +18,7 @@
   "homepage": "https://github.com/micromaomao/maowtm.org#readme",
   "dependencies": {
     "express": "^4.14.0",
+    "http2": "^3.3.4",
     "jade": "^1.11.0",
     "jstransformer-marked": "^1.0.1",
     "lwip": "0.0.8",
