@@ -16,8 +16,24 @@ try {
 }
 
 describe('new maowtm(...)', function() {
+    function makeDone(_done, destory) {
+        return function(err) {
+            try {
+                destory.should.be.a.Function();
+                destory();
+                console.log(" -> Destroyed maowtm instance.");
+            } catch (e) {
+                _done(e);
+                return;
+            }
+            _done(err);
+        };
+    }
     it('should initialize', function(done) {
         var destory;
+        done = makeDone(done, function() {
+            destory();
+        });
         new maowtm({
             db: DB,
             redis: REDIS,
@@ -29,10 +45,6 @@ describe('new maowtm(...)', function() {
                 }
                 done();
             }
-        });
-        after(function () {
-            destory.should.be.a.Function();
-            destory();
         });
     });
 
@@ -54,6 +66,9 @@ describe('new maowtm(...)', function() {
 
     it('should throw error when db is not open', function(done) {
         var destory;
+        done = makeDone(done, function() {
+            destory();
+        });
         new maowtm({
             db: "127.255.255.255",
             redis: REDIS,
@@ -62,13 +77,12 @@ describe('new maowtm(...)', function() {
                 done(err);
             }, /connect/)
         });
-        after(function () {
-            destory.should.be.a.Function();
-            destory();
-        });
     });
     it('should throw error when no SSL certificate was given', function(done) {
         var destory;
+        done = makeDone(done, function() {
+            destory();
+        });
         new maowtm({
             db: DB,
             redis: REDIS,
@@ -78,14 +92,14 @@ describe('new maowtm(...)', function() {
                 done(err);
             }, /SSL/)
         });
-        after(function () {
-            destory.should.be.a.Function();
-            destory();
-        });
     });
 
     it('should answer acme-challenge', function(done) {
-        var testACME, destory;
+        var testACME;
+        var destory;
+        done = makeDone(done, function() {
+            destory();
+        });
         var acmeString = "stubstubstub";
         new maowtm({
             db: DB,
@@ -100,10 +114,6 @@ describe('new maowtm(...)', function() {
             },
             acme: acmeString
         });
-        after(function () {
-            destory.should.be.a.Function();
-            destory();
-        });
 
         testACME = function(app) {
             request(app)
@@ -114,7 +124,11 @@ describe('new maowtm(...)', function() {
         };
     });
     it('should redirect http to https', function(done) {
-        var destory, test;
+        var test;
+        var destory;
+        done = makeDone(done, function() {
+            destory();
+        });
         new maowtm({
             db: DB,
             redis: REDIS,
@@ -126,10 +140,6 @@ describe('new maowtm(...)', function() {
                 }
                 test(app);
             }
-        });
-        after(function () {
-            destory.should.be.a.Function();
-            destory();
         });
         var test = function(app) {
             request(app)
@@ -160,6 +170,7 @@ describe('new maowtm(...)', function() {
         describe('Application', function() {
             after(function() {
                 destory();
+                console.log(" -> Destroyed maowtm instance.");
             });
 
             it('should send http protection headers', function(done) {
@@ -272,9 +283,6 @@ describe('new maowtm(...)', function() {
         },
         mockSecure: true
     });
-    after(function() {
-        destory();
-    });
 
     function imageTest(app) {
         const imageTypeMatch = /^image\/[a-z]+$/;
@@ -317,6 +325,10 @@ describe('new maowtm(...)', function() {
                         }
                     }
                 })
+            });
+            after(function() {
+                destory();
+                console.log(" -> Destroyed maowtm instance.");
             });
             it('should contain avatar.png', function(done) {
                 request(app)
