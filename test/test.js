@@ -422,6 +422,59 @@ describe('new maowtm(...)', function() {
                     .expect(404)
                     .end(done);
             });
+            it('should return cached version if possible', function(done) {
+                var stub = "Stub!";
+                function before (done) {
+                    image.findOne({name: "avatar.png"}, function(err, imgDoc) {
+                        if (err) {
+                            done(err);
+                            return;
+                        }
+                        if (!imgDoc) {
+                            done(new Error("Image wasn't cached"));
+                            return;
+                        }
+                        var cache = new cachedScale({
+                            imgId: imgDoc._id,
+                            scale: 300,
+                            data: new Buffer(stub, "utf-8")
+                        });
+                        cache.save(function (err) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            console.log(" -> saved fake cache.");
+                            done();
+                        });
+                    });
+                };
+                before(function(err) {
+                    if (err) {
+                        done(err);
+                        return;
+                    }
+                    request(app)
+                        .get('/avatar.png')
+                        .set('Host', 'img.maowtm.org')
+                        .query({width: 300})
+                        .expect(200)
+                        .expect("Content-Type", imageTypeMatch)
+                        .end(function (err, res) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            var bufstr = res.body.toString("utf-8");
+                            if (bufstr == stub) {
+                                done();
+                            } else {
+                                debugger;
+                                done(new Error("Image was not read from cache."));
+                            }
+                        });
+                });
+            });
         });
     }
 })();

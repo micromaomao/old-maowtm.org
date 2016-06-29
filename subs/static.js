@@ -166,7 +166,6 @@ module.exports = function (db, lock) {
             else if (!img) {
                 next();
             } else {
-                debugger;
                 if (desiredWidth > img.width && req.query.width) {
                     delete req.query.width;
                     var qr = qs.stringify(req.query);
