@@ -79,8 +79,12 @@ var maowtm = function (config) {
 
         app.use(require('./subs/static')(_this.db, _this.lock));
 
-        // Add trailing / for all GET for all router below. ( i.e. Not including static )
+        // Add trailing / for all GET for all router below. ( i.e. Not including static and img )
         app.use(function(req, res, next) {
+            if (req.hostname.match(/^(img|static)/)) {
+                next();
+                return;
+            }
             var prasedUrl = url.parse(req.originalUrl, false);
             if(req.method == 'GET' && prasedUrl.pathname.substr(-1) != '/') {
                 prasedUrl.pathname += '/';

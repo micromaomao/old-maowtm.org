@@ -79,14 +79,12 @@ module.exports = function (db, lock) {
      * @param callback function(err, buffer) the function to give data to.
      */
     imageSchema.method('queryScale', function (scale, allowEnlarge, callback) {
-        if (callback && typeof callback != "function") {
+        if (typeof callback != "function") {
             throw new Error("Illegal callback.");
         }
-        if (!callback) {
-            callback = function (err) {
-                if (err)
-                    console.error(err);
-            };
+        if (!Number.isFinite(scale) && scale > 0) {
+            callback(null, this.src);
+            return;
         }
         if (!Number.isInteger(scale) || scale <= 0)
             return callback(new Error("Illegal argument."));
@@ -158,17 +156,18 @@ module.exports = function (db, lock) {
         strict: true
     });
     r_img.get('/:imgname', function (req, res, next) {
-        var scale = parseInt(req.query.width);
-        if(req.query.width && (scale.toString() != req.query.width || scale <= 0)) {
-            scale = Infinity; // It will be set to the size of that image later.
+        var desiredWidth = parseInt(req.query.width);
+        if(req.query.width && desiredWidth <= 0 || Number.isNaN(desiredWidth)) {
+            desiredWidth = Infinity; // It will be set to the size of that image later.
         }
         image.findOne({ name: req.params.imgname }, function (err, img) {
             if(err)
-                res.error(err);
+                next(err);
             else if (!img) {
                 next();
             } else {
-                if (scale > img.width) {
+                debugger;
+                if (desiredWidth > img.width && req.query.width) {
                     delete req.query.width;
                     var qr = qs.stringify(req.query);
                     if(qr.length > 0) {
@@ -176,10 +175,18 @@ module.exports = function (db, lock) {
                     }
                     res.redirect(302, req.path + qr);
                     return;
+                } else if (req.query.width && req.query.width.toString() != desiredWidth.toString() && desiredWidth > 0 && Number.isFinite(desiredWidth)) {
+                    req.query.width = desiredWidth;
+                    var qr = qs.stringify(req.query);
+                    if(qr.length > 0) {
+                        qr = "?" + qr;
+                    }
+                    res.redirect(302, req.path + qr);
+                    return;
                 }
-                img.queryScale(scale || img.width, false, function (err, buff) {
+                img.queryScale(desiredWidth || img.width, false, function (err, buff) {
                     if(err)
-                        res.error(err);
+                        next(err);
                     else {
                         res.type('png');
                         res.send(buff);
