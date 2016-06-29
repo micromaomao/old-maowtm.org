@@ -54,7 +54,7 @@ module.exports = function (db, lock) {
                     else {
                         var imgDoc = new image({
                             name: imgName,
-                            width: img.width()
+                            width: lwipImg.width()
                         });
                         lwipImg.toBuffer('png', function (err, buff) {
                             if(err) {
