@@ -134,8 +134,8 @@ module.exports = function (db, lock) {
                                         callback(err, null);
                                         done();
                                     } else {
-                                        doc.set('data', buff);
-                                        doc.save(function(err) {
+                                        cachedDoc.set('data', buff);
+                                        cachedDoc.save(function(err) {
                                             callback(null, buff);
                                             done();
                                         });
