@@ -77,18 +77,6 @@ var maowtm = function (config) {
             }
         });
 
-        app.use(function(req, res, next) {
-            res.error = function (status, error) {
-                if (typeof status != 'number') {
-                    error = status;
-                    status = 501;
-                }
-                res.status(status);
-                res.send(pages.error({error: error, status: status, req: req}));
-            };
-            next();
-        });
-
         app.use(require('./subs/static')(_this.db, _this.lock));
 
         // Add trailing / for all GET for all router below. ( i.e. Not including static )
@@ -103,10 +91,8 @@ var maowtm = function (config) {
         });
 
         app.use(require('./subs/main')(_this.db, _this.lock));
-        
-        app.use(function(req, res) {
-            res.error(404, "Not find");
-        });
+
+        // TODO handle 404
 
         var image = mongoose.model('image');
         var imgs = fs.readdirSync('static/imgs');
