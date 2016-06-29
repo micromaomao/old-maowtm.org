@@ -4,7 +4,15 @@ const maowtm = require('..');
 const should = require('should');
 const request = require('supertest');
 
-const DB = "127.6.0.233", REDIS = "127.6.0.233";
+const DB = process.env.MONGODB, REDIS = process.env.REDIS;
+
+try {
+    DB.should.be.a.String().and.should.not.be.empty();
+    REDIS.should.be.a.String().and.should.not.be.empty();
+} catch (e) {
+    console.log("You need to provide env MONGODB and REDIS. E.g. MONGODB=127.0.0.1 REDIS=127.0.0.1");
+    process.exit(1);
+}
 
 describe('new maowtm(...)', function() {
     it('should initialize', function(done) {

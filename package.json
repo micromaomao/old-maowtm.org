@@ -4,7 +4,7 @@
   "description": "My website",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "MONGODB=127.0.0.1 REDIS=127.0.0.1 mocha"
   },
   "repository": {
     "type": "git",

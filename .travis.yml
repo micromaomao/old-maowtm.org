@@ -8,6 +8,9 @@ install:
     - npm cache clean
     - npm install --dev
     - npm install -g mocha
+services:
+    - mongodb
+    - redis-server
 addons:
     apt:
         sources:
