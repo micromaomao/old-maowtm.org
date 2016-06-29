@@ -3,6 +3,8 @@ node_js:
     - "4"
 env:
     - CXX=g++-4.8
+install:
+    - npm install -g mocha
 addons:
     apt:
         sources:
