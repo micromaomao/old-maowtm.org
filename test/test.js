@@ -162,7 +162,6 @@ describe('new maowtm(...)', function() {
                 destory();
             });
 
-            debugger;
             it('should send http protection headers', function(done) {
                 function setExpects(agent, next) {
                     agent.expect("Strict-Transport-Security", /max-age=\d+/);
@@ -261,7 +260,7 @@ describe('new maowtm(...)', function() {
 
 (function() {
     var destory;
-    new maowtm({
+    var maow = new maowtm({
         db: DB,
         redis: REDIS,
         callback: function (err, app, finalize) {
@@ -300,8 +299,26 @@ describe('new maowtm(...)', function() {
                 done(e);
             }
         }
+        var image = maow.db.model('image');
+        var cachedScale = maow.db.model('cachedScale');
         describe('static::image fetching', function() {
-            it('should contains avatar.png', function(done) {
+            before(function (done) {
+                if (!image || !cachedScale) {
+                    done(new Error("database not working."));
+                    return;
+                }
+                console.log(" -> Removing all cachedScale of avatar.png");
+                image.findOne({name: "avatar.png"}, function (err, imgDoc) {
+                    if (err) {
+                        done(err);
+                    } else {
+                        if (imgDoc) {
+                            cachedScale.remove({imgId: imgDoc._id}, done);
+                        }
+                    }
+                })
+            });
+            it('should contain avatar.png', function(done) {
                 request(app)
                     .get('/avatar.png')
                     .set('Host', 'img.maowtm.org')
