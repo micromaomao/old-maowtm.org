@@ -4,6 +4,7 @@ const maowtm = require('..');
 const should = require('should');
 const request = require('supertest');
 const lwip = require('lwip');
+const fs = require('fs');
 
 const DB = process.env.MONGODB, REDIS = process.env.REDIS;
 
@@ -269,6 +270,29 @@ describe('new maowtm(...)', function() {
     }
 })();
 
+const imageTypeMatch = /^image\/[a-z]+$/;
+function assertWidthAtLeast(res, done, widthTest, withIn) {
+    try {
+        res.type.should.match(imageTypeMatch);
+        var ext = res.type.split('/')[1];
+        ext.should.be.a.String().and.should.not.be.empty();
+        lwip.open(res.body, ext, function(err, lwipImg) {
+            if (err) {
+                done(err);
+                return;
+            }
+            var width = lwipImg.width();
+            if (width >= widthTest && width - widthTest <= withIn) {
+                done();
+            } else {
+                done(new Error("expected width to be " + widthTest + "(+" + withIn + "), but " + width + " get."));
+            }
+        });
+    } catch (e) {
+        done(e);
+    }
+}
+
 (function() {
     var destory;
     var maow = new maowtm({
@@ -285,28 +309,6 @@ describe('new maowtm(...)', function() {
     });
 
     function imageTest(app) {
-        const imageTypeMatch = /^image\/[a-z]+$/;
-        function assertWidthAtLeast(res, done, widthTest, withIn) {
-            try {
-                res.type.should.match(imageTypeMatch);
-                var ext = res.type.split('/')[1];
-                ext.should.be.a.String().and.should.not.be.empty();
-                lwip.open(res.body, ext, function(err, lwipImg) {
-                    if (err) {
-                        done(err);
-                        return;
-                    }
-                    var width = lwipImg.width();
-                    if (width >= widthTest && width - widthTest <= withIn) {
-                        done();
-                    } else {
-                        done(new Error("expected width to be " + widthTest + "(+" + withIn + "), but " + width + " get."));
-                    }
-                });
-            } catch (e) {
-                done(e);
-            }
-        }
         var image = maow.db.model('image');
         var cachedScale = maow.db.model('cachedScale');
         describe('static::image fetching', function() {
@@ -435,7 +437,7 @@ describe('new maowtm(...)', function() {
                     .end(done);
             });
             it('should return cached version if possible', function(done) {
-                var stub = "Stub!";
+                var stub = "Stub!", stubId;
                 function before (done) {
                     image.findOne({name: "avatar.png"}, function(err, imgDoc) {
                         if (err) {
@@ -456,9 +458,21 @@ describe('new maowtm(...)', function() {
                                 done(err);
                                 return;
                             }
-                            console.log(" -> saved fake cache.");
+                            console.log(" -> Saved fake cache.");
+                            stubId = cache._id;
                             done();
                         });
+                    });
+                };
+                var _done = done;
+                done = function(err) {
+                    cachedScale.remove({_id: stubId}, function(e) {
+                        if (e) {
+                            _done(e);
+                            return;
+                        }
+                        console.log(" -> Removed fake cache.");
+                        _done(err);
                     });
                 };
                 before(function(err) {
@@ -486,6 +500,70 @@ describe('new maowtm(...)', function() {
                             }
                         });
                 });
+            });
+        });
+    }
+})();
+
+(function() {
+    var destory;
+    var maow = new maowtm({
+        db: DB,
+        redis: REDIS,
+        callback: function (err, app, finalize) {
+            destory = finalize;
+            if (err) {
+                throw err;
+            }
+            imageTest(app);
+        },
+        mockSecure: true
+    });
+
+    function imageTest(app) {
+        var image = maow.db.model('image');
+        var cachedScale = maow.db.model('cachedScale');
+        const imgName = "__test_image.png";
+        describe('static::image', function() {
+            before(function(done) {
+                if (!image || !cachedScale) {
+                    done(new Error("database not working."));
+                    return;
+                }
+                image.findOne({name: imgName}, function(err, imgFound) {
+                    if (err) {
+                        done(err);
+                        return;
+                    }
+                    if (imgFound) {
+                        image.remove({_id: imgFound._id}, function(err) {
+                            console.log(" -> Removed image " + imgName + " for test.");
+                            done();
+                        });
+                    }
+                });
+            });
+            before(function(done) {
+                const tmp = "/tmp/maowtmtest-";
+                // TODO: Add windows support.
+                fs.mkdtemp(tmp, function(err, dir) {
+                    if (err) {
+                        done(err);
+                        return;
+                    }
+                     /* Notes: TODO
+                      *   Change image::addImageIfNotExist so that it read image data from a Buffer.
+                      *   Useful for user-uploading image, testing, etc.
+                      *   Rewrite code in index.js for image caching.
+                      *   Maybe use lazy cache.
+                      */
+                });
+            });
+            after(function() {
+                destory();
+                console.log(" -> Destroyed maowtm instance.");
+            });
+            it('should add image', function(done) {
             });
         });
     }
