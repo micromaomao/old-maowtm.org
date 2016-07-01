@@ -20,56 +20,47 @@ module.exports = function (db, lock) {
 
     // These stuff "cache" images ( and their different sizes, when needed ) to database.
 
+    imageSchema.static('addImageIfNotExist', function () {
+        throw new Error("addImageIfNotExist is deprecated. Use addImage with a buffer instead.");
+    });
+    
+    // See https://www.npmjs.com/package/lwip#supported-formats
+    const validExtensions = [
+        "png",
+        "jpg",
+        "gif"
+    ];
+
     /**
-     * Read a image from `filePath`, and add it to the database with name `imgName`.
-     * imgName is unique.
-     * @param imgName string an unique name of the image.
-     * @param filePath string where to find that image, absolute path needed for simplification.
+     * Add or replace image with name `imgName` with `buffer`.
+     * @param imgName string an unique name of the image. Extension must be included.
+     * @param imageData Buffer raw data of the image.
      * @param callback function(err)
      */
-    imageSchema.static('addImageIfNotExist', function (imgName, filePath, callback) {
-        if (callback && typeof callback != "function") {
-            throw new Error("Illegal callback.");
-        }
-        if (!callback) {
-            callback = function (err) {
-                if (err)
-                    console.error(err);
-            };
+    imageSchema.static('addImage', function (imgName, imageData, callback) {
+        if (typeof callback != "function") {
+            throw new Error("Illegal / no callback.");
         }
         if (typeof imgName != "string" || imgName.length <= 0
-           || typeof filePath != "string" || filePath.length <= 0) {
+           || Buffer.isBuffer(imageData) || imageData.length <= 0) {
             return callback(new Error("Illegal argument."));
         }
-        // Find if already exists, Ignore if so.
-        image.findOne({ name: imgName }, function (err, imgFound) {
+        var ext = imgName.match(/\.([a-zA-Z0-9]+)$/)[1];
+        if (!ext) {
+            return callback(new Error("Extension not provided."));
+        }
+        if (validExtensions.indexOf(ext) < 0) {
+            return callback(new Error("Format not supported."));
+        }
+        lwip.open(imageData, ext, function (err, lwipImg) {
             if(err)
                 callback(err);
-            else if (imgFound)
-                callback(null);
             else {
-                lwip.open(filePath, function (err, lwipImg) {
-                    if(err)
-                        callback(err);
-                    else {
-                        var imgDoc = new image({
-                            name: imgName,
-                            width: lwipImg.width()
-                        });
-                        lwipImg.toBuffer('png', function (err, buff) {
-                            if(err) {
-                                callback(err);
-                            } else {
-                                imgDoc.set('src', buff);
-                                imgDoc.save(callback);
-                            }
-                        });
-                    }
-                });
+                image.update({ name: imgName }, { name: imgName, src: imageData, width: lwipImg.width() }, { upsert: true },
+                            err => callback(err));
             }
         });
     });
-
     /**
      * Read a image from database. The nearest 50px scale will be returned. If there isn't already
      * a cached scaled image for the caller to use, one will be created.

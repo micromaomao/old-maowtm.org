@@ -142,20 +142,8 @@ var maowtm = function (config) {
                     _this.db.close();
                 });
         }
-        function doAddImg(i) {
-            if (i >= imgs.length) {
-                doSetupServer();
-            } else {
-                image.addImageIfNotExist(imgs[i], __dirname + '/static/imgs/' + imgs[i], function (err) {
-                    if(err) {
-                        fail(err);
-                    } else {
-                        doAddImg(i + 1);
-                    }
-                });
-            }
-        }
-        doAddImg(0);
+        // TODO: Cache necessary resources into database.
+        doSetupServer();
     });
 };
 
