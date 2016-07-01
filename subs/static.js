@@ -42,7 +42,7 @@ module.exports = function (db, lock) {
             throw new Error("Illegal / no callback.");
         }
         if (typeof imgName != "string" || imgName.length <= 0
-           || Buffer.isBuffer(imageData) || imageData.length <= 0) {
+           || !Buffer.isBuffer(imageData) || imageData.length <= 0) {
             return callback(new Error("Illegal argument."));
         }
         var ext = imgName.match(/\.([a-zA-Z0-9]+)$/)[1];
@@ -135,6 +135,22 @@ module.exports = function (db, lock) {
                     }
                 });
             }
+        });
+    });
+    /*
+     * Remove the image and all it's cache from database.
+     */
+    imageSchema.method('purge', function(callback) {
+        if (typeof callback != "function") {
+            throw new Error("Illegal callback.");
+        }
+        var _id = this._id;
+        cachedScale.remove({imgId: _id}, function(err) {
+            if (err) {
+                callback(err);
+                return;
+            }
+            image.remove({_id: _id}, callback);
         });
     });
 
