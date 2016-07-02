@@ -199,7 +199,7 @@ describe('new maowtm(...)', function() {
                 var req = request(app);
                 var tests = {
                     root: function() {
-                        setExpects(req.get('/'), tests.notfind);
+                        setExpects(req.get('/').set('Host', 'maowtm.org'), tests.notfind);
                     },
                     notfind: function() {
                         setExpects(req.get('/404'));
@@ -264,6 +264,14 @@ describe('new maowtm(...)', function() {
                             .expect(notRedirected)
                             .end(done);
                     });
+            });
+            it('should redirect www to @', function (done) {
+                request(app)
+                    .get('/')
+                    .set('Host', 'www.maowtm.org')
+                    .expect(302)
+                    .expect('Location', 'https://maowtm.org')
+                    .end(done);
             });
         });
     }
