@@ -82,14 +82,13 @@ module.exports = function (db, lock) {
         });
     });
     /**
-     * Read a image from database. The nearest 50px scale will be returned. If there isn't already
-     * a cached scaled image for the caller to use, one will be created.
-     * @param scale integer in px.
-     * @param allowEnlarge integer should I return an enlarged image if required scale is bigger
-     *  than the image?
+     * Read a image cache from database. The nearest 50px scale will be returned. If there isn't already
+     * a cached scaled image for the caller to use, one will be created. If the width provided is larger
+     * than the width of the original image, the original will be returned.
+     * @param scale integer width in px.
      * @param callback function(err, buffer) the function to give data to.
      */
-    imageSchema.method('queryScale', function (scale, allowEnlarge, callback) {
+    imageSchema.method('queryScale', function (scale, callback) {
         if (typeof callback != "function") {
             throw new Error("Illegal callback.");
         }
@@ -99,10 +98,8 @@ module.exports = function (db, lock) {
         }
         if (!Number.isInteger(scale) || scale <= 0)
             return callback(new Error("Illegal argument."));
-        if (!allowEnlarge)
-            allowEnlarge = false;
         scale = Math.ceil(scale / 50) * 50;
-        if ((scale > this.width && !allowEnlarge) || scale == this.width) {
+        if (scale >= this.width) {
             callback(null, this.src);
             return;
         }
@@ -190,8 +187,8 @@ module.exports = function (db, lock) {
     });
     r_img.get('/:imgname', function (req, res, next) {
         var desiredWidth = parseInt(req.query.width);
-        if(req.query.width && desiredWidth <= 0 || Number.isNaN(desiredWidth)) {
-            desiredWidth = Infinity; // It will be set to the size of that image later.
+        if (!req.query.width || Number.isNaN(desiredWidth) || desiredWidth <= 0) {
+            desiredWidth = Infinity;
         }
         image.findOne({ name: req.params.imgname }, function (err, img) {
             if(err)
@@ -199,24 +196,26 @@ module.exports = function (db, lock) {
             else if (!img) {
                 next();
             } else {
-                if (desiredWidth > img.width && req.query.width) {
-                    delete req.query.width;
-                    var qr = qs.stringify(req.query);
-                    if(qr.length > 0) {
-                        qr = "?" + qr;
+                if (req.query.width) {
+                    if (desiredWidth >= img.width) {
+                        delete req.query.width;
+                        var qr = qs.stringify(req.query);
+                        if(qr.length > 0) {
+                            qr = "?" + qr;
+                        }
+                        res.redirect(302, req.path + qr);
+                        return;
+                    } else if (req.query.width.toString() != desiredWidth.toString()) {
+                        req.query.width = desiredWidth;
+                        var qr = qs.stringify(req.query);
+                        if(qr.length > 0) {
+                            qr = "?" + qr;
+                        }
+                        res.redirect(302, req.path + qr);
+                        return;
                     }
-                    res.redirect(302, req.path + qr);
-                    return;
-                } else if (req.query.width && req.query.width.toString() != desiredWidth.toString() && desiredWidth > 0 && Number.isFinite(desiredWidth)) {
-                    req.query.width = desiredWidth;
-                    var qr = qs.stringify(req.query);
-                    if(qr.length > 0) {
-                        qr = "?" + qr;
-                    }
-                    res.redirect(302, req.path + qr);
-                    return;
                 }
-                img.queryScale(desiredWidth || img.width, false, function (err, buff) {
+                img.queryScale(desiredWidth, function (err, buff) {
                     if(err)
                         next(err);
                     else {
