@@ -45,19 +45,39 @@ module.exports = function (db, lock) {
            || !Buffer.isBuffer(imageData) || imageData.length <= 0) {
             return callback(new Error("Illegal argument."));
         }
-        var ext = imgName.match(/\.([a-zA-Z0-9]+)$/)[1];
+        var ext = imgName.match(/\.([a-zA-Z0-9]+)$/);
         if (!ext) {
             return callback(new Error("Extension not provided."));
         }
+        ext = ext[1];
         if (validExtensions.indexOf(ext) < 0) {
-            return callback(new Error("Format not supported."));
+            return callback(new Error(ext.toUpperCase() + ": Format not supported."));
         }
         lwip.open(imageData, ext, function (err, lwipImg) {
-            if(err)
+            if (err) {
                 callback(err);
-            else {
-                image.update({ name: imgName }, { name: imgName, src: imageData, width: lwipImg.width() }, { upsert: true },
-                            err => callback(err));
+                return;
+            }
+            image.findOne({ name: imgName }, function (err, existImgDoc) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                if (existImgDoc) {
+                    new image(existImgDoc).purge(function (err) {
+                        if (err) {
+                            callback(err);
+                            return;
+                        }
+                        doAdd();
+                    });
+                } else {
+                    doAdd();
+                }
+            });
+            function doAdd() {
+                var imgDoc = new image({ name: imgName, src: imageData, width: lwipImg.width() });
+                imgDoc.save(err => callback(err));
             }
         });
     });
@@ -145,12 +165,18 @@ module.exports = function (db, lock) {
             throw new Error("Illegal callback.");
         }
         var _id = this._id;
-        cachedScale.remove({imgId: _id}, function(err) {
-            if (err) {
-                callback(err);
-                return;
-            }
-            image.remove({_id: _id}, callback);
+        lock('imageCaching\t' + _id.toString(), function(done) {
+            cachedScale.remove({imgId: _id}, function(err) {
+                if (err) {
+                    callback(err);
+                    done();
+                    return;
+                }
+                image.remove({_id: _id}, function(err) {
+                    callback(err);
+                    done();
+                });
+            });
         });
     });
 
@@ -200,6 +226,9 @@ module.exports = function (db, lock) {
                 });
             }
         });
+    });
+    r_img.get('/', function(req, res) {
+        res.redirect(302, "https://maowtm.org/img/")
     });
     return function(req, res, next) {
         if (req.hostname == 'static.maowtm.org') {

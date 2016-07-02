@@ -460,6 +460,15 @@ function assertWidthAtLeast(res, done, widthTest, withIn) {
                     .expect(404)
                     .end(done);
             });
+            it('should redirect for root', function(done) {
+                request(app)
+                    .get('/')
+                    .query({width: 100})
+                    .set('Host', 'img.maowtm.org')
+                    .expect(302)
+                    .expect("Location", "https://maowtm.org/img/")
+                    .end(done);
+            });
             it('should return cached version if possible', function(done) {
                 var stub = "Stub!", stubId;
                 function before (done) {
@@ -547,81 +556,311 @@ function assertWidthAtLeast(res, done, widthTest, withIn) {
     function imageTest(app) {
         var image = maow.db.model('image');
         var cachedScale = maow.db.model('cachedScale');
-        const imgName = "__test_image.png";
-        const imageWidth = 500;
-        var testImgBuff = null;
-        describe('static::image', function() {
-            before(function(done) {
-                if (!image || !cachedScale) {
-                    done(new Error("database not working."));
+
+        function ensureImageNotExist(name, done) {
+            if (!image || !cachedScale) {
+                done(new Error("database not working."));
+                return;
+            }
+            image.findOne({name: name}, function(err, imgFound) {
+                if (err) {
+                    done(err);
                     return;
                 }
-                image.findOne({name: imgName}, function(err, imgFound) {
-                    if (err) {
-                        done(err);
-                        return;
-                    }
-                    if (imgFound) {
-                        image.remove({_id: imgFound._id}, function(err) {
-                            if (err) {
-                                done(err);
-                                return;
-                            }
-                            console.log(" -> Removed image " + imgName + " for test.");
-                            done();
-                        });
-                    } else {
-                        done();
-                    }
-                });
-            });
-            before(function(done) {
-                 lwip.create(imageWidth, imageWidth, function(err, lwipImage) {
-                    if (err) {
-                        done(err);
-                        return;
-                    } 
-                    lwipImage.toBuffer("png", function(err, buf) {
+                if (imgFound) {
+                    image.remove({_id: imgFound._id}, function(err) {
                         if (err) {
                             done(err);
                             return;
                         }
-                        testImgBuff = buf;
-                        done();
+                        console.log(" -> Removed image " + name + " for test.");
+                        cachedScale.remove({imgId: imgFound._id}, function(err) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            console.log(" -> Removed cached scale of image " + name + " for test.");
+                            done();
+                        });
                     });
+                } else {
+                    done();
+                }
+            });
+        }
+        function generateImage(size, done) {
+            function r() {
+                return parseInt(Math.random() * 100);
+            }
+            lwip.create(size, size, [r(), r(), r(), 100], function(err, lwipImage) {
+                if (err) {
+                    done(err);
+                    return;
+                } 
+                lwipImage.toBuffer("png", function(err, buf) {
+                    if (err) {
+                        done(err);
+                        return;
+                    }
+                    done(null, buf);
                 });
             });
+        }
+
+        describe('static::image', function() {
             after(function() {
                 destory();
                 console.log(" -> Destroyed maowtm instance.");
             });
             it('should add image', function(done) {
-                if (!testImgBuff) {
-                    done(new Error("Before hook didn't got her job done."));
-                    return;
-                }
-                image.addImage(imgName, testImgBuff, function(err) {
-                    if (err) {
-                        done(err);
-                        return;
+                const imgName = "__test_image.png";
+                const imgWidth = 500;
+                var imgBuff = null;
+                var test = {
+                    a: function() {
+                        ensureImageNotExist(imgName, function(err) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            test.b();
+                        });
+                    },
+                    b: function() {
+                        generateImage(imgWidth, function(err, buff) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            imgBuff = buff;
+                            test.c();
+                        });
+                    },
+                    c: function() {
+                        image.addImage(imgName, imgBuff, function(err) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            image.findOne({name: imgName}, function(err, doc) {
+                                if (err) {
+                                    done(err);
+                                    return;
+                                }
+                                try {
+                                    doc.name.should.be.exactly(imgName);
+                                    doc.width.should.be.exactly(imgWidth);
+                                    if (!imgBuff.equals(doc.src)) throw new Error("Image data not match.");
+                                    done();
+                                } catch (e) {
+                                    done(e);
+                                }
+                            });
+                        });
                     }
-                    image.findOne({name: imgName}, function(err, doc) {
-                        if (err) {
-                            done(err);
-                            return;
-                        }
+                };
+                test.a();
+            });
+            it('should replace image', function(done) {
+                const imgName = "__test_image_replace.png";
+                const imgWidth = 500, imgWidthCacheStub = 200, imgWidth2 = 400;
+                var imgBuff = null, imgBuffCacheStub = null, imgBuff2 = null;
+                var imgIdCacheStub = null;
+                var test = {
+                    a: function() {
+                        ensureImageNotExist(imgName, function(err) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            test.b();
+                        });
+                    },
+                    b: function() {
+                        generateImage(imgWidth, function(err, buff) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            imgBuff = buff;
+                            generateImage(imgWidth2, function(err, buff) {
+                                if (err) {
+                                    done(err);
+                                    return;
+                                }
+                                imgBuff2 = buff;
+                                generateImage(imgWidthCacheStub, function(err, buff) {
+                                    if (err) {
+                                        done(err);
+                                        return;
+                                    }
+                                    imgBuffCacheStub = buff;
+                                    test.c();
+                                });
+                            });
+                        });
+                    },
+                    c: function() {
+                        var imgDoc = new image({ name: imgName, width: imgWidth, src: imgBuff });
+                        imgDoc.save(function(err) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            var testCache = new cachedScale({ imgId: imgDoc._id, scale: imgWidthCacheStub, data: imgBuffCacheStub});
+                            testCache.save(function(err) {
+                                if (err) {
+                                    done(err);
+                                    return;
+                                }
+                                imgIdCacheStub = testCache._id;
+                                test.d();
+                            });
+                        });
+                    },
+                    d: function() {
+                        image.addImage(imgName, imgBuff2, function(err) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            image.findOne({name: imgName}, function(err, doc) {
+                                if (err) {
+                                    done(err);
+                                    return;
+                                }
+                                try {
+                                    doc.name.should.be.exactly(imgName);
+                                    doc.width.should.be.exactly(imgWidth2);
+                                    if (!imgBuff2.equals(doc.src)) throw new Error("Image data not match.");
+                                    test.e();
+                                } catch (e) {
+                                    done(e);
+                                }
+                            });
+                        });
+                    },
+                    e: function() {
+                        cachedScale.findOne({ _id: imgIdCacheStub }, function(err, cachedDoc) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            if (cachedDoc) {
+                                done(new Error("Cache was not removed."));
+                            } else {
+                                done();
+                            }
+                        });
+                    }
+                };
+                test.a();
+            });
+            it('should not replace image with invalid buffer', function(done) {
+                const imgName = "__test_image_replace_invalid.png";
+                const imgWidth = 500;
+                var imgBuff = null, imgBuff2 = null;
+                var test = {
+                    a: function() {
+                        ensureImageNotExist(imgName, function(err) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            test.b();
+                        });
+                    },
+                    b: function() {
+                        generateImage(imgWidth, function(err, buff) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            imgBuff = buff;
+                            imgBuff2 = new Buffer("Stub!");
+                            test.c();
+                        });
+                    },
+                    c: function() {
+                        var imgDoc = new image({ name: imgName, width: imgWidth, src: imgBuff });
+                        imgDoc.save(function(err) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            test.d();
+                        });
+                    },
+                    d: function() {
+                        image.addImage(imgName, imgBuff2, function(err) {
+                            if (err) {
+                                try {
+                                    err.message.should.match(/Invalid [A-Za-z0-9]+ buffer/);
+                                    test.e();
+                                } catch (e) {
+                                    done(e);
+                                }
+                            } else {
+                                done(new Error("No error was produced."));
+                            }
+                        });
+                    },
+                    e: function() {
+                        image.findOne({name: imgName}, function(err, doc) {
+                            if (err) {
+                                done(err);
+                                return;
+                            }
+                            if (!doc) {
+                                done(new Error("Original image disappeared."));
+                            } else {
+                                try {
+                                    doc.name.should.be.exactly(imgName);
+                                    doc.width.should.be.exactly(imgWidth);
+                                    if (!imgBuff.equals(doc.src)) throw new Error("Image data not match.");
+                                    done();
+                                } catch (e) {
+                                    done(new Error("Original image modified: " + e.message));
+                                }
+                            }
+                        });
+                    }
+                };
+                test.a();
+            });
+            it('should throw error when format is not supported', function(done) {
+                const imgName = "__test_image_format.bmp";
+                const imgBuff = new Buffer("Stub!");
+                image.addImage(imgName, imgBuff, function(err) {
+                    if (!err) {
+                        done(new Error("No error was produced."));
+                    } else {
                         try {
-                            doc.name.should.be.exactly(imgName);
-                            doc.width.should.be.exactly(imageWidth);
-                            if (!testImgBuff.equals(doc.src)) throw new Error("Image data not match.");
+                            err.message.should.match(/Format not supported/);
+                            err.message.should.match(/BMP/);
                             done();
                         } catch (e) {
                             done(e);
                         }
-                    });
+                    }
                 });
             });
-            // TODO should replace image
+            it('should throw error when extension is not provided', function(done) {
+                const imgName = "__test_image_noformat";
+                const imgBuff = new Buffer("Stub!");
+                image.addImage(imgName, imgBuff, function(err) {
+                    if (!err) {
+                        done(new Error("No error was produced."));
+                    } else {
+                        try {
+                            err.message.should.match(/Extension not provided/);
+                            done();
+                        } catch (e) {
+                            done(e);
+                        }
+                    }
+                });
+            });
         });
     }
 })();
