@@ -20,10 +20,6 @@ module.exports = function (db, lock) {
 
     // These stuff "cache" images ( and their different sizes, when needed ) to database.
 
-    imageSchema.static('addImageIfNotExist', function () {
-        throw new Error("addImageIfNotExist is deprecated. Use addImage with a buffer instead.");
-    });
-    
     // See https://www.npmjs.com/package/lwip#supported-formats
     const validExtensions = [
         "png",
