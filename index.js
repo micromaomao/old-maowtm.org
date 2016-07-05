@@ -1,6 +1,6 @@
 const express = require('express');
 const http = require('http');
-const http2 = require('http2');
+const spdy = require('spdy');
 const fs = require('fs');
 const url = require('url');
 const pages = require('./pages');
@@ -103,17 +103,7 @@ var maowtm = function (config) {
         function doSetupServer() {
             const httpsopts = (_this._ssl ? {
                 key: fs.readFileSync(_this._ssl.key),
-                cert: fs.readFileSync(_this._ssl.cert),
-                ciphers: ["ECDHE-RSA-AES128-GCM-SHA256", "ECDHE-ECDSA-AES128-GCM-SHA256", "ECDHE-RSA-AES256-GCM-SHA384",
-                    "ECDHE-ECDSA-AES256-GCM-SHA384", "DHE-RSA-AES128-GCM-SHA256", "DHE-DSS-AES128-GCM-SHA256", "kEDH+AESGCM",
-                    "ECDHE-RSA-AES128-SHA256", "ECDHE-ECDSA-AES128-SHA256", "ECDHE-RSA-AES128-SHA", "ECDHE-ECDSA-AES128-SHA",
-                    "ECDHE-RSA-AES256-SHA384", "ECDHE-ECDSA-AES256-SHA384", "ECDHE-RSA-AES256-SHA", "ECDHE-ECDSA-AES256-SHA",
-                    "DHE-RSA-AES128-SHA256", "DHE-RSA-AES128-SHA", "DHE-DSS-AES128-SHA256", "DHE-RSA-AES256-SHA256",
-                    "DHE-DSS-AES256-SHA", "DHE-RSA-AES256-SHA", "ECDHE-RSA-DES-CBC3-SHA", "ECDHE-ECDSA-DES-CBC3-SHA",
-                    "EDH-RSA-DES-CBC3-SHA", "AES128-GCM-SHA256", "AES256-GCM-SHA384", "AES128-SHA256", "AES256-SHA256",
-                    "AES128-SHA", "AES256-SHA", "AES", "CAMELLIA", "DES-CBC3-SHA", "!aNULL", "!eNULL", "!EXPORT", "!DES",
-                    "!RC4", "!MD5", "!PSK", "!aECDH", "!EDH-DSS-DES-CBC3-SHA", "!KRB5-DES-CBC3-SHA"].join(":"),
-                honorCipherOrder: true
+                cert: fs.readFileSync(_this._ssl.cert)
             } : null);
             _this._servers = {
                 http: [],
@@ -121,12 +111,12 @@ var maowtm = function (config) {
             };
             if(!Array.isArray(_this._listen)) {
                 if (httpsopts)
-                    _this._servers.http2.push(http2.createServer(httpsopts, app).listen(443, _this._listen));
+                    _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, _this._listen));
                 _this._servers.http.push(http.createServer(app).listen(80, _this._listen));
             } else {
                 _this._listen.forEach(function (address) {
                     if (httpsopts)
-                        _this._servers.http2.push(http2.createServer(httpsopts, app).listen(443, address));
+                        _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, address));
                     _this._servers.http.push(http.createServer(app).listen(80, address));
                 });
             }
