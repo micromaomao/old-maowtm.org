@@ -105,6 +105,9 @@ var maowtm = function (config) {
                 key: fs.readFileSync(_this._ssl.key),
                 cert: fs.readFileSync(_this._ssl.cert)
             } : null);
+            if (_this._ssl.ca && httpsopts) {
+                httpsopts.ca = fs.readFileSync(_this._ssl.ca);
+            }
             _this._servers = {
                 http: [],
                 http2: []
