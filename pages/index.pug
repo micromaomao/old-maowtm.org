@@ -1,0 +1,27 @@
+extends layout
+
+block head
+    title Mao Wtm
+
+block content
+    .top
+        h1 Mao Wtm
+        .quicklinks
+            a(href="resume/") Resume
+            a(href="blog/") Blog
+            a(href="tweets/") Tweets
+            a(href="contact/") Contact
+    .tile-welcome
+        h2
+            | Welcome, and nice to meet you!
+            .currently I'm currently:
+        ul.current-list
+            li
+                .icon-igcse
+                .desc A high school student
+            li
+                .icon-sz
+                .desc Living in Shenzhen, China
+            li
+                .icon-yr
+                .desc #{age} years old

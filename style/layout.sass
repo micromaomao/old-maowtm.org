@@ -1,0 +1,28 @@
+$color-primary: #E91E63
+$color-primary-text: #212121
+$color-primary-dark: #C2185B
+$color-primary-light: #F8BBD0
+$color-background: #FFFFFF
+$color-accent: #009688
+$color-secondary-text: #727272
+$color-divider: #B6B6B6
+$color-pink: #EB65A0
+$color-blue: #73C5E1
+$color-purple: #9B539C
+$color-green: #5BB12F
+$color-yellowgreen: #BCCF02
+$fs-text: 16px
+=transition($prop, $time)
+    transition: $prop $time
+    -webkit-transition: $prop $time
+    -moz-transition: $prop $time
+    -ms-transition: $prop $time
+
+body
+    color: $color-primary-text
+    background-color: $color-background
+    font-size: $fs-text
+
+a
+    text-decoration: none
+    color: inherit

@@ -20,6 +20,7 @@
     "express": "^4.14.0",
     "lwip": "0.0.9",
     "mongoose": "^4.5.3",
+    "node-sass": "^3.8.0",
     "pug": "^2.0.0-bata3",
     "redis": "^2.6.2",
     "redis-lock": "^0.1.0",
