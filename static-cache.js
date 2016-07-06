@@ -10,7 +10,7 @@ if (!static_path.match(/\/$/)) {
 module.exports = function(requestPath, set, done) {
     var fpath = path.join(static_path, requestPath);
 
-    if (fpath.substr(0, static_path.length) != static_path) {
+    if (requestPath.match(/(^|\/)\.\.($|\/)/) || fpath.substr(0, static_path.length) != static_path) {
         return done(new Error("Path not valid."));
     }
     var fileName = fpath.substr(static_path.length);
