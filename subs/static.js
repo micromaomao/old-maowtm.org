@@ -2,6 +2,8 @@ const express = require('express');
 const pages = require('../pages');
 const lwip = require('lwip');
 const qs = require('querystring');
+const UglifyJS = require("uglify-js");
+const staticCache = require('../static-cache');
 
 module.exports = function (db, lock) {
     var mongoose = db;
@@ -177,6 +179,54 @@ module.exports = function (db, lock) {
     var cachedScale = mongoose.model('cachedScale', cachedScaleSchema);
 
     var r_static = express.Router();
+    r_static.use(function(req, res, next) {
+        if (!req.path.match(/\.js$/)) {
+            return next();
+        }
+        staticCache(req.path, function(fileName, data, done) {
+            var headComment = "// Minified js. Source: https://github.com/micromaomao/maowtm.org/tree/master/static/" + fileName + "\n\n";
+            try {
+                var result = headComment + UglifyJS.minify(data, {fromString: true}).code;
+                done(null, result);
+            } catch (e) {
+                done(e);
+            }
+        }, function(err, data) {
+            if (err) {
+                return next(err);
+            }
+            if (!data) {
+                return next();
+            }
+            res.type(".js");
+            res.send(data);
+        });
+    });
+    r_static.use(function(req, res, next) {
+        var pathMatch = req.path.match(/\.(svg|xml)$/);
+        if (!pathMatch) {
+            return next();
+        }
+        var ext = pathMatch[1];
+        staticCache(req.path, function(fileName, data, done) {
+            var headComment = "<!-- Compactify-ed xml. Source: https://github.com/micromaomao/maowtm.org/tree/master/static/" + fileName + " -->\n\n";
+            try {
+                var result = headComment + data.replace(/\n\s{0,}/g, " ");
+                done(null, result);
+            } catch (e) {
+                done(e);
+            }
+        }, function(err, data) {
+            if (err) {
+                return next(err);
+            }
+            if (!data) {
+                return next();
+            }
+            res.type("." + ext);
+            res.send(data);
+        });
+    });
     r_static.use(express.static('static'));
     var r_img = express.Router({
         strict: true
