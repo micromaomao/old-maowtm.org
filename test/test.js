@@ -872,3 +872,13 @@ function assertWidthAtLeast(res, done, widthTest, withIn) {
         });
     }
 })();
+
+describe('require("pages")', function() {
+    const pages = require('../pages');
+    it('should have necessary pages', function(done) {
+        should.exist(pages);
+        should.exist(pages.index);
+        should.exist(pages.layout);
+        done();
+    });
+});
