@@ -14,6 +14,7 @@ body
 .reset_hx
     font-weight: normal
     margin: 0
+    padding: 0
     list-style-type: none
 .top
     color: $color-background
@@ -61,10 +62,35 @@ body.mobile
                 display: block
                 border-bottom: 0;
                 padding: 5px 
+=tldr_show_apply_color($color)
+    background-color: lighten($color, 25%)
+    color: darken($color, 25%)
+    +transition(background-color, 250ms)
+
+.tile
+    padding: 16px
+    .tldr
+        background-color: rgba($color-primary-light, 0.2)
+        padding-left: 10px
+        padding-right: 10px
+        padding-bottom: 4px
+        text-align: justify
+        .tldr-start
+            @extend i
+            margin-left: -10px
+            padding-left: 10px
+            font-size: 150%
+            line-height: 1.2
+            background-color: rgba($color-primary-light, 0.5)
+            vertical-align: bottom
+        .tldr-show
+            margin: 4px -10px -4px -10px
+            padding: 4px 10px 4px 10px
+            cursor: pointer
 
 .tile-welcome
+    @extend .tile
     text-align: center
-    padding: 16px
 
     h2
         @extend .reset_hx
@@ -107,3 +133,36 @@ body.mobile
                 margin: 4px
                 .desc
                     font-size: 16px
+
+$tile-skill-maxwidth: 800px
+.tile-skill
+    @extend .content
+    @extend .tile
+    border-top: solid 2px $color-blue
+    background-color: rgba($color-blue, 0.1)
+    .tldr-show
+        +tldr_show_apply_color($color-blue)
+    .tldr-show:hover
+        background-color: lighten($color-blue, 20%)
+
+    .pad
+        max-width: $tile-skill-maxwidth
+        margin: auto
+        h2
+            @extend .reset_hx
+        .till
+            color: $color-secondary-text
+            margin-bottom: 4px
+        > ul
+            @extend .reset_hx
+            display: block
+            max-width: $tile-skill-maxwidth
+            margin: auto
+            padding: 8px
+            > li > h3
+                @extend .reset_hx
+                font-size: 1.5em
+                color: $color-blue
+            > li p
+                padding: 2px 4px 2px 4px
+                text-align: justify

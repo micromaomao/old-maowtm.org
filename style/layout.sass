@@ -11,7 +11,7 @@ $color-blue: #73C5E1
 $color-purple: #9B539C
 $color-green: #5BB12F
 $color-yellowgreen: #BCCF02
-$fs-text: 16px
+$fs-text: 15px
 =transition($prop, $time)
     transition: $prop $time
     -webkit-transition: $prop $time
@@ -22,7 +22,23 @@ body
     color: $color-primary-text
     background-color: $color-background
     font-size: $fs-text
+    line-height: 1.2
 
 a
     text-decoration: none
     color: inherit
+body .content a
+    +transition(color, 250ms)
+
+body .content:hover a,
+body.mobile .content a
+    color: $color-primary
+
+body .content a:hover
+    color: $color-primary-dark
+    border-bottom: solid 1px $color-divider
+
+i
+    font-weight: lighter;
+    font-family: 'Alegreya Sans', sans-serif;
+    line-height: 0;
