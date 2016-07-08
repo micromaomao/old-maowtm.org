@@ -17,11 +17,23 @@ body
     list-style-type: none
 .top
     color: $color-background
-    background-color: $color-yellowgreen
+    background: mapStatic("imgs/index_top.jpg"), #7f4810
+    background-size: cover;
+    background-position: 50% 50%
     height: 440px
     text-align: center
     overflow: none
     border-bottom: solid 4px $color-primary-dark
+    position: relative
+
+    .img-desc
+        font-size: 16px
+        background-color: rgba(255, 255, 255, 0.5)
+        color: $color-primary-dark
+        position: absolute
+        bottom: 0
+        right: 0
+        padding: 4px
 
     h1
         @extend .reset_hx
