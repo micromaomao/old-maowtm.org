@@ -54,101 +54,101 @@ block content
             p
                 | Also <b>I'm having problem</b> with writing human-readable and comprehensible
                 | code. Sometimes my code don't even make sense to me <i>quickly</i>.
-            .skilltags
-                ul
-                    mixin skill_li(name, exp)
-                        li
-                            span.name!= name
-                            span.name-trig-bg
-                                span.name-trig &nbsp;
-                            span.exp!= exp
-                            span.exp-trig-bg
-                                span.exp-trig &nbsp;
-                            div.desc
-                                block
-                    +skill_li("Web (front-end)", "<i>Maybe near</i> export?")
-                        p
-                            | I have <i>around</i> #{currentYear - 2012} years of experience with 
-                            a(href="https://developer.mozilla.org/en-US/") web technology
-                            |  ( also actual <i>technology</i> like 
-                            a(href="http://threejs.org/examples/#webgl_geometry_cube") WebGL
-                            | ). I can build pretty much any UI with web stuff. However
-                            | sometimes my approach may be problematic. (I.e. not <i>clean</i>, or simply
-                            | not the <i>best way</i>. )
-                    +skill_li("Web (back-end)", "<i>I know how to do it</i> kinds of experience.")
-                        p
-                            | I have experience with 
-                            a(href="https://nodejs.org") Node.js
-                            |  and had build some website with it ( including this one ), with the 
-                            a(href="https://expressjs.com/") Express.js
-                            |  framework. I also use template engine like 
-                            a(href="https://github.com/pugjs/pug") Pug
-                            |  (aka. Jade) to help generating html and 
-                            a(href="http://sass-lang.com/") Sass
-                            |  to help generate css.
-                    +skill_li("Linux", "Experience of breaking and fixing things.")
-                        p
-                            | I've used Linux for:
-                        mixin linuxprompt(host, dir)
-                            span.e1  #{host} 
-                            span.e2 
-                            span.e3  #{dir} 
-                            span.e4 
-                            |  
-                        pre.linuxpre
-                            +linuxprompt("linux@MaoWtm", "~")
-                            | uptime
-                            br
-                            -var nowTimeString = new Date().toTimeString().match(/\d{1,2}:\d\d:\d\d/)[0]
-                            |  #{nowTimeString} up 
-                            |  #{Math.ceil((new Date().getTime() - new Date("2014-02-01 00:00:00 GMT+0800").getTime()) / (24*60*60*1000))}
-                            |  days,
-                            |  #{nowTimeString.replace(/:\d\d$/g, "")},
-                            | &nbsp;#{Math.ceil(Math.random() * 100)}
-                            |  user,  load average:
-                            |  #{Math.floor(Math.random() * 100) / 100}, 0, 0
-                        p
-                            | I can write some basic shell script and do some <i>advanced</i>
-                            | system <i>maintaining</i> ( including breaking the system ). Thanks to 
-                            a(href="https://www.archlinux.org/") Arch Linux
-                            | , I've managed to understand, not very deep, how Linux ( and those
-                            | fundamental application that almost every distro include,
-                            | from "systemd", "initramfs" to "ip" or "dig" ) briefly work and how
-                            | to make use of them. I use Linux as my desktop OS. Linux and some command
-                            | line tools helped me a lot, not only for coding.
-                        p
-                            | Here is the uptime I've managed to keep on my PC: ( by suspending instead of
-                            |  halting )
-                        pre.linuxpre
-                            +linuxprompt("mao@maopc", "~")
-                            | uptime -s 
-                            //- I use -s because I'm lazy and don't to write dynamic code for
-                            //- time calculation here :D
-                            br
-                            | 2016-06-27 17:04:57
-                            br
-                            +linuxprompt("mao@maopc", "~")
-                            | date # last update
-                            br
-                            | Tue Jul 12 14:58:17 CST 2016
-                    +skill_li("C / C++", "Can write simple things.")
-                        p
-                            | I know how to write C++ programs, but it often takes a much longer working time
-                            | and probably the things I produce using C++ can only run on Linux.
-                            | I can write out a C++ version of most Javascript/Python program I've
-                            | wroted. It just takes a <i>little</i> more time and may introduce
-                            | a <i>little</i> more bug.
-                    +skill_li("Android", "I'm able to at least build a decent application.")
-                    +skill_li("Other high level languages", "Used many times.")
-                        p
-                            | I also know how to use: [ 
-                            a(href="https://www.python.org/") Python
-                            | , 
-                            a(href="https://en.wikipedia.org/wiki/SQL") SQL
-                            | , 
-                            a(href="https://www.ruby-lang.org/en/") Ruby
-                            | , 
-                            a(href="https://www.gnu.org/software/bash/") Bash
-                            | , 
-                            a(href="https://en.wikipedia.org/wiki/Java_(programming_language)") Java
-                            | , ... ].
+        .skilltags
+            ul
+                mixin skill_li(name, exp)
+                    li
+                        span.name!= name
+                        span.name-trig-bg
+                            span.name-trig &nbsp;
+                        span.exp!= exp
+                        span.exp-trig-bg
+                            span.exp-trig &nbsp;
+                        div.desc
+                            block
+                +skill_li("Web (front-end)", "<i>Maybe near</i> export?")
+                    p
+                        | I have <i>around</i> #{currentYear - 2012} years of experience with 
+                        a(href="https://developer.mozilla.org/en-US/") web technology
+                        |  ( also actual <i>technology</i> like 
+                        a(href="http://threejs.org/examples/#webgl_geometry_cube") WebGL
+                        | ). I can build pretty much any UI with web stuff. However
+                        | sometimes my approach may be problematic. (I.e. not <i>clean</i>, or simply
+                        | not the <i>best way</i>. )
+                +skill_li("Web (back-end)", "<i>I know how to do it</i> kinds of experience.")
+                    p
+                        | I have experience with 
+                        a(href="https://nodejs.org") Node.js
+                        |  and had build some website with it ( including this one ), with the 
+                        a(href="https://expressjs.com/") Express.js
+                        |  framework. I also use template engine like 
+                        a(href="https://github.com/pugjs/pug") Pug
+                        |  (aka. Jade) to help generating html and 
+                        a(href="http://sass-lang.com/") Sass
+                        |  to help generate css.
+                +skill_li("Linux", "Experience of breaking and fixing things.")
+                    p
+                        | I've used Linux for:
+                    mixin linuxprompt(host, dir)
+                        span.e1  #{host} 
+                        span.e2 
+                        span.e3  #{dir} 
+                        span.e4 
+                        |  
+                    pre.linuxpre
+                        +linuxprompt("linux@MaoWtm", "~")
+                        | uptime
+                        br
+                        -var nowTimeString = new Date().toTimeString().match(/\d{1,2}:\d\d:\d\d/)[0]
+                        |  #{nowTimeString} up 
+                        |  #{Math.ceil((new Date().getTime() - new Date("2014-02-01 00:00:00 GMT+0800").getTime()) / (24*60*60*1000))}
+                        |  days,
+                        |  #{nowTimeString.replace(/:\d\d$/g, "")},
+                        | &nbsp;#{Math.ceil(Math.random() * 100)}
+                        |  user,  load average:
+                        |  #{Math.floor(Math.random() * 100) / 100}, 0, 0
+                    p
+                        | I can write some basic shell script and do some <i>advanced</i>
+                        | system <i>maintaining</i> ( including breaking the system ). Thanks to 
+                        a(href="https://www.archlinux.org/") Arch Linux
+                        | , I've managed to understand, not very deep, how Linux ( and those
+                        | fundamental application that almost every distro include,
+                        | from "systemd", "initramfs" to "ip" or "dig" ) briefly work and how
+                        | to make use of them. I use Linux as my desktop OS. Linux and some command
+                        | line tools helped me a lot, not only for coding.
+                    p
+                        | Here is the uptime I've managed to keep on my PC: ( by suspending instead of
+                        |  halting )
+                    pre.linuxpre
+                        +linuxprompt("mao@maopc", "~")
+                        | uptime -s 
+                        //- I use -s because I'm lazy and don't to write dynamic code for
+                        //- time calculation here :D
+                        br
+                        | 2016-06-27 17:04:57
+                        br
+                        +linuxprompt("mao@maopc", "~")
+                        | date # last update
+                        br
+                        | Tue Jul 12 14:58:17 CST 2016
+                +skill_li("C / C++", "Can write simple things.")
+                    p
+                        | I know how to write C++ programs, but it often takes a much longer working time
+                        | and probably the things I produce using C++ can only run on Linux.
+                        | I can write out a C++ version of most Javascript/Python program I've
+                        | wroted. It just takes a <i>little</i> more time and may introduce
+                        | a <i>little</i> more bug.
+                +skill_li("Android", "I'm able to at least build a decent application.")
+                +skill_li("Other high level languages", "Used many times.")
+                    p
+                        | I also know how to use: [ 
+                        a(href="https://www.python.org/") Python
+                        | , 
+                        a(href="https://en.wikipedia.org/wiki/SQL") SQL
+                        | , 
+                        a(href="https://www.ruby-lang.org/en/") Ruby
+                        | , 
+                        a(href="https://www.gnu.org/software/bash/") Bash
+                        | , 
+                        a(href="https://en.wikipedia.org/wiki/Java_(programming_language)") Java
+                        | , ... ].

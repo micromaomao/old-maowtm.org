@@ -120,82 +120,13 @@ $tile-skill-maxwidth: 800px
     background-color: rgba($color-blue, 0.1)
 
     .pad
-        max-width: $tile-skill-maxwidth
         margin: auto
+        max-width: $tile-skill-maxwidth
         h2
             @extend .reset_hx
         .till
             color: $color-secondary-text
             margin-bottom: 4px
-        .skilltags
-            > ul
-                @extend .reset_hx
-                padding: 4px 8px 4px 8px
-                > li
-                    $skilltags-li-bgr: lighten($color-blue, 20%)
-                    $skilltags-li-name-bgr: darken($color-blue, 20%)
-                    $skilltags-li-exp-bgr: $color-accent
-                    margin: 0
-                    padding: 0 8px 0 8px
-                    background-color: $skilltags-li-bgr
-                    border-top: 2px solid $color-blue
-                    > span
-                        display: inline-block
-                        vertical-align: bottom
-                        padding-left: 8px
-                        padding-right: 8px
-                        line-height: 22px
-                        font-size: 16px
-                    .name
-                        margin-left: -8px
-                        padding-left: 16px
-                        background-color: $skilltags-li-name-bgr
-                        color: $color-background
-                    .name-trig-bg
-                        font-size: 0
-                        padding: 0
-                        margin: 0
-                        background-color: $skilltags-li-exp-bgr
-                        .name-trig
-                            width: 0
-                            height: 0
-                            font-size: 0
-                            border-left: 15px solid $skilltags-li-name-bgr
-                            border-bottom: 22px solid transparent
-                            padding: 0
-                            display: block
-                    .exp
-                        background-color: $skilltags-li-exp-bgr
-                        color: $color-background
-                    .exp-trig-bg
-                        @extend .name-trig-bg
-                        background-color: $skilltags-li-bgr
-                        .exp-trig
-                            @extend .name-trig
-                            border-left: 15px solid $skilltags-li-exp-bgr
-                            border-bottom: 22px solid transparent
-                    .desc
-                        padding: 4px 8px 4px 8px
-
-                        .linuxpre
-                            white-space: pre-wrap
-                            color: #5f767f
-                            background-color: #fdf6e3
-                            font-size: 14px
-                            .e1
-                                background-color: #073642
-                                color: #5f767f
-                            .e2
-                                background-color: #268bd2
-                                color: #073642
-                            .e3
-                                background-color: #268bd2
-                                color: #073642
-                            .e4
-                                color: #268bd2
-                        .linuxpre::selection, .linuxpre *::selection
-                            background-color: #5f767f
-                            color: #fdf6e3
         > h3
             @extend .reset_hx
             font-size: 1.5em
@@ -207,19 +138,92 @@ $tile-skill-maxwidth: 800px
             line-height: 2
         p
             padding: 2px 4px 2px 4px
-            text-align: justify
+
+    .skilltags
+        > ul
+            $skilltags-li-bgr: lighten($color-blue, 25%)
+            @extend .reset_hx
+            margin: 8px -16px -16px -16px
+            padding: 0 8px 4px 8px
+            text-align: center
+            background-color: $skilltags-li-bgr
+            +column_width($tile-skill-maxwidth)
+            > li
+                $skilltags-li-name-bgr: darken($color-blue, 20%)
+                $skilltags-li-exp-bgr: $color-accent
+                padding: 0 8px 0 8px
+                border-top: 2px solid $color-blue
+                display: inline-block
+                text-align: left
+                width: $tile-skill-maxwidth
+                > span
+                    display: inline-block
+                    vertical-align: bottom
+                    padding-left: 8px
+                    padding-right: 8px
+                    line-height: 22px
+                    font-size: 16px
+                .name
+                    margin-left: -8px
+                    padding-left: 16px
+                    background-color: $skilltags-li-name-bgr
+                    color: $color-background
+                .name-trig-bg
+                    font-size: 0
+                    padding: 0
+                    margin: 0
+                    background-color: $skilltags-li-exp-bgr
+                    .name-trig
+                        width: 0
+                        height: 0
+                        font-size: 0
+                        border-left: 15px solid $skilltags-li-name-bgr
+                        border-bottom: 22px solid transparent
+                        padding: 0
+                        display: block
+                .exp
+                    background-color: $skilltags-li-exp-bgr
+                    color: $color-background
+                .exp-trig-bg
+                    @extend .name-trig-bg
+                    background-color: $skilltags-li-bgr
+                    .exp-trig
+                        @extend .name-trig
+                        border-left: 15px solid $skilltags-li-exp-bgr
+                        border-bottom: 22px solid transparent
+                .desc
+                    padding: 4px 8px 4px 8px
+
+                    .linuxpre
+                        white-space: pre-wrap
+                        color: #5f767f
+                        background-color: #fdf6e3
+                        font-size: 14px
+                        .e1
+                            background-color: #073642
+                            color: #5f767f
+                        .e2
+                            background-color: #268bd2
+                            color: #073642
+                        .e3
+                            background-color: #268bd2
+                            color: #073642
+                        .e4
+                            color: #268bd2
+                    .linuxpre::selection, .linuxpre *::selection
+                        background-color: #5f767f
+                        color: #fdf6e3
 
 body.mobile
     .tile-skill
-        .pad
-            .skilltags
-                > ul
-                    > li
-                        border-top: none
-                        > span
-                            display: block
-                            margin: 0 -8px 0 -8px
-                        .name-trig-bg, .exp-trig-bg
-                            display: none
-                        .name
-                            padding-left: 8px
+        .skilltags
+            > ul
+                > li
+                    border-top: none
+                    > span
+                        display: block
+                        margin: 0 -8px 0 -8px
+                    .name-trig-bg, .exp-trig-bg
+                        display: none
+                    .name
+                        padding-left: 8px
