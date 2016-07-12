@@ -332,9 +332,8 @@ function assertWidthAtLeast(res, done, widthTest, withIn) {
                         if (imgDoc) {
                             cachedScale.remove({imgId: imgDoc._id}, done);
                             console.log(" -> Removing all cachedScale of " + testImg);
-                        } else {
-                            done();
                         }
+                        done();
                     }
                 });
             });
