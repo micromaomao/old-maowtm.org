@@ -16,14 +16,16 @@ module.exports = function (db, lock) {
         birth: 998323200
     }
     r_main.get('/', function(req, res) {
+        var agepre = ( Date.now() / 1000 - data_me.birth ) / ( 60*60*24*365 );
         res.send(pages.index({
-            age: Math.round(( Date.now() / 1000 - data_me.birth ) / ( 60*60*24*365 ) * 10) / 10
+            age: Math.round(agepre * 10) / 10,
+            agepre
         }));
     });
     r_main.get('/data/me/', function(req, res) {
         data_me.age = Math.floor(Date.now() / 1000) - data_me.birth;
         res.send(data_me);
-    })
+    });
 
     return function(req, res, next) {
         if(req.hostname == 'www.maowtm.org') {
