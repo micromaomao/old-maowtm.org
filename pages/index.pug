@@ -49,11 +49,14 @@ block content
                 | However, I'm (currently) <b>weak</b> on algorithm, data structures or
                 | <i>"problem solving skills"</i> and can't solve most of the <i>interview
                 | questions that every programmer is supposed to be able to solve</i>
-                | . (I mean, can't solve it efficiently.) 
+                | . (I mean, can't solve it efficiently.)
                 | I'm currently learning about algorithms.
             p
                 | Also <b>I'm having problem</b> with writing human-readable and comprehensible
-                | code. Sometimes my code don't even make sense to me <i>quickly</i>.
+                | code. Sometimes my code don't even make sense to me <i>quickly</i>. Also I didn't tried
+                | to follow any "
+                a(href="http://standardjs.com/") coding standard
+                | ".
         .skilltags
             ul
                 mixin skill_li(name, exp)
@@ -75,6 +78,10 @@ block content
                         | ). I can build pretty much any UI with web stuff. However
                         | sometimes my approach may be problematic. (I.e. not <i>clean</i>, or simply
                         | not the <i>best way</i>. )
+                    p
+                        | I have experience with 
+                        a(href="https://facebook.github.io/react/") React
+                        | , but I haven't used many framework. I write ( and I love ) ES6.
                 +skill_li("Web (back-end)", "<i>I know how to do it</i> kinds of experience.")
                     p
                         | I have experience with 
@@ -86,6 +93,16 @@ block content
                         |  (aka. Jade) to help generating html and 
                         a(href="http://sass-lang.com/") Sass
                         |  to help generate css.
+                        |  I also know about 
+                        a(href="https://webpack.github.io/") Webpack
+                        | .
+                +skill_li("Web (cross-platform desktop)", "Write decent desktop application with React.")
+                    p
+                        | I love the concept of being able to use Web technology with building desktop applications,
+                        |  and I've managed to build a useful desktop app with 
+                        a(href="http://electron.atom.io/") Electron
+                        | . I know there's some downside with doing these things, like the resulting app package will be
+                        | pretty big ( over 40 MB after compressed ). Didn't tried Qt though, maybe that will be better.
                 +skill_li("Linux", "Experience of breaking and fixing things.")
                     p
                         | I've used Linux for:
@@ -116,21 +133,6 @@ block content
                         | from "systemd", "initramfs" to "ip" or "dig" ) briefly work and how
                         | to make use of them. I use Linux as my desktop OS. Linux and some command
                         | line tools helped me a lot, not only for coding.
-                    p
-                        | Here is the uptime I've managed to keep on my PC: ( by suspending instead of
-                        |  halting )
-                    pre.linuxpre
-                        +linuxprompt("mao@maopc", "~")
-                        | uptime -s 
-                        //- I use -s because I'm lazy and don't to write dynamic code for
-                        //- time calculation here :D
-                        br
-                        | 2016-06-27 17:04:57
-                        br
-                        +linuxprompt("mao@maopc", "~")
-                        | date # last update
-                        br
-                        | Tue Jul 12 14:58:17 CST 2016
                 +skill_li("C / C++", "Can write simple things.")
                     p
                         | I know how to write C++ programs, but it often takes a much longer working time
@@ -138,7 +140,7 @@ block content
                         | I can write out a C++ version of most Javascript/Python program I've
                         | wroted. It just takes a <i>little</i> more time and may introduce
                         | a <i>little</i> more bug.
-                +skill_li("Android", "I'm able to at least build a decent application.")
+                +skill_li("Android", "I'm able to at least build a basic alarm application.")
                 +skill_li("Other high level languages", "Used many times.")
                     p
                         | I also know how to use: [ 
@@ -152,3 +154,6 @@ block content
                         | , 
                         a(href="https://en.wikipedia.org/wiki/Java_(programming_language)") Java
                         | , ... ].
+        .pad.btn
+            p
+                | There are more things I've tried, but not experienced enough to put it here. However, I (think) can learn new stuff easily.
