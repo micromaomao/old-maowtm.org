@@ -26,6 +26,9 @@ module.exports = function (db, lock) {
         data_me.age = Math.floor(Date.now() / 1000) - data_me.birth;
         res.send(data_me);
     });
+    r_main.get('/tweets', function(req, res) {
+        res.redirect("https://twitter.com/WtmMao");
+    });
 
     return function(req, res, next) {
         if(req.hostname == 'www.maowtm.org') {
