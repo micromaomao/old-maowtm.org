@@ -230,3 +230,56 @@ body.mobile
                         display: none
                     .name
                         padding-left: 8px
+
+.tile-project
+    @extend .tile;
+    text-align: center;
+    border-top: solid 2px $color-pink;
+    background-color: rgba($color-pink, 0.1);
+    h2,h3
+        @extend .reset_hx;
+    > ul
+        > li
+            text-align: left;
+            background-color: rgba(white, 0.6);
+            display: inline-block;
+            list-style-type: none;
+            max-width: 400px;
+            margin: 0.5rem;
+            padding: 0.5rem;
+            h3 a
+                color: $color-primary;
+            h3 a:hover
+                color: $color-primary-dark;
+            p
+                @extend .content;
+            .stattag
+                display: inline-block;
+                padding: 0.3rem;
+                background-color: rgba($color-pink, 0.2);
+                border-radius: 4px;
+                font-size: 90%;
+                color: $color-primary-dark;
+            .builtwith
+                .built
+                    background-color: #dddddd;
+                    color: darken($color-pink, 20%);
+                    display: inline-block;
+                    margin: 0.1rem;
+                    padding: 0.2rem;
+                    border-radius: 4px;
+                .built.b-nodejs, .built.b-android
+                    color: darken($color-green, 10%);
+                .built.b-web, .built.b-react
+                    color: darken($color-blue, 10%);
+                .built.b-javascript
+                  color: darken($color-orange, 10%);
+                .built.b-electron
+                  color: darken($color-purple, 10%);
+                .built.b-python, .built.b-linux
+                  color: #2b5b84;
+                .built.b-minecraft
+                  color: darken($color-brown, 10%);
+    > p
+        max-width: 500px;
+        margin: auto;
