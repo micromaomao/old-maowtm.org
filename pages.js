@@ -7,11 +7,14 @@ var pages = {};
 var pagesfo = __dirname + '/pages/';
 var list = fs.readdirSync(pagesfo);
 const ghUrl = "https://github.com/micromaomao/maowtm.org/tree/master/";
-function mapStatic(url) {
+function cssMapStatic(url) {
     url = url.getValue();
     if (url[0] !== "/")
         url = "/" + url;
-    return sass.types.String("url(https://static.maowtm.org" + url + ")");
+    return sass.types.String("url(" + pugMapStatic(url) + ")");
+}
+function pugMapStatic(url) {
+    return "https://static.maowtm.org" + url;
 }
 function preProcess(html, pugFile, sassFile) {
     return "<!-- Mixed and minified html + css:\n" +
@@ -30,7 +33,7 @@ list.forEach(function (fname) {
                     file: sassFile,
                     outputStyle: "compressed",
                     functions: {
-                        'mapStatic($url)': mapStatic
+                        'mapStatic($url)': cssMapStatic
                     }
                 }, function(err, sassResult) {
                     if (err) {
@@ -39,13 +42,14 @@ list.forEach(function (fname) {
                     }
                     pages[name] = function(o) {
                         o = o || {};
-                        var n = Object.create(o);
-                        n.style = sassResult.css;
-                        return preProcess(pugfn(n), fname, name + '.sass');
+                        o = Object.assign({}, o, {style: sassResult.css, mapStatic: pugMapStatic});
+                        return preProcess(pugfn(o), fname, name + '.sass');
                     };
                 });
             } else {
                 pages[name] = function(o) {
+                    o = o || {};
+                    o = Object.assign({}, o, {mapStatic: pugMapStatic});
                     return preProcess(pugfn(o), fname);
                 };
                 console.log('pages: style for ' + fname + ' not find.');

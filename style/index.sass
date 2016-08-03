@@ -233,6 +233,7 @@ body.mobile
 
 .tile-project
     @extend .tile;
+    @extend .content;
     text-align: center;
     border-top: solid 2px $color-pink;
     background-color: rgba($color-pink, 0.1);
@@ -251,8 +252,6 @@ body.mobile
                 color: $color-primary;
             h3 a:hover
                 color: $color-primary-dark;
-            p
-                @extend .content;
             .stattag
                 display: inline-block;
                 padding: 0.3rem;
