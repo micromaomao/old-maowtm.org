@@ -16,8 +16,11 @@ module.exports = function (db, lock) {
         birth: 998323200
     }
     r_main.get('/', function(req, res) {
+        res.redirect("about/");
+    });
+    r_main.get('/about', function(req, res) {
         var agepre = ( Date.now() / 1000 - data_me.birth ) / ( 60*60*24*365 );
-        res.send(pages.index({
+        res.send(pages.about({
             age: Math.round(agepre * 10) / 10,
             agepre
         }));

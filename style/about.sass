@@ -311,3 +311,15 @@ body.mobile
         > ul
             > li
                 display: block;
+.tile-contact
+    @extend .tile;
+    @extend .content;
+    text-align: center;
+    border-top: solid 2px $color-green;
+    background-color: rgba($color-green, 0.1);
+    h2,h3
+        @extend .reset_hx;
+    ul
+        max-width: 800px;
+        display: inline-block;
+        text-align: left;
