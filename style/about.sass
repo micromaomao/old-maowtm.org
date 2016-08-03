@@ -323,3 +323,38 @@ body.mobile
         max-width: 800px;
         display: inline-block;
         text-align: left;
+
+.tile-progress
+    @extend .tile;
+    @extend .content;
+    text-align: center;
+    border-top: solid 2px $color-yellowgreen;
+    background-color: rgba($color-yellowgreen, 0.1);
+    .pad
+        margin: auto
+        text-align: left
+        max-width: $tile-skill-maxwidth
+        h2
+            @extend .reset_hx
+        > h3
+            @extend .reset_hx
+            font-size: 1.5em
+            color: $color-yellowgreen
+
+    ul
+        li
+            vertical-align: middle;
+            .tags
+                margin-left: 1rem;
+                font-size: 0.9rem;
+            .diff, .useful, .tags
+                display: inline;
+                vertical-align: middle;
+            .a
+                color: $color-green
+            .b
+                color: $color-blue
+            .c
+                color: $color-pink
+            .d
+                color: $color-purple

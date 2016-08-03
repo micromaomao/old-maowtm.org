@@ -1,0 +1,41 @@
+.tile-progress#progress
+    .pad
+        h2 Progress
+        mixin progress(name, diff, useful)
+            -var mapAbc = (v) => ["", "a", "a", "b", "c", "d"][v];
+            -var mapStar = (v) => "★".repeat(v);
+            -var eDiff = "😨";
+            -var eUseful = "😋";
+            -var eNetural = "😶";
+            -var ddf = useful - diff;
+            li
+                span.name(data-ddf=ddf)= name
+                |  
+                .tags
+                    span(class="diff " + mapAbc(diff), title="Difficulty: " + diff) #{eDiff.repeat(diff) || eNetural}
+                    |  + 
+                    span(class="useful " + mapAbc(useful), title="Usefulness: " + useful) #{eUseful.repeat(useful) || eNetural}
+                    |  => 
+                    -if (ddf > 0)
+                        span(class="net useful " + mapAbc(ddf), title="Net Usefulness: " + ddf) #{eUseful.repeat(ddf)}
+                    -else if (ddf == 0)
+                        span(class="net", title="Net Usefulness: 0")= eNetural
+                    -else
+                        span(class="net diff " + mapAbc(-ddf), title="Net Usefulness: " + ddf) #{eDiff.repeat(-ddf)}
+        h3 Good things that I'm currently doing
+        ul
+            +progress("背单词", 4, 3)
+            +progress("Try different developing tools / framework etc. regularly.", 4, 4)
+        h3 Good things that I wanted to keep doing but had given up <i>temporarily</i> because I'm lazy
+        ul
+            +progress("Sleep early", 4, 4)
+            +progress("Write things regularly", 5, 5)
+            +progress("Learn Android + Word on Android project TagAlarm", 2, 5)
+            +progress("Read books regularly.", 3, 5)
+            +progress("Do excerise regularly.", 5, 4)
+            +progress("Practise typing using all fingures.", 4, 3)
+        h3 Good things that I want to do
+        ul
+            +progress("Learn about machine learning.", 3, 5)
+            +progress("Refactor old projects + write tests for them.", 5, 5)
+            +progress("Follow a coding style ( standard )", 0, 3)
