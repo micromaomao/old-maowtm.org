@@ -1,12 +1,12 @@
 .tile-progress#progress
     .pad
         h2 Progress
+        -var eDiff = "😨";
+        -var eUseful = "😋";
+        -var eNetural = "😶";
         mixin progress(name, diff, useful)
             -var mapAbc = (v) => ["", "a", "a", "b", "c", "d"][v];
             -var mapStar = (v) => "★".repeat(v);
-            -var eDiff = "😨";
-            -var eUseful = "😋";
-            -var eNetural = "😶";
             -var ddf = useful - diff;
             li
                 span.name(data-ddf=ddf)= name
@@ -22,6 +22,7 @@
                         span(class="net", title="Net Usefulness: 0")= eNetural
                     -else
                         span(class="net diff " + mapAbc(-ddf), title="Net Usefulness: " + ddf) #{eDiff.repeat(-ddf)}
+        p.desc #{eDiff} = difficulty, #{eUseful} = usefulness, #{eNetural} = 0 ( So your browser don't have Emoji support? )
         h3 Good things that I'm currently doing
         ul
             +progress("背单词", 4, 3)
