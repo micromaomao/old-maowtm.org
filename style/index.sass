@@ -17,7 +17,7 @@ body
     padding: 0
     list-style-type: none
 .top
-    color: $color-background
+    color: $color-primary-text
     background: mapStatic("imgs/index_top.jpg"), #7f4810
     background-size: cover;
     background-position: 50% 50%
@@ -29,8 +29,8 @@ body
 
     .img-desc
         font-size: 16px
-        background-color: rgba(255, 255, 255, 0.5)
-        color: $color-primary-dark
+        background-color: rgba($color-primary-light, 0.5)
+        color: $color-primary
         position: absolute
         bottom: 0
         right: 0
@@ -38,8 +38,12 @@ body
 
     h1
         @extend .reset_hx
+        @extend i
+        line-height: 1.3
         font-size: 48px
         padding-top: 150px
+        color: $color-primary-light
+        text-shadow: 1px 1px 0 $color-primary, -1px -1px 0 $color-primary, 1px -1px 0 $color-primary , -1px 1px 0 $color-primary
     blockquote
         padding-bottom: 40px;
         margin: 0;
@@ -52,10 +56,11 @@ body
     .quicklinks
         margin: 0
         a
-            margin: 10px
-            border-bottom: 1px dashed $color-primary-light
-            +transition(color, 300ms)
+            padding: 10px
+            border-bottom: 1px dashed $color-primary
+            +transition(all, 300ms)
         a:hover
+            text-shadow: 0 0 10px white, 0 0 20px white
             color: $color-primary
 
 body.mobile
