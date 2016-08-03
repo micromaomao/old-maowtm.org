@@ -32,5 +32,10 @@ function changeHash(hash) {
     }
     window.history.replaceState({}, document.title, selfUrl);
 }
+if (window.location.hash && window.location.hash.length > 0) {
+    var hash = window.location.hash.replace(/^#/g, "");
+    var y = document.getElementById(hash).getBoundingClientRect().top;
+    window.scrollBy(0, y);
+}
 setInterval(check, 100);
 check();
