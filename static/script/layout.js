@@ -13,16 +13,18 @@ function check() {
         changeHash(null);
     } else {
         var elearr = document.querySelectorAll('[id]');
-        var currentAnchor = Array.prototype.map.call(elearr, function(e) {
-            return {diffTop: Math.abs(e.getBoundingClientRect().top), e: e};
-        }).sort(function(a, b) {
-            if (a.diffTop < b.diffTop) {
-                return -1;
-            } else {
-                return (a.diffTop > b.diffTop ? 1 : 0);
-            }
-        })[0].e;
-        changeHash(currentAnchor.id);
+        if (elearr.length > 0) {
+            var currentAnchor = Array.prototype.map.call(elearr, function(e) {
+                return {diffTop: Math.abs(e.getBoundingClientRect().top), e: e};
+            }).reduce(function(prev, curr) {
+                if (prev.diffTop < curr.diffTop) {
+                    return prev;
+                } else {
+                    return curr;
+                }
+            }).e;
+            changeHash(currentAnchor.id);
+        }
     }
 }
 function changeHash(hash) {
