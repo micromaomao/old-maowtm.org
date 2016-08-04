@@ -41,3 +41,16 @@ if (window.location.hash && window.location.hash.length > 0) {
 }
 setInterval(check, 100);
 check();
+
+var shakes = document.querySelectorAll(".shake");
+function shake() {
+    function randomPos() {
+        return Math.floor(Math.random() * 4 - 2) + "px";
+    }
+    Array.prototype.forEach.call(shakes, function (e) {
+        e.style.transform = "translate(" + randomPos() + ", " + randomPos() +")";
+    });
+    if (shakes.length > 0)
+        window.requestAnimationFrame(shake);
+}
+shake();

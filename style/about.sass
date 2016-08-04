@@ -365,3 +365,31 @@ body.mobile .tile-progress
         li
             .tags
                 display: block;
+
+.tile-learning
+    @extend .tile;
+    @extend .content;
+    text-align: center;
+    border-top: solid 2px $color-purple;
+    background-color: rgba($color-purple, 0.1);
+    .pad
+        margin: auto
+        text-align: left
+        max-width: $tile-skill-maxwidth
+        h2
+            @extend .reset_hx
+            small
+                font-size: 60%
+                vertical-align: middle
+        > h3
+            @extend .reset_hx
+            font-size: 1.5em
+            color: $color-purple
+        .desc
+            font-size: 0.8rem;
+            margin: 0 0 0.5rem 0;
+            padding-left: 1rem;
+        p
+            .emp
+                color: $color-accent;
+                font-weight: bold;
