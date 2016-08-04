@@ -4,7 +4,7 @@
   "description": "My website",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "MONGODB=127.0.0.1 REDIS=127.0.0.1 mocha"
   },
   "repository": {
     "type": "git",
@@ -18,13 +18,14 @@
   "homepage": "https://github.com/micromaomao/maowtm.org#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "http2": "^3.3.4",
-    "jade": "^1.11.0",
-    "jstransformer-marked": "^1.0.1",
-    "lwip": "0.0.8",
-    "mongoose": "^4.5.2",
+    "lwip": "0.0.9",
+    "mongoose": "^4.5.3",
+    "node-sass": "^3.8.0",
+    "pug": "^2.0.0-bata3",
     "redis": "^2.6.2",
-    "redis-lock": "^0.1.0"
+    "redis-lock": "^0.1.0",
+    "spdy": "^3.3.3",
+    "uglify-js": "^2.7.0"
   },
   "devDependencies": {
     "should": "^9.0.2",

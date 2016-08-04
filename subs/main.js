@@ -9,45 +9,28 @@ module.exports = function (db, lock) {
     var r_main = express.Router();
     var r_www = express.Router();
 
-    var t32 = Math.pow(2, 32);
-    function baseurl(buf) {
-        return buf.toString('base64').replace(/\//g, '_').replace(/\+/g, ' ').replace(/=/g, '');
-    }
-    function debaseurl(b) {
-        return new Buffer(b.replace(/ /g, '+').replace(/_/g, '/'), 'base64');
-    }
-    function timesign_stringify(time) {
-        var stamp = Math.floor(time.getTime() / 1000);
-        var buf;
-        if (stamp > t32 - 1) {
-            buf = new Buffer(64 / 8);
-            var ln = Math.floor(stamp / t32);
-            var rn = stamp % t32;
-            buf.writeUInt32BE(ln, 0);
-            buf.writeUInt32BE(rn, 32 / 8);
-            return baseurl(buf);
-        } else {
-            buf = new Buffer(32 / 8);
-            buf.writeUInt32BE(stamp);
-            return baseurl(buf);
-        }
-    }
-    function timesign_parse(s) {
-        var buf = debaseurl(s);
-        var ln = buf.readUInt32BE(0);
-        var rn;
-        if (buf.length > 32 / 8) {
-            rn = buf.readUInt32BE(32 / 8);
-            return new Date((ln * t32 + rn) * 1000);
-        }
-        return new Date(ln * 1000);
-    }
     r_www.get('/', function(req, res) {
         res.redirect(302, 'https://maowtm.org');
     });
+    var data_me = {
+        birth: 998323200
+    }
     r_main.get('/', function(req, res) {
-        // TODO
-        res.end("Wait.");
+        res.redirect("about/");
+    });
+    r_main.get('/about', function(req, res) {
+        var agepre = ( Date.now() / 1000 - data_me.birth ) / ( 60*60*24*365 );
+        res.send(pages.about({
+            age: Math.round(agepre * 10) / 10,
+            agepre
+        }));
+    });
+    r_main.get('/data/me/', function(req, res) {
+        data_me.age = Math.floor(Date.now() / 1000) - data_me.birth;
+        res.send(data_me);
+    });
+    r_main.get('/tweets', function(req, res) {
+        res.redirect("https://twitter.com/WtmMao");
     });
 
     return function(req, res, next) {

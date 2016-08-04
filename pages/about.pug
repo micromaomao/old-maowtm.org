@@ -1,0 +1,24 @@
+extends layout
+
+block head
+    title Mao Wtm
+
+block content
+    .top
+        .desc Everything about
+        h1 Mao Wtm
+        blockquote #{"<Albert Einstein>"} <i>The more I learn, the more I realize how much I don't know.</i>
+        .quicklinks
+            a(href="#bio") Me
+            a(href="#projects") Projects
+            a(href="#skills") Skills
+            a(href="#progress") Progress
+            a(href="#learning") Learning
+            a(href="#contact") Contact
+        .img-desc Brain sucked by algorithm problem
+    include about/bio
+    include about/projects
+    include about/skills
+    include about/progress
+    include about/learning
+    include about/contact

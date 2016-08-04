@@ -1,0 +1,61 @@
+$color-primary: #E91E63
+$color-primary-text: #212121
+$color-primary-dark: #C2185B
+$color-primary-light: #F8BBD0
+$color-background: #FFFFFF
+$color-accent: #009688
+$color-secondary-text: #727272
+$color-divider: #B6B6B6
+$color-pink: #EB65A0
+$color-blue: #73C5E1
+$color-purple: #9B539C
+$color-green: #5BB12F
+$color-yellowgreen: #BCCF02
+$color-orange: #FF5722;
+$color-brown: #795548;
+$fs-text: 15px
+=transition($prop, $time)
+    transition: $prop $time
+    -webkit-transition: $prop $time
+    -moz-transition: $prop $time
+    -ms-transition: $prop $time
+=column_width($width)
+    -webkit-column-width: $width;
+    -moz-column-width: $width;
+    column-width: $width;
+
+body
+    color: $color-primary-text
+    background-color: $color-background
+    font-size: $fs-text
+    line-height: 1.4
+    p
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+
+a
+    text-decoration: none
+    color: inherit
+body .content a
+    +transition(color, 250ms)
+
+body .content:hover a,
+body.mobile .content a
+    color: $color-primary
+
+body .content a:hover
+    color: $color-primary-dark
+    border-bottom: solid 1px $color-divider
+body .content img
+    max-width: 100%;
+
+i
+    font-weight: lighter;
+    font-family: 'Alegreya Sans', sans-serif;
+    line-height: 0;
+pre, code
+    line-height: 1.2;
+    white-space: pre-wrap;
+    word-break: break-all;
+.shake
+    display: inline-block;

@@ -1,0 +1,59 @@
+.tile-progress#progress
+    .pad
+        h2 Progress
+        -var eDiff = "😨";
+        -var eUseful = "😋";
+        -var eNetural = "😶";
+        mixin progress(name, diff, useful, href)
+            -var mapAbc = (v) => ["", "a", "a", "b", "c", "d"][v];
+            -var mapStar = (v) => "★".repeat(v);
+            -var ddf = useful - diff;
+            li
+                -if (!href)
+                    span.name(data-ddf=ddf)= name
+                -else
+                    a(href=href)
+                        span.name(data-ddf=ddf)= name
+                |  
+                .tags
+                    span(class="diff " + mapAbc(diff), title="Difficulty: " + diff) #{eDiff.repeat(diff) || eNetural}
+                    |  + 
+                    span(class="useful " + mapAbc(useful), title="Usefulness: " + useful) #{eUseful.repeat(useful) || eNetural}
+                    |  => 
+                    -if (ddf > 0)
+                        span(class="net useful " + mapAbc(ddf), title="Net Usefulness: " + ddf) #{eUseful.repeat(ddf)}
+                    -else if (ddf == 0)
+                        span(class="net", title="Net Usefulness: 0")= eNetural
+                    -else
+                        span(class="net diff " + mapAbc(-ddf), title="Net Usefulness: " + ddf) #{eDiff.repeat(-ddf)}
+        p.desc #{eDiff} = difficulty, #{eUseful} = usefulness, #{eNetural} = 0
+            span.spNoEmoji
+                |  ( So your browser don't have Emoji support? )
+        h3 Good things that I'm currently doing
+        ul
+            +progress("背单词", 4, 3)
+            +progress("Try different developing tools / framework etc. regularly", 4, 4)
+            +progress("Read programming blogs", 2, 4)
+        h3 Good things that I wanted to keep doing but had given up <i>temporarily</i> because I'm lazy
+        ul
+            +progress("Sleep early", 4, 4)
+            +progress("Write things regularly", 5, 5)
+            +progress("Write blog regularly", 5, 5)
+            +progress("Learn Android + Work on Android project TagAlarm", 2, 5)
+            +progress("Read books regularly*", 3, 5)
+            +progress("Do excerise regularly", 5, 4)
+            +progress("Practise typing using all fingures", 4, 3)
+            li Complete my CS courses*
+        h3 Good things that I want to do
+        ul
+            +progress("Refactor old projects + write tests for them", 5, 5)
+            +progress("Follow a coding style ( standard )", 0, 3)
+            +progress("Create more truly useful projects", 5, 5)
+            +progress("Read major open source project's source code", 4, 4)
+            li Learn stuff
+                a(href="#learning") *
+        h3 *: Courses I want to get completed
+        ul
+            +progress("Algorithms: Design and Analysis, Part 1", 4, 3, "https://www.coursera.org/learn/algorithm-design-analysis")
+        // TODO: put a link to a page shows courses I've completed and tools I found useful.
+        // TODO: put Books I'm reading and books I want to read to a separate page

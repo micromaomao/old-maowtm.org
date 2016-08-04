@@ -2,6 +2,8 @@ const express = require('express');
 const pages = require('../pages');
 const lwip = require('lwip');
 const qs = require('querystring');
+const UglifyJS = require("uglify-js");
+const staticCache = require('../static-cache');
 
 module.exports = function (db, lock) {
     var mongoose = db;
@@ -20,80 +22,82 @@ module.exports = function (db, lock) {
 
     // These stuff "cache" images ( and their different sizes, when needed ) to database.
 
+    // See https://www.npmjs.com/package/lwip#supported-formats
+    const validExtensions = [
+        "png",
+        "jpg",
+        "gif"
+    ];
+
     /**
-     * Read a image from `filePath`, and add it to the database with name `imgName`.
-     * imgName is unique.
-     * @param imgName string an unique name of the image.
-     * @param filePath string where to find that image, absolute path needed for simplification.
+     * Add or replace image with name `imgName` with `buffer`.
+     * @param imgName string an unique name of the image. Extension must be included.
+     * @param imageData Buffer raw data of the image.
      * @param callback function(err)
      */
-    imageSchema.static('addImageIfNotExist', function (imgName, filePath, callback) {
-        if (callback && typeof callback != "function") {
-            throw new Error("Illegal callback.");
-        }
-        if (!callback) {
-            callback = function (err) {
-                if (err)
-                    console.error(err);
-            };
+    imageSchema.static('addImage', function (imgName, imageData, callback) {
+        if (typeof callback != "function") {
+            throw new Error("Illegal / no callback.");
         }
         if (typeof imgName != "string" || imgName.length <= 0
-           || typeof filePath != "string" || filePath.length <= 0) {
+           || !Buffer.isBuffer(imageData) || imageData.length <= 0) {
             return callback(new Error("Illegal argument."));
         }
-        // Find if already exists, Ignore if so.
-        image.findOne({ name: imgName }, function (err, imgFound) {
-            if(err)
+        var ext = imgName.match(/\.([a-zA-Z0-9]+)$/);
+        if (!ext) {
+            return callback(new Error("Extension not provided."));
+        }
+        ext = ext[1];
+        if (validExtensions.indexOf(ext) < 0) {
+            return callback(new Error(ext.toUpperCase() + ": Format not supported."));
+        }
+        lwip.open(imageData, ext, function (err, lwipImg) {
+            if (err) {
                 callback(err);
-            else if (imgFound)
-                callback(null);
-            else {
-                lwip.open(filePath, function (err, lwipImg) {
-                    if(err)
-                        callback(err);
-                    else {
-                        var imgDoc = new image({
-                            name: imgName,
-                            width: img.width()
-                        });
-                        lwipImg.toBuffer('png', function (err, buff) {
-                            if(err) {
-                                callback(err);
-                            } else {
-                                imgDoc.set('src', buff);
-                                imgDoc.save(callback);
-                            }
-                        });
-                    }
-                });
+                return;
+            }
+            image.findOne({ name: imgName }, function (err, existImgDoc) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                if (existImgDoc) {
+                    new image(existImgDoc).purge(function (err) {
+                        if (err) {
+                            callback(err);
+                            return;
+                        }
+                        doAdd();
+                    });
+                } else {
+                    doAdd();
+                }
+            });
+            function doAdd() {
+                var imgDoc = new image({ name: imgName, src: imageData, width: lwipImg.width() });
+                imgDoc.save(err => callback(err));
             }
         });
     });
-
     /**
-     * Read a image from database. The nearest 50px scale will be returned. If there isn't already
-     * a cached scaled image for the caller to use, one will be created.
-     * @param scale integer in px.
-     * @param allowEnlarge integer should I return an enlarged image if required scale is bigger
-     *  than the image?
+     * Read a image cache from database. The nearest 50px scale will be returned. If there isn't already
+     * a cached scaled image for the caller to use, one will be created. If the width provided is larger
+     * than the width of the original image, the original will be returned.
+     * @param scale integer width in px.
      * @param callback function(err, buffer) the function to give data to.
      */
-    imageSchema.method('queryScale', function (scale, allowEnlarge, callback) {
-        if (callback && typeof callback != "function") {
+    imageSchema.method('queryScale', function (scale, callback) {
+        if (typeof callback != "function") {
             throw new Error("Illegal callback.");
         }
-        if (!callback) {
-            callback = function (err) {
-                if (err)
-                    console.error(err);
-            };
+        if (!Number.isFinite(scale) && scale > 0) {
+            callback(null, this.src);
+            return;
         }
         if (!Number.isInteger(scale) || scale <= 0)
             return callback(new Error("Illegal argument."));
-        if (!allowEnlarge)
-            allowEnlarge = false;
         scale = Math.ceil(scale / 50) * 50;
-        if ((scale > this.width && !allowEnlarge) || scale == this.width) {
+        if (scale >= this.width) {
             callback(null, this.src);
             return;
         }
@@ -134,8 +138,8 @@ module.exports = function (db, lock) {
                                         callback(err, null);
                                         done();
                                     } else {
-                                        doc.set('data', buff);
-                                        doc.save(function(err) {
+                                        cachedDoc.set('data', buff);
+                                        cachedDoc.save(function(err) {
                                             callback(null, buff);
                                             done();
                                         });
@@ -148,38 +152,118 @@ module.exports = function (db, lock) {
             }
         });
     });
+    /*
+     * Remove the image and all it's cache from database.
+     */
+    imageSchema.method('purge', function(callback) {
+        if (typeof callback != "function") {
+            throw new Error("Illegal callback.");
+        }
+        var _id = this._id;
+        lock('imageCaching\t' + _id.toString(), function(done) {
+            cachedScale.remove({imgId: _id}, function(err) {
+                if (err) {
+                    callback(err);
+                    done();
+                    return;
+                }
+                image.remove({_id: _id}, function(err) {
+                    callback(err);
+                    done();
+                });
+            });
+        });
+    });
 
     var image = mongoose.model('image', imageSchema);
     var cachedScale = mongoose.model('cachedScale', cachedScaleSchema);
 
     var r_static = express.Router();
+    r_static.use(function(req, res, next) {
+        if (!req.path.match(/\.js$/)) {
+            return next();
+        }
+        staticCache(req.path, function(fileName, data, done) {
+            var headComment = "// Minified js. Source: https://github.com/micromaomao/maowtm.org/tree/master/static/" + fileName + "\n\n";
+            try {
+                var result = headComment + UglifyJS.minify(data, {fromString: true}).code;
+                done(null, result);
+            } catch (e) {
+                done(e);
+            }
+        }, function(err, data) {
+            if (err) {
+                return next(err);
+            }
+            if (!data) {
+                return next();
+            }
+            res.type(".js");
+            res.send(data);
+        });
+    });
+    r_static.use(function(req, res, next) {
+        var pathMatch = req.path.match(/\.(svg|xml)$/);
+        if (!pathMatch) {
+            return next();
+        }
+        var ext = pathMatch[1];
+        staticCache(req.path, function(fileName, data, done) {
+            var headComment = "<!-- Compactify-ed xml. Source: https://github.com/micromaomao/maowtm.org/tree/master/static/" + fileName + " -->\n\n";
+            try {
+                var result = headComment + data.replace(/\n\s{0,}/g, " ");
+                done(null, result);
+            } catch (e) {
+                done(e);
+            }
+        }, function(err, data) {
+            if (err) {
+                return next(err);
+            }
+            if (!data) {
+                return next();
+            }
+            res.type("." + ext);
+            res.send(data);
+        });
+    });
     r_static.use(express.static('static'));
     var r_img = express.Router({
         strict: true
     });
     r_img.get('/:imgname', function (req, res, next) {
-        var scale = parseInt(req.query.width);
-        if(req.query.width && (scale.toString() != req.query.width || scale <= 0)) {
-            scale = Infinity; // It will be set to the size of that image later.
+        var desiredWidth = parseInt(req.query.width);
+        if (!req.query.width || Number.isNaN(desiredWidth) || desiredWidth <= 0) {
+            desiredWidth = Infinity;
         }
         image.findOne({ name: req.params.imgname }, function (err, img) {
             if(err)
-                res.error(err);
+                next(err);
             else if (!img) {
                 next();
             } else {
-                if (scale > img.width) {
-                    delete req.query.width;
-                    var qr = qs.stringify(req.query);
-                    if(qr.length > 0) {
-                        qr = "?" + qr;
+                if (req.query.width) {
+                    if (desiredWidth >= img.width) {
+                        delete req.query.width;
+                        var qr = qs.stringify(req.query);
+                        if(qr.length > 0) {
+                            qr = "?" + qr;
+                        }
+                        res.redirect(302, req.path + qr);
+                        return;
+                    } else if (req.query.width.toString() != desiredWidth.toString()) {
+                        req.query.width = desiredWidth;
+                        var qr = qs.stringify(req.query);
+                        if(qr.length > 0) {
+                            qr = "?" + qr;
+                        }
+                        res.redirect(302, req.path + qr);
+                        return;
                     }
-                    res.redirect(302, req.path + qr);
-                    return;
                 }
-                img.queryScale(scale || img.width, false, function (err, buff) {
+                img.queryScale(desiredWidth, function (err, buff) {
                     if(err)
-                        res.error(err);
+                        next(err);
                     else {
                         res.type('png');
                         res.send(buff);
@@ -187,6 +271,9 @@ module.exports = function (db, lock) {
                 });
             }
         });
+    });
+    r_img.get('/', function(req, res) {
+        res.redirect(302, "https://maowtm.org/img/")
     });
     return function(req, res, next) {
         if (req.hostname == 'static.maowtm.org') {
