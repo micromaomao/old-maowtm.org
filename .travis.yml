@@ -1,19 +1,19 @@
 language: node_js
 node_js:
-    - "6"
+  - "6"
 env:
-    - CXX=g++-4.8
+  - CXX=g++-4.8
 install:
-    - npm install -g npm@latest
-    - npm cache clean
-    - npm install --dev
-    - npm install -g mocha
+  - npm install -g npm@latest
+  - npm cache clean
+  - npm install --dev
+  - npm install -g mocha
 services:
-    - mongodb
-    - redis-server
+  - mongodb
+  - redis-server
 addons:
-    apt:
-        sources:
-            - ubuntu-toolchain-r-test
-        packages:
-            - g++-4.8
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
