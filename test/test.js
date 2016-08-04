@@ -336,12 +336,13 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
             if (imgDoc) {
               CachedScale.remove({imgId: imgDoc._id}, done)
               console.log(' -> Removing all cachedScale of ' + testImg)
+            } else {
+              done();
             }
           }
         })
       })
       before(function (done) {
-        this.timeout(5000)
         lwip.open(require('path').join(__dirname, testImg), function (err, lwipImage) {
           if (err) {
             done(err)
