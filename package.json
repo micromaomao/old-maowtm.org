@@ -4,7 +4,7 @@
   "description": "My website",
   "main": "index.js",
   "scripts": {
-    "test": "MONGODB=127.0.0.1 REDIS=127.0.0.1 mocha"
+    "test": "standard && MONGODB=127.0.0.1 REDIS=127.0.0.1 mocha"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "should": "^9.0.2",
-    "supertest": "^1.2.0"
+    "supertest": "^1.2.0",
+    "standard": "^7.1.2"
   }
 }
