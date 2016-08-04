@@ -341,7 +341,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         })
       })
       before(function (done) {
-        this.timeout(5000);
+        this.timeout(5000)
         lwip.open(require('path').join(__dirname, testImg), function (err, lwipImage) {
           if (err) {
             done(err)
