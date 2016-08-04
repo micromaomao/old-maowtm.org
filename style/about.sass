@@ -1,394 +1,394 @@
 @import layout
 =current_list_icon($icon-bg)
-    border-radius: 50%
-    background: mapStatic($icon-bg), $color-primary
-    color: $color-background
-    width: 80px
-    height: 80px
-    display: inline-block
-    overflow: none
+  border-radius: 50%
+  background: mapStatic($icon-bg), $color-primary
+  color: $color-background
+  width: 80px
+  height: 80px
+  display: inline-block
+  overflow: none
 
 body
-    margin: 0
-    padding: 0
+  margin: 0
+  padding: 0
 .reset_hx
-    font-weight: normal
-    margin: 0
-    padding: 0
-    list-style-type: none
+  font-weight: normal
+  margin: 0
+  padding: 0
+  list-style-type: none
 .top
-    color: $color-primary-text
-    background: mapStatic("imgs/index_top.jpg"), #7f4810
-    background-size: cover;
-    background-position: 50% 50%
-    text-align: center
-    overflow: none
-    position: relative
-    padding-top: 150px
-    padding-bottom: 8rem;
+  color: $color-primary-text
+  background: mapStatic("imgs/index_top.jpg"), #7f4810
+  background-size: cover;
+  background-position: 50% 50%
+  text-align: center
+  overflow: none
+  position: relative
+  padding-top: 150px
+  padding-bottom: 8rem;
 
-    .img-desc
-        font-size: 16px
-        background-color: rgba($color-primary-light, 0.5)
-        color: $color-primary
-        position: absolute
-        bottom: 0
-        right: 0
-        padding: 4px
+  .img-desc
+    font-size: 16px
+    background-color: rgba($color-primary-light, 0.5)
+    color: $color-primary
+    position: absolute
+    bottom: 0
+    right: 0
+    padding: 4px
 
-    h1
-        @extend .reset_hx
-        @extend i
-        line-height: 1.3
-        font-size: 48px
-        color: $color-primary-light
-        text-shadow: 1px 1px 0 $color-primary, -1px -1px 0 $color-primary, 1px -1px 0 $color-primary , -1px 1px 0 $color-primary
-    blockquote
-        padding-bottom: 40px;
-        margin: 0;
-        font-family: serif;
-        vertical-align: middle;
-        i
-            vertical-align: middle;
-            font-weight: bold;
-            font-size: 1.4rem;
-    .quicklinks
-        margin: 0
-        a
-            padding: 10px
-            border-bottom: 1px dashed $color-primary
-            +transition(all, 300ms)
-        a:hover
-            text-shadow: 0 0 10px white, 0 0 20px white
-            color: $color-primary
+  h1
+    @extend .reset_hx
+    @extend i
+    line-height: 1.3
+    font-size: 48px
+    color: $color-primary-light
+    text-shadow: 1px 1px 0 $color-primary, -1px -1px 0 $color-primary, 1px -1px 0 $color-primary , -1px 1px 0 $color-primary
+  blockquote
+    padding-bottom: 40px;
+    margin: 0;
+    font-family: serif;
+    vertical-align: middle;
+    i
+      vertical-align: middle;
+      font-weight: bold;
+      font-size: 1.4rem;
+  .quicklinks
+    margin: 0
+    a
+      padding: 10px
+      border-bottom: 1px dashed $color-primary
+      +transition(all, 300ms)
+    a:hover
+      text-shadow: 0 0 10px white, 0 0 20px white
+      color: $color-primary
 
 body.mobile
-    .top
-        padding-top: 40px
-        padding-bottom: 4rem;
-        h1
-            font-size: 32px
-        blockquote
-            padding-bottom: 10px;
-            i
-                display: block;
-                line-height: 1;
-        .quicklinks
-            font-size: 20px
-            a
-                display: block
-                border-bottom: 0;
-                padding: 5px 
+  .top
+    padding-top: 40px
+    padding-bottom: 4rem;
+    h1
+      font-size: 32px
+    blockquote
+      padding-bottom: 10px;
+      i
+        display: block;
+        line-height: 1;
+    .quicklinks
+      font-size: 20px
+      a
+        display: block
+        border-bottom: 0;
+        padding: 5px 
 
 .tile
-    padding: 16px
+  padding: 16px
 
 .tile-bio
-    @extend .tile
-    @extend .content
-    border-top: solid 2px $color-primary-light
-    text-align: center
+  @extend .tile
+  @extend .content
+  border-top: solid 2px $color-primary-light
+  text-align: center
 
-    h2
-        @extend .reset_hx
-        font-size: 26px
-        display: inline-block
-        text-align: left
+  h2
+    @extend .reset_hx
+    font-size: 26px
+    display: inline-block
+    text-align: left
 
-        .currently
-            font-size: 16px
-            color: $color-secondary-text
+    .currently
+      font-size: 16px
+      color: $color-secondary-text
 
-    ul.current-list
-        @extend .reset_hx
-        display: block
-        margin: auto
-        vertical-align: top
-        padding: 12px 0 12px 0
+  ul.current-list
+    @extend .reset_hx
+    display: block
+    margin: auto
+    vertical-align: top
+    padding: 12px 0 12px 0
 
-        li
-            display: inline-block
-            max-width: 120px
-            margin: 8px
-            vertical-align: top
-            .desc
-                font-size: 18px
+    li
+      display: inline-block
+      max-width: 120px
+      margin: 8px
+      vertical-align: top
+      .desc
+        font-size: 18px
 
-            .icon-igcse
-                +current_list_icon("/svg/icon-igcse.svg")
-            .icon-sz
-                +current_list_icon("/svg/icon-sz.svg")
-            .icon-yr
-                +current_list_icon("/svg/icon-yr.svg")
-    p
-        max-width: 800px;
-        text-align: left;
-        margin-left: auto;
-        margin-right: auto;
+      .icon-igcse
+        +current_list_icon("/svg/icon-igcse.svg")
+      .icon-sz
+        +current_list_icon("/svg/icon-sz.svg")
+      .icon-yr
+        +current_list_icon("/svg/icon-yr.svg")
+  p
+    max-width: 800px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
 
 body.mobile
-    .tile-bio
-        h2
-            font-size: 20px
-        ul.current-list
-            li
-                margin: 4px
-                .desc
-                    font-size: 16px
+  .tile-bio
+    h2
+      font-size: 20px
+    ul.current-list
+      li
+        margin: 4px
+        .desc
+          font-size: 16px
 
 $tile-skill-maxwidth: 800px
 .tile-skill
-    @extend .content
-    @extend .tile
-    border-top: solid 2px $color-blue
-    background-color: rgba($color-blue, 0.1)
+  @extend .content
+  @extend .tile
+  border-top: solid 2px $color-blue
+  background-color: rgba($color-blue, 0.1)
 
-    .pad
-        margin: auto
+  .pad
+    margin: auto
+    max-width: $tile-skill-maxwidth
+    h2
+      @extend .reset_hx
+    .till
+      color: $color-secondary-text
+      margin-bottom: 4px
+    > h3
+      @extend .reset_hx
+      font-size: 1.5em
+      color: $color-blue
+    > h4
+      @extend .reset_hx
+      font-size: 1.3em
+      color: $color-primary-dark
+      line-height: 2
+    p
+      padding: 2px 4px 2px 4px
+
+  .skilltags
+    > ul
+      $skilltags-li-bgr: lighten($color-blue, 25%)
+      @extend .reset_hx
+      margin: 8px -16px -16px -16px
+      padding: 0 8px 4px 8px
+      text-align: center
+      background-color: $skilltags-li-bgr
+      +column_width($tile-skill-maxwidth)
+      > li
+        $skilltags-li-name-bgr: darken($color-blue, 20%)
+        $skilltags-li-exp-bgr: $color-accent
+        padding: 0 8px 0 8px
+        border-top: 2px solid $color-blue
+        display: inline-block
+        text-align: left
         max-width: $tile-skill-maxwidth
-        h2
-            @extend .reset_hx
-        .till
-            color: $color-secondary-text
-            margin-bottom: 4px
-        > h3
-            @extend .reset_hx
-            font-size: 1.5em
-            color: $color-blue
-        > h4
-            @extend .reset_hx
-            font-size: 1.3em
-            color: $color-primary-dark
-            line-height: 2
-        p
-            padding: 2px 4px 2px 4px
+        width: 100%;
+        > span
+          display: inline-block
+          vertical-align: bottom
+          padding-left: 8px
+          padding-right: 8px
+          line-height: 22px
+          font-size: 16px
+        .name
+          margin-left: -8px
+          padding-left: 16px
+          background-color: $skilltags-li-name-bgr
+          color: $color-background
+        .name-trig-bg
+          font-size: 0
+          padding: 0
+          margin: 0
+          background-color: $skilltags-li-exp-bgr
+          .name-trig
+            width: 0
+            height: 0
+            font-size: 0
+            border-left: 15px solid $skilltags-li-name-bgr
+            border-bottom: 22px solid transparent
+            padding: 0
+            display: block
+        .exp
+          background-color: $skilltags-li-exp-bgr
+          color: $color-background
+        .exp-trig-bg
+          @extend .name-trig-bg
+          background-color: $skilltags-li-bgr
+          .exp-trig
+            @extend .name-trig
+            border-left: 15px solid $skilltags-li-exp-bgr
+            border-bottom: 22px solid transparent
+        .desc
+          padding: 4px 8px 4px 8px
 
-    .skilltags
-        > ul
-            $skilltags-li-bgr: lighten($color-blue, 25%)
-            @extend .reset_hx
-            margin: 8px -16px -16px -16px
-            padding: 0 8px 4px 8px
-            text-align: center
-            background-color: $skilltags-li-bgr
-            +column_width($tile-skill-maxwidth)
-            > li
-                $skilltags-li-name-bgr: darken($color-blue, 20%)
-                $skilltags-li-exp-bgr: $color-accent
-                padding: 0 8px 0 8px
-                border-top: 2px solid $color-blue
-                display: inline-block
-                text-align: left
-                max-width: $tile-skill-maxwidth
-                width: 100%;
-                > span
-                    display: inline-block
-                    vertical-align: bottom
-                    padding-left: 8px
-                    padding-right: 8px
-                    line-height: 22px
-                    font-size: 16px
-                .name
-                    margin-left: -8px
-                    padding-left: 16px
-                    background-color: $skilltags-li-name-bgr
-                    color: $color-background
-                .name-trig-bg
-                    font-size: 0
-                    padding: 0
-                    margin: 0
-                    background-color: $skilltags-li-exp-bgr
-                    .name-trig
-                        width: 0
-                        height: 0
-                        font-size: 0
-                        border-left: 15px solid $skilltags-li-name-bgr
-                        border-bottom: 22px solid transparent
-                        padding: 0
-                        display: block
-                .exp
-                    background-color: $skilltags-li-exp-bgr
-                    color: $color-background
-                .exp-trig-bg
-                    @extend .name-trig-bg
-                    background-color: $skilltags-li-bgr
-                    .exp-trig
-                        @extend .name-trig
-                        border-left: 15px solid $skilltags-li-exp-bgr
-                        border-bottom: 22px solid transparent
-                .desc
-                    padding: 4px 8px 4px 8px
-
-                    .linuxpre
-                        color: #5f767f
-                        background-color: #fdf6e3
-                        font-size: 14px
-                        .e1
-                            background-color: #073642
-                            color: #5f767f
-                        .e2
-                            background-color: #268bd2
-                            color: #073642
-                        .e3
-                            background-color: #268bd2
-                            color: #073642
-                        .e4
-                            color: #268bd2
-                    .linuxpre::selection, .linuxpre *::selection
-                        background-color: #5f767f
-                        color: #fdf6e3
-    .pad.btn
-        margin-top: 2rem;
+          .linuxpre
+            color: #5f767f
+            background-color: #fdf6e3
+            font-size: 14px
+            .e1
+              background-color: #073642
+              color: #5f767f
+            .e2
+              background-color: #268bd2
+              color: #073642
+            .e3
+              background-color: #268bd2
+              color: #073642
+            .e4
+              color: #268bd2
+          .linuxpre::selection, .linuxpre *::selection
+            background-color: #5f767f
+            color: #fdf6e3
+  .pad.btn
+    margin-top: 2rem;
 
 body.mobile
-    .tile-skill
-        .skilltags
-            > ul
-                > li
-                    border-top: none
-                    > span
-                        display: block
-                        margin: 0 -8px 0 -8px
-                    .name-trig-bg, .exp-trig-bg
-                        display: none
-                    .name
-                        padding-left: 8px
+  .tile-skill
+    .skilltags
+      > ul
+        > li
+          border-top: none
+          > span
+            display: block
+            margin: 0 -8px 0 -8px
+          .name-trig-bg, .exp-trig-bg
+            display: none
+          .name
+            padding-left: 8px
 
 .tile-project
-    @extend .tile;
-    @extend .content;
-    text-align: center;
-    border-top: solid 2px $color-pink;
-    background-color: rgba($color-pink, 0.1);
-    h2,h3
-        @extend .reset_hx;
-    > ul
-        > li
-            text-align: left;
-            background-color: rgba(white, 0.6);
-            display: inline-block;
-            list-style-type: none;
-            max-width: 400px;
-            margin: 0.5rem;
-            padding: 0.5rem;
-            h3 a
-                color: $color-primary;
-            h3 a:hover
-                color: $color-primary-dark;
-            .stattag
-                display: inline-block;
-                padding: 0.3rem;
-                background-color: rgba($color-pink, 0.2);
-                border-radius: 4px;
-                font-size: 90%;
-                color: $color-primary-dark;
-            .builtwith
-                .built
-                    background-color: #dddddd;
-                    color: darken($color-pink, 20%);
-                    display: inline-block;
-                    margin: 0.1rem;
-                    padding: 0.2rem;
-                    border-radius: 4px;
-                .built.b-nodejs, .built.b-android
-                    color: darken($color-green, 10%);
-                .built.b-web, .built.b-react
-                    color: darken($color-blue, 10%);
-                .built.b-javascript
-                  color: darken($color-orange, 10%);
-                .built.b-electron
-                  color: darken($color-purple, 10%);
-                .built.b-python, .built.b-linux
-                  color: #2b5b84;
-                .built.b-minecraft
-                  color: darken($color-brown, 10%);
-    > p
-        max-width: 500px;
-        margin: auto;
-body.mobile
-    .tile-project
-        > ul
-            > li
-                display: block;
-.tile-contact
-    @extend .tile;
-    @extend .content;
-    text-align: center;
-    border-top: solid 2px $color-green;
-    background-color: rgba($color-green, 0.1);
-    h2,h3
-        @extend .reset_hx;
-    ul
-        max-width: 800px;
+  @extend .tile;
+  @extend .content;
+  text-align: center;
+  border-top: solid 2px $color-pink;
+  background-color: rgba($color-pink, 0.1);
+  h2,h3
+    @extend .reset_hx;
+  > ul
+    > li
+      text-align: left;
+      background-color: rgba(white, 0.6);
+      display: inline-block;
+      list-style-type: none;
+      max-width: 400px;
+      margin: 0.5rem;
+      padding: 0.5rem;
+      h3 a
+        color: $color-primary;
+      h3 a:hover
+        color: $color-primary-dark;
+      .stattag
         display: inline-block;
-        text-align: left;
+        padding: 0.3rem;
+        background-color: rgba($color-pink, 0.2);
+        border-radius: 4px;
+        font-size: 90%;
+        color: $color-primary-dark;
+      .builtwith
+        .built
+          background-color: #dddddd;
+          color: darken($color-pink, 20%);
+          display: inline-block;
+          margin: 0.1rem;
+          padding: 0.2rem;
+          border-radius: 4px;
+        .built.b-nodejs, .built.b-android
+          color: darken($color-green, 10%);
+        .built.b-web, .built.b-react
+          color: darken($color-blue, 10%);
+        .built.b-javascript
+          color: darken($color-orange, 10%);
+        .built.b-electron
+          color: darken($color-purple, 10%);
+        .built.b-python, .built.b-linux
+          color: #2b5b84;
+        .built.b-minecraft
+          color: darken($color-brown, 10%);
+  > p
+    max-width: 500px;
+    margin: auto;
+body.mobile
+  .tile-project
+    > ul
+      > li
+        display: block;
+.tile-contact
+  @extend .tile;
+  @extend .content;
+  text-align: center;
+  border-top: solid 2px $color-green;
+  background-color: rgba($color-green, 0.1);
+  h2,h3
+    @extend .reset_hx;
+  ul
+    max-width: 800px;
+    display: inline-block;
+    text-align: left;
 
 .tile-progress
-    @extend .tile;
-    @extend .content;
-    text-align: center;
-    border-top: solid 2px $color-yellowgreen;
-    background-color: rgba($color-yellowgreen, 0.1);
-    .pad
-        margin: auto
-        text-align: left
-        max-width: $tile-skill-maxwidth
-        h2
-            @extend .reset_hx
-        > h3
-            @extend .reset_hx
-            font-size: 1.5em
-            color: $color-yellowgreen
+  @extend .tile;
+  @extend .content;
+  text-align: center;
+  border-top: solid 2px $color-yellowgreen;
+  background-color: rgba($color-yellowgreen, 0.1);
+  .pad
+    margin: auto
+    text-align: left
+    max-width: $tile-skill-maxwidth
+    h2
+      @extend .reset_hx
+    > h3
+      @extend .reset_hx
+      font-size: 1.5em
+      color: $color-yellowgreen
 
-    ul
-        li
-            vertical-align: middle;
-            .tags
-                margin-left: 1rem;
-                font-size: 0.9rem;
-            .diff, .useful, .tags
-                display: inline;
-                vertical-align: middle;
-            .a
-                color: $color-green
-            .b
-                color: $color-blue
-            .c
-                color: $color-pink
-            .d
-                color: $color-purple
+  ul
+    li
+      vertical-align: middle;
+      .tags
+        margin-left: 1rem;
+        font-size: 0.9rem;
+      .diff, .useful, .tags
+        display: inline;
+        vertical-align: middle;
+      .a
+        color: $color-green
+      .b
+        color: $color-blue
+      .c
+        color: $color-pink
+      .d
+        color: $color-purple
 body.mobile .tile-progress
-    p .spNoEmoji
-        display: none;
-    ul
-        li
-            .tags
-                display: block;
+  p .spNoEmoji
+    display: none;
+  ul
+    li
+      .tags
+        display: block;
 
 .tile-learning
-    @extend .tile;
-    @extend .content;
-    text-align: center;
-    border-top: solid 2px $color-purple;
-    background-color: rgba($color-purple, 0.1);
-    .pad
-        margin: auto
-        text-align: left
-        max-width: $tile-skill-maxwidth
-        h2
-            @extend .reset_hx
-            small
-                font-size: 60%
-                vertical-align: middle
-        > h3
-            @extend .reset_hx
-            font-size: 1.5em
-            color: $color-purple
-        .desc
-            font-size: 0.8rem;
-            margin: 0 0 0.5rem 0;
-            padding-left: 1rem;
-        p
-            .emp
-                color: $color-accent;
-                font-weight: bold;
+  @extend .tile;
+  @extend .content;
+  text-align: center;
+  border-top: solid 2px $color-purple;
+  background-color: rgba($color-purple, 0.1);
+  .pad
+    margin: auto
+    text-align: left
+    max-width: $tile-skill-maxwidth
+    h2
+      @extend .reset_hx
+      small
+        font-size: 60%
+        vertical-align: middle
+    > h3
+      @extend .reset_hx
+      font-size: 1.5em
+      color: $color-purple
+    .desc
+      font-size: 0.8rem;
+      margin: 0 0 0.5rem 0;
+      padding-left: 1rem;
+    p
+      .emp
+        color: $color-accent;
+        font-weight: bold;

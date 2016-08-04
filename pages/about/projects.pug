@@ -1,58 +1,58 @@
 .tile-project#projects
-    h2 <i>Useful</i> Projects
-    p
-        i Actually... I don't have many useful projects!😂
-        br
-        | Sorted in order of time spent and usefulness ( aka. sorted by magic ) <b>DESC</b>.
-    ul
-        mixin project(name, builtWith, url, _tags)
-            -var tags = _tags || [];
-            -var xtoclass = (x => "b-" + x.toLowerCase().replace(/\+/g, 'p').replace(/[^A-Za-z0-9]/g, ''))
-            -var className = builtWith.map(xtoclass).join(' ')
-            li(class=className)
-                h3
-                    each tag in tags
-                        span.stattag= tag
-                        |  
-                    a(href=url)= name
-                p
-                    block
-                .builtwith
-                    | Built with:
-                    each val, index in builtWith
-                        |  
-                        span(class="built " + xtoclass(val))= val
-        +project("maowtm.org", ["Web", "node.js", "Javascript"],
-            "https://github.com/micromaomao/maowtm.org", ["In-progress"])
-            | This simple website. No fancy React, no Webpack, etc!
-        +project("Shanbay Desktop", ["Electron", "Web", "React", "Javascript", "node.js"],
-            "https://github.com/micromaomao/Better-Shanbay", ["Testing"])
-            | A 
-            a(href="https://shanbay.com") Shanbay
-            |  desktop client. Built with cross-platform desktop technology - Electron!
-        +project("Ecbpass", ["Python"], "https://github.com/micromaomao/ecbpass")
-            | A simple tool that allows you to generate pseudorandom password for each site and no need
-            | to store it or remember it.
-        +project("Bukkit.redgram", ["Minecraft", "Java"],
-            "https://github.com/micromaomao/bukkit.redgram", ["Stopped"])
-                | A craftbukkit plugin that saves time for redstone geeks - bit opearing, read-write redstone
-                | IO, processing information.
-        +project("Brainfuck-tape", ["Javascript", "Web"], "https://github.com/micromaomao/brainfuck-tape")
-            | A simple BrainFuck interpreter, with running code highlight, infinite* bidirectional tape,
-            | tape monitoring...
-        +project("OpenTieba", ["C#", "Windows", "Javascript"],
-            "https://github.com/micromaomao/opentieba", ["Stopped", "Broke", "Chinese"])
-            | 贴吧API
-        +project("TagAlarm", ["Android", "Java"], "https://github.com/micromaomao/TagAlarm", ["In-progress"])
-            | Android learning project; A alarm clock that force you to get up.
-        +project("Matchgame", ["Javascript", "Web"], "https://github.com/micromaomao/matchgame")
-            | A game that help you remember pairs of stuff like ひらがなs or the Periodic table!
-        +project("Chunk-chunk", ["Javascript", "Web"], "https://github.com/micromaomao/Chunk-chunk")
-            | A strange game...
-        +project("Minesweeper", ["C++", "Linux"], "https://github.com/micromaomao/Minesweeper")
-            | A command line Minesweeper...
-        +project("Pomodoro-Timer", ["C++", "Linux"], "https://github.com/micromaomao/Pomodoro-Timer")
-            | A simple-to-use, command line Pomodoro Timer!
-    p
-        | There's actually a lot more, but those are just very small projects or projects with very bad coding
-        | and have stopped. To ( kind of ) <i>cover</i> those "<i>black history</i>", I've removed them from GitHub.
+  h2 <i>Useful</i> Projects
+  p
+    i Actually... I don't have many useful projects!😂
+    br
+    | Sorted in order of time spent and usefulness ( aka. sorted by magic ) <b>DESC</b>.
+  ul
+    mixin project(name, builtWith, url, _tags)
+      -var tags = _tags || [];
+      -var xtoclass = (x => "b-" + x.toLowerCase().replace(/\+/g, 'p').replace(/[^A-Za-z0-9]/g, ''))
+      -var className = builtWith.map(xtoclass).join(' ')
+      li(class=className)
+        h3
+          each tag in tags
+            span.stattag= tag
+            |  
+          a(href=url)= name
+        p
+          block
+        .builtwith
+          | Built with:
+          each val, index in builtWith
+            |  
+            span(class="built " + xtoclass(val))= val
+    +project("maowtm.org", ["Web", "node.js", "Javascript"],
+      "https://github.com/micromaomao/maowtm.org", ["In-progress"])
+      | This simple website. No fancy React, no Webpack, etc!
+    +project("Shanbay Desktop", ["Electron", "Web", "React", "Javascript", "node.js"],
+      "https://github.com/micromaomao/Better-Shanbay", ["Testing"])
+      | A 
+      a(href="https://shanbay.com") Shanbay
+      |  desktop client. Built with cross-platform desktop technology - Electron!
+    +project("Ecbpass", ["Python"], "https://github.com/micromaomao/ecbpass")
+      | A simple tool that allows you to generate pseudorandom password for each site and no need
+      | to store it or remember it.
+    +project("Bukkit.redgram", ["Minecraft", "Java"],
+      "https://github.com/micromaomao/bukkit.redgram", ["Stopped"])
+        | A craftbukkit plugin that saves time for redstone geeks - bit opearing, read-write redstone
+        | IO, processing information.
+    +project("Brainfuck-tape", ["Javascript", "Web"], "https://github.com/micromaomao/brainfuck-tape")
+      | A simple BrainFuck interpreter, with running code highlight, infinite* bidirectional tape,
+      | tape monitoring...
+    +project("OpenTieba", ["C#", "Windows", "Javascript"],
+      "https://github.com/micromaomao/opentieba", ["Stopped", "Broke", "Chinese"])
+      | 贴吧API
+    +project("TagAlarm", ["Android", "Java"], "https://github.com/micromaomao/TagAlarm", ["In-progress"])
+      | Android learning project; A alarm clock that force you to get up.
+    +project("Matchgame", ["Javascript", "Web"], "https://github.com/micromaomao/matchgame")
+      | A game that help you remember pairs of stuff like ひらがなs or the Periodic table!
+    +project("Chunk-chunk", ["Javascript", "Web"], "https://github.com/micromaomao/Chunk-chunk")
+      | A strange game...
+    +project("Minesweeper", ["C++", "Linux"], "https://github.com/micromaomao/Minesweeper")
+      | A command line Minesweeper...
+    +project("Pomodoro-Timer", ["C++", "Linux"], "https://github.com/micromaomao/Pomodoro-Timer")
+      | A simple-to-use, command line Pomodoro Timer!
+  p
+    | There's actually a lot more, but those are just very small projects or projects with very bad coding
+    | and have stopped. To ( kind of ) <i>cover</i> those "<i>black history</i>", I've removed them from GitHub.
