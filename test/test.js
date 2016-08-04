@@ -333,7 +333,6 @@ function assertWidthAtLeast(res, done, widthTest, withIn) {
                             cachedScale.remove({imgId: imgDoc._id}, done);
                             console.log(" -> Removing all cachedScale of " + testImg);
                         }
-                        done();
                     }
                 });
             });
@@ -876,7 +875,7 @@ describe('require("pages")', function() {
     const pages = require('../pages');
     it('should have necessary pages', function(done) {
         should.exist(pages);
-        should.exist(pages.index);
+        should.exist(pages.about);
         should.exist(pages.layout);
         done();
     });
