@@ -1,0 +1,84 @@
+.tile-books#books
+  h3
+    a(href="https://play.google.com")
+      img(src=mapStatic("/imgs/google_play.png") alt="Google Play")
+  p
+    | I read most of my books on 
+    a(href="https://play.google.com/books") Google Play Books
+    | . It allows me to read a several chapter sample before I decide to buy the book and read
+    | everything which is a very useful thing.
+  mixin book(name, img, author, year, states, _props)
+    -let props = _props || {}
+    li(class="book" + (props.size ? ` ${props.size}` : ""))
+      -let toGoogleUrl = (keyword) => "https://www.google.com.hk/search?q=" + encodeURIComponent(keyword)
+      -let bookUrl = toGoogleUrl(`${name} ${author}`)
+      a.noline(href=bookUrl)
+        img.cover(src=img, alt=`"${name}" cover`)
+      h4
+        a(href=bookUrl)= name
+      .author
+        a(href=toGoogleUrl(author))= author
+        -if (year)
+          span(title=`Published in ${year}`)
+            |  @ 
+            span.year= year
+      -if (states)
+        -let srtStates = states.sort()
+        .states
+          each state, i in srtStates
+            -if (state === "sampling")
+              span.sampling(title="Currently reading with no idea whether the book is useful.") 😮
+            -if (state === "finish")
+              span.finish(title="Finished every page") ✌️
+            -if (state === "recommend")
+              span.recommand(title="Recommended!") 😊
+            -if (state === "funny")
+              span.recommand(title="Oh this is interesting") 😀
+            -if (state === "0")
+              span.progress(title="Progress: ~0%") 😶😶😶
+            -if (state === "1/3")
+              span.progress(title="Progress: ~30%") 👌😶😶
+            -if (state === "1/2")
+              span.progress(title="Progress: ~50%") 👌👌😶😶
+            -if (state === "2/3")
+              span.progress(title="Progress: ~65%") 👌👌😶
+            -if (state === "3/3")
+              span.progress(title="Progress: ~99%") 👌👌👌👌😶
+  h2 Books
+  p.desc Sort by love, DESC; Including books I'm reading and books I remember finished read.
+  h3.langcat English
+  ul
+    -let mapCover = (abb) => mapStatic(`/imgs/book-covers/${abb}.png`)
+    +book("What If?",
+      mapCover("xkcd"),
+      "Randall Munroe", 2014, [ "recommend", "finish" ])
+    +book("The Kite Runner",
+      mapCover("tkr"),
+      "Khaled Hosseini", 2003, [ "recommend", "1/3" ], { size: "big" })
+    +book("The Little Prince",
+      mapCover("tlp"),
+      "Antoine de Saint-Exupéry", 1943, [ "recommend", "finish" ])
+    +book("Who Moved My Cheese",
+      mapCover("cheese"),
+      "Spencer Johnson", 1998, [ "finish", "recommend" ], { size: "small" })
+    +book("A Street Cat Named Bob",
+      mapCover("cat"),
+      "James Bowen", 2012, [ "1/2", "recommend" ], { size: "big" })
+    +book("So You've Been Publicly Shamed",
+      mapCover("sybps"),
+      "Jon Ronson", 2015, [ "sampling" ])
+    +book("Things Explainer",
+      mapCover("xkcdte"),
+      "Randall Munroe", 2015, [ "finish", "funny" ])
+    +book("The Design of Everyday Things",
+      mapCover("tdedt"),
+      "Donald A. Norman", 1988, [ "sampling" ])
+    +book("A Brief History of Time",
+      mapCover("bht"),
+      "Stephen Hawking", 1988, [ "0" ], { size: "big" })
+    +book("Thinking, Fast and Slow",
+      mapCover("tkfs"),
+      "Daniel Kahneman", 2011, [ "0" ], { size: "big" })
+    +book("The Gift",
+      mapCover("tg"),
+      "Richard Paul Evans", 2007, [ "sampling" ])

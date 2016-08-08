@@ -392,3 +392,58 @@ body.mobile .tile-progress
       .emp
         color: $color-accent;
         font-weight: bold;
+
+.tile-books
+    @extend .tile;
+    @extend .content;
+    text-align: center;
+    border-top: solid 2px $color-brown;
+    background-color: rgba($color-brown, 0.1);
+    h2
+      @extend .reset_hx
+    h3
+      @extend .reset_hx
+      font-size: 1.5em
+      color: $color-brown
+    h3.langcat
+      text-align: left
+      border-bottom: solid 1px $color-brown
+      margin: 0.5rem
+      padding-left: 1rem
+
+    h4
+      @extend .reset_hx
+      font-size: 1.2rem
+    > .desc
+      font-size: 0.8rem;
+    li.book
+      display: inline-block
+      width: 15rem
+      vertical-align: bottom
+      border-bottom: solid 2px $color-accent
+      margin: 0.5rem
+      box-shadow: 0 1px 2px rgba(black, 0.6)
+      background-color: white
+    li.book.small
+      border-bottom-width: 1px
+    li.book.big
+      border-bottom-width: 3px
+    img.cover
+      height: 15rem
+      margin: 0.5rem
+    .author
+      font-size: 0.8rem
+    .states
+      font-size: 1.5rem
+      vertical-align: middle
+      *
+        vertical-align: middle
+      .sampling
+        color: $color-orange
+      .progress
+        display: inline-block
+        border-bottom: solid 1px $color-accent
+        font-size: 1rem
+    p
+      margin: auto
+      max-width: 800px
