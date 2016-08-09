@@ -416,7 +416,11 @@ body.mobile .tile-progress
       font-size: 1.2rem
     > .desc
       font-size: 0.8rem;
+    ul
+      @extend .reset_hx
+      list-style-type: none
     li.book
+      list-style-type: none
       display: inline-block
       width: 15rem
       vertical-align: bottom
@@ -447,3 +451,6 @@ body.mobile .tile-progress
     p
       margin: auto
       max-width: 800px
+    .fg
+      padding: 1rem
+      font-weight: bold
