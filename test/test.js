@@ -268,6 +268,13 @@ describe('new maowtm(...)', function () {
               .end(done)
           })
       })
+      it('should have static file (static.maowtm.org)', function (done) {
+        request(app)
+          .get('/script/layout.js')
+          .set('Host', 'static.maowtm.org')
+          .expect(200)
+          .end(done)
+      })
       it('should redirect www to @', function (done) {
         request(app)
           .get('/')
