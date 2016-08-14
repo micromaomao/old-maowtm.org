@@ -6,6 +6,7 @@ const url = require('url')
 const mongoose = require('mongoose')
 const redis = require('redis')
 const redislock = require('redis-lock')
+const compression = require('compression')
 
 // This file will be launched with launcher.js.
 
@@ -62,6 +63,7 @@ var maowtm = function (config) {
       })
     }
 
+    app.use(compression())
     app.use(function (req, res, next) {
       if (!(req.secure || app.mockSecure)) {
         res.redirect(302, 'https://' + req.hostname + req.originalUrl)
