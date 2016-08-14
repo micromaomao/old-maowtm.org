@@ -133,7 +133,7 @@ module.exports = function (db, lock) {
                 callback(err, null)
                 done()
               } else {
-                newImage.toBuffer('png', function (err, buff) {
+                newImage.toBuffer('png', {compression: "high"}, function (err, buff) {
                   if (err) {
                     callback(err, null)
                     done()
