@@ -3,6 +3,7 @@ const lwip = require('lwip')
 const qs = require('querystring')
 const UglifyJS = require('uglify-js')
 const staticCache = require('../static-cache')
+const path = require('path')
 
 module.exports = function (db, lock) {
   var mongoose = db
@@ -229,7 +230,7 @@ module.exports = function (db, lock) {
       res.send(data)
     })
   })
-  rStatic.use(express.static('static'))
+  rStatic.use(express.static(path.join(__dirname, 'static')))
   var rImg = express.Router({
     strict: true
   })
