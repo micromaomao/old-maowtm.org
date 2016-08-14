@@ -230,7 +230,7 @@ module.exports = function (db, lock) {
       res.send(data)
     })
   })
-  rStatic.use(express.static(path.join(__dirname, 'static')))
+  rStatic.use(express.static(path.join(__dirname, '..', 'static')))
   var rImg = express.Router({
     strict: true
   })
