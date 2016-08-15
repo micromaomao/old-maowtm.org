@@ -39,8 +39,12 @@ if (window.location.hash && window.location.hash.length > 0) {
   var y = document.getElementById(hash).getBoundingClientRect().top
   window.scrollBy(0, y)
 }
-setInterval(check, 100)
+var checkInterval = setInterval(check, 100)
 check()
+
+window.addEventListener('beforeunload', function () {
+  clearInterval(checkInterval)
+})
 
 var shakes = document.querySelectorAll('.shake')
 function shake () {
