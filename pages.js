@@ -7,15 +7,22 @@ var pages = {}
 var pagesfo = path.join(__dirname, '/pages/')
 var list = fs.readdirSync(pagesfo)
 const ghUrl = 'https://github.com/micromaomao/maowtm.org/tree/master/'
+const imgsPath = path.join(__dirname, 'static/', 'imgs/')
+const imgsGet = '/imgs/'
+var mongoose
+function pugMapStatic (url) {
+  if (url.startsWith(imgsGet)) {
+    let imagePart = url.substr(imgsGet.length)
+    return 'https://img.maowtm.org/s/' + imagePart
+  }
+  return 'https://static.maowtm.org' + url
+}
 function cssMapStatic (url) {
   url = url.getValue()
   if (url[0] !== '/') {
     url = '/' + url
   }
   return sass.types.String('url(' + pugMapStatic(url) + ')')
-}
-function pugMapStatic (url) {
-  return 'https://static.maowtm.org' + url
 }
 function preProcess (html, pugFile, sassFile) {
   return '<!-- Mixed and minified html + css:\n' +
@@ -61,4 +68,7 @@ list.forEach(function (fname) {
   }
 })
 
-module.exports = pages
+module.exports = _db => {
+  mongoose = _db
+  return pages
+}

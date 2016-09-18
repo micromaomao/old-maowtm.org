@@ -73,8 +73,14 @@ module.exports = function (db, lock) {
         }
       })
       function doAdd () {
-        var imgDoc = new Image({ name: imgName, src: imageData, width: lwipImg.width() })
-        imgDoc.save(err => callback(err))
+        lwipImg.toBuffer('png', {compression: 'high'}, (err, processedData) => {
+          if (err) {
+            callback(err)
+            return
+          }
+          var imgDoc = new Image({ name: imgName, src: processedData, width: lwipImg.width() })
+          imgDoc.save(err => callback(err))
+        })
       }
     })
   })
@@ -124,7 +130,7 @@ module.exports = function (db, lock) {
         })
         lwip.open(th.src, 'png', function (err, img) {
           if (err) {
-            callback(err, null)
+            callback(`Can't open ${th.name}: ${err.toString()}`, null)
             done()
           } else {
             var scalefactor = scale / th.width
@@ -234,12 +240,16 @@ module.exports = function (db, lock) {
   var rImg = express.Router({
     strict: true
   })
-  rImg.get('/:imgname', function (req, res, next) {
-    var desiredWidth = parseInt(req.query.width)
+  rImg.get('/', function (req, res) {
+    res.redirect(302, 'https://maowtm.org/img/')
+  })
+  rImg.get(/^\/(.+)$/, function (req, res, next) {
+    let desiredWidth = parseInt(req.query.width)
+    let imgName = req.params[0]
     if (!req.query.width || Number.isNaN(desiredWidth) || desiredWidth <= 0) {
       desiredWidth = Infinity
     }
-    Image.findOne({ name: req.params.imgname }, function (err, img) {
+    Image.findOne({ name: imgName }, function (err, img) {
       if (err) {
         next(err)
       } else if (!img) {
@@ -275,8 +285,9 @@ module.exports = function (db, lock) {
       }
     })
   })
-  rImg.get('/', function (req, res) {
-    res.redirect(302, 'https://maowtm.org/img/')
+  rImg.use(function (req, res, next) {
+    res.status(404)
+    res.end()
   })
   return function (req, res, next) {
     if (req.hostname === 'static.maowtm.org') {

@@ -1,8 +1,10 @@
 const express = require('express')
-const pages = require('../pages')
+const _pages = require('../pages')
+var pages
 
 module.exports = function (db, lock) {
   var mongoose = db
+  pages = _pages(db)
   mongoose.Schema = require('mongoose').Schema
   var rMain = express.Router()
   var rWww = express.Router()

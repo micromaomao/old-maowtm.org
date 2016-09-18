@@ -1,3 +1,4 @@
+// TODO: Fix neg problem on page.
 const express = require('express')
 const http = require('http')
 const spdy = require('spdy')
@@ -7,6 +8,7 @@ const mongoose = require('mongoose')
 const redis = require('redis')
 const redislock = require('redis-lock')
 const compression = require('compression')
+const path = require('path')
 
 // This file will be launched with launcher.js.
 
@@ -37,7 +39,9 @@ var maowtm = function (config) {
       }
       callback(error, null, function () {})
     } else {
-      throw error
+      console.error('Error initalizing server:')
+      console.error(error)
+      process.exit(2)
     }
   }
   if ((!Array.isArray(this._listen) || this._listen.length > 0) && !this.mockSecure && !(this._ssl && this._ssl.cert && this._ssl.key)) {
@@ -97,33 +101,91 @@ var maowtm = function (config) {
 
     // TODO handle 404
 
-    // var image = mongoose.model('image')
-    // var imgs = fs.readdirSync('static/imgs')
     function doSetupServer () {
-      const httpsopts = (_this._ssl ? {
-        key: fs.readFileSync(_this._ssl.key),
-        cert: fs.readFileSync(_this._ssl.cert)
-      } : null)
-      if (httpsopts && _this._ssl.ca) {
-        httpsopts.ca = fs.readFileSync(_this._ssl.ca)
-      }
-      _this._servers = {
-        http: [],
-        http2: []
-      }
-      if (!Array.isArray(_this._listen)) {
-        if (httpsopts) {
-          _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, _this._listen))
+      return new Promise((resolve, reject) => {
+        const httpsopts = (_this._ssl ? {
+          key: fs.readFileSync(_this._ssl.key),
+          cert: fs.readFileSync(_this._ssl.cert)
+        } : null)
+        if (httpsopts && _this._ssl.ca) {
+          httpsopts.ca = fs.readFileSync(_this._ssl.ca)
         }
-        _this._servers.http.push(http.createServer(app).listen(80, _this._listen))
-      } else {
-        _this._listen.forEach(function (address) {
+        _this._servers = {
+          http: [],
+          http2: []
+        }
+        if (!Array.isArray(_this._listen)) {
           if (httpsopts) {
-            _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, address))
+            _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, _this._listen))
           }
-          _this._servers.http.push(http.createServer(app).listen(80, address))
-        })
-      }
+          _this._servers.http.push(http.createServer(app).listen(80, _this._listen))
+        } else {
+          _this._listen.forEach(function (address) {
+            if (httpsopts) {
+              _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, address))
+            }
+            _this._servers.http.push(http.createServer(app).listen(80, address))
+          })
+        }
+        doAddImage().then(resolve, reject)
+      })
+    }
+    function doAddImage () {
+      return new Promise((resolve, reject) => {
+        let Image = mongoose.model('image')
+        function addImage (name, path) {
+          return new Promise((resolve, reject) => {
+            fs.readFile(path, {encoding: null}, (err, data) => {
+              if (err) {
+                reject(err)
+                return
+              }
+              Image.addImage('s/' + name, data, err => {
+                if (err) {
+                  reject(`error when trying to add image ${name}: ${err.toString()}`)
+                  return
+                }
+                resolve()
+              })
+            })
+          })
+        }
+        function addImageInDir (dir) {
+          return new Promise((resolve, reject) => {
+            let currentDirPath = path.join(__dirname, 'static', 'imgs', dir)
+            fs.readdir(currentDirPath, (err, imgFiles) => {
+              if (err) {
+                reject(err)
+                return
+              }
+              let promises = []
+              imgFiles.forEach(name => {
+                promises.push(new Promise((resolve, reject) => {
+                  let currentName = path.join(dir, name)
+                  let currentFileName = path.join(currentDirPath, name)
+                  fs.stat(currentFileName, (err, stat) => {
+                    if (err) {
+                      reject(err)
+                      return
+                    }
+                    if (stat.isFile()) {
+                      addImage(currentName, currentFileName).then(resolve, reject)
+                    } else if (stat.isDirectory()) {
+                      addImageInDir(currentName).then(resolve, reject)
+                    } else {
+                      resolve()
+                    }
+                  })
+                }))
+              })
+              Promise.all(promises).then(resolve, reject)
+            })
+          })
+        }
+        addImageInDir('').then(resolve, reject)
+      })
+    }
+    doSetupServer().then(() => {
       if (callback) {
         callback(null, app, function () {
           _this._servers.http2.forEach(function (s) {
@@ -136,9 +198,7 @@ var maowtm = function (config) {
           _this.db.close()
         })
       }
-    }
-    // TODO: Cache necessary resources into database.
-    doSetupServer()
+    }, err => { fail(err) })
   })
 }
 
