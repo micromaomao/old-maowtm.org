@@ -16,6 +16,7 @@ module.exports = function (db, lock) {
   var cachedScaleSchema = new mongoose.Schema({
     imgId: 'ObjectId',
     scale: 'Number',
+    format: 'String',
     data: 'Buffer'
   })
 
@@ -91,26 +92,38 @@ module.exports = function (db, lock) {
    * @param scale integer width in px.
    * @param callback function(err, buffer) the function to give data to.
    */
-  imageSchema.method('queryScale', function (scale, callback) {
+  imageSchema.method('queryScale', function (scale, format, callback) {
+    if (typeof format !== 'string') {
+      callback = format
+      format = 'png'
+    }
     if (typeof callback !== 'function') {
       throw new Error('Illegal callback.')
     }
     if (!Number.isFinite(scale) && scale > 0) {
-      callback(null, this.src)
-      return
+      if (format === 'png') {
+        callback(null, this.src)
+        return
+      } else {
+        scale = this.width
+      }
     }
     if (!Number.isInteger(scale) || scale <= 0) {
       return callback(new Error('Illegal argument.'))
     }
     scale = Math.ceil(scale / 50) * 50
     if (scale >= this.width) {
-      callback(null, this.src)
-      return
+      if (format === 'png') {
+        callback(null, this.src)
+        return
+      } else {
+        scale = this.width
+      }
     }
     var th = this
     // Lock the image to prevent double-caching.
     lock('imageCaching\t' + th._id.toString(), function (done) {
-      CachedScale.findOne({ imgId: th._id, scale: scale }, function (err, cachedDoc) {
+      CachedScale.findOne({ imgId: th._id, scale: scale, format: format }, function (err, cachedDoc) {
         if (err) {
           callback(err, null)
           done()
@@ -126,7 +139,8 @@ module.exports = function (db, lock) {
       function createImageScale () {
         var cachedDoc = new CachedScale({
           imgId: th._id,
-          scale: scale
+          scale: scale,
+          format: format
         })
         lwip.open(th.src, 'png', function (err, img) {
           if (err) {
@@ -139,12 +153,13 @@ module.exports = function (db, lock) {
                 callback(err, null)
                 done()
               } else {
-                newImage.toBuffer('png', {compression: 'high'}, function (err, buff) {
+                newImage.toBuffer(format, {compression: 'high', quality: 90}, function (err, buff) {
                   if (err) {
                     callback(err, null)
                     done()
                   } else {
                     cachedDoc.set('data', buff)
+                    console.log(`Saving ${scale}@${format} for ${th.name}...`)
                     cachedDoc.save(function (err) {
                       if (err) {
                         console.error(err)
@@ -245,6 +260,16 @@ module.exports = function (db, lock) {
   })
   rImg.get(/^\/(.+)$/, function (req, res, next) {
     let desiredWidth = parseInt(req.query.width)
+    let desiredFormat = req.query.as || 'png'
+    if (!validExtensions.find(x => x === desiredFormat)) {
+      delete req.query.as
+      let qr = qs.stringify(req.query)
+      if (qr.length > 0) {
+        qr = '?' + qr
+      }
+      res.redirect(302, req.path + qr)
+      return
+    }
     let imgName = req.params[0]
     if (!req.query.width || Number.isNaN(desiredWidth) || desiredWidth <= 0) {
       desiredWidth = Infinity
@@ -274,11 +299,11 @@ module.exports = function (db, lock) {
             return
           }
         }
-        img.queryScale(desiredWidth, function (err, buff) {
+        img.queryScale(desiredWidth, desiredFormat, function (err, buff) {
           if (err) {
             next(err)
           } else {
-            res.type('png')
+            res.type(desiredFormat)
             res.send(buff)
           }
         })

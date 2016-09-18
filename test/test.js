@@ -508,6 +508,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
             var cache = new CachedScale({
               imgId: imgDoc._id,
               scale: 300,
+              format: 'png',
               data: new Buffer(stub, 'utf-8')
             })
             cache.save(function (err) {

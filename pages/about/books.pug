@@ -16,7 +16,10 @@
       -let toGoogleUrl = (keyword) => "https://www.google.com.hk/search?q=" + encodeURIComponent(keyword)
       -let bookUrl = toGoogleUrl(`${name} ${author}`)
       a.noline(href=bookUrl)
-        img.cover(src=img, alt=`"${name}" cover`)
+        picture
+          -let lowimg = img + '?width=240&as=jpg'
+          source(srcset=`${lowimg} ${img} 2x`)
+          img.cover(src=lowimg, alt=`"${name}" cover`)
       h4
         a(href=bookUrl)= name
       -if (props.nat)

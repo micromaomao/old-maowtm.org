@@ -5,6 +5,7 @@ const spdy = require('spdy')
 const fs = require('fs')
 const url = require('url')
 const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 const redis = require('redis')
 const redislock = require('redis-lock')
 const compression = require('compression')
@@ -115,39 +116,54 @@ var maowtm = function (config) {
           http: [],
           http2: []
         }
-        if (!Array.isArray(_this._listen)) {
-          if (httpsopts) {
-            _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, _this._listen))
-          }
-          _this._servers.http.push(http.createServer(app).listen(80, _this._listen))
-        } else {
-          _this._listen.forEach(function (address) {
+        doAddImage().then(() => {
+          if (!Array.isArray(_this._listen)) {
             if (httpsopts) {
-              _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, address))
+              _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, _this._listen))
             }
-            _this._servers.http.push(http.createServer(app).listen(80, address))
-          })
-        }
-        doAddImage().then(resolve, reject)
+            _this._servers.http.push(http.createServer(app).listen(80, _this._listen))
+          } else {
+            _this._listen.forEach(function (address) {
+              if (httpsopts) {
+                _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, address))
+              }
+              _this._servers.http.push(http.createServer(app).listen(80, address))
+            })
+          }
+          resolve()
+        }, reject)
       })
     }
+    const Image = _this.db.model('image')
     function doAddImage () {
       return new Promise((resolve, reject) => {
-        let Image = mongoose.model('image')
         function addImage (name, path) {
           return new Promise((resolve, reject) => {
-            fs.readFile(path, {encoding: null}, (err, data) => {
-              if (err) {
-                reject(err)
-                return
-              }
-              Image.addImage('s/' + name, data, err => {
-                if (err) {
-                  reject(`error when trying to add image ${name}: ${err.toString()}`)
-                  return
-                }
+            let distName = 's/' + name
+            let query = Image.findOne({name: distName}, 'name')
+            query.then(img => {
+              if (!img) {
+                console.log(`Adding image: ${distName}...`)
+                fs.readFile(path, {encoding: null}, (err, data) => {
+                  if (err) {
+                    reject(err)
+                    return
+                  }
+                  Image.addImage(distName, data, err => {
+                    if (err) {
+                      reject(`error when trying to add image ${name}: ${err.toString()}`)
+                      return
+                    }
+                    resolve()
+                  })
+                })
+              } else {
                 resolve()
-              })
+              }
+            }).catch(err => {
+              console.error('..')
+              reject(`Can't check image cache: ${err}`)
+              return
             })
           })
         }
