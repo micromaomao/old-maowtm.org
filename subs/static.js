@@ -52,7 +52,7 @@ module.exports = function (db, lock) {
     }
     lwip.open(imageData, ext, function (err, lwipImg) {
       if (err) {
-        callback(err)
+        callback(new Error(`Can't open ${imgName}: ${err.toString()}`))
         return
       }
       Image.findOne({ name: imgName }, function (err, existImgDoc) {
@@ -75,7 +75,7 @@ module.exports = function (db, lock) {
       function doAdd () {
         lwipImg.toBuffer('png', {compression: 'high'}, (err, processedData) => {
           if (err) {
-            callback(err)
+            callback(new Error(`Can't encode ${imgName}: ${err.toString()}`))
             return
           }
           var imgDoc = new Image({ name: imgName, src: processedData, width: lwipImg.width() })

@@ -29,6 +29,7 @@ var maowtm = function (config) {
   this.acme = config.acme || null
   this.destory = false
   this.mockSecure = config.mockSecure || false
+  this.noInitImages = config.noInitImages || false
   app.mockSecure = this.mockSecure
   var callback = config.callback
   function fail (error) {
@@ -182,10 +183,15 @@ var maowtm = function (config) {
             })
           })
         }
-        addImageInDir('').then(resolve, reject)
+        if (_this.noInitImages) {
+          resolve()
+        } else {
+          addImageInDir('').then(resolve, reject)
+        }
       })
     }
     doSetupServer().then(() => {
+      console.log('Server ready.')
       if (callback) {
         callback(null, app, function () {
           _this._servers.http2.forEach(function (s) {

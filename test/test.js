@@ -17,6 +17,12 @@ try {
   process.exit(1)
 }
 
+const initParm = {
+  db: DB,
+  redis: REDIS,
+  noInitImages: true
+}
+
 describe('new maowtm(...)', function () {
   function makeDone (_done, destory) {
     return function (err) {
@@ -36,9 +42,7 @@ describe('new maowtm(...)', function () {
     done = makeDone(done, function () {
       destory()
     })
-    Maowtm({
-      db: DB,
-      redis: REDIS,
+    Maowtm(Object.assign({}, initParm, {
       callback: function (err, app, finalize) {
         destory = finalize
         if (err) {
@@ -47,7 +51,7 @@ describe('new maowtm(...)', function () {
         }
         done()
       }
-    })
+    }))
   })
 
   function makeErrorCallback (done, match) {
@@ -71,21 +75,21 @@ describe('new maowtm(...)', function () {
     done = makeDone(done, function () {
       destory()
     })
-    Maowtm({
+    Maowtm(Object.assign({}, initParm, {
       db: '127.255.255.255',
       redis: REDIS,
       callback: makeErrorCallback(function (d, err) {
         destory = d
         done(err)
       }, /connect/)
-    })
+    }))
   })
   it('should throw error when no SSL certificate was given', function (done) {
     var destory
     done = makeDone(done, function () {
       destory()
     })
-    Maowtm({
+    Maowtm(Object.assign({}, initParm, {
       db: DB,
       redis: REDIS,
       listen: '127.6.0.233',
@@ -93,7 +97,7 @@ describe('new maowtm(...)', function () {
         destory = d
         done(err)
       }, /SSL/)
-    })
+    }))
   })
 
   it('should answer acme-challenge', function (done) {
@@ -103,7 +107,7 @@ describe('new maowtm(...)', function () {
       destory()
     })
     var acmeString = 'stubstubstub'
-    Maowtm({
+    Maowtm(Object.assign({}, initParm, {
       db: DB,
       redis: REDIS,
       callback: function (err, app, finalize) {
@@ -115,7 +119,7 @@ describe('new maowtm(...)', function () {
         testACME(app)
       },
       acme: acmeString
-    })
+    }))
 
     testACME = function (app) {
       request(app)
@@ -131,7 +135,7 @@ describe('new maowtm(...)', function () {
     done = makeDone(done, function () {
       destory()
     })
-    Maowtm({
+    Maowtm(Object.assign({}, initParm, {
       db: DB,
       redis: REDIS,
       callback: function (err, app, finalize) {
@@ -142,7 +146,7 @@ describe('new maowtm(...)', function () {
         }
         test(app)
       }
-    })
+    }))
     test = function (app) {
       request(app)
         .get('/somefilename')
@@ -155,7 +159,7 @@ describe('new maowtm(...)', function () {
 
 ;(function () {
   var destory, appTest
-  Maowtm({
+  Maowtm(Object.assign({}, initParm, {
     db: DB,
     redis: REDIS,
     callback: function (err, app, finalize) {
@@ -166,7 +170,7 @@ describe('new maowtm(...)', function () {
       appTest(app)
     },
     mockSecure: true
-  })
+  }))
 
   appTest = function (app) {
     describe('Application', function () {
@@ -312,7 +316,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
 
 (function () {
   var destory
-  var maow = new Maowtm({
+  var maow = new Maowtm(Object.assign({}, initParm, {
     db: DB,
     redis: REDIS,
     callback: function (err, app, finalize) {
@@ -323,7 +327,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
       imageTest(app)
     },
     mockSecure: true
-  })
+  }))
 
   function imageTest (app) {
     const testImg = 'avatar.png'
@@ -559,7 +563,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
 
 ;(function () {
   var destory
-  var maow = new Maowtm({
+  var maow = new Maowtm(Object.assign({}, initParm, {
     db: DB,
     redis: REDIS,
     callback: function (err, app, finalize) {
@@ -570,7 +574,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
       imageTest(app)
     },
     mockSecure: true
-  })
+  }))
 
   function imageTest (app) {
     var Image = maow.db.model('image')
@@ -616,7 +620,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
           done(err)
           return
         }
-        lwipImage.toBuffer('png', function (err, buf) {
+        lwipImage.toBuffer('png', {compression: 'high'}, function (err, buf) {
           if (err) {
             done(err)
             return
@@ -890,11 +894,11 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
 })()
 
 describe('require("pages")', function () {
-  const pages = require('../pages')
+  const pages = require('../pages')()
   it('should have necessary pages', function (done) {
-    should.exist(pages)
-    should.exist(pages.about)
-    should.exist(pages.layout)
+    should.exist(pages, 'expected pages module to exist.')
+    should.exist(pages.about, 'expected about page to exist.')
+    should.exist(pages.layout, 'expected layout page to exist.')
     done()
   })
 })

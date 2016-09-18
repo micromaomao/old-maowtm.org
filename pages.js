@@ -7,9 +7,7 @@ var pages = {}
 var pagesfo = path.join(__dirname, '/pages/')
 var list = fs.readdirSync(pagesfo)
 const ghUrl = 'https://github.com/micromaomao/maowtm.org/tree/master/'
-const imgsPath = path.join(__dirname, 'static/', 'imgs/')
 const imgsGet = '/imgs/'
-var mongoose
 function pugMapStatic (url) {
   if (url.startsWith(imgsGet)) {
     let imagePart = url.substr(imgsGet.length)
@@ -69,6 +67,5 @@ list.forEach(function (fname) {
 })
 
 module.exports = _db => {
-  mongoose = _db
   return pages
 }
