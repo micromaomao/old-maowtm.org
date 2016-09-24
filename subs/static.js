@@ -274,41 +274,51 @@ module.exports = function (db, lock) {
     if (!req.query.width || Number.isNaN(desiredWidth) || desiredWidth <= 0) {
       desiredWidth = Infinity
     }
-    Image.findOne({ name: imgName }, function (err, img) {
-      if (err) {
-        next(err)
-      } else if (!img) {
-        next()
-      } else {
-        if (req.query.width) {
-          if (desiredWidth >= img.width) {
-            delete req.query.width
-            let qr = qs.stringify(req.query)
-            if (qr.length > 0) {
-              qr = '?' + qr
-            }
-            res.redirect(302, req.path + qr)
-            return
-          } else if (req.query.width.toString() !== desiredWidth.toString()) {
-            req.query.width = desiredWidth
-            let qr = qs.stringify(req.query)
-            if (qr.length > 0) {
-              qr = '?' + qr
-            }
-            res.redirect(302, req.path + qr)
+    function doResponse (imgName, notFind) {
+      Image.findOne({ name: imgName }, function (err, img) {
+        if (err) {
+          next(err)
+        } else if (!img) {
+          if (imgName === 's/404.png' || notFind) {
+            next()
             return
           }
+          doResponse('s/404.png', true)
+        } else {
+          if (req.query.width) {
+            if (desiredWidth >= img.width) {
+              delete req.query.width
+              let qr = qs.stringify(req.query)
+              if (qr.length > 0) {
+                qr = '?' + qr
+              }
+              res.redirect(302, req.path + qr)
+              return
+            } else if (req.query.width.toString() !== desiredWidth.toString()) {
+              req.query.width = desiredWidth
+              let qr = qs.stringify(req.query)
+              if (qr.length > 0) {
+                qr = '?' + qr
+              }
+              res.redirect(302, req.path + qr)
+              return
+            }
+          }
+          img.queryScale(desiredWidth, desiredFormat, function (err, buff) {
+            if (err) {
+              next(err)
+            } else {
+              if (notFind) {
+                res.status(404)
+              }
+              res.type(desiredFormat)
+              res.send(buff)
+            }
+          })
         }
-        img.queryScale(desiredWidth, desiredFormat, function (err, buff) {
-          if (err) {
-            next(err)
-          } else {
-            res.type(desiredFormat)
-            res.send(buff)
-          }
-        })
-      }
-    })
+      })
+    }
+    doResponse(imgName)
   })
   rImg.use(function (req, res, next) {
     res.status(404)
