@@ -27,7 +27,12 @@ function check () {
     }
   }
 }
+var lastHash = null
 function changeHash (hash) {
+  if (hash === lastHash) {
+    return
+  }
+  lastHash = hash
   var selfUrl = window.location.toString().replace(/#.+$/g, '')
   if (hash !== null) {
     selfUrl += '#' + hash
