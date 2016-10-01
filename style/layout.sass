@@ -13,7 +13,7 @@ $color-green: #5BB12F
 $color-yellowgreen: #BCCF02
 $color-orange: #FF5722;
 $color-brown: #795548;
-$fs-text: 15px
+$fs-text: 16px
 =transition($prop, $time)
   transition: $prop $time
   -webkit-transition: $prop $time
@@ -27,11 +27,18 @@ $fs-text: 15px
 body
   color: $color-primary-text
   background-color: $color-background
+  font-family: 'Vollkorn', serif
   font-size: $fs-text
   line-height: 1.4
   p
-    margin-top: 0.6rem;
-    margin-bottom: 0.6rem;
+    margin-top: 0.6rem
+    margin-bottom: 0.6rem
+
+h1, h2, h3, h4, h5, h6, .title-font
+  font-family: 'Unica One', cursive
+  text-transform: uppercase
+  code, pre
+    text-transform: none
 
 a
   text-decoration: none
@@ -52,9 +59,8 @@ body .content img
   max-width: 100%;
 
 i
-  font-weight: lighter;
-  font-family: 'Alegreya Sans', sans-serif;
-  line-height: 0;
+  background-color: rgba($color-accent, 0.1)
+
 pre, code
   line-height: 1.2;
   white-space: pre-wrap;

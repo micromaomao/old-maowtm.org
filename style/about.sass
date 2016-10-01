@@ -43,6 +43,7 @@ body
     font-size: 48px
     color: $color-primary-light
     text-shadow: 1px 1px 0 $color-primary, -1px -1px 0 $color-primary, 1px -1px 0 $color-primary , -1px 1px 0 $color-primary
+    background: transparent
   blockquote
     padding-bottom: 40px;
     margin: 0;
@@ -50,8 +51,7 @@ body
     vertical-align: middle;
     i
       vertical-align: middle;
-      font-weight: bold;
-      font-size: 1.4rem;
+      background: transparent
   .quicklinks
     margin: 0
     a
@@ -192,6 +192,7 @@ $tile-skill-maxwidth: 800px
           line-height: 22px
           font-size: 16px
         .name
+          @extend .title-font
           margin-left: -8px
           padding-left: 16px
           background-color: $skilltags-li-name-bgr
