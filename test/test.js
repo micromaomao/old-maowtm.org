@@ -493,6 +493,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
           .end(done)
       })
       it('should return cached version if possible', function (done) {
+        this.timeout(4000)
         var stub = 'Stub!'
         var stubId
         function before (done) {
@@ -637,6 +638,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         console.log(' -> Destroyed maowtm instance.')
       })
       it('should add image', function (done) {
+        this.timeout(4000)
         const imgName = '__test_image.png'
         const imgWidth = 500
         var imgBuff = null
