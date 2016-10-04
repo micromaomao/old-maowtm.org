@@ -203,11 +203,16 @@ module.exports = function (db, lock) {
   var CachedScale = mongoose.model('cachedScale', cachedScaleSchema)
 
   var rStatic = express.Router()
+  let compressJs = process.env.NODE_ENV === 'production'
   rStatic.use(function (req, res, next) {
     if (!req.path.match(/\.js$/)) {
       return next()
     }
     staticCache(req.path, function (fileName, data, done) {
+      if (!compressJs) {
+        done(null, '// Javascript minify disabled because NODE_ENV.\n' + data)
+        return
+      }
       var headComment = '// Minified js. Source: https://github.com/micromaomao/maowtm.org/tree/master/static/' + fileName + '\n\n'
       try {
         var result = headComment + UglifyJS.minify(data, {fromString: true}).code

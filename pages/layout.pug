@@ -2,6 +2,11 @@ doctype html
 html
   head
     meta(name="viewport",content="width=device-width, initial-scale=1")
+    link(rel="icon",size="all",type="image/svg+xml",href=mapStatic("/svg/logo.svg"))
+    link(rel="icon",size="32x32",href=mapStatic("/imgs/logo.png?width=32"))
+    link(rel="icon",size="96x96",href=mapStatic("/imgs/logo.png?width=96"))
+    link(rel="icon",size="128x128",href=mapStatic("/imgs/logo.png?width=128"))
+    link(rel="icon",size="1024x1024",href=mapStatic("/imgs/logo.png"))
     block head
     -if (style)
       style!= style

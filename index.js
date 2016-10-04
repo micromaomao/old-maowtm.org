@@ -10,6 +10,7 @@ const redis = require('redis')
 const redislock = require('redis-lock')
 const compression = require('compression')
 const path = require('path')
+let pages
 
 // This file will be launched with launcher.js.
 
@@ -57,6 +58,7 @@ var maowtm = function (config) {
     return
   })
   this.db.on('open', function () {
+    pages = require('./pages')(this.db)
     var acme = _this.acme
     try {
       fs.accessSync('acme-challenge', fs.R_OK)
@@ -100,8 +102,20 @@ var maowtm = function (config) {
     })
 
     app.use(require('./subs/main')(_this.db, _this.lock))
-
-    // TODO handle 404
+    app.use(require('./subs/misc')(_this.db, _this.lock))
+    let nodeenv = process.env.NODE_ENV || ''
+    app.use(function (err, req, res, next) {
+      res.status(500)
+      let pageObj = {err, req}
+      if (typeof err !== 'string') {
+        pageObj.err = err.message
+        if (err.stack) {
+          pageObj.stack = err.stack.replace(new RegExp(__dirname.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1'), 'g'), '.../maowtm.org') +
+            `\nServer running in NODE_ENV=${nodeenv}\nTime: ${Date.now() / 1000}`
+        }
+      }
+      res.send(pages.error(pageObj))
+    })
 
     function doSetupServer () {
       return new Promise((resolve, reject) => {

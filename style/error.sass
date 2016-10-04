@@ -1,0 +1,40 @@
+@import layout
+
+body
+  text-align: center
+  margin-top: 8rem
+  margin-left: auto
+  margin-right: auto
+  padding-left: 1rem
+  padding-right: 1rem
+  max-width: 800px
+body.mobile
+  text-align: left
+  margin-top: 1rem
+  padding-left: 1rem
+  padding-right: 1rem
+  max-width: none
+
+p
+  @extend .content
+p a
+  color: $color-primary
+
+.errmsg
+  color: $color-primary-dark
+.path
+  color: $color-accent
+
+.logo
+  width: 5rem
+h1
+  font-size: 1.2rem
+  .desc
+    color: $color-secondary-text
+
+.stack
+  text-align: left
+  font-size: 0.5rem
+  margin-left: auto
+  margin-right: auto
+  display: inline-block

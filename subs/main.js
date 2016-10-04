@@ -31,6 +31,9 @@ module.exports = function (db, lock) {
   rMain.get('/tweets', function (req, res) {
     res.redirect('https://twitter.com/WtmMao')
   })
+  rMain.get('/geterror', function (req, res) {
+    throw new Error(req.query.msg ? `${req.query.msg} (error message given in url)` : 'Your error.')
+  })
 
   return function (req, res, next) {
     if (req.hostname === 'www.maowtm.org') {
