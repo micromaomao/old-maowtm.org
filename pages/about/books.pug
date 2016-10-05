@@ -53,6 +53,8 @@
               span.progress(title="Progress: ~65%") 👌👌😶
             -if (state === "3/3")
               span.progress(title="Progress: ~99%") 👌👌👌👌😶
+            -if (state === "hard")
+              span.hard(title="Hard to read") 😪
   h2 Books
   p.desc Sort by love, DESC; Including books I'm reading and books I remember finished read.
   h3.langcat English
@@ -93,7 +95,7 @@
       "Richard Paul Evans", 2007, [ "sampling" ])
     +book("The Great Gatsby",
       mapCover("tgg"),
-      "F. Scott Fitzgerald", 1925, [ "0", "sampling" ])
+      "F. Scott Fitzgerald", 1925, [ "1/3", "funny", "hard" ])
   h3.langcat Chinese
   ul
     +book("The Art of Thinking Clearly",
@@ -102,6 +104,9 @@
     +book("夏至未至",
       mapCover("deadsummer"),
       "郭敬明", 2010, [ "1/3" ], { size: "big" })
+    +book("The Great Gatsby",
+      mapCover("tgg_cn"),
+      "F. Scott Fitzgerald", 1925, [ "3/3", "funny" ], { nat: "了不起的盖茨比（王晋华译）" })
     +book("The Little Prince",
       mapCover("tlp_cn"),
       "Antoine de Saint-Exupéry", 1943, [ "finish", "recommend" ], { nat: "小王子" })
