@@ -1,0 +1,27 @@
+extends layout
+
+block head
+  title Say something interesting & anonymous to me!
+
+block content
+  img.toplogo(src=mapStatic("/svg/logo.svg"))
+  p
+    | Hello world! This site is used to host some special content like WeChat pages.
+  h2 Say something interesting & anonymous to me!
+  p
+    | Your thing will be published here publicly. Your identity will not be recorded. 
+    a(href="https://github.com/micromaomao/maowtm.org/blob/master/subs/rb.js") Audit source code...
+  textarea.inputArea(placeholder="I fucking hate you because...")
+  br
+  button.submit Submit
+  span.submitting
+  span.charleft
+  script(src=mapStatic("/script/rbIndex.js"))
+
+  .msgs
+    each msg in msgs
+      .msg
+        p= msg.message
+        .time= new Date(msg.time).toString()
+    -if (msgs.length === 0)
+      p.desc There're no messages to display...
