@@ -33,6 +33,7 @@
   })
 
   function submitStuff (callback) {
+    var sendTo = submit.dataset.to
     var content = inputBox.value || inputBox.innerText
     var xhr = new window.XMLHttpRequest()
     xhr.onreadystatechange = function () {
@@ -45,7 +46,7 @@
         }
       }
     }
-    xhr.open('POST', '')
+    xhr.open('POST', '/pm/' + encodeURIComponent(sendTo))
     xhr.setRequestHeader('Content-type', 'text/plain')
     xhr.send(content)
   }

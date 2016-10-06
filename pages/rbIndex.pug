@@ -1,19 +1,20 @@
 extends layout
 
 block head
-  title Say something interesting & anonymous to me!
+  title Say something to #{index ? 'me' : to}!
 
 block content
-  img.toplogo(src=mapStatic("/svg/logo.svg"))
-  p
-    | Hello world! This site is used to host some special content like WeChat pages.
-  h2 Say something interesting & anonymous to me!
+  -if (index)
+    img.toplogo(src=mapStatic("/svg/logo.svg"))
+    p
+      | Hello world! This site is used to host some special content like WeChat pages.
+  h2 Say something interesting & anonymous to #{index ? 'me' : to}!
   p
     | Your thing will be published here publicly. Your identity will not be recorded. 
     a(href="https://github.com/micromaomao/maowtm.org/blob/master/subs/rb.js") Audit source code...
   textarea.inputArea(placeholder="I fucking hate you because...")
   br
-  button.submit Submit
+  button.submit(data-to=(index ? 'maowtm' : to)) Submit
   span.submitting
   span.charleft
   script(src=mapStatic("/script/rbIndex.js"))

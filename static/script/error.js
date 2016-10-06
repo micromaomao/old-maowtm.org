@@ -7,5 +7,7 @@ function selectErrorStack (evt) {
   sel.removeAllRanges()
   sel.addRange(range)
 }
-stack.addEventListener('mousedown', selectErrorStack)
-stack.addEventListener('touchend', selectErrorStack)
+if (stack) {
+  stack.addEventListener('mousedown', selectErrorStack)
+  stack.addEventListener('touchend', selectErrorStack)
+}
