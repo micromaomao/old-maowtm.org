@@ -10,7 +10,8 @@ module.exports = function (db, lock) {
   let rbAnoyMessageSchema = new mongoose.Schema({
     message: 'String',
     time: 'Number',
-    deleted: {type: 'Boolean', default: false}
+    deleted: {type: 'Boolean', default: false},
+    to: 'String'
   })
   let RbAnoyMessage = mongoose.model('rbAnoyMessage', rbAnoyMessageSchema)
 
@@ -54,7 +55,7 @@ module.exports = function (db, lock) {
         res.send('Content is empty.')
         return
       }
-      let msg = new RbAnoyMessage({message: body, time: Date.now()})
+      let msg = new RbAnoyMessage({message: body, time: Date.now(), to: 'maowtm'})
       msg.save(err => {
         if (err) {
           next(err)
