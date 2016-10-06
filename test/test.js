@@ -5,6 +5,7 @@ const Maowtm = require('..')
 const should = require('should')
 const request = require('supertest')
 const lwip = require('lwip')
+const cheerio = require('cheerio')
 
 const DB = process.env.MONGODB
 const REDIS = process.env.REDIS
@@ -903,6 +904,217 @@ describe('require("pages")', function () {
     should.exist(pages, 'expected pages module to exist.')
     should.exist(pages.about, 'expected about page to exist.')
     should.exist(pages.layout, 'expected layout page to exist.')
+    should.exist(pages.rbIndex, 'expected rbIndex page to exist.')
     done()
   })
 })
+
+;(function () {
+  let destory
+  let maow = new Maowtm(Object.assign({}, initParm, {
+    db: DB,
+    redis: REDIS,
+    callback: function (err, app, finalize) {
+      destory = finalize
+      if (err) {
+        throw err
+      }
+      rbTest(app)
+    },
+    mockSecure: true
+  }))
+
+  function rbTest (app) {
+    describe('rb.maowtm.org/pm/...', () => {
+      after(() => {
+        destory()
+        console.log(' -> Destroyed maowtm instance.')
+      })
+
+      const RbAnoyMessage = maow.db.model('rbAnoyMessage')
+      const testUrl = '/pm/alice/'
+
+      before(done => {
+        RbAnoyMessage.remove({}, err => {
+          if (err) {
+            done(err)
+            return
+          }
+          console.log('Removed all rbAnoyMessage for test')
+          done()
+        })
+      })
+
+      let zeroMsgTest = done => {
+        request(app)
+          .get(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .expect(200)
+          .expect(res => res.type.should.match(/^text\/html(;|$)/))
+          .end((err, res) => {
+            if (err) {
+              done(err)
+              return
+            }
+            try {
+              let $ = cheerio.load(res.text)
+              let msgs = $('.msgs')
+              msgs.length.should.equal(1, 'There must only be one .msgs container.')
+              msgs.find('.msg').length.should.equal(0, 'There must be no message present.')
+              done()
+            } catch (e) {
+              done(e)
+            }
+          })
+      }
+
+      it('should not show anything for a new name', zeroMsgTest)
+      it('should not add empty message', done => {
+        request(app)
+          .post(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .type('text')
+          .send('')
+          .expect(403)
+          .end(done)
+      })
+      it('should not add over length message', done => {
+        request(app)
+          .post(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .type('text')
+          .send('x'.repeat(256))
+          .expect(413)
+          .end(done)
+      })
+      it('should not add empty message with only spaces in it', done => {
+        request(app)
+          .post(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .type('text')
+          .send(' \n\r\t')
+          .expect(403)
+          .end(done)
+      })
+      it('should not add message to no-namers', done => {
+        request(app)
+          .post('/pm/%20/')
+          .set('Host', 'rb.maowtm.org')
+          .type('text')
+          .send('message')
+          .expect(403)
+          .end(done)
+      })
+      it('should not add message to long namers', done => {
+        request(app)
+          .post('/pm/' + ('x'.repeat(21)) + '/')
+          .set('Host', 'rb.maowtm.org')
+          .type('text')
+          .send('message')
+          .expect(413)
+          .end(done)
+      })
+      it('should add message to other names', done => {
+        request(app)
+          .post('/pm/bob/')
+          .set('Host', 'rb.maowtm.org')
+          .type('text')
+          .send('message')
+          .expect(200)
+          .end(done)
+      })
+      it('should not show anything for the old name', zeroMsgTest)
+      it('should show the message for the new name', done => {
+        request(app)
+          .get('/pm/bob/')
+          .set('Host', 'rb.maowtm.org')
+          .expect(200)
+          .expect(res => res.type.should.match(/^text\/html(;|$)/))
+          .end((err, res) => {
+            if (err) {
+              done(err)
+              return
+            }
+            try {
+              let $ = cheerio.load(res.text)
+              let msgs = $('.msgs')
+              msgs.length.should.equal(1, 'There must only be one .msgs container.')
+              let msg = msgs.find('.msg')
+              msg.length.should.equal(1, 'There must be one message present.')
+              msg.find('p').text().should.equal('message', 'The message text must be right.')
+              done()
+            } catch (e) {
+              done(e)
+            }
+          })
+      })
+      it('should add message', done => {
+        request(app)
+          .post(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .type('text')
+          .send('msg')
+          .expect(200)
+          .end(done)
+      })
+      it('should show the message', done => {
+        request(app)
+          .get(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .expect(200)
+          .expect(res => res.type.should.match(/^text\/html(;|$)/))
+          .end((err, res) => {
+            if (err) {
+              done(err)
+              return
+            }
+            try {
+              let $ = cheerio.load(res.text)
+              let msgs = $('.msgs')
+              msgs.length.should.equal(1, 'There must only be one .msgs container.')
+              let msg = msgs.find('.msg')
+              msg.length.should.equal(1, 'There must be one message present.')
+              msg.find('p').text().should.equal('msg', 'The message text must be right.')
+              done()
+            } catch (e) {
+              done(e)
+            }
+          })
+      })
+      it('should add another message', done => {
+        request(app)
+          .post(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .type('text')
+          .send('msg2')
+          .expect(200)
+          .end(done)
+      })
+      it('should show the two message', done => {
+        request(app)
+          .get(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .expect(200)
+          .expect(res => res.type.should.match(/^text\/html(;|$)/))
+          .end((err, res) => {
+            if (err) {
+              done(err)
+              return
+            }
+            try {
+              let $ = cheerio.load(res.text)
+              let msgs = $('.msgs')
+              msgs.length.should.equal(1, 'There must only be one .msgs container.')
+              let msg = msgs.find('.msg')
+              msg.length.should.equal(2, 'There must be two message present.')
+              msg.eq(0).find('p').text().should.equal('msg2', 'The message text must be right.')
+              msg.eq(1).find('p').text().should.equal('msg', 'The message text must be right.')
+              done()
+            } catch (e) {
+              done(e)
+            }
+          })
+      })
+    })
+  }
+})()
