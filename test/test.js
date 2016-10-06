@@ -355,7 +355,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         })
       })
       before(function (done) {
-        this.timeout(4000)
+        this.timeout(6000)
         lwip.open(require('path').join(__dirname, testImg), function (err, lwipImage) {
           if (err) {
             done(err)
@@ -640,7 +640,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         console.log(' -> Destroyed maowtm instance.')
       })
       it('should add image', function (done) {
-        this.timeout(4000)
+        this.timeout(6000)
         const imgName = '__test_image.png'
         const imgWidth = 500
         var imgBuff = null
@@ -690,6 +690,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         test.a()
       })
       it('should replace image', function (done) {
+        this.timeout(6000)
         const imgName = '__test_image_replace.png'
         const imgWidth = 500
         const imgWidthCacheStub = 200
