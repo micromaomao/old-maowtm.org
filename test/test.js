@@ -1024,9 +1024,9 @@ describe('require("pages")', function () {
           .end(done)
       })
       it('should not show anything for the old name', zeroMsgTest)
-      it('should show the message for the new name', done => {
+      let testOneMessage = (url, msgText) => done => {
         request(app)
-          .get('/pm/bob/')
+          .get(url)
           .set('Host', 'rb.maowtm.org')
           .expect(200)
           .expect(res => res.type.should.match(/^text\/html(;|$)/))
@@ -1041,13 +1041,15 @@ describe('require("pages")', function () {
               msgs.length.should.equal(1, 'There must only be one .msgs container.')
               let msg = msgs.find('.msg')
               msg.length.should.equal(1, 'There must be one message present.')
-              msg.find('p').text().should.equal('message', 'The message text must be right.')
+              msg.find('p').text().should.equal(msgText, `The message text must be ${msgText}.`)
               done()
             } catch (e) {
               done(e)
             }
           })
-      })
+      }
+      let msNewNameTest = testOneMessage('/pm/bob/', 'message')
+      it('should show the message for the new name', msNewNameTest)
       it('should add message', done => {
         request(app)
           .post(testUrl)
@@ -1057,30 +1059,7 @@ describe('require("pages")', function () {
           .expect(200)
           .end(done)
       })
-      it('should show the message', done => {
-        request(app)
-          .get(testUrl)
-          .set('Host', 'rb.maowtm.org')
-          .expect(200)
-          .expect(res => res.type.should.match(/^text\/html(;|$)/))
-          .end((err, res) => {
-            if (err) {
-              done(err)
-              return
-            }
-            try {
-              let $ = cheerio.load(res.text)
-              let msgs = $('.msgs')
-              msgs.length.should.equal(1, 'There must only be one .msgs container.')
-              let msg = msgs.find('.msg')
-              msg.length.should.equal(1, 'There must be one message present.')
-              msg.find('p').text().should.equal('msg', 'The message text must be right.')
-              done()
-            } catch (e) {
-              done(e)
-            }
-          })
-      })
+      it('should show the message', testOneMessage(testUrl, 'msg'))
       it('should add another message', done => {
         request(app)
           .post(testUrl)
@@ -1113,6 +1092,47 @@ describe('require("pages")', function () {
             } catch (e) {
               done(e)
             }
+          })
+      })
+      it('should still show the message for the new name', msNewNameTest)
+      it('should add message to maowtm', done => {
+        request(app)
+          .post('/pm/maowtm/')
+          .set('Host', 'rb.maowtm.org')
+          .type('text')
+          .send('msg3')
+          .expect(200)
+          .end(done)
+      })
+      it('should show the message', testOneMessage('/pm/maowtm/', 'msg3'))
+      it('should show the message on /', testOneMessage('/', 'msg3'))
+      it('should redirect non-lowercase name', done => {
+        request(app)
+          .get('/pm/AliCe/')
+          .set('Host', 'rb.maowtm.org')
+          .expect('Location', '/pm/alice')
+          .end(done)
+      })
+      it('should redirect non-lowercase name', done => {
+        request(app)
+          .get('/pm/Bob/')
+          .set('Host', 'rb.maowtm.org')
+          .expect('Location', '/pm/bob')
+          .end(done)
+      })
+      it('should add message to non-lowercase name', done => {
+        request(app)
+          .post('/pm/Eve/')
+          .set('Host', 'rb.maowtm.org')
+          .type('text')
+          .send('msg')
+          .expect(200)
+          .end(err => {
+            if (err) {
+              done(err)
+              return
+            }
+            testOneMessage('/pm/eve/', 'msg')(done)
           })
       })
     })
