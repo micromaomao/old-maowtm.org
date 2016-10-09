@@ -485,13 +485,12 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
           .expect(404)
           .end(done)
       })
-      it('should redirect for root', function (done) {
+      it('should return page for root', function (done) {
         request(app)
           .get('/')
-          .query({width: 100})
           .set('Host', 'img.maowtm.org')
-          .expect(302)
-          .expect('Location', 'https://maowtm.org/img/')
+          .expect(200)
+          .expect('Content-Type', /^text\/html/)
           .end(done)
       })
       it('should return cached version if possible', function (done) {

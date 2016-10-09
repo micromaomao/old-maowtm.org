@@ -6,14 +6,15 @@ const staticCache = require('../static-cache')
 const path = require('path')
 
 module.exports = function (db, lock) {
-  var mongoose = db
+  let mongoose = db
+  let pages = require('../pages')(db)
   mongoose.Schema = require('mongoose').Schema
-  var imageSchema = new mongoose.Schema({
+  let imageSchema = new mongoose.Schema({
     name: 'String',
     src: 'Buffer',
     width: 'Number'
   })
-  var cachedScaleSchema = new mongoose.Schema({
+  let cachedScaleSchema = new mongoose.Schema({
     imgId: 'ObjectId',
     scale: 'Number',
     format: 'String',
@@ -261,7 +262,7 @@ module.exports = function (db, lock) {
     strict: true
   })
   rImg.get('/', function (req, res) {
-    res.redirect(302, 'https://maowtm.org/img/')
+    res.send(pages.imgIndex())
   })
   rImg.get(/^\/(.+)$/, function (req, res, next) {
     let desiredWidth = parseInt(req.query.width)

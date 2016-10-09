@@ -1,0 +1,53 @@
+extends wcopyright
+
+block head
+  title Maowtm Image Server
+
+block content
+  img.servericon(src=mapStatic('/svg/imgIndexIcon.svg'))
+  h1 img.maowtm.org
+  p This is a little server used for storing static and uploaded image. It can deal with scaling and formatting.
+  .main
+    h2 Usage
+    p All image can be accessed with this URL:
+    pre #{'https://img.maowtm.org/<name>'}
+    p As an example, we will use the famous Lenna image:
+    -const imgMaowtm = 'https://img.maowtm.org/'
+    -let lenna = mapStatic('/imgs/lenna.png')
+    -let imgName = lenna.replace(imgMaowtm, '')
+    pre
+      = imgMaowtm
+      span.imgName= imgName
+    p
+      |( Notice that the name here is 
+      code.imgName= imgName
+      |  )
+    img(src=lenna)
+    hr
+    p
+      | Sometime you may want a smaller image, maybe display as a little icon. You specity the desired 
+      b minimum
+      |  width with the 
+      code width
+      |  query argument. For example, the following URL give you a 50x50 image:
+    pre= lenna + '?width=50'
+    img(src=lenna+'?width=50')
+    p The width will get ceiled to the nearest 50, which means
+    pre= lenna + '?width=20'
+    img(src=lenna+'?width=20')
+    p gives you the same result.
+    hr
+    p You can also convert the format. The following URL gives you an JPG image of 100x100
+    pre= lenna + '?width=100&as=jpg'
+    img(src=lenna+'?width=100&as=jpg')
+    p Notice that without the <code>as</code> thing, all image is given in PNG.
+    hr
+    p If you get your name wrong and get a 404, you will still get an image.
+    img(src=imgMaowtm + 'somethingnotexist')
+    p Notice that query string still apply, even if 404.
+    pre= imgMaowtm + 'somethingnotexist' + '?width=200'
+    img(src=imgMaowtm + 'somethingnotexist' + '?width=200')
+
+block copyrights
+  div Icon made by <a rel="nofollow" href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> is licensed by <a rel="nofollow" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC BY 3.0</a>
+  div Lenna: By Original full portrait: "Playmate of the Month". Playboy Magazine. November 1972, photographed by <a href="//en.wikipedia.org/wiki/Dwight_Hooker" title="Dwight Hooker">Dwight Hooker</a>.This 512x512 electronic/mechanical scan of a section of the full portrait: Alexander Sawchuk and two others<a href="#cite_note-IEEE-1">[1]</a> - <a rel="nofollow" class="external text" href="http://sipi.usc.edu/database/database.php?volume=misc&amp;image=12">The USC-SIPI image database</a>, <a href="//en.wikipedia.org/wiki/File:Lenna.png" title="Fair use">Fair use</a>, <a href="https://en.wikipedia.org/w/index.php?curid=20658476">Link</a>
