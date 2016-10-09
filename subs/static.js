@@ -265,7 +265,7 @@ module.exports = function (db, lock) {
     res.send(pages.imgIndex())
   })
   rImg.get(/^\/(.+)$/, function (req, res, next) {
-    let requestPage = /^text\/html/.test(req.get('accept'))
+    // let requestPage = /^text\/html/.test(req.get('accept'))
     let desiredWidth = parseInt(req.query.width)
     let desiredFormat = req.query.as || 'png'
     if (!validExtensions.find(x => x === desiredFormat)) {
