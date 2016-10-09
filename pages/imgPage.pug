@@ -1,0 +1,11 @@
+extends layout
+
+block head
+  title= imgName
+
+block content
+  h1
+    = 'View ' + imgName
+  -if (buff.length <= 10 * 1024)
+    -path = 'data:image/png;base64,' + buff.toString('base64')
+  img.cont(src=path)

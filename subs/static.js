@@ -265,6 +265,7 @@ module.exports = function (db, lock) {
     res.send(pages.imgIndex())
   })
   rImg.get(/^\/(.+)$/, function (req, res, next) {
+    let requestPage = /^text\/html/.test(req.get('accept'))
     let desiredWidth = parseInt(req.query.width)
     let desiredFormat = req.query.as || 'png'
     if (!validExtensions.find(x => x === desiredFormat)) {
@@ -317,6 +318,23 @@ module.exports = function (db, lock) {
               if (notFind) {
                 res.status(404)
               }
+              // if (requestPage && !notFind) {
+              //   if (req.query.width || req.query.as) {
+              //     delete req.query.as
+              //     delete req.query.width
+              //     let qr = qs.stringify(req.query)
+              //     if (qr.length > 0) {
+              //       qr = '?' + qr
+              //     }
+              //     res.redirect(302, req.path + qr)
+              //     return
+              //   }
+              //   res.send(pages.imgPage({imgName, path: req.path, buff}))
+              // } else {
+              //   res.type(desiredFormat)
+              //   res.send(buff)
+              // }
+              // This is fancy, but it causes problems with cache.
               res.type(desiredFormat)
               res.send(buff)
             }
