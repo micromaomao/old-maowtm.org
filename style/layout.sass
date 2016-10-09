@@ -14,6 +14,7 @@ $color-yellowgreen: #BCCF02
 $color-orange: #FF5722;
 $color-brown: #795548;
 $fs-text: 16px
+$ff-body: 'Vollkorn', serif
 =transition($prop, $time)
   transition: $prop $time
   -webkit-transition: $prop $time
@@ -27,7 +28,7 @@ $fs-text: 16px
 body
   color: $color-primary-text
   background-color: $color-background
-  font-family: 'Vollkorn', serif
+  font-family: $ff-body
   font-size: $fs-text
   line-height: 1.4
   p
@@ -76,7 +77,7 @@ pre, code
   opacity: 0
 
 input, textarea, button
-  font-family: 'Vollkorn', serif
+  font-family: $ff-body
   outline: none
 textarea, button
   border-left: solid 1px $color-accent

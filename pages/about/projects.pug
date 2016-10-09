@@ -5,26 +5,56 @@
     br
     | Sorted in order of time spent and usefulness ( aka. sorted by magic ) <b>DESC</b>.
   ul
-    mixin project(name, builtWith, url, _tags)
-      -var tags = _tags || [];
-      -var xtoclass = (x => "b-" + x.toLowerCase().replace(/\+/g, 'p').replace(/[^A-Za-z0-9]/g, ''))
-      -var className = builtWith.map(xtoclass).join(' ')
+    mixin project(name, builtWith, url, _tags, big)
+      -let tags = _tags || [];
+      mixin stattag()
+        each tag in tags
+          span.stattag= tag
+          |  
+      -let xtoclass = (x => "b-" + x.toLowerCase().replace(/\+/g, 'p').replace(/[^A-Za-z0-9]/g, ''))
+      -let className = builtWith.map(xtoclass).join(' ')
+      -let logo
+      -if (big)
+        -className += ' big'
+        -logo = big.logo
       li(class=className)
-        h3
-          each tag in tags
-            span.stattag= tag
-            |  
-          a(href=url)= name
-        p
-          block
-        .builtwith
-          | Built with:
-          each val, index in builtWith
-            |  
-            span(class="built " + xtoclass(val))= val
+        -if (logo)
+          .logo
+            img(src=logo)
+        mixin proj_main()
+          -if (big)
+            .stattags
+              +stattag()
+          h3
+            -if (!big)
+              +stattag()
+            a(href=url)= name
+          -if (!big)
+            p
+              block
+          -else
+            .desc-content
+              block
+          .builtwith
+            | Built with:
+            each val, index in builtWith
+              |  
+              span(class="built " + xtoclass(val))= val
+        -if (logo)
+          .main
+            +proj_main()
+              block
+        -else
+          +proj_main()
+            block
+      -if (big)
+        br
     +project("maowtm.org", ["Web", "node.js", "Javascript"],
-      "https://github.com/micromaomao/maowtm.org", ["In-progress"])
-      | This simple website. No fancy React, no Webpack, etc!
+      "https://github.com/micromaomao/maowtm.org", ["In-progress"], {logo: mapStatic('/svg/logo.svg')})
+      p
+        | This simple website. No fancy React, no Webpack, etc!
+      p
+        | A website I built for me and all my little projects. There will be tons of things stuck in this project.
     +project("Shanbay Desktop", ["Electron", "Web", "React", "Javascript", "node.js"],
       "https://github.com/micromaomao/Better-Shanbay", ["Testing"])
       | A 
@@ -40,9 +70,6 @@
     +project("Brainfuck-tape", ["Javascript", "Web"], "https://github.com/micromaomao/brainfuck-tape")
       | A simple BrainFuck interpreter, with running code highlight, infinite* bidirectional tape,
       | tape monitoring...
-    +project("OpenTieba", ["C#", "Windows", "Javascript"],
-      "https://github.com/micromaomao/opentieba", ["Stopped", "Broke", "Chinese"])
-      | 贴吧API
     +project("TagAlarm", ["Android", "Java"], "https://github.com/micromaomao/TagAlarm", ["In-progress"])
       | Android learning project; A alarm clock that force you to get up.
     +project("SlickSnake", ["Javascript", "Web"], "https://github.com/micromaomao/SlickSnake", ["In-progress"])
@@ -57,4 +84,9 @@
       | A simple-to-use, command line Pomodoro Timer!
   p
     | There's actually a lot more, but those are just very small projects or projects with very bad coding
-    | and have stopped. To ( kind of ) <i>cover</i> those "<i>black history</i>", I've removed them from GitHub.
+    | and have stopped. For the bad coding part, to ( kind of ) <i>cover</i> those "<i>black history</i>",
+    | I've removed them from GitHub.
+  p
+    | Find out more small projects in my 
+    a(href="https://github.com/micromaomao?tab=repositories") GitHub repositories list
+    | .

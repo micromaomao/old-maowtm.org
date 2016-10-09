@@ -24,13 +24,8 @@ body
   text-align: center
   overflow: none
   position: relative
-  padding-top: 150px
+  padding-top: 100px
   padding-bottom: 8rem
-
-  img
-    height: 7rem
-    margin-top: -0.5rem
-    margin-bottom: -1.3rem
 
   .img-desc
     font-size: 16px
@@ -45,18 +40,11 @@ body
     @extend .reset_hx
     @extend i
     line-height: 1.3
-    font-size: 48px
-    color: $color-primary-light
-    text-shadow: 1px 1px 0 $color-primary, -1px -1px 0 $color-primary, 1px -1px 0 $color-primary , -1px 1px 0 $color-primary
+    font-size: 120px
+    color: $color-primary-text
     background: transparent
-  blockquote
-    padding-bottom: 40px;
-    margin: 0;
-    font-family: serif;
-    vertical-align: middle;
-    i
-      vertical-align: middle;
-      background: transparent
+    text-transform: none
+    font-family: $ff-body
   .quicklinks
     margin: 0
     a
@@ -76,11 +64,6 @@ body.mobile
     background-position: 50% 50%
     h1
       font-size: 32px
-    blockquote
-      padding-bottom: 10px;
-      i
-        display: block;
-        line-height: 1;
     .quicklinks
       font-size: 20px
       a
@@ -293,27 +276,56 @@ body.mobile
         color: $color-primary-dark;
       .builtwith
         .built
-          background-color: #dddddd;
-          color: darken($color-pink, 20%);
-          display: inline-block;
-          margin: 0.1rem;
-          padding: 0.2rem;
-          border-radius: 4px;
+          background-color: #dddddd
+          color: darken($color-pink, 20%)
+          display: inline-block
+          margin: 0.1rem
+          padding: 0.2rem
+          border-radius: 4px
         .built.b-nodejs, .built.b-android
-          color: darken($color-green, 10%);
+          color: darken($color-green, 10%)
         .built.b-web, .built.b-react
-          color: darken($color-blue, 10%);
+          color: darken($color-blue, 10%)
         .built.b-javascript
-          color: darken($color-orange, 10%);
+          color: darken($color-orange, 10%)
         .built.b-electron
-          color: darken($color-purple, 10%);
+          color: darken($color-purple, 10%)
         .built.b-python, .built.b-linux
-          color: #2b5b84;
+          color: #2b5b84
         .built.b-minecraft
-          color: darken($color-brown, 10%);
+          color: darken($color-brown, 10%)
+    li.big
+      display: table
+      margin-left: auto
+      margin-right: auto
+      max-width: none;
+      background-color: transparent
+
+      .logo
+        margin: 0.8rem
+        img
+          height: 10rem
+          vertical-align: middle
+      .main, .logo
+        display: table-cell
+        vertical-align: middle
+        text-align: left
+
+        h3
+          font-size: 4rem
+          padding: 0
+          margin: 0
+          line-height: 1
+        .stattag
+          background-color: transparent
+          border-radius: none
+          font-size: 1rem
+        .desc-content
+          margin-bottom: 1.5rem
   > p
-    max-width: 500px;
-    margin: auto;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 body.mobile
   .tile-project
     > ul
