@@ -1,0 +1,51 @@
+extends layout
+
+block head
+  title A Little Survey
+
+block content
+  p
+    -if (!desc)
+      | Thank you for helping us.
+    -else
+      | #{desc}
+
+  each qst, idx in q
+    -let mds = qst.mode.split('-')
+    -let mod = mds[0]
+    -let queClass = ['que']
+    -if (qst.singleLine) queClass.push('single-line')
+    div(class=queClass.join(' '), id=('q' + idx), data-mod=mod)
+      h2 #{idx + 1}: #{qst.question}
+      -if (mod === 'single')
+        each ans, anidx in qst.answer
+          .ans
+            -let ipid = 'q' + idx + 's' + anidx
+            input(type='radio', name=('q' + idx), id=ipid)
+            label(for=ipid)= ans
+        -if (mds[1] === 'orother')
+          .ans
+            -let ipid = 'q' + idx + 'sothr'
+            input(type='radio', name=('q' + idx), id=ipid)
+            label(for=ipid) Other (please specify):
+            input.opsy(type='text')
+      -if (mod === 'select')
+        each ans, anidx in qst.answer
+          .ans
+            -let ipid = 'q' + idx + 's' + anidx
+            input(type='checkbox', id=ipid)
+            label(for=ipid)= ans
+        -if (mds[1] === 'orother')
+          .ans
+            -let ipid = 'q' + idx + 'sothr'
+            input(type='checkbox', id=ipid)
+            label(for=ipid) Other (please specify):
+            input.opsy(type='text')
+      -if (mod === 'open')
+        .ans
+          textarea(placeholder='Just some little suggesstion')
+  button.submit Finish!
+  .submiting Submiting your result...
+  .submError
+  script(src=mapStatic('/script-lab/jquery.js'))
+  script(src=mapStatic('/script/survey.js'))

@@ -206,7 +206,7 @@ module.exports = function (db, lock) {
   var rStatic = express.Router()
   let compressJs = process.env.NODE_ENV === 'production'
   rStatic.use(function (req, res, next) {
-    if (!req.path.match(/\.js$/)) {
+    if (!req.path.match(/\.js$/) || req.path.match(/^\/script-lab\//)) {
       return next()
     }
     staticCache(req.path, function (fileName, data, done) {
