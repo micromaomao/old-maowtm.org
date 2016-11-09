@@ -156,7 +156,8 @@ module.exports = function (db, lock) {
           answer: [
             '1 (Not satisfied at all)', '2', '3', '4', '5 (Deeply impressed)'
           ],
-          mode: 'single'
+          mode: 'single',
+          singleLine: true
         },
         {
           question: 'What do you think WeChat can do to improve their service in the future?',
