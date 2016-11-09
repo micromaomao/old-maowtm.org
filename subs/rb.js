@@ -174,6 +174,14 @@ module.exports = function (db, lock) {
     let sv = surveies[svid]
     res.send(pages.survey({id: svid, desc: sv.desc, q: sv.q}))
   })
+  rRb.get('/survey/:id/success', (req, res, next) => {
+    let svid = req.params.id
+    if (!surveies[svid]) {
+      next()
+      return
+    }
+    res.send(pages.surveySuccess())
+  })
   rRb.post('/survey/:id', function (req, res, next) {
     let ctype = req.get('Content-Type')
     let done = false
