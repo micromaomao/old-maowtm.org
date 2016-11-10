@@ -14,6 +14,26 @@
     textarea
       width: 100%
       height: 3rem
+    input[type="checkbox"], input[type="radio"]
+      display: none
+    [type="checkbox"] + label:before, [type="radio"] + label:before
+      content: ' '
+      display: inline-block
+      vertical-align: middle
+      margin-right: 0.5rem
+      background-color: white
+      border: solid 1px $color-primary
+      width: 0.8rem
+      height: 0.8rem
+    [type="checkbox"] + label:before
+      border-radius: 0
+    [type="radio"] + label:before
+      border-radius: 0.5rem
+    [type="checkbox"]:checked + label:before, [type="radio"]:checked + label:before
+      background-color: $color-primary
+      border-color: $color-primary-light
+    [type="checkbox"]:checked + label, [type="radio"]:checked + label
+      color: $color-primary-dark
 .que.single-line
   .ans
     display: inline-block

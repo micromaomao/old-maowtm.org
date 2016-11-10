@@ -162,7 +162,8 @@ module.exports = function (db, lock) {
           answer: [
             '1 (Not satisfied at all)', '2', '3', '4', '5 (Deeply impressed)'
           ],
-          mode: 'single'
+          mode: 'single',
+          singleLine: true
         },
         {
           question: 'Do you think WeChat will remain its current popularity after 10 years from now?',
