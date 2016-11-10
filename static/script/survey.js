@@ -67,6 +67,13 @@ $('.submit').click(function () {
         que.addClass('error')
         error = true
       }
+    } else if (mod === 'input') {
+      var ipt = que.find('.ans input')
+      rsp = ipt.val()
+      if (rsp.length === 0) {
+        que.addClass('error')
+        error = true
+      }
     }
     response[idx] = rsp
   })

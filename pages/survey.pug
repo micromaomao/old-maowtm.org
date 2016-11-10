@@ -41,9 +41,12 @@ block content
             input(type='checkbox', id=ipid)
             label(for=ipid) Other (please specify):
             input.opsy(type='text')
+      -if (mod === 'input')
+        .ans
+          input.inputAns(type='text', placeholder=(qst.placeholder || 'Type your answer'))
       -if (mod === 'open')
         .ans
-          textarea(placeholder='Just some little suggesstion')
+          textarea(placeholder=(qst.placeholder))
   button.submit Finish!
   .submiting Submiting your result...
   .submError

@@ -115,25 +115,31 @@ module.exports = function (db, lock) {
         {
           question: 'Do you use WeChat? How often do you check it?',
           answer: [
-            'Never', 'Everyday', 'Few times a week', 'Rarely'
+            'Many times every day', 'One or few times every day', 'Few times a week', 'Never'
           ],
           mode: 'single'
         },
         {
-          question: 'Why do you think WeChat is useful to you?',
+          question: 'What is your current nationality?',
+          mode: 'input',
+          placeholder: 'US'
+        },
+        {
+          question: 'What do you mostly do on WeChat?',
           answer: [
             'Chat with friends',
             'See how others are doing on Moment',
             'Pay expenses with WeChat Pay',
             'Share gaming achievements with WeChat Game',
             'Get information from official accounts',
-            'Kill time'
+            'Kill time',
+            'WeRun motivates me to walk/exercise more'
           ],
           mode: 'select-orother'
         },
         {
           question: 'Do you think WeChat Pay will replace cash payment?',
-          answer: ['No', 'Maybe', 'Yes for sure'],
+          answer: ['Yes for sure', 'Maybe', 'No'],
           mode: 'single'
         },
         {
@@ -152,15 +158,16 @@ module.exports = function (db, lock) {
           singleLine: true
         },
         {
-          question: 'On a scale of 1 to 5, rate your satisfaction with WeChat currently.',
+          question: 'On a scale of 1-5, rate your satisfaction with WeChat currently.',
           answer: [
             '1 (Not satisfied at all)', '2', '3', '4', '5 (Deeply impressed)'
           ],
           mode: 'single'
         },
         {
-          question: 'What do you think WeChat can do to improve their service in the future?',
-          mode: 'open'
+          question: 'Do you think WeChat will remain its current popularity after 10 years from now?',
+          mode: 'open',
+          placeholder: 'Required, please briefly explain why.'
         }
       ]
     }
