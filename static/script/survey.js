@@ -1,3 +1,5 @@
+window.noHashChange = true
+
 var ques = $('.que')
 
 ques.each(function (idx, que) {

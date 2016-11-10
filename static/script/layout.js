@@ -1,4 +1,5 @@
-function check () {
+// Check moblie and apply layout.
+function checkLayout () {
   var mobileClassRegex = /(^|\s)mobile($|\s)/
   if (window.innerWidth < 580) {
     if (!document.body.className.match(mobileClassRegex)) {
@@ -8,7 +9,9 @@ function check () {
     document.body.className =
       document.body.className.replace(mobileClassRegex, '')
   }
-
+}
+// Auto set #xxx on scroll
+function checkHash () {
   if (window.pageYOffset <= 50) {
     changeHash(null)
   } else {
@@ -44,9 +47,15 @@ if (window.location.hash && window.location.hash.length > 0) {
   var y = document.getElementById(hash).getBoundingClientRect().top
   window.scrollBy(0, y)
 }
-var checkInterval = setInterval(check, 100)
-check()
+var checkInterval = setInterval(function () {
+  checkLayout()
+  if (!window.noHashChange) {
+    checkHash()
+  }
+}, 100)
+checkLayout()
 
+// Allow navigating
 window.addEventListener('beforeunload', function () {
   clearInterval(checkInterval)
 })
