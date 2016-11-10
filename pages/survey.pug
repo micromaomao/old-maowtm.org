@@ -30,6 +30,8 @@ block content
             label(for=ipid) Other (please specify):
             input.opsy(type='text')
       -if (mod === 'select')
+        .qdesc
+          i Choose one or more answer/s.
         each ans, anidx in qst.answer
           .ans
             -let ipid = 'q' + idx + 's' + anidx

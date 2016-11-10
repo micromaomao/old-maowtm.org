@@ -104,6 +104,7 @@ module.exports = function (db, lock) {
 
   const surveies = {
     'sciebpc-empire': {
+      desc: "This survey is about WeChat. All data is collected for research usage. No personal detail will be collected, and all response is anonymous. Thank you for helping us.",
       q: [
         {
           question: 'What is your age group?',
