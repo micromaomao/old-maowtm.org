@@ -14,7 +14,7 @@ module.exports = function (db, lock) {
     to: 'String'
   })
   let RbAnoyMessage = mongoose.model('rbAnoyMessage', rbAnoyMessageSchema)
-  
+
   let rbSurveyResponseSchema = new mongoose.Schema({
     surveyId: 'String',
     time: 'Number',
@@ -104,7 +104,7 @@ module.exports = function (db, lock) {
 
   const surveies = {
     'sciebpc-empire': {
-      desc: "This survey is about WeChat. All data is collected for research usage. No personal detail will be collected, and all response is anonymous. Thank you for helping us.",
+      desc: 'This survey is about WeChat. All data is collected for research usage. No personal detail will be collected, and all response is anonymous. Thank you for helping us.',
       q: [
         {
           question: 'What is your age group?',
@@ -229,8 +229,8 @@ module.exports = function (db, lock) {
         return
       }
       try {
-        if (typeof JSON.parse(body) != 'object') {
-          throw 1
+        if (typeof JSON.parse(body) !== 'object') {
+          throw new Error()
         }
       } catch (e) {
         res.status(403)
