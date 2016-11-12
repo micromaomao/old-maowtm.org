@@ -1138,3 +1138,252 @@ describe('require("pages")', function () {
     })
   }
 })()
+;(function () {
+  let destory
+  let maow = new Maowtm(Object.assign({}, initParm, {
+    db: DB,
+    redis: REDIS,
+    callback: function (err, app, finalize) {
+      destory = finalize
+      if (err) {
+        throw err
+      }
+      rbTest(app)
+    },
+    mockSecure: true
+  }))
+
+  function rbTest (app) {
+    describe('rb.maowtm.org/survey/...', () => {
+      after(() => {
+        destory()
+        console.log(' -> Destroyed maowtm instance.')
+      })
+
+      const RbSurveyResponse = maow.db.model('rbSurveyResponse')
+      const testSurvey = '__unit_test'
+      const testUrl = `/survey/${testSurvey}/`
+
+      before(done => {
+        RbSurveyResponse.remove({surveyId: testSurvey}, err => {
+          if (err) {
+            done(err)
+            return
+          }
+          console.log('Removed all rbSurveyResponse:surveyId=__unit_test for test')
+          done()
+        })
+      })
+
+      it('should show survey', done => {
+        function getTypeCheck (mod) {
+          switch (mod) {
+            case 'single':
+              return 'radio'
+            case 'select':
+              return 'checkbox'
+            default:
+              throw new Error(`Mode ${mod} invalid.`)
+          }
+        }
+        function testAnChoose (an, i, mode, idx) {
+          let t = ('HELlO')[idx]
+          let ipt = an.find('input')
+          ipt.length.should.equal(1, 'Only one input')
+          ipt.attr('type').should.equal(getTypeCheck(mode), 'input[type=...]')
+          let idCheck = `q${i}s${idx}`
+          ipt.attr('id').should.equal(idCheck, 'input[id=qxsx]')
+          let lab = an.find('label')
+          lab.length.should.equal(1, 'One label')
+          lab.text().should.equal(t, 'Answer text')
+          lab.attr('for').should.equal(idCheck, 'label[for]')
+        }
+        function testOthr (an, i, mode, idx) {
+          let ipt = an.find('input')
+          ipt.length.should.equal(2, 'Two input element')
+          let chooseIpt = ipt.eq(0)
+          chooseIpt.attr('type').should.equal(getTypeCheck(mode), 'input[type=...]')
+          chooseIpt.attr('id').should.equal(`q${i}sothr`, 'input[id=qxsothr]')
+          let othrIpt = ipt.eq(1)
+          othrIpt.attr('type').should.equal('text', 'input[type=text]')
+          othrIpt.hasClass('opsy').should.be.true('Input box should have opsy class')
+        }
+        request(app)
+          .get(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .expect(200)
+          .expect(res => res.type.should.match(/^text\/html(;|$)/))
+          .end((err, res) => {
+            if (err) {
+              done(err)
+              return
+            }
+            try {
+              let $ = cheerio.load(res.text)
+              let ques = $('.que')
+              ques.length.should.equal(6, 'There should be 6 questions.')
+              for (let i = 0; i < 6; i++) {
+                let que
+                let mod
+                let ans
+                switch (i) {
+                  case 0:
+                    que = ques.eq(i)
+                    mod = que.data('mod')
+                    mod.should.equal('single', 'Question 1 should be mode/single.')
+                    que.find('h2').text().should.equal('1: single', 'Question heading')
+                    ans = que.find('.ans')
+                    ans.length.should.equal(5, '5 answers')
+                    ans.each((idx, an) => {
+                      an = $(an)
+                      testAnChoose(an, i, mod, idx)
+                    })
+                    break
+                  case 1:
+                    que = ques.eq(i)
+                    mod = que.data('mod')
+                    mod.should.equal('select', 'Question 2 should be mode/select.')
+                    que.find('h2').text().should.equal('2: select', 'Question heading')
+                    ans = que.find('.ans')
+                    ans.length.should.equal(5, '5 answers')
+                    ans.each((idx, an) => {
+                      an = $(an)
+                      testAnChoose(an, i, mod, idx)
+                    })
+                    break
+                  case 2:
+                    que = ques.eq(i)
+                    mod = que.data('mod')
+                    mod.should.equal('single', 'Question 3 should be mode/single.')
+                    que.find('h2').text().should.equal('3: single-orother', 'Question heading')
+                    ans = que.find('.ans')
+                    ans.length.should.equal(6, '6 answers')
+                    ans.each((idx, an) => {
+                      an = $(an)
+                      if (idx < 5) testAnChoose(an, i, mod, idx)
+                      else testOthr(an, i, mod, idx)
+                    })
+                    break
+                  case 3:
+                    que = ques.eq(i)
+                    mod = que.data('mod')
+                    mod.should.equal('select', 'Question 4 should be mode/select.')
+                    que.find('h2').text().should.equal('4: select-orother', 'Question heading')
+                    ans = que.find('.ans')
+                    ans.length.should.equal(6, '6 answers')
+                    ans.each((idx, an) => {
+                      an = $(an)
+                      if (idx < 5) testAnChoose(an, i, mod, idx)
+                      else testOthr(an, i, mod, idx)
+                    })
+                    break
+                  case 4:
+                    que = ques.eq(i)
+                    mod = que.data('mod')
+                    mod.should.equal('input', 'Question 5 should be mode/input.')
+                    que.find('h2').text().should.equal('5: input', 'Question heading')
+                    ans = que.find('.ans')
+                    ans.length.should.equal(1, '1 answers')
+                    ans.find('input[type=text]').length.should.equal(1, 'Should have input box')
+                    break
+                  case 5:
+                    que = ques.eq(i)
+                    mod = que.data('mod')
+                    mod.should.equal('open', 'Question 6 should be mode/open.')
+                    que.find('h2').text().should.equal('6: open', 'Question heading')
+                    ans = que.find('.ans')
+                    ans.length.should.equal(1, '1 answers')
+                    ans.find('textarea').length.should.equal(1, 'Should have input box')
+                    break
+                }
+              }
+              done()
+            } catch (e) {
+              done(e)
+            }
+          })
+      })
+      it('should not submit empty survey', done => {
+        request(app)
+          .post(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .type('json')
+          .send(' \n\r\t')
+          .expect(403)
+          .end(done)
+      })
+      it('should only accept JSON', done => {
+        request(app)
+          .post(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .type('json')
+          .send('{not-valid-json}')
+          .expect(403)
+          .end(done)
+      })
+      it('should not accept response for non-existing survey', done => {
+        request(app)
+          .post('/survey/__')
+          .set('Host', 'rb.maowtm.org')
+          .type('json')
+          .send('{}')
+          .expect(404)
+          .end(done)
+      })
+      it('should submit response', done => {
+        let payload = `{"test": ${JSON.stringify(Math.floor(Math.random() * 256).toString(16))}}`
+        request(app)
+          .post(testUrl)
+          .set('Host', 'rb.maowtm.org')
+          .type('json')
+          .send(payload)
+          .expect(200)
+          .end(err => {
+            if (err) {
+              done(err)
+              return
+            }
+            RbSurveyResponse.find({surveyId: testSurvey}, (err, doc) => {
+              if (err) {
+                done(err)
+                return
+              }
+              try {
+                doc.length.should.equal(1, 'One response should be there.')
+                doc[0].response.should.equal(payload, 'Response should be right.')
+                done()
+              } catch (e) {
+                done(e)
+              }
+            })
+          })
+      })
+      it('should have success page', done => {
+        request(app)
+          .get(testUrl + 'success/')
+          .set('Host', 'rb.maowtm.org')
+          .expect(200)
+          .expect(res => res.type.should.match(/^text\/html(;|$)/))
+          .end((err, res) => {
+            if (err) {
+              done(err)
+              return
+            }
+            try {
+              res.text.should.match(/[Tt]hank [Yy]ou/, 'Should say thank you.')
+              done()
+            } catch (e) {
+              done(e)
+            }
+          })
+      })
+      it('should not have success page for non-existing survey', done => {
+        request(app)
+          .get('/survey/__/success/')
+          .set('Host', 'rb.maowtm.org')
+          .expect(404)
+          .end(done)
+      })
+    })
+  }
+})()

@@ -179,6 +179,42 @@ module.exports = function (db, lock) {
           placeholder: '必填，请简单解释原因 / Required, please briefly explain why.'
         }
       ]
+    },
+    '__unit_test': {
+      lang: 'en',
+      desc: 'This survey is for testing porpuse. Ignore it.',
+      q: [
+        {
+          question: 'single',
+          mode: 'single',
+          answer: ['H', 'E', 'L', 'l', 'O']
+        },
+        {
+          question: 'select',
+          mode: 'select',
+          answer: ['H', 'E', 'L', 'l', 'O']
+        },
+        {
+          question: 'single-orother',
+          mode: 'single-orother',
+          answer: ['H', 'E', 'L', 'l', 'O']
+        },
+        {
+          question: 'select-orother',
+          mode: 'select-orother',
+          answer: ['H', 'E', 'L', 'l', 'O']
+        },
+        {
+          question: 'input',
+          mode: 'input',
+          placeholder: 'ph'
+        },
+        {
+          question: 'open',
+          mode: 'open',
+          placeholder: 'ph'
+        }
+      ]
     }
   }
   rRb.get('/survey/:id', (req, res, next) => {
