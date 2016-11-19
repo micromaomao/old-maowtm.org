@@ -1,11 +1,17 @@
 (function ($) {
-  function preg_quote( str ) {
+  function preg_quote (str) {
       // http://kevin.vanzonneveld.net
       // +   original by: booeyOH
       // +   improved by: Ates Goral (http://magnetiq.com)
       // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
       // +   bugfixed by: Onno Marsman
-      return (str+'').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
+      return (str+'').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1")
+  }
+  function getTypeString (type) {
+    switch (type) {
+      case 'qp': return 'question paper'
+      case 'ms': return 'marking scheme'
+    }
   }
   var queryBox = $('.queryBox')
   queryBox.focus()
@@ -71,9 +77,11 @@
           for (var i = 0; i < data.length; i ++) {
             var idx = data[i]
             var rs = $('<div class="fulltext"></div>')
-            rs.append($('<span class="paper"></span>').text(idx.doc.subject + ' ' + idx.doc.time + ' paper ' + idx.doc.paper + idx.doc.variant))
+            rs.append($('<span class="paper"></span>').text(idx.doc.subject + ' ' + idx.doc.time + ' paper ' + idx.doc.paper + (idx.doc.variant !== 0 ? idx.doc.variant : '')))
             rs.append(' ')
-            rs.append($('<span class="page"></span>').text('/ page ' + (idx.index.page + 1)))
+            rs.append($('<span class="type"></span>').text(getTypeString(idx.doc.type)))
+            rs.append(' ')
+            rs.append($('<span class="page"></span>').text('/ page ').append($('<span class="num"></span>').text(idx.index.page + 1)))
             var tcont = $('<div class="content"></div>')
             var ctSplit = idx.index.content.split(new RegExp("(" + preg_quote(query) + ")" , 'i' ))
             if (ctSplit.length === 1) {
@@ -93,6 +101,9 @@
             }
             rs.append(tcont)
             fullTextResults.append(rs)
+            rs.click(function () {
+              window.open('https://file.schsrch.xyz/' + idx.doc._id)
+            })
           }
 
           if (i === 0) {

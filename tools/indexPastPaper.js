@@ -17,13 +17,19 @@ db.on('open', () => {
 
   const indexPdf = path => new Promise((resolve, reject) => {
     const fname = path.split('/').slice(-1)[0]
-    const nameMat = fname.match(/^(\d+)_([a-z]\d\d)_([a-z]+)_(\d)(\d)\.pdf$/)
+    let nameMat = fname.match(/^(\d+)_([a-z]\d\d)_([a-z]+)_(\d{1,2})\.pdf$/)
     if (!nameMat) {
       console.error(`Ignoring ${fname}...`)
       resolve()
       return
     }
-    const [, subject, time, type, paper, variant] = nameMat
+    const [, subject, time, type, pv] = nameMat
+    let paper
+    let variant = 0
+    paper = parseInt(pv[0])
+    if (pv.length === 2) {
+      variant = parseInt(pv[1])
+    }
     fs.readFile(path, (err, data) => {
       if (err) {
         reject(err)
