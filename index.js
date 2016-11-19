@@ -59,15 +59,28 @@ var maowtm = function (config) {
   })
   this.db.on('open', function () {
     pages = require('./pages')(this.db)
-    var acme = _this.acme
-    try {
-      fs.accessSync('acme-challenge', fs.R_OK)
-      acme = fs.readFileSync('acme-challenge', {encoding: 'utf8'})
-      console.log('ACME challenge file read.')
-    } catch (e) {}
+    let acme = _this.acme
+    if (!acme) {
+      try {
+        fs.accessSync('acme-challenge', fs.R_OK)
+        console.log('ACME challenge file found.')
+        acme = true
+      } catch (e) {}
+    }
     if (acme) {
-      app.get('/.well-known/acme-challenge/*', function (req, res) {
-        res.send(acme)
+      app.get('/.well-known/acme-challenge/*', function (req, res, next) {
+        if (typeof acme === 'string') {
+          res.send(acme)
+          return
+        }
+        fs.readFile('acme-challenge', {encoding: 'utf-8'}, (err, data) => {
+          if (err) {
+            next(err)
+          } else {
+            res.type('text')
+            res.send(data)
+          }
+        })
       })
     }
 
@@ -146,7 +159,7 @@ var maowtm = function (config) {
             })
           }
           resolve()
-        }, reject)
+        }).catch(reject)
       })
     }
     const Image = _this.db.model('image')
@@ -235,7 +248,7 @@ var maowtm = function (config) {
           _this.db.close()
         })
       }
-    }, err => { fail(err) })
+    }).catch(err => { fail(err) })
   })
 }
 
