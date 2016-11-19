@@ -43,22 +43,54 @@
     resultList.html('')
     if (query === '') {
       resultList.append($('<div class="prompt">Search for something...</div>'))
+      $('.help').css({display: ''})
       clearNonDirect()
       return
     }
+    $('.help').css({display: 'none'})
     if (query.match(/^\d{2,4}$/)) {
       var results = 0
       for (var i = 0; i < CIESubjects.length; i++) {
-        var subj = CIESubjects[i]
-        if (subj.id.substr(0, query.length) === query) {
-          var subjElem = $('<div class="subject"></div>')
-          subjElem.append($('<span class="level"></span>').text(subj.level))
-          subjElem.append($('<span class="id"></span>').text(subj.id))
-          subjElem.append(': ')
-          subjElem.append($('<span class="name"></span>').text(subj.name))
-          resultList.append(subjElem)
-          results++
+        (function (subj) {
+          if (subj.id.substr(0, query.length) === query) {
+            var subjElem = $('<div class="subject"></div>')
+            subjElem.append($('<span class="level"></span>').text(subj.level))
+            subjElem.append($('<span class="id"></span>').text(subj.id))
+            subjElem.append(': ')
+            subjElem.append($('<span class="name"></span>').text(subj.name))
+            resultList.append(subjElem)
+            subjElem.click(function () {
+              queryBox.val(subj.id + ' ')
+              queryBox.focus()
+              processQuery(subj.id)
+            })
+            results++
+          }
+        })(CIESubjects[i])
+        if (results >= 5) {
+          clearNonDirect()
+          return
         }
+      }
+    } else {
+      var results = 0
+      for (var i = 0; i < CIESubjects.length; i ++) {
+        (function (subj) {
+          if (subj.name.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+            var subjElem = $('<div class="subject"></div>')
+            subjElem.append($('<span class="level"></span>').text(subj.level))
+            subjElem.append($('<span class="name"></span>').text(subj.name))
+            subjElem.append(': ')
+            subjElem.append($('<span class="id"></span>').text(subj.id))
+            resultList.append(subjElem)
+            subjElem.click(function () {
+              queryBox.val(subj.id + ' ')
+              queryBox.focus()
+              processQuery(subj.id)
+            })
+            results++
+          }
+        })(CIESubjects[i])
         if (results >= 5) {
           clearNonDirect()
           return
@@ -127,6 +159,8 @@
     var match
     if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})$/))) {
       fetchPP(match[1], match[2])
+    } else if ((match = query.match(/^(\d{4})[_ ](\d)$/))) {
+      fetchPP(match[1], null, match[2], null, null)
     } else if ((match = query.match(/^(\d{4})[_ ]([a-z]+)$/))) {
       fetchPP(match[1], null, null, null, match[2])
     } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]([a-z]+)$/))) {

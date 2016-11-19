@@ -4,8 +4,44 @@ block head
   title SchSrch - Find CIE Past Papers
 block content
   .queryContainer
-    input.queryBox(type="text",placeholder="Type help for usage.")
+    input.queryBox(type="text",placeholder="0470 s16")
 
+  .help
+    h1
+      | Sch
+      span eme
+      | S
+      span ea
+      | rch
+    p
+      | A past paper search engine developed by 
+      a(href="https://maowtm.org") Mao Wtm
+      |  (Lynn at school) - an IGCSE student.
+    h2 How to use?
+    p
+      | Try these query:
+    h3 Search for specific paper
+    ul
+      li History
+        p Tells you history is either 0470 or 9389 (for AS).
+      li 0470 s16
+        p 0470 = IG History, s16 = May/June 16
+        p Show every IGCSE history paper on May/June of 2016
+      li 0470 s16 2
+        p 2 = paper 2
+      li 0470 s16 23
+        p 2 = paper 2
+        p 3 = variant 3
+      li 0470 s16 ms 23
+        p ms = only show marking scheme
+    h3 Search for general terms
+    ul
+      li Wall Street Crash
+      p Show paper that contain "Wall Street Crash"
+    h3 Search for a specific question
+    ul
+      li The most important reason for Roosevelt’s election as President was the Wall Street Crash.’ How far do you agree with this statement? Explain your answer.
+      p Good for checking homework
   .resultList
   .pplContainer
   .ftrContainer

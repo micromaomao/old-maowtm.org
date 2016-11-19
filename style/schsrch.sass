@@ -42,7 +42,8 @@ body.mobile
   right: 0
   height: auto
   z-index: 2
-  background-color: rgba(white, 0.5)
+  background-color: rgba($color-orange, 0.9)
+  color: white
   padding: 1rem 4rem
 
 .msg
@@ -55,6 +56,7 @@ body.mobile
     @extend .msg
   .subject
     padding: 0.5rem 1rem
+    cursor: pointer
     .level
       font-size: 70%
       margin-right: 0.6rem
@@ -89,3 +91,19 @@ body.mobile
       margin-left: 1rem
       color: $color-primary
       cursor: pointer
+
+.help
+  @extend .content
+  padding: 0 2rem
+  h1
+    color: $color-orange
+    span
+      color: $color-secondary-text
+      font-size: 60%
+  ul
+    li
+      font-size: 1.3rem
+      p
+        font-size: 1rem
+body.mobile .help
+  padding: 0
