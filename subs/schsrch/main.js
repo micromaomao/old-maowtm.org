@@ -3,7 +3,6 @@ const _pages = require('../../pages')
 let pages
 
 module.exports = function (db, lock) {
-  let mongoose = db
   pages = _pages(db)
   const {PastPaperIndex, PastPaperDoc} = require('../../lib/pastPaperIndex')(db)
 

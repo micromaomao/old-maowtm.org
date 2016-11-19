@@ -1,11 +1,11 @@
-(function ($) {
-  function preg_quote (str) {
-      // http://kevin.vanzonneveld.net
-      // +   original by: booeyOH
-      // +   improved by: Ates Goral (http://magnetiq.com)
-      // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-      // +   bugfixed by: Onno Marsman
-      return (str+'').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1")
+(function ($, CIESubjects) {
+  function pregQuote (str) {
+    // http://kevin.vanzonneveld.net
+    // +   original by: booeyOH
+    // +   improved by: Ates Goral (http://magnetiq.com)
+    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +   bugfixed by: Onno Marsman
+    return (str + '').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}=!<>\|:])/g, '\\$1')
   }
   function getTypeString (type) {
     switch (type) {
@@ -48,7 +48,7 @@
     }
     if (query.match(/^\d{2,4}$/)) {
       var results = 0
-      for (var i = 0; i < CIESubjects.length; i ++) {
+      for (var i = 0; i < CIESubjects.length; i++) {
         var subj = CIESubjects[i]
         if (subj.id.substr(0, query.length) === query) {
           var subjElem = $('<div class="subject"></div>')
@@ -57,7 +57,7 @@
           subjElem.append(': ')
           subjElem.append($('<span class="name"></span>').text(subj.name))
           resultList.append(subjElem)
-          results ++
+          results++
         }
         if (results >= 5) {
           clearNonDirect()
@@ -98,7 +98,7 @@
           $('.ppl').remove()
 
           var ppMaps = {}
-          for (var i = 0; i < data.length; i ++) {
+          for (var i = 0; i < data.length; i++) {
             (function (doc) {
               var pName = paperName(doc)
               var rs
@@ -125,19 +125,19 @@
       fetchPP(query, null, null, null, null)
     }
     var match
-    if (match = query.match(/^(\d{4})[_ ]([a-z]\d{2})$/)) {
+    if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})$/))) {
       fetchPP(match[1], match[2])
-    } else if (match = query.match(/^(\d{4})[_ ]([a-z]+)$/)) {
+    } else if ((match = query.match(/^(\d{4})[_ ]([a-z]+)$/))) {
       fetchPP(match[1], null, null, null, match[2])
-    } else if (match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]([a-z]+)$/)) {
+    } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]([a-z]+)$/))) {
       fetchPP(match[1], match[2], null, null, match[3])
-    } else if (match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ](\d)$/)) {
+    } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ](\d)$/))) {
       fetchPP(match[1], match[2], match[3], null, null)
-    } else if (match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ](\d)(\d)$/)) {
+    } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ](\d)(\d)$/))) {
       fetchPP(match[1], match[2], match[3], match[4], null)
-    } else if (match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]([a-z]+)[_ ](\d)(\d)$/)) {
+    } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]([a-z]+)[_ ](\d)(\d)$/))) {
       fetchPP(match[1], match[2], match[4], match[5], match[3])
-    } else if (match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]([a-z]+)[_ ](\d)$/)) {
+    } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]([a-z]+)[_ ](\d)$/))) {
       fetchPP(match[1], match[2], match[4], null, match[3])
     } else {
       $('.ppl').remove()
@@ -160,7 +160,7 @@
           }
           $('.ftr').remove()
 
-          for (var i = 0; i < data.length; i ++) {
+          for (var i = 0; i < data.length; i++) {
             (function (idx) {
               var rs = $('<div class="fulltext"></div>')
               rs.append($('<span class="paper"></span>').text(paperName(idx.doc)))
@@ -169,7 +169,7 @@
               rs.append(' ')
               rs.append($('<span class="page"></span>').text('/ page ').append($('<span class="num"></span>').text(idx.index.page + 1)))
               var tcont = $('<div class="content"></div>')
-              var ctSplit = idx.index.content.split(new RegExp("(" + preg_quote(query) + ")" , 'i' ))
+              var ctSplit = idx.index.content.split(new RegExp('(' + pregQuote(query) + ')', 'i'))
               if (ctSplit.length === 1) {
                 tcont.text(ctSplit[0].substr(0, 255))
               } else if (ctSplit.length === 3) {
@@ -203,4 +203,4 @@
   }
 
   processQuery('')
-})(window.jQuery)
+})(window.jQuery, window.CIESubjects)

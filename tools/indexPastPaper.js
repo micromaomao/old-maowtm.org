@@ -1,11 +1,10 @@
 #!/usr/bin/env node
-const PDFJS = require('pdfjs-dist')
-
 const DB = process.env.MONGODB
 
 const mongoose = require('mongoose')
 let db = mongoose.createConnection(DB)
 
+const PDFJS = require('pdfjs-dist')
 const fs = require('fs')
 
 db.on('error', err => {
@@ -76,7 +75,7 @@ db.on('open', () => {
               return
             }
 
-            for (let pn = 1; pn <= pdfDoc.numPages; pn ++) {
+            for (let pn = 1; pn <= pdfDoc.numPages; pn++) {
               pagePromises.push(pdfDoc.getPage(pn).then(page => loadPage(page)))
             }
 
@@ -107,9 +106,7 @@ db.on('open', () => {
             })
           }
         })
-
       })).then(resolve).catch(reject)
-
     })
   })
 
