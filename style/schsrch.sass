@@ -1,0 +1,78 @@
+@import layout
+
+body
+  margin-top: 4.5rem
+  margin-bottom: 4rem
+
+.queryContainer
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  height: auto
+  z-index: 1
+  .queryBox
+    background-color: $color-background
+    border-top: none
+    border-left: none
+    border-right: none
+    border-bottom: solid 2px $color-orange
+    color: $color-primary-text
+    font-size: 1.5rem
+    padding: 0.5rem
+    width: 100%
+    max-width: 50rem
+    display: block
+    margin: 2rem auto
+    box-shadow: 0 0 1rem rgba(black, 0.5)
+body.mobile
+  margin-bottom: 0
+  .queryContainer
+    .queryBox
+      margin-top: 0
+  .bottomContainer
+    position: static
+    padding: 0.5rem
+
+.bottomContainer
+  @extend .content
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  height: auto
+  z-index: 2
+  background-color: rgba(white, 0.5)
+  padding: 1rem 4rem
+
+.msg
+  text-align: center
+  color: $color-secondary-text
+  padding: 1rem
+
+.resultList
+  .prompt
+    @extend .msg
+  .subject
+    padding: 0.5rem 1rem
+    .level
+      font-size: 70%
+      margin-right: 0.6rem
+      color: $color-accent
+    .id
+      color: $color-purple
+
+.ftr
+  .notfind
+    @extend .msg
+  .fulltext
+    margin: 0.5rem 1rem
+    .paper
+      font-size: 110%
+      color: $color-orange
+    .page
+      color: $color-secondary-text
+    .content
+      color: $color-secondary-text
+      .highlight
+        color: $color-orange

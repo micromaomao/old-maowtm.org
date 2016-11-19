@@ -116,6 +116,7 @@ var maowtm = function (config) {
 
     app.use(require('./subs/main')(_this.db, _this.lock))
     app.use(require('./subs/rb')(_this.db, _this.lock))
+    app.use(require('./subs/schsrch/main')(_this.db, _this.lock))
     app.use(require('./subs/misc')(_this.db, _this.lock))
     let nodeenv = process.env.NODE_ENV || ''
     app.use(function (err, req, res, next) {

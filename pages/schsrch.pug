@@ -1,0 +1,24 @@
+extends layout
+
+block head
+  title SchSrch - Find CIE Past Papers
+block content
+  .queryContainer
+    input.queryBox(type="text",placeholder="Type help for usage.")
+
+  .resultList
+  .ftrContainer
+
+  .bottomContainer
+    p
+      | SchSrch is a service by 
+      a(href="https://maowtm.org") Mao Wtm
+      | . I don't work at CIE, and this service is just for learning purpose.
+    p
+      | Please 
+      b donate
+      |  to keep this running!
+
+  script(src=mapStatic('/script-lab/jquery.min.js'))
+  script(src=mapStatic('/script/CIESubjects.js'))
+  script(src=mapStatic('/script/schsrch.js'))
