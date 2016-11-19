@@ -20,6 +20,45 @@ module.exports = function (db, lock) {
       next(err)
     })
   })
+  rMain.get('/search/pp/', function (req, res, next) {
+    let query = {}
+    if (req.query.subject) {
+      query.subject = req.query.subject
+    }
+    if (req.query.time) {
+      query.time = req.query.time
+    }
+    if (req.query.paper) {
+      try {
+        query.paper = parseInt(req.query.paper)
+      } catch (e) {
+        next(e)
+        return
+      }
+    }
+    if (req.query.variant) {
+      try {
+        query.variant = parseInt(req.query.variant)
+      } catch (e) {
+        next(e)
+        return
+      }
+    }
+    if (req.query.type) {
+      query.type = req.query.type
+    }
+    PastPaperDoc.find(query, {doc: false}).exec((err, rst) => {
+      if (err) {
+        next(err)
+        return
+      }
+      if (rst.length >= 50) {
+        res.send([])
+        return
+      }
+      res.send(rst)
+    })
+  })
 
   let rFile = express.Router()
 
