@@ -1,4 +1,5 @@
 const express = require('express')
+const os = require('os')
 const _pages = require('../../pages')
 let pages
 
@@ -8,6 +9,17 @@ module.exports = function (db, lock) {
 
   let rMain = express.Router()
 
+  let viewCount = 0
+  rMain.get('/vc', function (req, res) {
+    res.send({vc: viewCount, uptime: os.loadavg()})
+  })
+  rMain.use(function (req, res, next) {
+    viewCount ++
+    setTimeout(function () {
+      viewCount --
+    }, 10000)
+    next()
+  })
   rMain.get('/', function (req, res, next) {
     res.send(pages.schsrch({}))
   })
