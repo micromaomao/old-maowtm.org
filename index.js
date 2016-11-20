@@ -101,7 +101,7 @@ var maowtm = function (config) {
 
     // Add trailing / for all GET for all router below. ( i.e. Not including static and img )
     app.use(function (req, res, next) {
-      if (req.hostname.match(/^(img|static)/)) {
+      if (req.hostname.match(/^(img|static|file)/)) {
         next()
         return
       }
