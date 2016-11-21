@@ -165,10 +165,10 @@
       fetchPP(match[1], null, null, null, match[2])
     } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]([a-z]+)$/))) {
       fetchPP(match[1], match[2], null, null, match[3])
-    } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ](\d)$/))) {
-      fetchPP(match[1], match[2], match[3], null, null)
-    } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ](\d)(\d)$/))) {
-      fetchPP(match[1], match[2], match[3], match[4], null)
+    } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]*(paper[_ ]*)?(\d)$/))) {
+      fetchPP(match[1], match[2], match[4], null, null)
+    } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]*(paper[_ ]*)?(\d)(\d)$/))) {
+      fetchPP(match[1], match[2], match[4], match[5], null)
     } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]([a-z]+)[_ ](\d)(\d)$/))) {
       fetchPP(match[1], match[2], match[4], match[5], match[3])
     } else if ((match = query.match(/^(\d{4})[_ ]([a-z]\d{2})[_ ]([a-z]+)[_ ](\d)$/))) {
