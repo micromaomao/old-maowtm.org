@@ -26,7 +26,15 @@ module.exports = function (db, lock) {
   rMain.get('/search/fullText/:q', function (req, res, next) {
     let query = req.params.q.trim()
     PastPaperIndex.search(query).then(result => {
-      res.send(result)
+      Promise.all(result.map(rst => new Promise((resolve, reject) => {
+        PastPaperDoc.find({subject: rst.doc.subject, time: rst.doc.time, paper: rst.doc.paper, variant: rst.doc.variant}, {_id: true, type: true}, (err, res) => {
+          if (err) {
+            resolve({doc: rst.doc, index: rst.index, related: []})
+          } else {
+            resolve({doc: rst.doc, index: rst.index, related: res.filter(x => x.type !== rst.doc.type)})
+          }
+        })
+      }))).then(rst => res.send(rst)).catch(e => next(e))
     }).catch(err => {
       next(err)
     })

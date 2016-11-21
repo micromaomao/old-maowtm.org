@@ -202,6 +202,18 @@
               rs.append($('<span class="type"></span>').text(getTypeString(idx.doc.type)))
               rs.append(' ')
               rs.append($('<span class="page"></span>').text('/ page ').append($('<span class="num"></span>').text(idx.index.page + 1)))
+              if (idx.related.length > 0) {
+                var related = $('<div class="related">Related items: </div>')
+                for (var j = 0; j < idx.related.length; j ++) {
+                  (function (rlt) {
+                    related.append($('<span></span>').text(getTypeString(rlt.type)).click(function (evt) {
+                      evt.stopPropagation()
+                      window.open('https://file.schsrch.xyz/' + rlt._id)
+                    }))
+                  })(idx.related[j])
+                }
+                rs.append(related)
+              }
               var tcont = $('<div class="content"></div>')
               var ctSplit = idx.index.content.split(new RegExp('(' + pregQuote(query) + ')', 'i'))
               if (ctSplit.length === 1) {
