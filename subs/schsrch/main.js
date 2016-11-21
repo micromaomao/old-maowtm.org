@@ -21,7 +21,13 @@ module.exports = function (db, lock) {
     next()
   })
   rMain.get('/', function (req, res, next) {
-    res.send(pages.schsrch({}))
+    Promise.all([PastPaperDoc.count({}), PastPaperIndex.count({})]).then(count => {
+      res.send(pages.schsrch({count: count}))
+    }).catch(e => {
+      if (err) {
+        next(err)
+      }
+    })
   })
   rMain.get('/search/fullText/:q', function (req, res, next) {
     let query = req.params.q.trim()
