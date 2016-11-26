@@ -55,7 +55,9 @@ db.on('open', () => {
           let specimen = false
           try {
             let nameMat = fname.match(/^(\d+)_([a-z]\d\d)_([a-z]+)_(\d{1,2})\.pdf$/)
-            if (!nameMat) {
+            let nameErMat = fname.match(/^(\d+)_([a-z]\d\d)_([a-z]+)\.pdf$/)
+            if (!nameMat && !nameErMat) {
+              // Detect paper "identity" (metadata) by its first page.
               if (idxes.length === 0) {
                 throw new Error("No page => can't identify paper")
               }
@@ -136,13 +138,18 @@ db.on('open', () => {
               } else {
                 throw new Error('No type identifier in paper.')
               }
-            } else {
+            } else if (nameMat) {
+              // Detect identity its name
               let pv
               [, subject, time, type, pv] = nameMat
               paper = parseInt(pv[0])
               if (pv.length === 2) {
                 variant = parseInt(pv[1])
               }
+            } else if (nameErMat) {
+              // xxxx_xxx_er/gt/... .pdf
+              [, subject, time, type] = nameErMat
+              paper = variant = 0
             }
           } catch (e) {
             reject(e)
