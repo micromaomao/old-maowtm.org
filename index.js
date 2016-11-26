@@ -35,6 +35,7 @@ var maowtm = function (config) {
   app.mockSecure = this.mockSecure
   var callback = config.callback
   function fail (error) {
+    if (this.destory) return
     if (callback) {
       this.destory = true
       if (this.db) {

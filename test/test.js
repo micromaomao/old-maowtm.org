@@ -10,6 +10,12 @@ const cheerio = require('cheerio')
 const DB = process.env.MONGODB
 const REDIS = process.env.REDIS
 
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled promise rejection: ' + reason)
+  console.error(reason.stack)
+  process.exit(1)
+});
+
 try {
   DB.should.be.a.String().and.should.not.be.empty()
   REDIS.should.be.a.String().and.should.not.be.empty()
