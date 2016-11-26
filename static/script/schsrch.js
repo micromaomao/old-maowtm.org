@@ -12,11 +12,14 @@
       case 'qp': return 'question paper'
       case 'ms': return 'marking scheme'
       case 'in': return 'insert'
+      case 'er': return 'examiner report'
+      case 'gt': return 'grade thresholds'
+      case 'ir': return 'confidential instructions'
       default: return type
     }
   }
   function paperName (doc) {
-    return doc.subject + ' ' + doc.time + ' paper ' + doc.paper + (doc.variant !== 0 ? doc.variant : '')
+    return doc.subject + ' ' + doc.time + (doc.paper !== 0 ? (' paper ' + doc.paper + (doc.variant !== 0 ? doc.variant : '')) : '')
   }
   var queryBox = $('.queryBox')
   queryBox.focus()
@@ -144,6 +147,7 @@
               } else {
                 rs = ppMaps[pName]
               }
+              rs.append(' ')
               rs.append($('<span class="type"></span>').text(getTypeString(doc.type)).click(function () {
                 window.open('https://file.schsrch.xyz/' + doc._id)
               }))
