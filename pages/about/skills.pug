@@ -9,26 +9,24 @@
         p
             | I begin to write code about #{Math.round((age-8.5) * 10) / 10} years ago.
             | From dumb to <i><del>smart </del>not dumb</i>, I have experienced with
-            | <i>some</i> major programming <i>( standards )</i>. I know how to organize
-            | my code properly. I also understand the concept of
+            | <i>some</i> major programming style and practice <i>( standards )</i>.
+            | I know how to organize my code properly. I also understand the concept of
             | unit testing ( and code coverage ) and 
             a(href="https://travis-ci.org/micromaomao/maowtm.org") had done it
-            |  for <i>some</i> of my projects, and will try to write test for
-            | every project of mime.
+            |  for <i>some</i> of my projects. I will try to write test for
+            | every project I have published on GitHub, but I currently don't had that time.
         h4
-            del Why you don't want to <i>hire</i> me:
+            del Why you probably don't want to <i>hire</i> me:
         p
-            | However, I'm (currently) <b>weak</b> on algorithm, data structures or
-            | <i>"problem solving skills"</i> and can't solve most of the <i>interview
-            | questions that every programmer is supposed to be able to solve</i>
-            | . (I mean, can't solve it efficiently.)
-            | I'm currently learning about algorithms.
+            | However, I'm (currently) <b>weak</b> on algorithm, data structures and
+            | <i>"problem solving skills"</i> and are struggling to solve most of the <i>interview
+            | questions that every programmer is supposed to be able to solve</i>.
+            | (I mean I can't solve it quickly and my code don't runs efficiently, not
+            | really unable to solve.) I'm currently learning about algorithms.
         p
-            | Also <b>I'm having problem</b> with writing human-readable and comprehensible
-            | code. Sometimes my code don't even make sense to me <i>quickly</i>. Also I didn't tried
-            | to follow any "
-            a(href="http://standardjs.com/") coding standard
-            | ".
+            | Also I'm having problem with writing human-readable and comprehensible
+            | code. Sometimes my code don't even make sense to me <i>quickly</i>.
+            | ( BTW I don't have problems reading other's code. )
         h3 Specific skills
     .skilltags
         ul
@@ -79,15 +77,18 @@
             +skill_li("Linux", "Experience of breaking and fixing things.")
                 p
                     | I've used Linux for:
-                mixin linuxprompt(host, dir)
-                    span.e1  #{host} 
-                    span.e2 
-                    span.e3  #{dir} 
-                    span.e4 
-                    |  
+                mixin linuxprompt(hat, dir)
+                    -let [user, host] = hat.split('@')
+                    | ╭─
+                    span(style="color: #899e19;") #{user}
+                    span(style="color: #31a69f;") @
+                    span(style="color: #899e19;") #{host}
+                    |  #{dir}
+                    br
+                    | ╰─➤ 
                 pre.linuxpre
                     +linuxprompt("linux@MaoWtm", "~")
-                    | uptime
+                    span(style="color: #899e19;") uptime
                     br
                     -var nowTimeString = new Date().toTimeString().match(/\d{1,2}:\d\d:\d\d/)[0]
                     |  #{nowTimeString} up 
@@ -97,6 +98,8 @@
                     | &nbsp;#{Math.ceil(Math.random() * 100)}
                     |  user,  load average:
                     |  #{Math.floor(Math.random() * 100) / 100}, 0, 0
+                    br
+                    +linuxprompt("linux@MaoWtm", "~")
                 p
                     | I can write some basic shell script and do some <i>advanced</i>
                     | system <i>maintaining</i> ( including breaking the system ). Thanks to 
