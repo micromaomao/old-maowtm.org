@@ -48,9 +48,11 @@
       return
     }
     $('.help').css({display: 'none'})
+    var results
+    var i
     if (query.match(/^\d{2,4}$/)) {
-      var results = 0
-      for (var i = 0; i < CIESubjects.length; i++) {
+      results = 0
+      for (i = 0; i < CIESubjects.length; i++) {
         (function (subj) {
           if (subj.id.substr(0, query.length) === query) {
             var subjElem = $('<div class="subject"></div>')
@@ -73,8 +75,8 @@
         }
       }
     } else {
-      var results = 0
-      for (var i = 0; i < CIESubjects.length; i ++) {
+      results = 0
+      for (i = 0; i < CIESubjects.length; i++) {
         (function (subj) {
           if (subj.name.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
             var subjElem = $('<div class="subject"></div>')
@@ -204,7 +206,7 @@
               rs.append($('<span class="page"></span>').text('/ page ').append($('<span class="num"></span>').text(idx.index.page + 1)))
               if (idx.related.length > 0) {
                 var related = $('<div class="related">Related items: </div>')
-                for (var j = 0; j < idx.related.length; j ++) {
+                for (var j = 0; j < idx.related.length; j++) {
                   (function (rlt) {
                     related.append($('<span></span>').text(getTypeString(rlt.type)).click(function (evt) {
                       evt.stopPropagation()

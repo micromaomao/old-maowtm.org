@@ -14,9 +14,9 @@ module.exports = function (db, lock) {
     res.send({vc: viewCount, uptime: os.loadavg()})
   })
   rMain.use(function (req, res, next) {
-    viewCount ++
+    viewCount++
     setTimeout(function () {
-      viewCount --
+      viewCount--
     }, 10000)
     next()
   })
@@ -24,8 +24,8 @@ module.exports = function (db, lock) {
     Promise.all([PastPaperDoc.count({}), PastPaperIndex.count({})]).then(count => {
       res.send(pages.schsrch({count: count}))
     }).catch(e => {
-      if (err) {
-        next(err)
+      if (e) {
+        next(e)
       }
     })
   })
