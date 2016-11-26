@@ -160,16 +160,55 @@ db.on('open', () => {
           Promise.all(idxes.map(idx => idx.save())).then(() => PastPaperDoc.find(mt, {_id: true}).exec())
             .then(docs => Promise.all(docs.map(doc => removeDoc(doc)))).then(() => doc.save()).then(resolve, reject)
         })).then(resolve, reject)
-      })).then(resolve, err => {
-        console.log(path)
-        console.error(fname + '  -- Ignored: ' + err)
-        resolve()
-      })
+      })).then(resolve, reject)
     })
   })
 
-  Promise.all(process.argv.slice(2).map(path => indexPdf(path))).then(() => process.exit(0)).catch(err => {
-    console.error(err)
-    process.exit(1)
-  })
+  let queue = process.argv.slice(2)
+  let total = queue.length
+  let left = total
+  let failure = 0
+  let ended = false
+  let lastShowProgress = Date.now()
+  function end () {
+    ended = true
+    console.error(`Done. ${total - failure} documents indexed. ( ${failure} failed. )`)
+    process.exit(0)
+  }
+  function thread (n) {
+    if (left <= 0) {
+      ended || end()
+      return
+    }
+    if (queue.length === 0) {
+      return
+    }
+    if (Date.now() - lastShowProgress >= 10000) {
+      console.error(`[${n}] ${total - left}/${total}, ${Math.round((1 - (left / total)) * 1000) / 10}% finish...`)
+      lastShowProgress = Date.now()
+    }
+    let doneThis = () => {
+      left --
+      thread(n)
+    }
+    let task = queue.pop()
+    indexPdf(task).then(() => {
+      doneThis()
+    }, err => {
+      failure ++
+      console.log(task)
+      console.error('  -- Ignoring: ' + err.message)
+      doneThis()
+    })
+  }
+
+  // for(let i = 0; i < 5; i ++) {
+  //   thread(i)
+  // }
+  thread(0)
+
+  // Promise.all(process.argv.slice(2).map(path => indexPdf(path))).then(() => process.exit(0)).catch(err => {
+  //   console.error(err)
+  //   process.exit(1)
+  // })
 })
