@@ -15,6 +15,9 @@
       case 'er': return 'examiner report'
       case 'gt': return 'grade thresholds'
       case 'ir': return 'confidential instructions'
+      case 'sp': return 'specimen question paper'
+      case 'sm': return 'specimen mark scheme'
+      case 'sr': return 'specimen confidential instructions'
       default: return type
     }
   }
@@ -212,6 +215,9 @@
                 var related = $('<div class="related">Related items: </div>')
                 for (var j = 0; j < idx.related.length; j++) {
                   (function (rlt) {
+                    if (j !== 0) {
+                      related.append(' / ')
+                    }
                     related.append($('<span></span>').text(getTypeString(rlt.type)).click(function (evt) {
                       evt.stopPropagation()
                       window.open('https://file.schsrch.xyz/' + rlt._id)
