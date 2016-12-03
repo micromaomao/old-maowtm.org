@@ -158,6 +158,11 @@
           }
 
           $('.pplContainer').append(ppResult)
+          if (data.length > 0 && data.length < 10) {
+            $('.pplContainer').addClass('hr')
+          } else {
+            $('.pplContainer').removeClass('hr')
+          }
         }
       })
     }

@@ -20,6 +20,7 @@ body
     color: $color-primary-text
     font-size: 1.5rem
     padding: 0.5rem
+    box-sizing: border-box
     width: 100%
     max-width: 50rem
     display: block
@@ -84,7 +85,12 @@ body.mobile
     .related
       span
         color: $color-primary
+        padding: 0.2rem 0.5rem
 
+.pplContainer.hr
+  background-color: rgba($color-orange, 0.1)
+  border-bottom: solid 2px $color-orange
+  margin-bottom: 2rem
 .ppl
   .pp
     padding: 0.5rem 1rem
@@ -93,7 +99,8 @@ body.mobile
       font-size: 130%
       color: $color-orange
     .type
-      margin-left: 1rem
+      padding-left: 0.5rem
+      padding-right: 0.5rem
       color: $color-primary
       cursor: pointer
       font-size: 1rem
