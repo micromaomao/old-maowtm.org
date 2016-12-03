@@ -14,7 +14,7 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled promise rejection: ' + reason)
   console.error(reason.stack)
   process.exit(1)
-});
+})
 
 try {
   DB.should.be.a.String().and.should.not.be.empty()

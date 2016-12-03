@@ -75,7 +75,7 @@ db.on('open', () => {
               } else if (idtStr.length === 0) {
                 throw new Error("No xxxx/xx in first page => can't identify paper.")
               } else {
-                throw new Error("Compound.")
+                throw new Error('Compound.')
               }
               let timeStr = coverPage.map(a => {
                 let mt
@@ -160,7 +160,7 @@ db.on('open', () => {
             time,
             type,
             paper: parseInt(paper),
-            variant: parseInt(variant),
+            variant: parseInt(variant)
           }
           Object.assign(doc, mt)
           let removeDoc = doc => PastPaperIndex.remove({doc: doc._id}).exec().then(() => doc.remove())
@@ -195,14 +195,14 @@ db.on('open', () => {
       lastShowProgress = Date.now()
     }
     let doneThis = () => {
-      left --
+      left--
       thread(n)
     }
     let task = queue.pop()
     indexPdf(task).then(() => {
       doneThis()
     }, err => {
-      failure ++
+      failure++
       console.log(task)
       console.error('  -- Ignoring: ' + err.message)
       doneThis()
