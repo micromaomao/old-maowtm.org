@@ -29,6 +29,9 @@ module.exports = function (db, lock) {
       }
     })
   })
+  rMain.get('/disclaim', function (req, res, next) {
+    res.send(pages.schsrchDisclaim())
+  })
   rMain.get('/search/fullText/:q', function (req, res, next) {
     let query = req.params.q.trim()
     PastPaperIndex.search(query).then(result => {
