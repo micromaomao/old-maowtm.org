@@ -46,6 +46,7 @@
     $('.ppl').remove()
   }
   function processQuery (query) {
+    $('.pplContainer').removeClass('hr')
     resultList.html('')
     if (query === '') {
       resultList.append($('<div class="prompt">Search for something...</div>'))
@@ -160,8 +161,6 @@
           $('.pplContainer').append(ppResult)
           if (data.length > 0 && data.length < 10) {
             $('.pplContainer').addClass('hr')
-          } else {
-            $('.pplContainer').removeClass('hr')
           }
         }
       })
