@@ -71,6 +71,8 @@ body.mobile
   .fulltext
     margin: 0.5rem 1rem
     cursor: pointer
+    .type
+      color: $color-primary
     .paper
       font-size: 110%
       color: $color-orange
@@ -83,8 +85,9 @@ body.mobile
       .highlight
         color: $color-orange
     .related
+      color: lighten($color-primary-text, 15%)
       span
-        color: $color-primary
+        color: lighten($color-primary, 10%)
         padding: 0.2rem 0.5rem
 
 .pplContainer.hr
