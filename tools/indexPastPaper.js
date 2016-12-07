@@ -118,6 +118,7 @@ db.on('open', () => {
                 }
               }
               if (coverPage.find(a => /READ THESE INSTRUCTIONS FIRST/i.test(a))) {
+                // FIXME: Identify insert
                 if (!specimen) {
                   type = 'qp'
                 } else {
