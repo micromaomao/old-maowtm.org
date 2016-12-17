@@ -32,6 +32,7 @@ var maowtm = function (config) {
   this.destory = false
   this.mockSecure = config.mockSecure || false
   this.noInitImages = config.noInitImages || false
+  this.apps = config.apps || []
   app.mockSecure = this.mockSecure
   var callback = config.callback
   function fail (error) {
@@ -102,7 +103,7 @@ var maowtm = function (config) {
 
     // Add trailing / for all GET for all router below. ( i.e. Not including static and img )
     app.use(function (req, res, next) {
-      if (req.hostname.match(/^(img|static|file)/)) {
+      if (req.hostname.match(/^(img|static|file)/) || req.path.match(/\.[^\/\\\s%]+$/)) {
         next()
         return
       }
@@ -118,7 +119,20 @@ var maowtm = function (config) {
     app.use(require('./subs/main')(_this.db, _this.lock))
     app.use(require('./subs/rb')(_this.db, _this.lock))
     app.use(require('./subs/schsrch/main')(_this.db, _this.lock))
+
+    _this.apps.forEach(it => {
+      let route = it.init(_this.db)
+      app.use(function (req, res, next) {
+        if (it.hostname === req.hostname) {
+          route(req, res, next)
+        } else {
+          next()
+        }
+      })
+    })
+
     app.use(require('./subs/misc')(_this.db, _this.lock))
+
     let nodeenv = process.env.NODE_ENV || ''
     app.use(function (err, req, res, next) {
       res.status(500)
