@@ -121,7 +121,7 @@ var maowtm = function (config) {
     app.use(require('./subs/schsrch/main')(_this.db, _this.lock))
 
     _this.apps.forEach(it => {
-      let route = it.init(_this.db)
+      let route = it.init(_this.db, mongoose)
       app.use(function (req, res, next) {
         if (it.hostname === req.hostname) {
           route(req, res, next)

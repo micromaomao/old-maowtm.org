@@ -1,11 +1,12 @@
 const express = require('express')
 const os = require('os')
 const _pages = require('../../pages')
+const mongoose = require('mongoose')
 let pages
 
 module.exports = function (db, lock) {
   pages = _pages(db)
-  const {PastPaperIndex, PastPaperDoc} = require('../../lib/pastPaperIndex')(db)
+  const {PastPaperIndex, PastPaperDoc} = require('../../../schsrch/lib/dbModel.js')(db, mongoose)
 
   let rMain = express.Router()
 
