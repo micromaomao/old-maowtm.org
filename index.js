@@ -118,7 +118,11 @@ var maowtm = function (config) {
 
     app.use(require('./subs/main')(_this.db, _this.lock))
     app.use(require('./subs/rb')(_this.db, _this.lock))
-    app.use(require('./subs/schsrch/main')(_this.db, _this.lock))
+    try {
+      app.use(require('./subs/schsrch/main')(_this.db, _this.lock))
+    } catch (e) {
+      console.error("Warning: Can't load old schsrch.")
+    }
 
     _this.apps.forEach(it => {
       let route = it.init(_this.db, mongoose)
