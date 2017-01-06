@@ -20,7 +20,7 @@
     "compression": "^1.6.2",
     "express": "^4.14.0",
     "lwip": "0.0.9",
-    "mongoose": "^4.7.5",
+    "mongoose": "^4.7.6",
     "node-sass": "^4.0.0",
     "pug": "^2.0.0-bata3",
     "redis": "^2.6.3",
