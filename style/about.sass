@@ -19,7 +19,7 @@ body
 .top
   color: $color-primary-text
   background: mapStatic("imgs/about_top.png?as=jpg"), #dddddd
-  background-size: cover;
+  background-size: cover
   background-position: 50% 50%
   text-align: center
   overflow: none
@@ -58,9 +58,9 @@ body
 body.mobile
   .top
     padding-top: 40px
-    padding-bottom: 4rem;
+    padding-bottom: 4rem
     background: mapStatic("imgs/about_top.png?width=580&as=jpg"), #dddddd
-    background-size: cover;
+    background-size: cover
     background-position: 50% 50%
     h1
       font-size: 32px
@@ -68,7 +68,7 @@ body.mobile
       font-size: 20px
       a
         display: block
-        border-bottom: 0;
+        border-bottom: 0
         padding: 5px 
 
 .tile
@@ -112,10 +112,10 @@ body.mobile
       .icon-yr
         +current_list_icon("/svg/icon-yr.svg")
   p
-    max-width: 800px;
-    text-align: left;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 800px
+    text-align: left
+    margin-left: auto
+    margin-right: auto
 
 body.mobile
   .tile-bio
@@ -171,7 +171,7 @@ $tile-skill-maxwidth: 800px
         display: inline-block
         text-align: left
         max-width: $tile-skill-maxwidth
-        width: 100%;
+        width: 100%
         > span
           display: inline-block
           vertical-align: bottom
@@ -219,7 +219,7 @@ $tile-skill-maxwidth: 800px
             background-color: #5f767f
             color: #fdf6e3
   .pad.btn
-    margin-top: 2rem;
+    margin-top: 2rem
 
 body.mobile
   .tile-skill
@@ -236,33 +236,41 @@ body.mobile
             padding-left: 8px
 
 .tile-project
-  @extend .tile;
-  @extend .content;
-  text-align: center;
-  border-top: solid 2px $color-pink;
-  background-color: rgba($color-pink, 0.1);
-  h2,h3
-    @extend .reset_hx;
+  @extend .tile
+  @extend .content
+  text-align: center
+  border-top: solid 2px $color-pink
+  background-color: rgba($color-pink, 0.1)
+  h2,h3,h4
+    @extend .reset_hx
+  h3
+    font-size: 1.5rem
+    border-bottom: solid $color-pink 1px
+  h4
+    font-size: 1.2rem
   > ul
+    margin-left: auto
+    margin-right: auto
+    display: inline-block
     > li
-      text-align: left;
-      background-color: rgba(white, 0.6);
-      display: inline-block;
-      list-style-type: none;
-      max-width: 400px;
-      margin: 0.5rem;
-      padding: 0.5rem;
-      h3 a
-        color: $color-primary;
-      h3 a:hover
-        color: $color-primary-dark;
+      text-align: left
+      background-color: rgba(white, 0.6)
+      display: inline-block
+      list-style-type: none
+      max-width: 400px
+      margin: 0.5rem
+      padding: 0.5rem
+      h4 a
+        color: $color-primary
+      h4 a:hover
+        color: $color-primary-dark
       .stattag
-        display: inline-block;
-        padding: 0.3rem;
-        background-color: rgba($color-pink, 0.2);
-        border-radius: 4px;
-        font-size: 90%;
-        color: $color-primary-dark;
+        display: inline-block
+        padding: 0.3rem
+        background-color: rgba($color-pink, 0.2)
+        border-radius: 4px
+        font-size: 90%
+        color: $color-primary-dark
       .builtwith
         .built
           background-color: #dddddd
@@ -284,23 +292,23 @@ body.mobile
         .built.b-minecraft
           color: darken($color-brown, 10%)
     li.big
-      display: table
+      display: block
       margin-left: auto
       margin-right: auto
-      max-width: none;
+      max-width: none
       background-color: transparent
 
       .logo
         margin: 0.8rem
         img
-          height: 10rem
+          max-height: 10rem
           vertical-align: middle
       .main, .logo
         display: table-cell
         vertical-align: middle
         text-align: left
 
-        h3
+        h4
           font-size: 4rem
           padding: 0
           margin: 0
@@ -311,34 +319,38 @@ body.mobile
           font-size: 1rem
         .desc-content
           margin-bottom: 1.5rem
+          max-width: 800px
   > p
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 800px
+    margin-left: auto
+    margin-right: auto
 body.mobile
   .tile-project
     > ul
-      > li
-        display: block;
+      margin: 0
+      padding-left: 0
+      padding-right: 0
+      > li, .logo
+        display: block
 .tile-contact
-  @extend .tile;
-  @extend .content;
-  text-align: center;
-  border-top: solid 2px $color-green;
-  background-color: rgba($color-green, 0.1);
+  @extend .tile
+  @extend .content
+  text-align: center
+  border-top: solid 2px $color-green
+  background-color: rgba($color-green, 0.1)
   h2,h3
-    @extend .reset_hx;
+    @extend .reset_hx
   ul
-    max-width: 800px;
-    display: inline-block;
-    text-align: left;
+    max-width: 800px
+    display: inline-block
+    text-align: left
 
 .tile-progress
-  @extend .tile;
-  @extend .content;
-  text-align: center;
-  border-top: solid 2px $color-yellowgreen;
-  background-color: rgba($color-yellowgreen, 0.1);
+  @extend .tile
+  @extend .content
+  text-align: center
+  border-top: solid 2px $color-yellowgreen
+  background-color: rgba($color-yellowgreen, 0.1)
   .pad
     margin: auto
     text-align: left
@@ -352,13 +364,13 @@ body.mobile
 
   ul
     li
-      vertical-align: middle;
+      vertical-align: middle
       .tags
-        margin-left: 1rem;
-        font-size: 0.9rem;
+        margin-left: 1rem
+        font-size: 0.9rem
       .diff, .useful, .tags
-        display: inline;
-        vertical-align: middle;
+        display: inline
+        vertical-align: middle
       .a
         color: $color-green
       .b
@@ -371,14 +383,14 @@ body.mobile .tile-progress
   ul
     li
       .tags
-        display: block;
+        display: block
 
 .tile-learning
-  @extend .tile;
-  @extend .content;
-  text-align: center;
-  border-top: solid 2px $color-purple;
-  background-color: rgba($color-purple, 0.1);
+  @extend .tile
+  @extend .content
+  text-align: center
+  border-top: solid 2px $color-purple
+  background-color: rgba($color-purple, 0.1)
   .pad
     margin: auto
     text-align: left
@@ -393,20 +405,20 @@ body.mobile .tile-progress
       font-size: 1.5em
       color: $color-purple
     .desc
-      font-size: 0.8rem;
-      margin: 0 0 0.5rem 0;
-      padding-left: 1rem;
+      font-size: 0.8rem
+      margin: 0 0 0.5rem 0
+      padding-left: 1rem
     p
       .emp
-        color: $color-accent;
-        font-weight: bold;
+        color: $color-accent
+        font-weight: bold
 
 .tile-books
-    @extend .tile;
-    @extend .content;
-    text-align: center;
-    border-top: solid 2px $color-brown;
-    background-color: rgba($color-brown, 0.1);
+    @extend .tile
+    @extend .content
+    text-align: center
+    border-top: solid 2px $color-brown
+    background-color: rgba($color-brown, 0.1)
     img.play
       height: 3rem
     .goodreads
@@ -428,7 +440,7 @@ body.mobile .tile-progress
       @extend .reset_hx
       font-size: 1.2rem
     > .desc
-      font-size: 0.8rem;
+      font-size: 0.8rem
     ul
       @extend .reset_hx
       list-style-type: none
