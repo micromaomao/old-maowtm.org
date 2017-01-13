@@ -68,14 +68,14 @@ mixin project(name, builtWith, url, _tags, big)
         | efficient revision. It also offers an robust syntax for searching a particular (set of) paper, which allows users to quickly found
         | the paper they want, without scrolling through a long list of all PDF files (which is what other past paper websites force user to do).
     +project("maowtm.org", ["Web", "node.js", "Javascript"],
-      "https://github.com/micromaomao/maowtm.org", ["In-progress"], {logo: mapStatic('/svg/logo.svg')})
+      "https://github.com/micromaomao/maowtm.org", [], {logo: mapStatic('/svg/logo.svg')})
       p
         | This is my personal website running on my little server. It is built with <b>Nodejs</b> and I like Nodejs. I learned about building websites
         | with Nodejs and some Web best practises. I also learned <b>Sass</b> by using it in this project. I also follow a standard <b>coding style</b> in this project
         | for all Javascript.
       p
         | This website don't contain much useful stuff, just my personal things.
-    +project("Brainfuck-tape", ["Javascript", "Web"], "https://github.com/micromaomao/brainfuck-tape")
+    +project("Brainfuck-tape", ["Javascript", "Web"], 'https://github.com/micromaomao/brainfuck-tape', ['Lack testing'])
       | This is an early project I built. The code may be childish and may look silly to experienced programmers.
       | It is a simple <b>BrainFuck</b> interpreter, with running code highlight, infinite* bidirectional tape,
       | tape monitoring...
@@ -93,7 +93,7 @@ mixin project(name, builtWith, url, _tags, big)
         |  desktop client, which was aimed to help you recite vocabulary. I don't recommend doing that except for emergency test purpose.
   h3 Command Line Utils
   ul
-    +project("Ecbpass", ["Python"], "https://github.com/micromaomao/ecbpass")
+    +project('Ecbpass', ['Python'], 'https://github.com/micromaomao/ecbpass', ['Lack testing'])
       | I learned <b>Python</b> while building this. It is a simple tool that allows you to generate pseudorandom password for each site and no need
       | to store it or remember it.
     +project("Pomodoro-Timer", ["C++", "Linux"], "https://github.com/micromaomao/Pomodoro-Timer")

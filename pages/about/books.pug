@@ -1,65 +1,19 @@
 .tile-books#books
-  h3
-    a(href="https://play.google.com")
-      img.play(src=mapStatic("/imgs/google_play.png") alt="Google Play")
+  h2 Books
   p
     | I read most of my books on 
     a(href="https://play.google.com/books") Google Play Books
-    | . It allows me to read a several chapter sample before I decide to buy the book and read
-    | everything which is a very useful thing.
-  p
+    | . It allows me to read a several chapter sample before I decide to buy the book and read everything which is useful.
     | Another very good feature of Google Play is that it allows me to pay with gift card which I can buy on Taobao,
     | without needing a credit card ( non-adult can't have credit cards ).
-  mixin book(name, img, author, year, states, _props)
-    -let props = _props || {}
-    li(class="book" + (props.size ? ` ${props.size}` : ""))
-      -let toGoogleUrl = (keyword) => "https://www.google.com.hk/search?q=" + encodeURIComponent(keyword)
-      -let bookUrl = toGoogleUrl(`${name} ${author}`)
-      a.noline(href=bookUrl)
-        picture
-          -let lowimg = img + '?width=240&as=jpg'
-          source(srcset=`${lowimg} ${img} 2x`)
-          img.cover(src=lowimg, alt=`"${name}" cover`)
-      h4
-        a(href=bookUrl)= name
-      -if (props.nat)
-        .native
-          a(href=toGoogleUrl(props.nat))= props.nat
-      .author
-        a(href=toGoogleUrl(author))= author
-        -if (year)
-          span(title=`Published in ${year}`)
-            |  @ 
-            span.year= year
-      -if (states)
-        -let srtStates = states.sort()
-        .states
-          each state, i in srtStates
-            -if (state === "sampling")
-              span.sampling(title="Currently reading with no idea whether the book is useful.") 😮
-            -if (state === "finish")
-              span.finish(title="Finished every page") ✌️
-            -if (state === "recommend")
-              span.recommand(title="Recommended!") 😊
-            -if (state === "funny")
-              span.recommand(title="Oh this is interesting") 😀
-            -if (state === "0")
-              span.progress(title="Progress: ~0%") 😶😶😶
-            -if (state === "1/3")
-              span.progress(title="Progress: ~30%") 👌😶😶
-            -if (state === "1/2")
-              span.progress(title="Progress: ~50%") 👌👌😶😶
-            -if (state === "2/3")
-              span.progress(title="Progress: ~65%") 👌👌😶
-            -if (state === "3/3")
-              span.progress(title="Progress: ~99%") 👌👌👌👌😶
-            -if (state === "hard")
-              span.hard(title="Hard to read") 😪
+    | Not every book I read is read on Google Play.
   p
-    | I keep track of books on 
+    | I keep track of my books on 
     a(href="https://www.goodreads.com/user/show/60037725-mao-wtm")
       | My 
       img.goodreads(alt="Goodreads",src=mapStatic("/svg/goodreads.svg"))
       span.hiddenText Goodreads
       |  profile
-    | .
+    | . I haven't read a lot of books, but I'm trying to read more recently.
+    | Reading is good because I can gain knowledge about other areas or social life. I can also read other's story and
+    | apply useful thinkings to my own life.
