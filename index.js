@@ -144,7 +144,7 @@ var maowtm = function (config) {
       if (typeof err !== 'string') {
         pageObj.err = err.message
         if (err.stack) {
-          pageObj.stack = err.stack.replace(new RegExp(__dirname.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1'), 'g'), '.../maowtm.org') +
+          pageObj.stack = err.stack.replace(new RegExp(path.join(__dirname, '..').replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1'), 'g'), '...') +
             `\nServer running in NODE_ENV=${nodeenv}\nTime: ${Date.now() / 1000}`
         }
       }
