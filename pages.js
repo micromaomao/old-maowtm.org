@@ -66,6 +66,27 @@ list.forEach(function (fname) {
   }
 })
 
+// FIXME: Async leak (hard to reproduce as it requires accessing a page *immediately* after the server reports "ready".)
+/* TypeError: pages.about is not a function
+    at .../maowtm.org/subs/main.js:23:20
+    at Layer.handle [as handle_request] (.../maowtm.org/node_modules/express/lib/router/layer.js:95:5)
+    at next (.../maowtm.org/node_modules/express/lib/router/route.js:131:13)
+    at Route.dispatch (.../maowtm.org/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (.../maowtm.org/node_modules/express/lib/router/layer.js:95:5)
+    at .../maowtm.org/node_modules/express/lib/router/index.js:277:22
+    at Function.process_params (.../maowtm.org/node_modules/express/lib/router/index.js:330:12)
+    at next (.../maowtm.org/node_modules/express/lib/router/index.js:271:10)
+    at Function.handle (.../maowtm.org/node_modules/express/lib/router/index.js:176:3)
+    at router (.../maowtm.org/node_modules/express/lib/router/index.js:46:12)
+    at .../maowtm.org/subs/main.js:42:7
+    at Layer.handle [as handle_request] (.../maowtm.org/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (.../maowtm.org/node_modules/express/lib/router/index.js:312:13)
+    at .../maowtm.org/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (.../maowtm.org/node_modules/express/lib/router/index.js:330:12)
+    at next (.../maowtm.org/node_modules/express/lib/router/index.js:271:10)
+Server running in NODE_ENV=
+Time: 1484312420.64 */
+
 module.exports = _db => {
   return pages
 }
