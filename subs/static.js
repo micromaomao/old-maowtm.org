@@ -10,14 +10,14 @@ module.exports = function (db, lock) {
   let pages = require('../pages')(db)
   mongoose.Schema = require('mongoose').Schema
   let imageSchema = new mongoose.Schema({
-    name: 'String',
+    name: {type: 'String', index: true},
     src: 'Buffer',
     width: 'Number'
   })
   let cachedScaleSchema = new mongoose.Schema({
-    imgId: 'ObjectId',
-    scale: 'Number',
-    format: 'String',
+    imgId: {type: 'ObjectId', index: true},
+    scale: {type: 'Number', index: true},
+    format: {type: 'String', index: true},
     data: 'Buffer'
   })
 

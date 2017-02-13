@@ -11,12 +11,12 @@ module.exports = function (db, lock) {
     message: 'String',
     time: 'Number',
     deleted: {type: 'Boolean', default: false},
-    to: 'String'
+    to: {type: 'String', index: true}
   })
   let RbAnoyMessage = mongoose.model('rbAnoyMessage', rbAnoyMessageSchema)
 
   let rbSurveyResponseSchema = new mongoose.Schema({
-    surveyId: 'String',
+    surveyId: {type: 'String', index: true},
     time: 'Number',
     ip: 'String',
     response: 'String'
