@@ -144,6 +144,7 @@ var maowtm = function (config) {
         }
       }
       res.send(pages.error(pageObj))
+      console.error(err)
     })
 
     function doSetupServer () {
