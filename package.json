@@ -19,12 +19,12 @@
   "dependencies": {
     "compression": "^1.6.2",
     "express": "^4.15.0",
-    "lwip": "0.0.9",
     "mongoose": "^4.8.5",
     "node-sass": "^4.5.0",
     "pug": "^2.0.0-beta9",
     "redis": "^2.6.5",
     "redis-lock": "^0.1.0",
+    "sharp": "^0.17.2",
     "spdy": "^3.4.4",
     "uglify-js": "^2.8.5"
   },

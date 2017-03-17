@@ -1,5 +1,5 @@
 const express = require('express')
-const lwip = require('lwip')
+const sharp = require('sharp')
 const qs = require('querystring')
 const UglifyJS = require('uglify-js')
 const staticCache = require('../static-cache')
@@ -23,11 +23,14 @@ module.exports = function (db, lock) {
 
   // These stuff "cache" images ( and their different sizes, when needed ) to database.
 
-  // See https://www.npmjs.com/package/lwip#supported-formats
+  // See http://sharp.dimens.io/en/stable/#formats
   const validExtensions = [
     'png',
     'jpg',
-    'gif'
+    'jpeg',
+    'gif',
+    'webp',
+    'tiff'
   ]
 
   /**
@@ -52,39 +55,24 @@ module.exports = function (db, lock) {
     if (validExtensions.indexOf(ext) < 0) {
       return callback(new Error(ext.toUpperCase() + ': Format not supported.'))
     }
-    lwip.open(imageData, ext, function (err, lwipImg) {
-      if (err) {
-        callback(new Error(`Can't open ${imgName}: ${err.toString()}`))
-        return
-      }
-      Image.findOne({ name: imgName }, function (err, existImgDoc) {
-        if (err) {
-          callback(err)
-          return
-        }
-        if (existImgDoc) {
-          new Image(existImgDoc).purge(function (err) {
-            if (err) {
-              callback(err)
-              return
+    let sImg = sharp(imageData)
+    sImg.metadata().then(metadata =>
+      sImg.toFormat('png', {compressionLevel: 9}).toBuffer()
+        .then(buffer =>
+          Image.findOne({name: imgName}).then(existiingImgDoc => new Promise((resolve, reject) => {
+            if (existiingImgDoc) {
+              new Image(existiingImgDoc).purge(function (err) {
+                if (err) {
+                  reject(err)
+                  return
+                }
+                resolve()
+              })
+            } else {
+              resolve()
             }
-            doAdd()
-          })
-        } else {
-          doAdd()
-        }
-      })
-      function doAdd () {
-        lwipImg.toBuffer('png', {compression: 'high'}, (err, processedData) => {
-          if (err) {
-            callback(new Error(`Can't encode ${imgName}: ${err.toString()}`))
-            return
-          }
-          var imgDoc = new Image({ name: imgName, src: processedData, width: lwipImg.width() })
-          imgDoc.save(err => callback(err))
-        })
-      }
-    })
+          })).then(() => new Image({name: imgName, src: buffer, width: metadata.width}).save()))
+    ).then(() => callback(), err => callback(err))
   })
   /**
    * Read a image cache from database. The nearest 50px scale will be returned. If there isn't already
@@ -143,37 +131,17 @@ module.exports = function (db, lock) {
           scale: scale,
           format: format
         })
-        lwip.open(th.src, 'png', function (err, img) {
-          if (err) {
-            callback(`Can't open ${th.name}: ${err.toString()}`, null)
+        sharp(th.src).metadata()
+          .then(metadata => sharp(th.src).resize(scale, Math.round((scale / metadata.width) * metadata.height)).toFormat('png', {compressionLevel: 9})
+            .toBuffer())
+          .then(buffer => {
+            cachedDoc.set('data', buffer)
+            console.log(`Saving ${scale}@${format} for ${th.name}...`)
+            return cachedDoc.save().then(() => Promise.resolve(buffer))
+          }).then(buffer => {
+            callback(null, buffer)
             done()
-          } else {
-            var scalefactor = scale / th.width
-            img.scale(scalefactor, function (err, newImage) {
-              if (err) {
-                callback(err, null)
-                done()
-              } else {
-                newImage.toBuffer(format, {compression: 'high', quality: 90}, function (err, buff) {
-                  if (err) {
-                    callback(err, null)
-                    done()
-                  } else {
-                    cachedDoc.set('data', buff)
-                    console.log(`Saving ${scale}@${format} for ${th.name}...`)
-                    cachedDoc.save(function (err) {
-                      if (err) {
-                        console.error(err)
-                      }
-                      callback(null, buff)
-                      done()
-                    })
-                  }
-                })
-              }
-            })
-          }
-        })
+          }, err => callback(err))
       }
     })
   })

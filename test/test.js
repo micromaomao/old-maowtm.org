@@ -4,8 +4,9 @@
 const Maowtm = require('..')
 const should = require('should')
 const request = require('supertest')
-const lwip = require('lwip')
+const sharp = require('sharp')
 const cheerio = require('cheerio')
+const path = require('path')
 
 const DB = process.env.MONGODB
 const REDIS = process.env.REDIS
@@ -275,18 +276,15 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
     res.type.should.match(imageTypeMatch)
     var ext = res.type.split('/')[1]
     ext.should.be.a.String().and.should.not.be.empty()
-    lwip.open(res.body, ext, function (err, lwipImg) {
-      if (err) {
-        done(err)
-        return
-      }
-      var width = lwipImg.width()
+    let sImg = sharp(res.body)
+    sImg.metadata().then(metadata => {
+      var width = metadata.width
       if (width >= widthTest && width - widthTest <= withIn) {
         done()
       } else {
         done(new Error('expected width to be ' + widthTest + '(+' + withIn + '), but ' + width + ' get.'))
       }
-    })
+    }, err => done(err))
   } catch (e) {
     done(e)
   }
@@ -333,26 +331,16 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
       })
       before(function (done) {
         this.timeout(6000)
-        lwip.open(require('path').join(__dirname, testImg), function (err, lwipImage) {
-          if (err) {
-            done(err)
-            return
-          }
-          lwipImage.toBuffer('png', function (err, buffer) {
-            if (err) {
-              done(err)
-              return
-            }
-            Image.update({name: testImg}, {name: testImg, width: lwipImage.width(), src: buffer}, {upsert: true}, function (err) {
-              if (err) {
-                done(err)
-                return
-              }
+        let sImg = sharp(path.join(__dirname, testImg))
+        sImg.metadata().then(metadata => {
+          sImg.toFormat('png', {compressionLevel: 9})
+            .toBuffer()
+            .then(buffer => Image.update({name: testImg}, {name: testImg, width: metadata.width, src: buffer}, {upsert: true}))
+            .then(() => {
               console.log(' -> Add image ' + testImg + ' into database.')
               done()
-            })
-          })
-        })
+            }, err => done(err))
+        }, err => done(err))
       })
       after(function () {
         destory()
@@ -592,22 +580,13 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
       })
     }
     function generateImage (size, done) {
-      function r () {
-        return parseInt(Math.random() * 100)
-      }
-      lwip.create(size, size, [r(), r(), r(), 100], function (err, lwipImage) {
-        if (err) {
-          done(err)
-          return
-        }
-        lwipImage.toBuffer('png', {compression: 'high'}, function (err, buf) {
-          if (err) {
-            done(err)
-            return
-          }
-          done(null, buf)
-        })
-      })
+      sharp(path.join(__dirname, 'white.png'))
+        .resize(size, size)
+        .toFormat('png', {compressionLevel: 9})
+        .toBuffer()
+        .then(buff => {
+          done(null, buff)
+        }, err => done(err))
     }
 
     describe('static::image', function () {
@@ -805,7 +784,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
             Image.addImage(imgName, imgBuff2, function (err) {
               if (err) {
                 try {
-                  err.message.should.match(/Invalid [A-Za-z0-9]+ buffer/)
+                  err.message.should.match(/unsupported/)
                   test.e()
                 } catch (e) {
                   done(e)
