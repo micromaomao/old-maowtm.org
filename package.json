@@ -19,15 +19,15 @@
   "homepage": "https://github.com/micromaomao/maowtm.org#readme",
   "dependencies": {
     "compression": "^1.6.2",
-    "express": "^4.15.0",
-    "mongoose": "^4.8.5",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.0",
     "node-sass": "^4.5.0",
     "pug": "^2.0.0-beta9",
-    "redis": "^2.6.5",
+    "redis": "^2.7.1",
     "redis-lock": "^0.1.0",
     "sharp": "^0.17.2",
     "spdy": "^3.4.4",
-    "uglify-js": "^2.8.5"
+    "uglify-js": "^2.8.13"
   },
   "devDependencies": {
     "cheerio": "^0.22.0",
