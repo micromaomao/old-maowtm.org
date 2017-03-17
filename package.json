@@ -4,7 +4,7 @@
   "description": "My website",
   "main": "index.js",
   "scripts": {
-    "test": "MONGODB=127.0.0.1 REDIS=127.0.0.1 mocha && standard",
+    "test": "mocha && standard",
     "coverage": "node_modules/.bin/istanbul cover --report lcovonly node_modules/.bin/_mocha -- -R spec"
   },
   "repository": {
