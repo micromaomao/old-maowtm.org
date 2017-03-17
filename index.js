@@ -63,7 +63,7 @@ var maowtm = function (config) {
     pages = require('./pages')(this.db)
 
     app.use(compression())
-    app.use('.well-known', express.static(path.join(__dirname, '.well-known')))
+    app.use('/.well-known/', express.static(path.join(__dirname, '.well-known')))
     app.use(function (req, res, next) {
       if (!(req.secure || app.mockSecure)) {
         res.redirect(302, 'https://' + req.hostname + req.originalUrl)
