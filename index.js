@@ -61,32 +61,9 @@ var maowtm = function (config) {
   })
   this.db.on('open', function () {
     pages = require('./pages')(this.db)
-    let acme = _this.acme
-    if (!acme) {
-      try {
-        fs.accessSync('acme-challenge', fs.R_OK)
-        console.log('ACME challenge file found.')
-        acme = true
-      } catch (e) {}
-    }
-    if (acme) {
-      app.get('/.well-known/acme-challenge/*', function (req, res, next) {
-        if (typeof acme === 'string') {
-          res.send(acme)
-          return
-        }
-        fs.readFile('acme-challenge', {encoding: 'utf-8'}, (err, data) => {
-          if (err) {
-            next(err)
-          } else {
-            res.type('text')
-            res.send(data)
-          }
-        })
-      })
-    }
 
     app.use(compression())
+    app.use('.well-known', express.static(path.join(__dirname, '.well-known')))
     app.use(function (req, res, next) {
       if (!(req.secure || app.mockSecure)) {
         res.redirect(302, 'https://' + req.hostname + req.originalUrl)

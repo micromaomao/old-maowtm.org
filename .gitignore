@@ -4,3 +4,4 @@ launcher*.js
 *.swp
 *.swo
 .env
+.well-known

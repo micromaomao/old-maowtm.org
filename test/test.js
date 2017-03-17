@@ -107,35 +107,6 @@ describe('new maowtm(...)', function () {
     }))
   })
 
-  it('should answer acme-challenge', function (done) {
-    var testACME
-    var destory
-    done = makeDone(done, function () {
-      destory()
-    })
-    var acmeString = 'stubstubstub'
-    Maowtm(Object.assign({}, initParm, {
-      db: DB,
-      redis: REDIS,
-      callback: function (err, app, finalize) {
-        destory = finalize
-        if (err) {
-          done(err)
-          return
-        }
-        testACME(app)
-      },
-      acme: acmeString
-    }))
-
-    testACME = function (app) {
-      request(app)
-        .get('/.well-known/acme-challenge/acmehhh')
-        .expect(200)
-        .expect(acmeString)
-        .end(done)
-    }
-  })
   it('should redirect http to https', function (done) {
     var test
     var destory
