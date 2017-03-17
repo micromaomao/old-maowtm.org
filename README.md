@@ -10,8 +10,12 @@ The code follow <a href="https://github.com/feross/standard">feross/standard</a>
 
 ## Branch
 
-[![Build Status](https://travis-ci.org/micromaomao/maowtm.org.svg?branch=master)](https://travis-ci.org/micromaomao/maowtm.org) Master:
+[![Coverage Status](https://coveralls.io/repos/github/micromaomao/maowtm.org/badge.svg?branch=master)](https://coveralls.io/github/micromaomao/maowtm.org?branch=master)
+[![Build Status](https://travis-ci.org/micromaomao/maowtm.org.svg?branch=master)](https://travis-ci.org/micromaomao/maowtm.org)
+Master:
 production code, ready to be run on the server anytime.
 
-[![Build Status](https://travis-ci.org/micromaomao/maowtm.org.svg?branch=dev)](https://travis-ci.org/micromaomao/maowtm.org) Dev:
+[![Coverage Status](https://coveralls.io/repos/github/micromaomao/maowtm.org/badge.svg?branch=dev)](https://coveralls.io/github/micromaomao/maowtm.org?branch=dev)
+[![Build Status](https://travis-ci.org/micromaomao/maowtm.org.svg?branch=dev)](https://travis-ci.org/micromaomao/maowtm.org)
+Dev:
 development code, may be buggy or non-complete.
