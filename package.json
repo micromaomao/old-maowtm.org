@@ -20,14 +20,14 @@
   "dependencies": {
     "compression": "^1.6.2",
     "express": "^4.15.2",
-    "mongoose": "^4.9.0",
-    "node-sass": "^4.5.0",
+    "mongoose": "^4.9.2",
+    "node-sass": "^4.5.2",
     "pug": "^2.0.0-beta9",
     "redis": "^2.7.1",
     "redis-lock": "^0.1.0",
     "sharp": "^0.17.2",
     "spdy": "^3.4.4",
-    "uglify-js": "^2.8.13"
+    "uglify-js": "^2.8.18"
   },
   "devDependencies": {
     "cheerio": "^0.22.0",
