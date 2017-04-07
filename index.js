@@ -10,6 +10,7 @@ const redis = require('redis')
 const redislock = require('redis-lock')
 const compression = require('compression')
 const path = require('path')
+const elasticsearch = require('elasticsearch')
 let pages
 
 // This file will be launched with launcher.js.
@@ -20,6 +21,9 @@ var maowtm = function (config) {
   this.config = config
   this._mongodb = config.db || 'mongodb://127.0.0.1'
   this.db = mongoose.createConnection(this._mongodb)
+  this.es = new elasticsearch.Client({
+    host: config.elasticsearch || '127.0.0.1'
+  })
   this._redis = config.redis || '127.0.0.1'
   this.redis = redis.createClient({
     host: this._redis
@@ -97,7 +101,7 @@ var maowtm = function (config) {
     app.use(require('./subs/rb')(_this.db, _this.lock))
 
     _this.apps.forEach(it => {
-      let route = it.init({mongodb: _this.db})
+      let route = it.init({mongodb: _this.db, elasticsearch: _this.es})
       app.use(function (req, res, next) {
         if (it.hostname === req.hostname) {
           route(req, res, next)
@@ -227,7 +231,7 @@ var maowtm = function (config) {
         }
       })
     }
-    doSetupServer().then(() => {
+    _this.es.ping({}).then(() => doSetupServer().then(() => {
       console.log('Server ready.')
       if (callback) {
         callback(null, app, function () {
@@ -241,7 +245,7 @@ var maowtm = function (config) {
           _this.db.close()
         })
       }
-    }).catch(err => { fail(err) })
+    }), err => fail(err)).catch(err => { fail(err) })
   })
 }
 
