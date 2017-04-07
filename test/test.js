@@ -28,7 +28,7 @@ try {
 const initParm = {
   db: DB,
   redis: REDIS,
-  elasticsearch: ES
+  elasticsearch: ES,
   noInitImages: true
 }
 
