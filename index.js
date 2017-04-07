@@ -13,6 +13,11 @@ const path = require('path')
 const elasticsearch = require('elasticsearch')
 let pages
 
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled promise rejection: ' + reason)
+  console.error(reason.stack)
+})
+
 // This file will be launched with launcher.js.
 
 var maowtm = function (config) {

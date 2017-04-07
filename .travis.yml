@@ -4,7 +4,7 @@ dist: trusty
 node_js:
   - "7"
 env:
-  - CXX=g++-6 MONGODB=127.0.0.1 REDIS=127.0.0.1
+  - CXX=g++-6 MONGODB=127.0.0.1 REDIS=127.0.0.1 ES=127.0.0.1:9200
 install:
   - npm install -g npm@latest
   - npm cache clean
@@ -15,6 +15,7 @@ install:
 services:
   - mongodb
   - redis-server
+  - elasticsearch
 addons:
   apt:
     sources:
@@ -24,6 +25,8 @@ addons:
     packages:
       - g++-6
       - mongodb-org
+before_script:
+  - sleep 10
 script:
   - npm run coverage
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js

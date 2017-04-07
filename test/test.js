@@ -8,8 +8,7 @@ const sharp = require('sharp')
 const cheerio = require('cheerio')
 const path = require('path')
 
-const DB = process.env.MONGODB
-const REDIS = process.env.REDIS
+const { MONGODB: DB, REDIS, ES } = process.env
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled promise rejection: ' + reason)
@@ -20,14 +19,16 @@ process.on('unhandledRejection', (reason, promise) => {
 try {
   DB.should.be.a.String().and.should.not.be.empty()
   REDIS.should.be.a.String().and.should.not.be.empty()
+  ES.should.be.a.String().and.should.not.be.empty()
 } catch (e) {
-  console.log('You need to provide env MONGODB and REDIS. E.g. MONGODB=127.0.0.1 REDIS=127.0.0.1')
+  console.log('You need to provide env MONGODB, REDIS and ES. E.g. MONGODB=127.0.0.1')
   process.exit(1)
 }
 
 const initParm = {
   db: DB,
   redis: REDIS,
+  elasticsearch: ES
   noInitImages: true
 }
 
