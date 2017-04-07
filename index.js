@@ -97,7 +97,7 @@ var maowtm = function (config) {
     app.use(require('./subs/rb')(_this.db, _this.lock))
 
     _this.apps.forEach(it => {
-      let route = it.init(_this.db, mongoose)
+      let route = it.init({mongodb: _this.db})
       app.use(function (req, res, next) {
         if (it.hostname === req.hostname) {
           route(req, res, next)

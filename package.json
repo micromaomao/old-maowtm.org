@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "My website",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "mocha && standard",
     "coverage": "node_modules/.bin/istanbul cover --report lcovonly node_modules/.bin/_mocha -- -R spec && standard"
