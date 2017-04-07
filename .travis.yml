@@ -22,11 +22,11 @@ addons:
       - ubuntu-toolchain-r-test
       - r-packages-trusty
       - mongodb-3.0-precise
+      - elasticsearch-5.x
     packages:
       - g++-6
       - mongodb-org
-before_script:
-  - sleep 10
+      - elasticsearch
 script:
   - npm run coverage
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
