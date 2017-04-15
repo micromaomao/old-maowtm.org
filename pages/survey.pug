@@ -1,24 +1,26 @@
 extends layout
 
 block head
-  title A Little Survey
+  title= (title || 'A Little Survey')
 
 block content
   -const msgOneormore = lang.split('/').map(x => x === 'en' ? 'Choose one or more answer/s.' : (x === 'zh' ? '选择一或多项答案' : '')).join(' / ')
   -const msgOtherPls = lang.split('/').map(x => x === 'en' ? 'Other (please specify)' : (x === 'zh' ? '其他（请指明）' : '')).join(' / ') + ':'
   -const msgFinish = lang.split('/').map(x => x === 'en' ? 'Finish!' : (x === 'zh' ? '完成！' : '')).join(' / ')
-  p
-    -if (!desc)
-      | Thank you for helping us.
+  .content
+    -if (desc)
+      p #{desc}
+    -else if (descHtml)
+      != descHtml
     -else
-      | #{desc}
+      p Thank you for helping us.
 
   each qst, idx in q
     -let mds = qst.mode.split('-')
     -let mod = mds[0]
     -let queClass = ['que']
     -if (qst.singleLine) queClass.push('single-line')
-    div(class=queClass.join(' '), id=('q' + idx), data-mod=mod)
+    div(class=queClass.join(' '), id=('q' + idx), data-mod=mod, data-optional=qst.optional ? 'true' : undefined)
       h2 #{idx + 1}: #{qst.question}
       -if (mod === 'single')
         each ans, anidx in qst.answer
@@ -52,6 +54,7 @@ block content
       -if (mod === 'open')
         .ans
           textarea(placeholder=(qst.placeholder))
+  br
   button.submit= msgFinish 
   .submiting Submiting your result...
   .submError

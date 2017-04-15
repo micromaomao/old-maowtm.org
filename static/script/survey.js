@@ -64,14 +64,14 @@
         rsp = choose
       } else if (mod === 'open') {
         rsp = que.find('.ans textarea').val()
-        if (rsp.length === 0) {
+        if (rsp.length === 0 && !que.data('optional')) {
           que.addClass('error')
           error = true
         }
       } else if (mod === 'input') {
         var ipt = que.find('.ans input')
         rsp = ipt.val()
-        if (rsp.length === 0) {
+        if (rsp.length === 0 && !que.data('optional')) {
           que.addClass('error')
           error = true
         }

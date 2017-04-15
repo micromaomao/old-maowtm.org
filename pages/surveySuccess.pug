@@ -5,4 +5,8 @@ block head
 
 block content
   h1 Thank You!
-  p Your response is saved. Thank you for your time.
+  each l in (lang.split('/'))
+    -if (l === 'zh')
+      p 您的回复已保存，感谢您的宝贵时间！
+    -else
+      p Your response is saved. Thank you for your time.
