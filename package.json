@@ -20,9 +20,9 @@
   "homepage": "https://github.com/micromaomao/maowtm.org#readme",
   "dependencies": {
     "compression": "^1.6.2",
-    "elasticsearch": "^13.0.0-rc2",
+    "elasticsearch": "^13.0.1",
     "express": "^4.15.2",
-    "mongoose": "^4.9.3",
+    "mongoose": "^4.9.8",
     "node-sass": "^4.5.2",
     "pug": "^2.0.0-beta9",
     "redis": "^2.7.1",
