@@ -194,6 +194,14 @@ describe('new maowtm(...)', function () {
         tests.root()
       })
 
+      it('should ignore requests with no "Host" header', function (done) {
+        request(app)
+          .get('/')
+          .set('Host', '')
+          .expect(404)
+          .end(done)
+      })
+
       it('should redirect to directory', function (done) {
         request(app)
           .get('/404')

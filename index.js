@@ -74,6 +74,11 @@ var maowtm = function (config) {
     app.use(compression())
     app.use('/.well-known/', express.static(path.join(__dirname, '.well-known')))
     app.use(function (req, res, next) {
+      if (!req.hostname) {
+        res.status(404)
+        res.end()
+        return
+      }
       if (!(req.secure || app.mockSecure)) {
         res.redirect(302, 'https://' + req.hostname + req.originalUrl)
       } else {
