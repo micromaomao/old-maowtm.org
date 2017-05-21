@@ -267,14 +267,22 @@ describe('new maowtm(...)', function () {
           .expect(200)
           .end(done)
       })
-      it('should redirect www to @', function (done) {
-        request(app)
-          .get('/')
-          .set('Host', 'www.maowtm.org')
-          .expect(302)
-          .expect('Location', 'https://maowtm.org')
-          .end(done)
-      })
+
+      function shouldRedirectDomain (from, to) {
+        it(`should redirect ${from} to ${to}`, function (done) {
+          request(app)
+            .get('/')
+            .set('Host', from)
+            .expect(302)
+            .expect('Location', 'https://' + to + '/')
+            .end(done)
+        })
+      }
+      shouldRedirectDomain('www.maowtm.org', 'maowtm.org')
+      shouldRedirectDomain('www.schsrch.xyz', 'schsrch.xyz')
+      shouldRedirectDomain('beta.schsrch.xyz', 'schsrch.xyz')
+      shouldRedirectDomain('schsrch.org', 'schsrch.xyz')
+      shouldRedirectDomain('www.schsrch.org', 'schsrch.xyz')
     })
   }
 })()

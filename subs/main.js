@@ -7,11 +7,7 @@ module.exports = function (db, lock) {
   pages = _pages(db)
   mongoose.Schema = require('mongoose').Schema
   var rMain = express.Router()
-  var rWww = express.Router()
 
-  rWww.get('/', function (req, res) {
-    res.redirect(302, 'https://maowtm.org')
-  })
   var dataMe = {
     birth: 998323200
   }
@@ -36,9 +32,7 @@ module.exports = function (db, lock) {
   })
 
   return function (req, res, next) {
-    if (req.hostname === 'www.maowtm.org') {
-      rWww(req, res, next)
-    } else if (req.hostname === 'maowtm.org') {
+    if (req.hostname === 'maowtm.org') {
       rMain(req, res, next)
     } else {
       next()
