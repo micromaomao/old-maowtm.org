@@ -10,11 +10,11 @@ module.exports = function (db, lock) {
 
   rMisc.use(function (req, res, next) {
     if (req.method === 'GET') {
-      if (req.hostname
-        && (req.hostname.match(/^(beta|www)\.schsrch\.xyz$/) || req.hostname.match(/^(www\.)?schsrch\.org$/))) {
-          res.redirect('https://schsrch.xyz' + req.path)
-          return
-        }
+      if (req.hostname &&
+          (req.hostname.match(/^(beta|www)\.schsrch\.xyz$/) || req.hostname.match(/^(www\.)?schsrch\.org$/))) {
+        res.redirect('https://schsrch.xyz' + req.path)
+        return
+      }
       if (req.hostname === 'www.maowtm.org') {
         res.redirect('https://maowtm.org/')
         return
