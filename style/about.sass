@@ -426,10 +426,6 @@ body.mobile .tile-progress
     vertical-align: middle
   h2
     @extend .reset_hx
-  h3
-    @extend .reset_hx
-    font-size: 1.5em
-    color: $color-brown
   h3.langcat
     text-align: left
     border-bottom: solid 1px $color-brown
@@ -481,3 +477,35 @@ body.mobile .tile-progress
     padding: 1rem
     font-weight: bold
 
+.tile-keys
+  @extend .tile
+  @extend .content
+  text-align: center
+  border-top: solid 2px $color-orange
+  background-color: rgba($color-orange, 0.1)
+  h2, h3, ul
+    @extend .reset_hx
+  h3
+    color: $color-orange
+  li
+    display: block
+    max-width: 800px
+    margin-left: auto
+    margin-right: auto
+  pre
+    @extend .reset_hx
+    text-align: left
+    overflow-x: auto
+    display: inline-block
+    max-width: 100%
+    margin-left: auto
+    margin-right: auto
+    white-space: pre
+    background-color: rgba(white, 0.4)
+    border-left: $color-orange solid 2px
+    padding-left: 0.2rem
+    padding-right: 0.2rem
+  .vmiddle
+    vertical-align: middle
+    *
+      vertical-align: middle
