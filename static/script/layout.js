@@ -42,11 +42,20 @@ function changeHash (hash) {
   }
   window.history.replaceState({}, document.title, selfUrl)
 }
-if (window.location.hash && window.location.hash.length > 0) {
-  var hash = window.location.hash.replace(/^#/g, '')
-  var y = document.getElementById(hash).getBoundingClientRect().top
-  window.scrollBy(0, y)
-}
+document.addEventListener('DOMContentLoaded', function (evt) {
+  if (window.location.hash && window.location.hash.length > 0) {
+    var hash = window.location.hash.replace(/^#/g, '')
+    var ele = document.getElementById(hash)
+    if (ele) {
+      var y = ele.getBoundingClientRect().top
+      window.scrollBy(0, y)
+      setTimeout(function () {
+        var y = ele.getBoundingClientRect().top
+        window.scrollBy(0, y)
+      }, 100)
+    }
+  }
+})
 var checkInterval = setInterval(function () {
   checkLayout()
   if (!window.noHashChange) {
