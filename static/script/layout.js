@@ -73,3 +73,18 @@ function shake () {
   }
 }
 shake()
+
+// .selectonclick
+function selectEventTarget (e) {
+  if (e.target.className.match(/(^|\s)selectonclick(\s|$)/)) {
+    var selection = window.getSelection()
+    let range = document.createRange()
+    range.selectNodeContents(e.target)
+    selection.removeAllRanges()
+    selection.addRange(range)
+  }
+}
+document.addEventListener('mousedown', selectEventTarget)
+document.addEventListener('click', selectEventTarget)
+document.addEventListener('touchstart', selectEventTarget)
+document.addEventListener('touchend', selectEventTarget)

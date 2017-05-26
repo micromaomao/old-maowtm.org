@@ -414,69 +414,98 @@ body.mobile .tile-progress
         font-weight: bold
 
 .tile-books
-    @extend .tile
-    @extend .content
-    text-align: center
-    border-top: solid 2px $color-brown
-    background-color: rgba($color-brown, 0.1)
-    img.play
-      height: 3rem
-    .goodreads
-      height: 1rem
-      vertical-align: middle
-    h2
-      @extend .reset_hx
-    h3
-      @extend .reset_hx
-      font-size: 1.5em
-      color: $color-brown
-    h3.langcat
-      text-align: left
-      border-bottom: solid 1px $color-brown
-      margin: 0.5rem
-      padding-left: 1rem
+  @extend .tile
+  @extend .content
+  text-align: center
+  border-top: solid 2px $color-brown
+  background-color: rgba($color-brown, 0.1)
+  img.play
+    height: 3rem
+  .goodreads
+    height: 1rem
+    vertical-align: middle
+  h2
+    @extend .reset_hx
+  h3.langcat
+    text-align: left
+    border-bottom: solid 1px $color-brown
+    margin: 0.5rem
+    padding-left: 1rem
 
-    h4
-      @extend .reset_hx
-      font-size: 1.2rem
-    > .desc
-      font-size: 0.8rem
-    ul
-      @extend .reset_hx
-      list-style-type: none
-    li.book
-      list-style-type: none
-      display: inline-block
-      width: 15rem
-      vertical-align: bottom
-      border-bottom: solid 2px $color-accent
-      margin: 0.5rem
-      box-shadow: 0 1px 2px rgba(black, 0.6)
-      background-color: white
-    li.book.small
-      border-bottom-width: 1px
-    li.book.big
-      border-bottom-width: 3px
-    img.cover
-      height: 15rem
-      margin: 0.5rem
-    .author
-      font-size: 0.8rem
-    .states
-      font-size: 1.5rem
+  h4
+    @extend .reset_hx
+    font-size: 1.2rem
+  > .desc
+    font-size: 0.8rem
+  ul
+    @extend .reset_hx
+    list-style-type: none
+  li.book
+    list-style-type: none
+    display: inline-block
+    width: 15rem
+    vertical-align: bottom
+    border-bottom: solid 2px $color-accent
+    margin: 0.5rem
+    box-shadow: 0 1px 2px rgba(black, 0.6)
+    background-color: white
+  li.book.small
+    border-bottom-width: 1px
+  li.book.big
+    border-bottom-width: 3px
+  img.cover
+    height: 15rem
+    margin: 0.5rem
+  .author
+    font-size: 0.8rem
+  .states
+    font-size: 1.5rem
+    vertical-align: middle
+    *
       vertical-align: middle
-      *
-        vertical-align: middle
-      .sampling
-        color: $color-orange
-      .progress
-        display: inline-block
-        border-bottom: solid 1px $color-accent
-        font-size: 1rem
-    p
-      margin-left: auto
-      margin-right: auto
-      max-width: 800px
-    .fg
-      padding: 1rem
-      font-weight: bold
+    .sampling
+      color: $color-orange
+    .progress
+      display: inline-block
+      border-bottom: solid 1px $color-accent
+      font-size: 1rem
+  p
+    margin-left: auto
+    margin-right: auto
+    max-width: 800px
+  .fg
+    padding: 1rem
+    font-weight: bold
+
+.tile-keys
+  @extend .tile
+  @extend .content
+  text-align: center
+  border-top: solid 2px $color-orange
+  background-color: rgba($color-orange, 0.1)
+  h2, h3, ul
+    @extend .reset_hx
+  h3
+    color: $color-orange
+  li
+    display: block
+    max-width: 800px
+    margin-left: auto
+    margin-right: auto
+  pre
+    @extend .reset_hx
+    text-align: left
+    overflow-x: auto
+    display: inline-block
+    max-width: 100%
+    margin-left: auto
+    margin-right: auto
+    white-space: pre
+    background-color: rgba(white, 0.4)
+    border-left: $color-orange solid 2px
+    padding-left: 0.2rem
+    padding-right: 0.2rem
+  .vmiddle
+    vertical-align: middle
+    *
+      vertical-align: middle
