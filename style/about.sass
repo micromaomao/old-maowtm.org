@@ -321,10 +321,7 @@ body.mobile
       .main
         flex-grow: 3
         flex-shrink: 1
-        max-width: 75%
         text-align: left
-        padding: 0.8rem 0.8rem 0.8rem 1.2rem
-
         h4
           font-size: 4rem
           padding: 0
@@ -337,6 +334,13 @@ body.mobile
         .desc-content
           margin-bottom: 1.5rem
           max-width: 800px
+    li.big.havelogo .main
+      max-width: 75%
+      padding: 0.8rem 0.8rem 0.8rem 1.2rem
+    li.big.nologo .main
+      max-width: 100%
+      padding: 0.8rem
+
   > p
     max-width: 800px
     margin-left: auto

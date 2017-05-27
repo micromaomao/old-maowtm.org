@@ -9,7 +9,11 @@ mixin project(name, builtWith, url, _tags, big)
   -let logo = null
   -if (big)
     -className += ' big'
-    -if (typeof big === 'object') logo = big.logo
+    -if (typeof big === 'object')
+      -logo = big.logo
+      -className += ' havelogo'
+    -else
+      -className += ' nologo'
   li(class=className)
     -if (logo)
       .logo
