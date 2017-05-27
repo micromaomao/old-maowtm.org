@@ -11,8 +11,8 @@ $color-blue: #73C5E1
 $color-purple: #9B539C
 $color-green: #5BB12F
 $color-yellowgreen: #BCCF02
-$color-orange: #FF5722;
-$color-brown: #795548;
+$color-orange: #FF5722
+$color-brown: #795548
 $fs-text: 16px
 $ff-body: 'Vollkorn', serif
 =transition($prop, $time)
@@ -21,9 +21,9 @@ $ff-body: 'Vollkorn', serif
   -moz-transition: $prop $time
   -ms-transition: $prop $time
 =column_width($width)
-  -webkit-column-width: $width;
-  -moz-column-width: $width;
-  column-width: $width;
+  -webkit-column-width: $width
+  -moz-column-width: $width
+  column-width: $width
 
 body
   color: $color-primary-text
@@ -43,6 +43,9 @@ h1, h2, h3, h4, h5, h6, .title-font
   code, pre
     text-transform: none
 
+*
+  word-break: break-word
+
 a
   text-decoration: none
   color: inherit
@@ -59,17 +62,17 @@ body .content a:hover
 body .content a.noline:hover
   border-bottom: none
 body .content img
-  max-width: 100%;
+  max-width: 100%
 
 i
   background-color: rgba($color-accent, 0.1)
 
 pre, code
-  line-height: 1.2;
-  white-space: pre-wrap;
-  word-break: break-all;
+  line-height: 1.2
+  white-space: pre-wrap
+  word-break: break-all
 .shake
-  display: inline-block;
+  display: inline-block
 
 .hiddenText
   display: inline
