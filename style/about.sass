@@ -1,12 +1,4 @@
 @import layout
-=current_list_icon($icon-bg)
-  border-radius: 50%
-  background: mapStatic($icon-bg), $color-primary
-  color: $color-background
-  width: 80px
-  height: 80px
-  display: inline-block
-  overflow: none
 
 .outdate-warning
   background-color: $color-primary
@@ -106,6 +98,7 @@ body.mobile
     vertical-align: top
     padding: 12px 0 12px 0
 
+
     li
       display: inline-block
       max-width: 120px
@@ -114,12 +107,21 @@ body.mobile
       .desc
         font-size: 18px
 
+      .cicon
+        border-radius: 50%
+        color: $color-background
+        width: 80px
+        height: 80px
+        display: inline-block
+        overflow: none
+      =cicon_bg($icon-bg)
+        background: mapStatic($icon-bg), $color-primary
       .icon-igcse
-        +current_list_icon("/svg/icon-igcse.svg")
+        +cicon_bg("/svg/icon-igcse.svg")
       .icon-sz
-        +current_list_icon("/svg/icon-sz.svg")
+        +cicon_bg("/svg/icon-sz.svg")
       .icon-yr
-        +current_list_icon("/svg/icon-yr.svg")
+        +cicon_bg("/svg/icon-yr.svg")
   p
     max-width: 800px
     text-align: left
@@ -301,21 +303,27 @@ body.mobile
         .built.b-minecraft
           color: darken($color-brown, 10%)
     li.big
-      display: block
+      display: flex
+      flex-direction: row
+      flex-wrap: nowrap
       margin-left: auto
       margin-right: auto
-      max-width: none
+      max-width: 900px
       background-color: transparent
 
       .logo
-        margin: 0.8rem
+        flex-grow: 1
+        flex-shrink: 1
+        max-width: 25%
         img
-          max-height: 10rem
-          vertical-align: middle
-      .main, .logo
-        display: table-cell
-        vertical-align: middle
+          max-width: 100%
+          max-height: 100%
+      .main
+        flex-grow: 3
+        flex-shrink: 1
+        max-width: 75%
         text-align: left
+        padding: 0.8rem 0.8rem 0.8rem 1.2rem
 
         h4
           font-size: 4rem
@@ -339,8 +347,17 @@ body.mobile
       margin: 0
       padding-left: 0
       padding-right: 0
-      > li, .logo
-        display: block
+
+      li.big
+        flex-direction: column
+        .logo
+          flex-shrink: 0
+          flex-grow: 0
+          max-width: 5rem
+        .main
+          flex-shrink: 1
+          flex-grow: 1
+          max-width: 100%
 .tile-contact
   @extend .tile
   @extend .content
