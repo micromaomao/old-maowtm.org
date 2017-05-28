@@ -9,6 +9,9 @@ var list = fs.readdirSync(pagesfo)
 const ghUrl = 'https://github.com/micromaomao/maowtm.org/tree/master/'
 const imgsGet = '/imgs/'
 function pugMapStatic (url) {
+  if (url[0] !== '/') {
+    url = '/' + url
+  }
   if (url.startsWith(imgsGet)) {
     let imagePart = url.substr(imgsGet.length)
     return 'https://img.maowtm.org/s/' + imagePart
