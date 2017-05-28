@@ -70,7 +70,7 @@ var maowtm = function (config) {
   })
   this.db.on('open', function () {
     app.use(function (req, res, next) {
-      console.log(`${req.method.toUpperCase()} ${req.path} from ${req.ip}`)
+      console.log(`${req.method.toUpperCase()} ${req.protocol}://${req.hostname}${req.path} from ${req.ip}`)
       next()
     })
 
