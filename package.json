@@ -22,7 +22,7 @@
     "compression": "^1.6.2",
     "elasticsearch": "^13.0.1",
     "express": "^4.15.3",
-    "mongoose": "^4.10.2",
+    "mongoose": "^4.10.3",
     "node-sass": "^4.5.3",
     "pug": "^2.0.0-rc.1",
     "redis": "^2.7.1",
