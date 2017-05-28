@@ -28,29 +28,21 @@ body
   list-style-type: none
 .top
   color: $color-primary-text
-  background: mapStatic("imgs/about_top.png?as=jpg"), #dddddd
-  background-size: cover
-  background-position: 50% 50%
+  background: mapStatic("imgs/banner.png"), #ffffff
+  background-size: auto
+  background-repeat: no-repeat
+  background-position: center
   text-align: center
-  overflow: none
+  overflow: hidden
   position: relative
-  padding-top: 100px
-  padding-bottom: 8rem
-
-  .img-desc
-    font-size: 16px
-    background-color: rgba($color-primary-light, 0.5)
-    color: $color-primary
-    position: absolute
-    bottom: 0
-    right: 0
-    padding: 4px
+  padding-top: 600px
+  padding-bottom: 20px
 
   h1
     @extend .reset_hx
     @extend i
     line-height: 1.3
-    font-size: 120px
+    font-size: 40px
     color: $color-primary-text
     background: transparent
     text-transform: none
@@ -69,11 +61,13 @@ body.mobile
   .top
     padding-top: 40px
     padding-bottom: 4rem
-    background: mapStatic("imgs/about_top.png?width=580&as=jpg"), #dddddd
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQI12NgYGBIAwAAawBnwq0NKAAAAABJRU5ErkJggg==), mapStatic("imgs/banner.png"), #ffffff
+    color: white
     background-size: cover
-    background-position: 50% 50%
+    background-position: center
     h1
       font-size: 32px
+      color: white
     .quicklinks
       font-size: 20px
       a
