@@ -1,20 +1,29 @@
 @import layout
 
+$page-content-maxwidth: 1000px
+
 .outdate-warning
   background-color: $color-primary
   color: white
   text-align: center
   padding: 0.5rem 0.2rem 0.5rem 0.2rem
-  .date-added
-    font-size: 80%
-    vertical-align: baseline
+  > p
+    @extend .reset_hx
+    max-width: $page-content-maxwidth
+    display: block
+    margin-left: auto
+    margin-right: auto
+    .date-added
+      font-size: 80%
+      vertical-align: baseline
 
 body
   margin: 0
   padding: 0
 .reset_hx
   font-weight: normal
-  margin: 0
+  margin-top: inherit
+  margin-bottom: inherit
   padding: 0
   list-style-type: none
 .top
@@ -122,8 +131,8 @@ body.mobile
         +cicon_bg("/svg/icon-sz.svg")
       .icon-yr
         +cicon_bg("/svg/icon-yr.svg")
-  p
-    max-width: 800px
+  > p
+    max-width: $page-content-maxwidth
     text-align: left
     margin-left: auto
     margin-right: auto
@@ -138,32 +147,140 @@ body.mobile
         .desc
           font-size: 16px
 
-$tile-skill-maxwidth: 800px
-.tile-skill
+.tile-project
+  @extend .tile
+  @extend .content
+  text-align: center
+  border-top: solid 2px $color-pink
+  background-color: rgba($color-pink, 0.1)
+  h2,h3,h4
+    @extend .reset_hx
+  h3
+    font-size: 1.5rem
+    border-bottom: solid $color-pink 1px
+  h4
+    font-size: 1.2rem
+  > h2, > h3, > h4, > p, > ul
+    display: block
+    max-width: $page-content-maxwidth
+    margin-left: auto
+    margin-right: auto
+  > ul
+    > li.small
+      display: inline-block
+      text-align: left
+      background-color: rgba(white, 0.6)
+      list-style-type: none
+      max-width: 400px
+      margin: 0.5rem
+      padding: 0.5rem
+    > li
+      h4 a
+        // Prevent it turning black when mouse not in project tile.
+        color: $color-primary
+      h4 a:hover
+        // Preserve this effect
+        color: $color-primary-dark
+      .stattag
+        display: inline-block
+        padding: 0.3rem
+        background-color: rgba($color-pink, 0.2)
+        border-radius: 4px
+        font-size: 90%
+        color: $color-primary-dark
+      .builtwith
+        .built
+          background-color: #dddddd
+          color: darken($color-pink, 20%)
+          display: inline-block
+          margin: 0.1rem
+          padding: 0.2rem
+          border-radius: 4px
+        .built.b-nodejs, .built.b-android
+          color: darken($color-green, 10%)
+        .built.b-web, .built.b-react
+          color: darken($color-blue, 10%)
+        .built.b-javascript
+          color: darken($color-orange, 10%)
+        .built.b-electron
+          color: darken($color-purple, 10%)
+        .built.b-python, .built.b-linux
+          color: #2b5b84
+        .built.b-minecraft
+          color: darken($color-brown, 10%)
+    li.big
+      display: flex
+      flex-direction: row
+      flex-wrap: nowrap
+
+      .logo
+        flex-grow: 1
+        flex-shrink: 1
+        max-width: 25%
+        img
+          max-width: 100%
+          max-height: 100%
+      .main
+        flex-grow: 3
+        flex-shrink: 1
+        text-align: left
+        h4
+          font-size: 4rem
+          padding: 0
+          margin: 0
+          line-height: 1
+        .stattag
+          background-color: transparent
+          border-radius: none
+          font-size: 1rem
+        .desc-content
+          margin-bottom: 1.5rem
+    li.big.havelogo .main
+      max-width: 75%
+      padding: 0.8rem 0.8rem 0.8rem 1.2rem
+    li.big.nologo .main
+      max-width: 100%
+      padding: 0.8rem
+
+body.mobile
+  .tile-project
+    > ul
+      margin: 0
+      padding-left: 0
+      padding-right: 0
+
+      li.big
+        flex-direction: column
+        .logo
+          flex-shrink: 0
+          flex-grow: 0
+          max-width: 5rem
+        .main
+          flex-shrink: 1
+          flex-grow: 1
+          max-width: 100%
+
+.tile-skills
   @extend .content
   @extend .tile
   border-top: solid 2px $color-blue
   background-color: rgba($color-blue, 0.1)
 
-  .pad
-    margin: auto
-    max-width: $tile-skill-maxwidth
-    h2
-      @extend .reset_hx
-    .till
-      color: $color-secondary-text
-      margin-bottom: 4px
-    > h3
-      @extend .reset_hx
-      font-size: 1.5em
-      color: $color-blue
-    > h4
-      @extend .reset_hx
-      font-size: 1.3em
-      color: $color-primary-dark
-      line-height: 2
-    p
-      padding: 2px 4px 2px 4px
+  > h2, > h3, > h4, > p
+    max-width: $page-content-maxwidth
+    margin-left: auto
+    margin-right: auto
+    display: block
+  > h2, > h3, > h4
+    @extend .reset_hx
+  > h3
+    font-size: 1.5em
+    color: $color-blue
+  > h4
+    font-size: 1.3em
+    color: $color-primary-dark
+  p
+    padding: 2px 4px 2px 4px
 
   .skilltags
     > ul
@@ -173,15 +290,15 @@ $tile-skill-maxwidth: 800px
       padding: 0 8px 4px 8px
       text-align: center
       background-color: $skilltags-li-bgr
-      +column_width($tile-skill-maxwidth)
+      +column_width($page-content-maxwidth)
       > li
+        max-width: $page-content-maxwidth
         $skilltags-li-name-bgr: darken($color-blue, 20%)
         $skilltags-li-exp-bgr: $color-accent
         padding: 0 8px 0 8px
         border-top: 2px solid $color-blue
         display: inline-block
         text-align: left
-        max-width: $tile-skill-maxwidth
         width: 100%
         > span
           display: inline-block
@@ -229,11 +346,11 @@ $tile-skill-maxwidth: 800px
           .linuxpre::selection, .linuxpre *::selection
             background-color: #5f767f
             color: #fdf6e3
-  .pad.btn
+  .btn
     margin-top: 2rem
 
 body.mobile
-  .tile-skill
+  .tile-skills
     .skilltags
       > ul
         > li
@@ -246,152 +363,22 @@ body.mobile
           .name
             padding-left: 8px
 
-.tile-project
-  @extend .tile
-  @extend .content
-  text-align: center
-  border-top: solid 2px $color-pink
-  background-color: rgba($color-pink, 0.1)
-  h2,h3,h4
-    @extend .reset_hx
-  h3
-    font-size: 1.5rem
-    border-bottom: solid $color-pink 1px
-  h4
-    font-size: 1.2rem
-  > ul
-    margin-left: auto
-    margin-right: auto
-    display: inline-block
-    max-width: 100%
-    > li
-      text-align: left
-      background-color: rgba(white, 0.6)
-      display: inline-block
-      list-style-type: none
-      max-width: 400px
-      margin: 0.5rem
-      padding: 0.5rem
-      h4 a
-        color: $color-primary
-      h4 a:hover
-        color: $color-primary-dark
-      .stattag
-        display: inline-block
-        padding: 0.3rem
-        background-color: rgba($color-pink, 0.2)
-        border-radius: 4px
-        font-size: 90%
-        color: $color-primary-dark
-      .builtwith
-        .built
-          background-color: #dddddd
-          color: darken($color-pink, 20%)
-          display: inline-block
-          margin: 0.1rem
-          padding: 0.2rem
-          border-radius: 4px
-        .built.b-nodejs, .built.b-android
-          color: darken($color-green, 10%)
-        .built.b-web, .built.b-react
-          color: darken($color-blue, 10%)
-        .built.b-javascript
-          color: darken($color-orange, 10%)
-        .built.b-electron
-          color: darken($color-purple, 10%)
-        .built.b-python, .built.b-linux
-          color: #2b5b84
-        .built.b-minecraft
-          color: darken($color-brown, 10%)
-    li.big
-      display: flex
-      flex-direction: row
-      flex-wrap: nowrap
-      margin-left: auto
-      margin-right: auto
-      max-width: 900px
-      background-color: transparent
-
-      .logo
-        flex-grow: 1
-        flex-shrink: 1
-        max-width: 25%
-        img
-          max-width: 100%
-          max-height: 100%
-      .main
-        flex-grow: 3
-        flex-shrink: 1
-        text-align: left
-        h4
-          font-size: 4rem
-          padding: 0
-          margin: 0
-          line-height: 1
-        .stattag
-          background-color: transparent
-          border-radius: none
-          font-size: 1rem
-        .desc-content
-          margin-bottom: 1.5rem
-          max-width: 800px
-    li.big.havelogo .main
-      max-width: 75%
-      padding: 0.8rem 0.8rem 0.8rem 1.2rem
-    li.big.nologo .main
-      max-width: 100%
-      padding: 0.8rem
-
-  > p
-    max-width: 800px
-    margin-left: auto
-    margin-right: auto
-body.mobile
-  .tile-project
-    > ul
-      margin: 0
-      padding-left: 0
-      padding-right: 0
-
-      li.big
-        flex-direction: column
-        .logo
-          flex-shrink: 0
-          flex-grow: 0
-          max-width: 5rem
-        .main
-          flex-shrink: 1
-          flex-grow: 1
-          max-width: 100%
-.tile-contact
-  @extend .tile
-  @extend .content
-  text-align: center
-  border-top: solid 2px $color-green
-  background-color: rgba($color-green, 0.1)
-  h2,h3
-    @extend .reset_hx
-  ul
-    max-width: 800px
-    display: inline-block
-    text-align: left
-
 .tile-habits
   @extend .tile
   @extend .content
-  text-align: center
+  text-align: left
   border-top: solid 2px $color-yellowgreen
   background-color: rgba($color-yellowgreen, 0.1)
-  .pad
-    margin: auto
-    text-align: left
-    max-width: $tile-skill-maxwidth
-    h2
-      @extend .reset_hx
-    > h3
-      @extend .reset_hx
-      font-size: 1.5em
-      color: $color-yellowgreen
+  > h2, > h3
+    @extend .reset_hx
+  > h2, > h3, > p, > ul
+    max-width: $page-content-maxwidth
+    margin-left: auto
+    margin-right: auto
+    display: block
+  > h3
+    font-size: 1.5em
+    color: $color-yellowgreen
 
   ul
     li
@@ -419,94 +406,48 @@ body.mobile .tile-habits
 .tile-learning
   @extend .tile
   @extend .content
-  text-align: center
+  text-align: left
   border-top: solid 2px $color-purple
   background-color: rgba($color-purple, 0.1)
-  .pad
-    margin: auto
-    text-align: left
-    max-width: $tile-skill-maxwidth
-    h2
-      @extend .reset_hx
-      small
-        font-size: 60%
-        vertical-align: middle
-    > h3
-      @extend .reset_hx
-      font-size: 1.5em
-      color: $color-purple
-    .desc
-      font-size: 0.8rem
-      margin: 0 0 0.5rem 0
-      padding-left: 1rem
-    p
-      .emp
-        color: $color-accent
-        font-weight: bold
+  > h2, > h3, > p, > div
+    max-width: $page-content-maxwidth
+    margin-left: auto
+    margin-right: auto
+    display: block
+  > h2
+    @extend .reset_hx
+    small
+      font-size: 60%
+      vertical-align: middle
+  > h3
+    @extend .reset_hx
+    font-size: 1.5em
+    color: $color-purple
+  .desc
+    font-size: 0.8rem
+    margin-top: 0
+    margin-bottom: 0.5rem
+    padding-left: 1rem
+  p
+    .emp
+      color: $color-accent
+      font-weight: bold
 
 .tile-books
   @extend .tile
   @extend .content
-  text-align: center
   border-top: solid 2px $color-brown
   background-color: rgba($color-brown, 0.1)
-  img.play
-    height: 3rem
   .goodreads
     height: 1rem
     vertical-align: middle
-  h2
+  > h2
     @extend .reset_hx
-  h3.langcat
-    text-align: left
-    border-bottom: solid 1px $color-brown
-    margin: 0.5rem
-    padding-left: 1rem
-
-  h4
-    @extend .reset_hx
-    font-size: 1.2rem
-  > .desc
-    font-size: 0.8rem
-  ul
-    @extend .reset_hx
-    list-style-type: none
-  li.book
-    list-style-type: none
-    display: inline-block
-    width: 15rem
-    vertical-align: bottom
-    border-bottom: solid 2px $color-accent
-    margin: 0.5rem
-    box-shadow: 0 1px 2px rgba(black, 0.6)
-    background-color: white
-  li.book.small
-    border-bottom-width: 1px
-  li.book.big
-    border-bottom-width: 3px
-  img.cover
-    height: 15rem
-    margin: 0.5rem
-  .author
-    font-size: 0.8rem
-  .states
-    font-size: 1.5rem
-    vertical-align: middle
-    *
-      vertical-align: middle
-    .sampling
-      color: $color-orange
-    .progress
-      display: inline-block
-      border-bottom: solid 1px $color-accent
-      font-size: 1rem
-  p
+  > h2, > p
+    max-width: $page-content-maxwidth
+    display: block
     margin-left: auto
     margin-right: auto
-    max-width: 800px
-  .fg
-    padding: 1rem
-    font-weight: bold
 
 .tile-keys
   @extend .tile
@@ -519,8 +460,8 @@ body.mobile .tile-habits
   h3
     color: $color-orange
   li
+    max-width: $page-content-maxwidth
     display: block
-    max-width: 800px
     margin-left: auto
     margin-right: auto
   pre
@@ -540,3 +481,17 @@ body.mobile .tile-habits
     vertical-align: middle
     *
       vertical-align: middle
+
+.tile-contact
+  @extend .tile
+  @extend .content
+  text-align: center
+  border-top: solid 2px $color-green
+  background-color: rgba($color-green, 0.1)
+  > h2, > h3
+    @extend .reset_hx
+  > ul
+    max-width: $page-content-maxwidth
+    display: inline-block
+    text-align: left
+

@@ -1,32 +1,31 @@
-.tile-skill#skills
+.tile-skills#skills
   -var currentYear = new Date().getFullYear()
-  .pad
-    h2 Skills
-    h3 <i>( General )</i> Programming
-    h4
-      i "Slightly better than average"
-    p
-      | I begin to write code about #{Math.round((age-8.5) * 10) / 10} years ago.
-      | From dumb to <i><del>smart </del>not dumb</i>, I have experienced with
-      | <i>some</i> major programming style and practice <i>( standards )</i>.
-      | I know how to organize my code properly. I also understand the concept of
-      | <b>unit testing</b> ( and code coverage ) and 
-      a(href="https://travis-ci.org/micromaomao/maowtm.org") had done it
-      |  for <i>some</i> of my projects. I will try to write test for
-      | every project I have published on GitHub, but I currently don't had that time.
-    h4
-      del Why you probably don't want to <i>hire</i> me:
-    p
-      | However, I'm (currently) <b>weak</b> on <b>algorithm</b>, <b>data structures</b> and
-      | <i>"problem solving skills"</i> and are struggling to solve most of the <i>interview
-      | questions that every programmer is supposed to be able to solve</i>.
-      | (I mean I can't approach it quickly and my code don't runs efficiently, not
-      | really unable to solve.) I'm currently learning about algorithms.
-    p
-      | Also I'm <b>having problem with</b> writing <b>human-readable</b> and comprehensible
-      | code. Sometimes my code don't even make sense to me <i>quickly</i>.
-      | ( BTW <b>I don't have problems reading other's code</b>. )
-    h3 Specific skills
+  h2 Skills
+  h3 <i>( General )</i> Programming
+  h4
+    i "Slightly better than average"
+  p
+    | I begin to write code about #{Math.round((age-8.5) * 10) / 10} years ago.
+    | From dumb to <i><del>smart </del>not dumb</i>, I have experienced with
+    | <i>some</i> major programming style and practice <i>( standards )</i>.
+    | I know how to organize my code properly. I also understand the concept of
+    | <b>unit testing</b> ( and code coverage ) and 
+    a(href="https://travis-ci.org/micromaomao/maowtm.org") had done it
+    |  for <i>some</i> of my projects. I will try to write test for
+    | every project I have published on GitHub, but I currently don't had that time.
+  h4
+    del Why you probably don't want to <i>hire</i> me:
+  p
+    | However, I'm (currently) <b>weak</b> on <b>algorithm</b>, <b>data structures</b> and
+    | <i>"problem solving skills"</i> and are struggling to solve most of the <i>interview
+    | questions that every programmer is supposed to be able to solve</i>.
+    | (I mean I can't approach it quickly and my code don't runs efficiently, not
+    | really unable to solve.) I'm currently learning about algorithms.
+  p
+    | Also I'm <b>having problem with</b> writing <b>human-readable</b> and comprehensible
+    | code. Sometimes my code don't even make sense to me <i>quickly</i>.
+    | ( BTW <b>I don't have problems reading other's code</b>. )
+  h3 Specific skills
   .skilltags
     ul
       mixin skill_li(name, exp)
@@ -112,27 +111,30 @@
           br
           +linuxprompt("linux@MaoWtm", "~")
         p
-          | I can write some basic <b>shell scripts</b> and do some <i>advanced</i>
-          | system <i>maintaining</i> ( including breaking the system ). Thanks to 
+          | I can use zsh on Linux reasonably well to do some non-trivial system
+          | <i>maintaining</i> ( including breaking the system ). Thanks to 
           a(href="https://www.archlinux.org/") Arch Linux
-          | , I've managed to <b>understand</b>, not very deep, how Linux ( and those fundamental application that almost every distro include,
-          | from <b>"systemd", "initramfs" to "ip" or "dig"</b> ) briefly work and <b>how to make use of them</b>.
-          | I use Linux as my desktop OS. Linux and some command line tools helped me a lot, not only for coding.
+          | , I've managed to <b>understand</b>, not very deep, how Linux ( and those
+          | fundamental application that almost every distro include, from "systemd",
+          | "initramfs" to "ip" or "dig" ) briefly work and how to make use of them. I use
+          | Linux as my desktop OS. Linux and some command line tools helped me a lot, not
+          | only for coding.
         p
-          | I think Linux is the most suitble and useful OS for most programmers. It is highly customizable and it contains
-          | less "magic" than what Windows does. There are many handy tools that does almost anything from base64 to easy
-          | encryption with gpg or openssl, just use them from the command line. Shell script made simple maintaining tasks
-          | quick and easy. I think that <b>Windows Server is obviously not a good idea</b>.
+          | I think Linux is the most suitable and useful OS for most programmers. It is
+          | highly customizable and it relies on less "magic" than Windows. There are many
+          | handy tools that does almost anything from Base64 to easy encryption with GPG
+          | or OpenSSL, or video conversion with FFmpeg, available for use from the command
+          | line. Shell script made simple maintaining tasks quick and easy. I agree that
+          | Windows Server is obviously not a good idea.
       +skill_li("C / C++", "Can write simple things.")
         p
           | I know how to write C++ programs, but it <b>often takes much longer</b> and the products probably are <b>buggy</b> and only run on Linux.
-          | I can write a C++ version of most Javascript/Python program I have wrote. It just takes more time and introduces more bugs.
+          | I can write a C++ version of most JavaScript/Python program I have wrote. It just takes more time and introduces more bugs.
       +skill_li('Android', "Basic App development skills")
         p
           | I understand some concepts in building Android Apps, but haven't built much projects yet.
-  .pad.btn
-    p
-      | There are more things I've tried, but not experienced enough to put it here. However,
-      | I (feel like) can learn new stuff easily, and I'm actively 
-      a(href="#learning") learning new things
-      | .
+  p.btn
+    | There are more things I've tried, but not experienced enough to put it here. However,
+    | I (feel like) can learn new stuff easily, and I'm actively 
+    a(href="#learning") learning new things
+    | .

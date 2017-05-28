@@ -14,6 +14,8 @@ mixin project(name, builtWith, url, _tags, big)
       -className += ' havelogo'
     -else
       -className += ' nologo'
+  -else
+    -className += ' small'
   li(class=className)
     -if (logo)
       .logo
