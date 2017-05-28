@@ -87,7 +87,7 @@ shake()
 function selectEventTarget (e) {
   if (e.target.className.match(/(^|\s)selectonclick(\s|$)/)) {
     var selection = window.getSelection()
-    let range = document.createRange()
+    var range = document.createRange()
     range.selectNodeContents(e.target)
     selection.removeAllRanges()
     selection.addRange(range)
