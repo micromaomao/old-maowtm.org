@@ -69,6 +69,11 @@ var maowtm = function (config) {
     return
   })
   this.db.on('open', function () {
+    app.use(function (req, res, next) {
+      console.log(`${req.method.toUpperCase()} ${req.path} from ${req.ip}`)
+      next()
+    })
+
     pages = require('./pages')(this.db)
 
     app.use(compression())
