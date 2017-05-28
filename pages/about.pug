@@ -2,6 +2,14 @@ extends layout
 
 block head
   title Mao Wtm
+  meta(property='og:url', content='https://maowtm.org/about/')
+  meta(property='og:type', content='article')
+  meta(property='og:locale', content='en_US')
+  meta(property='og:title', content='Mao Wtm')
+  -const desc = "I'm a stupid programmer. Welcome to my 'about' page."
+  meta(name='description', content=desc)
+  meta(property='og:description', content=desc)
+  meta(property='og:image', content=mapStatic("imgs/banner.png"))
 
 block content
   .outdate-warning
