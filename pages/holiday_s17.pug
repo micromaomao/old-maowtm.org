@@ -20,7 +20,7 @@ block content
         div(class='start' + (reach(start) ? ' reach' : ''))= RelativeTime(time, start)
         div(class='start' + (reach(start) ? ' reach' : ''))= absDate(start)
         .mid= `${progress}%`
-        div(class='end' + (reach(end) ? ' reach' : ''))= RelativeTime(time, end)
         div(class='end' + (reach(end) ? ' reach' : ''))= absDate(end)
+        div(class='end' + (reach(end) ? ' reach' : ''))= RelativeTime(time, end)
       .bar
         .fill(style=`width: ${progress}%`)
