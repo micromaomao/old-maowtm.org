@@ -1,0 +1,60 @@
+@import layout
+
+body
+  margin: 0
+  padding: 0
+
+h1.bigtitle
+  margin: 0
+  font-family: $ff-body
+  text-transform: none
+  font-weight: normal
+  text-align: center
+  background-color: $color-blue
+  color: white
+  padding-top: 3rem
+  font-size: 3rem
+
+  .classstate
+    font-size: 1.2rem
+    opacity: 0.8
+
+  .progress
+    margin-top: 3rem
+    text-align: center
+    font-size: 1rem
+    color: white
+    .top
+      display: flex
+      flex-wrap: wrap
+      flex-direction: row
+      justify-content: space-between
+      align-items: baseline
+      div
+        display: inline-block
+        vertical-align: middle
+      .start, .end
+        flex-grow: 0
+        flex-shrink: 0
+        background-color: $color-primary
+        color: white
+        padding: 0.2rem 0.5rem
+        margin: 0.5rem
+        &.reach
+          background-color: $color-accent
+      .mid
+        flex-grow: 1
+        flex-shrink: 0
+    .bar
+      height: 0.5rem
+      background-color: $color-primary
+      .fill
+        background-color: $color-accent
+        height: 100%
+        width: 50%
+        margin: 0
+        overflow: hidden
+
+body.mobile
+  h1.bigtitle
+    font-size: 2rem

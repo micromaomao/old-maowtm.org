@@ -1,0 +1,26 @@
+extends layout
+
+block head
+  title 2017 Summer Holiday
+
+block content
+  -let start = new Date('2017-06-06 GMT+0800')
+  -let end = new Date('2017-08-15 GMT+0800')
+  -const reach = target => time >= target
+  -const padNum = ts => ts.length < 2 ? '0'.repeat(2 - ts.length) + ts : ts
+  -const absDate = date => {
+  -  let offCn = new Date(date.getTime() + (8*60*60*1000))
+  -  return [offCn.getUTCFullYear(), offCn.getUTCMonth() + 1, offCn.getUTCDate()].map(x => padNum(x.toString())).join('-')
+  -}
+  h1.bigtitle Summer holiday of 2017
+    .classstate IG2 -> AS
+    .progress
+      -let progress = Math.max(0, Math.min(100, Math.round(((time - start) / (end - start)) * 1000) / 10))
+      .top
+        div(class='start' + (reach(start) ? ' reach' : ''))= RelativeTime(time, start)
+        div(class='start' + (reach(start) ? ' reach' : ''))= absDate(start)
+        .mid= `${progress}%`
+        div(class='end' + (reach(end) ? ' reach' : ''))= RelativeTime(time, end)
+        div(class='end' + (reach(end) ? ' reach' : ''))= absDate(end)
+      .bar
+        .fill(style=`width: ${progress}%`)

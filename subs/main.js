@@ -1,5 +1,6 @@
 const express = require('express')
 const _pages = require('../pages')
+const RelativeTime = require('./reltime.js')
 var pages
 
 module.exports = function (db, lock) {
@@ -29,6 +30,29 @@ module.exports = function (db, lock) {
   })
   rMain.get('/geterror', function (req, res) {
     throw new Error(req.query.msg ? `${req.query.msg} (error message given in url)` : 'Your error.')
+  })
+  rMain.get('/holiday/:season/', function (req, res, next) {
+    let season = req.params.season
+    let thepage
+    let time = new Date()
+    if (/^\d+$/.test(req.query.fakeTime)) {
+      time = new Date(parseInt(req.query.fakeTime) * 1000)
+      if (Number.isNaN(time.getTime())) {
+        next(new Error('Invalid timestamp.'))
+        return
+      }
+    } else if (typeof req.query.fakeTime === 'string') {
+      next(new Error('Invalid fakeTime.'))
+      return
+    }
+    if ((!/^[sw]\d+$/.test(season)) || (!(thepage = pages[`holiday_${season}`]))) {
+      next()
+      return
+    }
+    res.send(thepage({
+      time,
+      RelativeTime
+    }))
   })
 
   return function (req, res, next) {
