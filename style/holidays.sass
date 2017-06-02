@@ -131,6 +131,8 @@ body.mobile
   h2
     border-bottom: solid 4px $color-accent
   li
+    font-size: 1rem
+    margin: 0.5rem 0
     h4
       clear: both
       color: $color-accent
@@ -149,7 +151,28 @@ body.mobile
       margin-right: 0.5rem
       vertical-align: bottom
       font-weight: normal
-    p
+    p, .subtasks
       margin: 0
-      padding: 0.5rem
-      font-size: 1rem
+      padding-top: 0.5rem
+    p
+      padding-left: 0.5rem
+      padding-right: 0.5rem
+
+    .subtasks
+      h5
+        float: none
+      li
+        .progress
+          .block
+            width: 1rem
+            height: 1rem
+            display: inline-block
+            vertical-align: middle
+            background-color: $color-divider
+            margin: 0 0.2rem
+            &.done
+              background-color: $color-accent
+            &.undone
+              background-color: $color-primary-light
+            &.optional
+              background-color: lighten($color-green, 40%)

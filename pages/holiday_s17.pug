@@ -8,7 +8,7 @@ block defines
     const classstate = ['IG2', 'AS']
 
 block additional
-  .plans
+  .plans.content
     h2 Things to get done
     p
       | I will try to divide all big tasks into small, achievable sub-tasks, so that
@@ -20,8 +20,44 @@ block additional
         h5 Why?
         p
           | I’m a bit interested in sociology, and pre-learning some AS physics and math is
-          | also going to be useful since these subjects requiring much mental work on
-          | understanding.
+          | also going to be useful since these subjects requires much mental work on
+          | understanding. No need for full scale study and getting 100% on past papers,
+          | just an introductory style is enough.
+        .subtasks
+          h5 Sub tasks
+          ul
+            li
+              | Watch and understand 
+              a(href='https://www.youtube.com/playlist?list=PL8dPuuaLjXtMJ-AfB_7J1538YKWkZAnGA') CrashCourse Sociology
+              |  videos.
+              .progress
+                -for (let i = 0; i < 12; i ++)
+                  span(class='block ' + (i < 7 ? 'done' : 'undone'))
+                |  (12 videos * ~20 min each)
+            li
+              | Read through the textbook / syllabus or past papers of the relevant physics unit.
+              .progress
+                -const physicsUnitsProgress = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                -// State: 0 - undone, 1 - done
+                each state in physicsUnitsProgress
+                  span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
+                |  (#{physicsUnitsProgress.length} units required * ~0.33-3 hours each)
+      li
+        h4 Learn differential equations.
+        h5 Why?
+        p
+          | For fun. Plus I always wanted to learn some advanced maths.
+        .subtasks
+          h5 Sub tasks
+          ul
+            li
+              | Complete KhanAcademy differential equations topics.
+              .progress
+                -const khDEProgress = [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                -// State: 0 - undone, 1 - done
+                each state in khDEProgress
+                  span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
+                |  (#{khDEProgress.length} sub-topics * ~0.5-2 hours each)
       li
         h4 Decide which country am I going for university and do relevant preparation.
         h5 Why?
@@ -29,6 +65,23 @@ block additional
           | As many students, teachers and parents often said, preparation should start as
           | early as possible. I haven't (even) fully decided the overall direction yet, so
           | I should act fast.
+        .subtasks
+          h5 Sub tasks
+          ul
+            li
+              | Understand the difference between UK, US and Hong Kong, especially in computer science studies.
+              .progress
+                .block.undone
+                |  (a hour of research and advice-seeking)
+            li
+              | Target on one or a few university in that country, learning its strength, environments and requirements.
+              .progress
+                .block.undone
+                |  (several hours of research and advice-seeking)
+            li
+              | Prepare for the respective university. (e.g. doing SAT / TOEFL)
+              .progress
+                | (Difficulty not yet known.)
       li
         h4 Complete my first neural network.
         h5 Why?
@@ -83,7 +136,7 @@ block additional
         p
           | Staying up till 2:00 is destructive to the mind state and the ability to focus
           | on the next day and doing this on a weekly basis is also destructive to health.
-        h5 What to do?
+        h5 How?
         p
           | Go to bed at time between 22:00 and 23:00, and get up before 9:00 the next morning.
       li
