@@ -1,0 +1,85 @@
+extends layout
+
+block head
+  block defines
+  -
+    const mapSeason = s => {
+      switch (s) {
+        case 's':
+          return 'Summer'
+        case 'w':
+          return 'Winter'
+        default:
+          return 'undefined'
+      }
+    }
+
+    const oneDayTime = 24 * 60 * 60 * 1000
+    const reach = target => time >= target
+    const padNum = ts => ts.length < 2 ? '0'.repeat(2 - ts.length) + ts : ts
+    const offCn = date => new Date(date.getTime() + (8*60*60*1000))
+    const absDate = date => {
+      let oc = offCn(date)
+      return [oc.getUTCFullYear(), oc.getUTCMonth() + 1, oc.getUTCDate()].map(x => padNum(x.toString())).join('-')
+    }
+    const bigTitle = `${mapSeason(season[0])} Holiday of 20${season.substr(1)}`
+    const progress = Math.max(0, Math.min(100, Math.round(((time - start) / (end - start)) * 1000) / 10))
+
+  title= `20${season.substr(1)} ${mapSeason(season[0])} Holiday`
+
+block content
+  h1.bigtitle= bigTitle
+    .classstate= classstate.join(' -> ')
+    .progress
+      .top
+        div(class='start' + (reach(start) ? ' reach' : ''))= RelativeTime(time, start)
+        div(class='start abstime' + (reach(start) ? ' reach' : ''))= absDate(start)
+        .mid= `${progress}%`
+        div(class='end abstime' + (reach(end) ? ' reach' : ''))= absDate(end)
+        div(class='end' + (reach(end) ? ' reach' : ''))= RelativeTime(time, end)
+      .bar
+        .fill(style=`width: ${progress}%`)
+  .gridcontain
+    ul.grid
+      each day in ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun']
+        li.day
+          .fill= day
+      -for (let i = 0; i < (((offCn(start).getUTCDay() - 1) % 7) + 7) % 7; i++)
+        li &nbsp;
+      -const startTruncateToDay = new Date(`${absDate(start)} GMT+0800`)
+      -for (let cur = startTruncateToDay; cur < end; cur = new Date(cur.getTime() + oneDayTime))
+        -let dayN = (cur.getTime() - startTruncateToDay.getTime()) / oneDayTime
+        -let dateDay = absDate(cur).split('-')[2]
+        -let todayReach = reach(cur)
+        -let nextDayReach = reach(new Date(cur.getTime() + oneDayTime))
+        -let signed = false
+        -
+          let reachState = (() => {
+            if (todayReach) {
+              if (nextDayReach)
+                return signed ? 'signed' : 'nosign'
+              if (!nextDayReach /* Today */)
+                return signed ? 'signed' : 'today'
+            }
+            /* if (!todayReach) */
+            return signed ? 'signed' : 'noreach'
+          })()
+        li(title=`day#${dayN}${signed ? ', signed' : ''}`)
+          div(class='fill ' + reachState)= dateDay
+  .griddesc
+    div
+      .fill.signed
+      | Day signed
+      .hiddenText &nbsp;
+    div
+      .fill.nosign
+      | Day passed but not signed
+      .hiddenText &nbsp;
+    div
+      .fill.today
+      | Today
+      .hiddenText &nbsp;
+    div
+      .fill.noreach
+      | Not yet
+  block additional

@@ -1,102 +1,107 @@
-extends layout
+extends holiday.h.pug
 
-block head
-  title 2017 Summer Holiday
+block defines
+  -
+    const start = new Date('2017-06-05 12:00:00 GMT+0800')
+    const end = new Date('2017-08-14 GMT+0800')
+    const season = 's17'
+    const classstate = ['IG2', 'AS']
 
-block content
-  -const oneDayTime = 24 * 60 * 60 * 1000
-  -let start = new Date('2017-06-06 GMT+0800')
-  -let end = new Date('2017-08-14 GMT+0800')
-  -const reach = target => time >= target
-  -const padNum = ts => ts.length < 2 ? '0'.repeat(2 - ts.length) + ts : ts
-  -const absDate = date => {
-  -  let offCn = new Date(date.getTime() + (8*60*60*1000))
-  -  return [offCn.getUTCFullYear(), offCn.getUTCMonth() + 1, offCn.getUTCDate()].map(x => padNum(x.toString())).join('-')
-  -}
-  h1.bigtitle Summer holiday of 2017
-    .classstate IG2 -> AS
-    .progress
-      -let progress = Math.max(0, Math.min(100, Math.round(((time - start) / (end - start)) * 1000) / 10))
-      .top
-        div(class='start' + (reach(start) ? ' reach' : ''))= RelativeTime(time, start)
-        div(class='start abstime' + (reach(start) ? ' reach' : ''))= absDate(start)
-        .mid= `${progress}%`
-        div(class='end abstime' + (reach(end) ? ' reach' : ''))= absDate(end)
-        div(class='end' + (reach(end) ? ' reach' : ''))= RelativeTime(time, end)
-      .bar
-        .fill(style=`width: ${progress}%`)
-  .gridcontain
-    ul.grid
-      each day in ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun']
-        li.day
-          .fill= day
-      li &nbsp;
-      -for (let cur = start; cur < end; cur = new Date(cur.getTime() + oneDayTime))
-        -let dayN = (cur.getTime() - start.getTime()) / oneDayTime
-        -let dateDay = absDate(cur).split('-')[2]
-        -let todayReach = reach(cur)
-        -let nextDayReach = reach(new Date(cur.getTime() + oneDayTime))
-        li(class=(todayReach && nextDayReach ? 'reach' : '') + (todayReach && !nextDayReach ? 'today' : ''))
-          .fill= dateDay
+block additional
   .plans
     h2 Things to get done
+    p
+      | I will try to divide all big tasks into small, achievable sub-tasks, so that
+      | infinite procrastination is less likely to happen.
     h3 Top priority
     ul
-      li Study AS subjects in advance.
-      p
-        | I’m a bit interested in sociology, but pre-learning some AS physics is
-        | also going to be useful since it’s a subject requiring much mental work on
-        | understanding. Similar logic with math.
-      p
-        | My mom is hoping that I could finish both AS and A level in one year time. If
-        | I’m going to do that, I need to study a lot in this summer. I’m still
-        | considering whether that is worth it.
-      li Decide which country am I going for university and do relevant preparation.
-      p
-        | As many students, teachers and parents often said, preparation should start as
-        | early as possible. I haven't fully decided the overall direction yet, so I
-        | should act fast.
-      li Complete my first neural network.
-      p
-        | For long time I always wanted to learn and make use of machine learning. I had
-        | already made a bit of progress on that and I want to complete my first (even
-        | trivial) neural network in this summer. As presented in the Google I/O 2017,
-        | machine learning is likely going to be a very useful skill in the future. In my
-        | view, in addition to helping me do more with code, having some skills in
-        | machine learning could help me find a job as well.
-      li Build a basic collection system for SchSrch.
-      p
-        | Many of SchSrch's user had asked for this feature for months.
-      li Finish at least one more book.
+      li
+        h4 Study AS subjects in advance.
+        h5 Why?
+        p
+          | I’m a bit interested in sociology, and pre-learning some AS physics and math is
+          | also going to be useful since these subjects requiring much mental work on
+          | understanding.
+      li
+        h4 Decide which country am I going for university and do relevant preparation.
+        h5 Why?
+        p
+          | As many students, teachers and parents often said, preparation should start as
+          | early as possible. I haven't (even) fully decided the overall direction yet, so
+          | I should act fast.
+      li
+        h4 Complete my first neural network.
+        h5 Why?
+        p
+          | For long time I always wanted to learn and make use of machine learning. I had
+          | already made a bit of progress on that. Inspired by the Google I/O 2017, I
+          | think machine learning is likely going to be a very useful skill in the future.
+          | In addition to helping me do more with code, having some skills in machine
+          | learning could also help me find a job.
+      li
+        h4 Build a basic collection system for SchSrch.
+        h5 Why?
+        p
+          | Many of SchSrch's user had asked for this feature for months.
+      li
+        h4 Finish at least one more book.
+        h5 Why?
+        p
+          | Many people I know seems to have read a lot of books, and I frequently hear
+          | people saying that reading books is better than reading ZhiHu or other online
+          | stuff.
     h3 Optional
     p
       | I may or may not complete these, depending on my time availability.
     ul
-      li Write unit tests for older projects.
-      p
-        | Tests are good ways to ensure code quality. I may even consider completely
-        | refactoring some of those, so that ugly code won't put me in shame, especially
-        | if I'm going to use them to apply for university.
-      li Start a YouTube channel.
-      p
-        | It may not earn me much money but I could gain some popularity, which is great for university application and self-esteem.
-      li Practice sketching.
-      p
-        | Doesn't it feel wonderful if a coder also know how to draw beautiful pictures /
-        | comics? I have always wanted (and tried for several times) to learn drawing.
-        | It helps me illustrate my ideas.
+      li
+        h4 Write unit tests for older projects.
+        h5 Why?
+        p
+          | Tests are good ways to ensure code quality. I may even consider completely
+          | refactoring some of those, so that ugly code won't put me in shame, especially
+          | if I'm going to use them to apply for university.
+      li
+        h4 Start a YouTube channel.
+        h5 Why?
+        p
+          | It may not earn me much money but I could gain some popularity, which is great
+          | for university application and self-esteem.
+      li
+        h4 Practice sketching.
+        h5 Why?
+        p
+          | Doesn't it feel wonderful if a coder also know how to draw beautiful pictures /
+          | comics in addition to writing great code? I have always wanted (and tried for
+          | several times) to learn drawing. It helps me illustrate my ideas.
     h2 Changes to pursue
     h3 Lifestyle
     ul
-      li Have early and regular sleep and wake up at reasonable time.
-      p
-        | No more staying up till 2:00. It's destructive to the mind state of the next
-        | day and doing this on a weekly basis is destructive to health. 22:00 to 23:00
-        | seems like a good time for bed. Also, no more sleeping till 12:00.
-      li Daily workout.
-      p
-        | It can comes in forms of biking, running or other kinds of activities. Staying
-        | in home completely for 3 weeks in a row isn't good to health either.
+      li
+        h4 Have early and regular sleep and wake up at reasonable time.
+        h5 Why?
+        p
+          | Staying up till 2:00 is destructive to the mind state and the ability to focus
+          | on the next day and doing this on a weekly basis is also destructive to health.
+        h5 What to do?
+        p
+          | Go to bed at time between 22:00 and 23:00, and get up before 9:00 the next morning.
+      li
+        h4 Daily workout.
+        h5 Why?
+        p
+          | Staying in home completely for 3 weeks in a row isn't good to health either.
+          | Our body seems to need exercise regularly otherwise it gets sick.
+        h5 How?
+        p
+          | It can comes in forms of biking, running or other kinds of activities. Just try
+          | to do some, even for 15 minutes, every day.
     h3 Work
     ul
-      li Blog frequently.
+      li
+        h4 Blog frequently.
+        h5 Why?
+        ol.blogthreereasons
+          li Express ideas.
+          li Opportunity to gain popularity.
+          li Can show blog to recruiter.
