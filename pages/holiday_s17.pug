@@ -77,6 +77,8 @@ block additional
               | Target on one or a few university in that country, learning its strength, environments and requirements.
               .progress
                 .block.undone
+                .block.undone
+                .block.undone
                 |  (several hours of research and advice-seeking)
             li
               | Prepare for the respective university. (e.g. doing SAT / TOEFL)
@@ -91,11 +93,68 @@ block additional
           | think machine learning is likely going to be a very useful skill in the future.
           | In addition to helping me do more with code, having some skills in machine
           | learning could also help me find a job.
+        .subtasks
+          h5 Sub tasks
+          ul
+            li
+              | Build a network 
+              a(href='https://www.youtube.com/playlist?list=PLiaHhY2iBX9hdHaRr6b7XevZtgZRa1PoU')
+                |  estimating test score based on the hours spent sleeping and studying last day
+              |  without TensorFlow.
+              .progress.inline
+                .block.undone
+            li
+              | Learn basic 
+              a(href='https://www.tensorflow.org/') TensorFlow
+              |  usage and build the same network with TensorFlow.
+              .progress.inline
+                .block.undone
+            li
+              | Build a network to classify black-and-white images. Possible example: 
+              a(href='https://www.tensorflow.org/get_started/mnist/beginners') MNIST For ML Beginners
+              .progress.inline
+                .block.undone
+            li
+              | Build a network to classify words.
+              .progress.inline
+                .block.undone
+            li
+              | Learn how to train network with colored images and common ML techniques.
+              .progress.inline
+                .block.undone
+            li
+              | Build and train a network to auto generate paper dirs.
+              .progress.inline
+                .block.optional
+                |  (Optional)
       li
         h4 Build a basic collection system for SchSrch.
         h5 Why?
         p
           | Many of SchSrch's user had asked for this feature for months.
+        .subtasks
+          h5 Sub tasks
+          ul
+            li
+              | Build a basic savable plain-text only notepad, saving data on the cloud with named documents.
+              .progress.inline
+                .block.undone
+            li
+              | Build a login system and apply it to the notepad.
+              .progress.inline
+                .block.undone
+            li
+              | Build support for formatting and putting images and paper crops into the notepad.
+              .progress.inline
+                .block.undone
+            li
+              | Build support for annotating on the paper crops.
+              .progress.inline
+                .block.undone
+            li
+              | Build sharing mechanism.
+              .progress.inline
+                .block.undone
       li
         h4 Finish at least one more book.
         h5 Why?
@@ -103,6 +162,16 @@ block additional
           | Many people I know seems to have read a lot of books, and I frequently hear
           | people saying that reading books is better than reading ZhiHu or other online
           | stuff.
+        .subtasks
+          h5 Sub tasks
+          ul
+            li
+              a(href='https://www.goodreads.com/book/show/61538.The_Extended_Phenotype')
+                | The Extended Phenotype: The Long Reach of the Gene
+              .progress
+                -for (let i = 0; i < 15; i ++)
+                  div(class='block ' + (i < 0 ? 'done' : (i === 14 ? 'optional' : 'undone')))
+                |  (14 chapters + one optional afterword)
     h3 Optional
     p
       | I may or may not complete these, depending on my time availability.
