@@ -39,7 +39,7 @@ block content
         div(class='end' + (reach(end) ? ' reach' : ''))= RelativeTime(time, end)
       .bar
         .fill(style=`width: ${progress}%`)
-  .gridcontain
+  .gridcontain#calendar
     ul.grid
       each day in ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun']
         li.day
@@ -69,7 +69,8 @@ block content
   .griddesc
     div
       .fill.signed
-      | Day signed
+      | Day 
+      a.signlink(href='#signing') signed
       .hiddenText &nbsp;
     div
       .fill.nosign
@@ -83,3 +84,9 @@ block content
       .fill.noreach
       | Not yet
   block additional
+
+  .signing
+    h2#signing Signing of day
+    block signing
+    h2 Signed day logs
+    .placeholder No days signed yet.

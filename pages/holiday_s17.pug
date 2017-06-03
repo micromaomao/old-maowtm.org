@@ -8,7 +8,7 @@ block defines
     const classstate = ['IG2', 'AS']
 
 block additional
-  .plans.content
+  .plans.content#plans
     h2 Things to get done
     p
       | I will try to divide all big tasks into small, achievable sub-tasks, so that
@@ -172,7 +172,7 @@ block additional
                 -for (let i = 0; i < 15; i ++)
                   div(class='block ' + (i < 0 ? 'done' : (i === 14 ? 'optional' : 'undone')))
                 |  (14 chapters + one optional afterword)
-    h3 Optional
+    h3#plans-optional Optional
     p
       | I may or may not complete these, depending on my time availability.
     ul
@@ -281,3 +281,17 @@ block additional
           li Express ideas.
           li Opportunity to gain popularity.
           li Can show blog to recruiter.
+
+block signing
+  p
+    | If a day passed is "signed", that means I have made progress that day and all
+    | changes I want to take, such as sleeping early, are implemented successfully
+    | that day. The condition for signing a day is that all changes need to be made
+    | properly, such as going to bed earlier than 23:00, and at least one undone
+    | block (
+    span.block.undone
+    | ) must be done (
+    span.block.done
+    | ) that day. Optional blocks (
+    span.block.optional
+    | ) doesn't count.
