@@ -114,7 +114,7 @@ block content
                 span.streakcount #{streak}
                 |  days in a row!
             -if (sign.message)
-              p= sign.message
+              p!= sign.message
             -else
               p No message written.
         -else
