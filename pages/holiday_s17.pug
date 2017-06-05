@@ -27,7 +27,7 @@ block additional
           h5 Sub tasks
           ul
             li
-              | Watch and understand 
+              | <b>Sociology</b>: Watch and understand 
               a(href='https://www.youtube.com/playlist?list=PL8dPuuaLjXtMJ-AfB_7J1538YKWkZAnGA') CrashCourse Sociology
               |  videos.
               .progress
@@ -35,7 +35,9 @@ block additional
                   span(class='block ' + (i < 7 ? 'done' : 'undone'))
                 |  (12 videos * ~20 min each)
             li
-              | Read through the textbook / syllabus or past papers of the relevant physics unit.
+              | <b>Physics</b>: Read through the textbook / 
+              a(href='http://www.cie.org.uk/Images/329533-2019-2021-syllabus.pdf') syllabus
+              |  or past papers of the relevant physics unit.
               .progress
                 -const physicsUnitsProgress = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 -// State: 0 - undone, 1 - done
@@ -51,7 +53,9 @@ block additional
           h5 Sub tasks
           ul
             li
-              | Complete KhanAcademy differential equations topics.
+              | Complete 
+              a(href='https://www.khanacademy.org/math/differential-equations') KhanAcademy differential equations topics
+              | .
               .progress
                 -const khDEProgress = [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 -// State: 0 - undone, 1 - done
