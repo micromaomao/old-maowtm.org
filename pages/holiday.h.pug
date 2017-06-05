@@ -52,7 +52,7 @@ block content
         -let dateDay = absDate(cur).split('-')[2]
         -let todayReach = reach(cur)
         -let nextDayReach = reach(new Date(cur.getTime() + oneDayTime))
-        -let signed = false
+        -let signed = signingLogs[dayN].signed
         -
           let reachState = (() => {
             if (todayReach) {
@@ -89,4 +89,37 @@ block content
     h2#signing Signing of day
     block signing
     h2 Signed day logs
-    .placeholder No days signed yet.
+    ul
+      -let haveEntity = false
+      -let streak = 0
+      -let unsignStreak = 0
+      -let lastSigned = true
+      each sign, i in signingLogs
+        -if (sign.signed)
+          -if (!lastSigned)
+            li.gap
+              | #{unsignStreak} day#{unsignStreak > 1 ? 's' : ''} missed: 
+              -if (unsignStreak === 1)
+                | day #{i - 1}
+              -else
+                | from day #{i - unsignStreak} to day #{i - 1}
+          -streak++
+          -unsignStreak = 0
+          -haveEntity = true
+          li
+            h3
+              | Day #{i}: completed #{sign.nTask ? sign.nTask : 'undefined'} tasks.
+              -if (streak > 1)
+                |  
+                span.streakcount #{streak}
+                |  days in a row!
+            -if (sign.message)
+              p= sign.message
+            -else
+              p No message written.
+        -else
+          -streak = 0
+          -unsignStreak ++
+        -lastSigned = sign.signed
+      -if (!haveEntity)
+        li.placeholder No days signed yet.

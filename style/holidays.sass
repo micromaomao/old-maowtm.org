@@ -174,9 +174,26 @@ body.mobile
 .signing
   h2
     border-bottom: solid 4px $color-primary
-  .placeholder
-    color: $color-secondary-text
-    text-align: center
+  ul
+    padding: 0
+    list-style-type: none
+    li
+      margin: 1rem 0.5rem
+      padding: 0
+      h3
+        font-size: 1.2rem
+        color: $color-accent
+        padding: 0
+        margin: 0
+      .streakcount
+        color: $color-primary
+      &.gap
+        color: red
+        background-color: lighten(red, 45%)
+    .placeholder
+      margin: 0
+      color: $color-secondary-text
+      text-align: center
 
 .subtasks, .signing
   .block
