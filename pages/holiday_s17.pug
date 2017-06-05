@@ -9,7 +9,14 @@ block defines
 
     const signingLogs = [
       /* signed: true, message: 'Hi!', nTask: 2 */
-      {}, /* day 0 */
+      { signed: true, nTask: 1,
+        message: 'Whoooooo! Finally every CIE exam for this year is over, and the summer holiday is about to start! ' + 
+          'I really hope that this plan will work well throughout the entire holiday, helping me to get all my work done. ' +
+          "I watched the <a href='https://en.wikipedia.org/wiki/Doraemon_the_Movie_2017:_Great_Adventure_in_the_Antarctic_Kachi_Kochi'>" +
+          'new Doraemon movie</a>, the adventure in the antarctic thing. Pretty fun to watch, and I will be looking ' +
+          'forward to the movie of next year.<br>' +
+          'I did managed to get my plan started by the first day of this summer holiday, and the first day is hereby ' +
+          'signed. I read the first chapter of The Extended Phenotype.'}, /* day 0 */
       {}, /* day 1 */
       {}, /* day 2 */
       {}, /* day 3 */
@@ -248,7 +255,7 @@ block additional
                 | The Extended Phenotype: The Long Reach of the Gene
               .progress
                 -for (let i = 0; i < 15; i ++)
-                  div(class='block ' + (i < 0 ? 'done' : (i === 14 ? 'optional' : 'undone')))
+                  div(class='block ' + (i < 1 ? 'done' : (i === 14 ? 'optional' : 'undone')))
                 |  (14 chapters + one optional afterword)
     h3#plans-optional Optional
     p
