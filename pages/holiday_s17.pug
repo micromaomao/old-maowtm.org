@@ -17,7 +17,12 @@ block defines
           'forward to the movie of next year.<br>' +
           'I did managed to get my plan started by the first day of this summer holiday, and the first day is hereby ' +
           'signed. I read the first chapter of The Extended Phenotype.'}, /* day 0 */
-      {}, /* day 1 */
+      { signed: true, nTask: 1,
+        message: "A lazy day - didn't do much work. I keep telling myself that this is just the second day of the " +
+          'summer holiday and there are huge amount of time left so no need to worry, and I ended up watching YouTube ' +
+          'for essentially the entire day. I did achieved the minimum standard for signing today - learned ' +
+          'differential equations on KhanAcademy and spent 20 minutes exercising. This is actually a good sign that ' +
+          'this signing system may work really well.'}, /* day 1 */
       {}, /* day 2 */
       {}, /* day 3 */
       {}, /* day 4 */
@@ -138,7 +143,7 @@ block additional
               a(href='https://www.khanacademy.org/math/differential-equations') KhanAcademy differential equations topics
               | .
               .progress
-                -const khDEProgress = [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                -const khDEProgress = [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 -// State: 0 - undone, 1 - done
                 each state in khDEProgress
                   span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
