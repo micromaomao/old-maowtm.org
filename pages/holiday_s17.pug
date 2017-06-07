@@ -23,7 +23,13 @@ block defines
           'for essentially the entire day. I did achieved the minimum standard for signing today - learned ' +
           'differential equations on KhanAcademy and spent 20 minutes exercising. This is actually a good sign that ' +
           'this signing system may work really well.'}, /* day 1 */
-      {}, /* day 2 */
+      {
+        signed: true, nTask: 1,
+        message: "Today I'm a little bit more productive than yesterday, but still not good enough. I spent the " +
+          'morning writing code for this website and made it work on node 8. Then I spent pretty much all of the ' +
+          'rest of the day watching YouTube. I even watched 3 episode of Doraemon and 1 episode of ' +
+          '<a href="https://en.wikipedia.org/wiki/Crayon_Shin-chan">Crayon Shin-chan</a>. I did finally learned ' +
+          'some sociology so that I can sign today.'}, /* day 2 */
       {}, /* day 3 */
       {}, /* day 4 */
       {}, /* day 5 */
@@ -118,7 +124,7 @@ block additional
               |  videos.
               .progress
                 -for (let i = 0; i < 12; i ++)
-                  span(class='block ' + (i < 7 ? 'done' : 'undone'))
+                  span(class='block ' + (i < 8 ? 'done' : 'undone'))
                 |  (12 videos * ~20 min each)
             li
               | <b>Physics</b>: Read through the textbook / 
