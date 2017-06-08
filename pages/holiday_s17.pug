@@ -29,7 +29,14 @@ block defines
           'rest of the day watching YouTube. I even watched 3 episode of Doraemon and 1 episode of ' +
           '<a href="https://en.wikipedia.org/wiki/Crayon_Shin-chan">Crayon Shin-chan</a>. I did finally learned ' +
           'some sociology so that I can sign today.'}, /* day 2 */
-      {}, /* day 3 */
+      { signed: true, nTask: 2,
+        message: 'Again a lazy day, although finally managed to complete some simple tasks to sign the day. My ' +
+          'productivity was completely destroyed by YouTube. I spent a lot of time watching useless things such ' +
+          "as Apple/Google/Microsoft product reviews, the WWDC and the Google I/O, and even some Google's past  " +
+          "April fool jokes. This must be stopped. I'm planing to go to some coffee shop tomorrow so that I " +
+          "won't be able to watch YouTube and will therefore get some of my work done (as well as enjoying some " +
+          "tasty icecram).<br>BTW, I will admit that I had cheated a little on the \"workout\" part. Just a " +
+          'little.'}, /* day 3 */
       {}, /* day 4 */
       {}, /* day 5 */
       {}, /* day 6 */
@@ -123,14 +130,14 @@ block additional
               |  videos.
               .progress
                 -for (let i = 0; i < 12; i ++)
-                  span(class='block ' + (i < 8 ? 'done' : 'undone'))
+                  span(class='block ' + (i < 9 ? 'done' : 'undone'))
                 |  (12 videos * ~20 min each)
             li
               | <b>Physics</b>: Read through the textbook / 
               a(href='http://www.cie.org.uk/Images/329533-2019-2021-syllabus.pdf') syllabus
               |  or past papers of the relevant physics unit.
               .progress
-                -const physicsUnitsProgress = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                -const physicsUnitsProgress = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 -// State: 0 - undone, 1 - done
                 each state in physicsUnitsProgress
                   span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
