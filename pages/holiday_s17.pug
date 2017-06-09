@@ -37,7 +37,11 @@ block defines
           "won't be able to watch YouTube and will therefore get some of my work done (as well as enjoying some " +
           "tasty icecram).<br>BTW, I will admit that I had cheated a little on the \"workout\" part. Just a " +
           'little.'}, /* day 3 */
-      {}, /* day 4 */
+      { signed: true, nTask: 3,
+        message: 'Today, yet again, I devoted most of my time into YouTube. I did found some good insight and ' +
+          "resources on it, but I spent way too much time on it that I'm not able to follow my plan and get " +
+          "much work done. This really need to be stopped. I'm glad that I still managed to complete at least " +
+          "a bit of physics studying, but that's too easy work."}, /* day 4 */
       {}, /* day 5 */
       {}, /* day 6 */
       {}, /* day 7 */
@@ -137,7 +141,7 @@ block additional
               a(href='http://www.cie.org.uk/Images/329533-2019-2021-syllabus.pdf') syllabus
               |  or past papers of the relevant physics unit.
               .progress
-                -const physicsUnitsProgress = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                -const physicsUnitsProgress = [1, 1, 1, 1, 0, 0, 0, 0, 0, 0]
                 -// State: 0 - undone, 1 - done
                 each state in physicsUnitsProgress
                   span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
