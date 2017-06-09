@@ -347,7 +347,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         })
       })
       before(function (done) {
-        this.timeout(6000)
+        this.timeout(10000)
         let sImg = sharp(path.join(__dirname, testImg))
         sImg.metadata().then(metadata => {
           sImg.toFormat('png', {compressionLevel: 9})
