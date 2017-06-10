@@ -493,7 +493,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
               imgId: imgDoc._id,
               scale: 300,
               format: 'png',
-              data: new Buffer(stub, 'utf-8')
+              data: Buffer.from(stub, 'utf8')
             })
             cache.save(function (err) {
               if (err) {
@@ -533,7 +533,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
                 done(err)
                 return
               }
-              var bufstr = res.body.toString('utf-8')
+              var bufstr = res.body.toString('utf8')
               if (bufstr === stub) {
                 done()
               } else {
@@ -783,7 +783,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
                 return
               }
               imgBuff = buff
-              imgBuff2 = new Buffer('Stub!')
+              imgBuff2 = Buffer.from('Stub!', 'utf8')
               test.c()
             })
           },
@@ -836,7 +836,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
       })
       it('should throw error when format is not supported', function (done) {
         const imgName = '__test_image_format.bmp'
-        const imgBuff = new Buffer('Stub!')
+        const imgBuff = Buffer.from('Stub!', 'utf8')
         Image.addImage(imgName, imgBuff, function (err) {
           if (!err) {
             done(new Error('No error was produced.'))
@@ -853,7 +853,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
       })
       it('should throw error when extension is not provided', function (done) {
         const imgName = '__test_image_noformat'
-        const imgBuff = new Buffer('Stub!')
+        const imgBuff = Buffer.from('Stub!', 'utf8')
         Image.addImage(imgName, imgBuff, function (err) {
           if (!err) {
             done(new Error('No error was produced.'))

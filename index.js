@@ -66,7 +66,6 @@ var maowtm = function (config) {
 
   this.db.on('error', function (err) {
     fail(err)
-    return
   })
   this.db.on('open', function () {
     app.use(function (req, res, next) {
@@ -99,7 +98,7 @@ var maowtm = function (config) {
 
     // Add trailing / for all GET for all router below. ( i.e. Not including static and img )
     app.use(function (req, res, next) {
-      if (req.hostname.match(/^(img|static|file)/) || req.path.match(/\.[^\/\\\s%]+$/)) {
+      if (req.hostname.match(/^(img|static|file)/) || req.path.match(/\.[^/\\\s%]+$/)) {
         next()
         return
       }
@@ -135,7 +134,7 @@ var maowtm = function (config) {
       if (typeof err !== 'string') {
         pageObj.err = err.message
         if (err.stack) {
-          pageObj.stack = err.stack.replace(new RegExp(path.join(__dirname, '..').replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1'), 'g'), '...') +
+          pageObj.stack = err.stack.replace(new RegExp(path.join(__dirname, '..').replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1'), 'g'), '...') + // eslint-disable-line no-useless-escape
             `\nServer running in NODE_ENV=${nodeenv}\nTime: ${Date.now() / 1000}`
         }
       }
@@ -191,7 +190,7 @@ var maowtm = function (config) {
                   }
                   Image.addImage(distName, data, err => {
                     if (err) {
-                      reject(`error when trying to add image ${name}: ${err.toString()}`)
+                      reject(new Error(`error when trying to add image ${name}: ${err.toString()}`))
                       return
                     }
                     resolve()
@@ -201,9 +200,7 @@ var maowtm = function (config) {
                 resolve()
               }
             }).catch(err => {
-              console.error('..')
-              reject(`Can't check image cache: ${err}`)
-              return
+              reject(new Error(`Can't check image cache: ${err}`))
             })
           })
         }

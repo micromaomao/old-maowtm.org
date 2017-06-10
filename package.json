@@ -35,7 +35,7 @@
     "cheerio": "^0.22.0",
     "mocha": "^3.4.2",
     "should": "^9.0.2",
-    "standard": "^7.1.2",
+    "standard": "^10.0.2",
     "supertest": "^1.2.0"
   }
 }
