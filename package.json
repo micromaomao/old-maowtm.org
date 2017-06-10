@@ -33,9 +33,9 @@
   },
   "devDependencies": {
     "cheerio": "^0.22.0",
-    "mocha": "^3.4.2",
+    "mocha": "*",
     "should": "^9.0.2",
-    "standard": "^10.0.2",
+    "standard": "*",
     "supertest": "^1.2.0"
   }
 }
