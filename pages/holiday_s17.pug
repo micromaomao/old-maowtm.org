@@ -135,7 +135,7 @@ block additional
               .progress
                 -for (let i = 0; i < 12; i ++)
                   span(class='block ' + (i < 9 ? 'done' : 'undone'))
-                |  (12 videos * ~20 min each)
+                |  (12 videos)
             li
               | <b>Physics</b>: Read through the textbook / 
               a(href='http://www.cie.org.uk/Images/329533-2019-2021-syllabus.pdf') syllabus
@@ -145,7 +145,7 @@ block additional
                 -// State: 0 - undone, 1 - done
                 each state in physicsUnitsProgress
                   span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
-                |  (#{physicsUnitsProgress.length} units required * ~0.33-3 hours each)
+                |  (#{physicsUnitsProgress.length} units required)
       li
         h4 Learn differential equations.
         h5 Why?
@@ -163,7 +163,7 @@ block additional
                 -// State: 0 - undone, 1 - done
                 each state in khDEProgress
                   span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
-                |  (#{khDEProgress.length} sub-topics * ~0.5-2 hours each)
+                |  (#{khDEProgress.length} sub-topics)
       li
         h4 Decide which country am I going for university and do relevant preparation.
         h5 Why?
@@ -178,14 +178,14 @@ block additional
               | Understand the difference between UK, US and Hong Kong, especially in computer science studies.
               .progress
                 .block.undone
-                |  (a hour of research and advice-seeking)
+                |  (research and advice-seeking)
             li
               | Target on one or a few university in that country, learning its strength, environments and requirements.
               .progress
                 .block.undone
                 .block.undone
                 .block.undone
-                |  (several hours of research and advice-seeking)
+                |  (several times of research and advice-seeking)
             li
               | Prepare for the respective university. (e.g. doing SAT / TOEFL)
               .progress
