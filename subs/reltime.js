@@ -4,11 +4,11 @@ const timeUnits = [
     length: 1000 * 60 * 60 * 24 * 365 * 100
   },
   {
-    name: 'yr',
+    name: 'yrs',
     length: 1000 * 60 * 60 * 24 * 365
   },
   {
-    name: ' month',
+    name: ' months',
     length: 1000 * 60 * 60 * 24 * 30
   },
   {
@@ -16,7 +16,7 @@ const timeUnits = [
     length: 1000 * 60 * 60 * 24 * 7
   },
   {
-    name: ' day',
+    name: ' days',
     length: 1000 * 60 * 60 * 24
   },
   {
