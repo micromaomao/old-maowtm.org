@@ -42,7 +42,13 @@ block defines
           "resources on it, but I spent way too much time on it that I'm not able to follow my plan and get " +
           "much work done. This really need to be stopped. I'm glad that I still managed to complete at least " +
           "a bit of physics studying, but that's too easy work."}, /* day 4 */
-      {}, /* day 5 */
+      { signed: true, nTask: 1,
+        message: "Although I didn't completed much tasks today, I learned a lot about digital logic and how " +
+          "8-bit CPUs worked, and I realized that it's actually not very complicated if you look at it piece-" +
+          'by-piece. The control unit, which I previously thought may be the most complicated part, is actually ' +
+          'the simplest part. This is all thanks to a <a href="https://www.youtube.com/channel/UCS0N5baNlQWJCUrhCEo8WlA">' +
+          'great YouTube channel</a>. I strongly recommend it for those interested in learning about breadboard ' +
+          'circuit or how CPU generally works.'}, /* day 5 */
       {}, /* day 6 */
       {}, /* day 7 */
       {}, /* day 8 */
@@ -159,7 +165,7 @@ block additional
               a(href='https://www.khanacademy.org/math/differential-equations') KhanAcademy differential equations topics
               | .
               .progress
-                -const khDEProgress = [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                -const khDEProgress = [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 -// State: 0 - undone, 1 - done
                 each state in khDEProgress
                   span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
