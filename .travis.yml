@@ -9,7 +9,6 @@ env:
 install:
   - npm install -g npm@latest
   - npm install
-  - npm install mocha
   - npm install coveralls
   - npm install istanbul
 services:
