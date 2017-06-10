@@ -1,6 +1,6 @@
 node_modules
-launcher*.sh
-launcher*.js
+launcher.sh
+launcher.js
 *.swp
 *.swo
 .env
