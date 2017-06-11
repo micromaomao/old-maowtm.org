@@ -10,7 +10,7 @@
     127.0.0.1 img.maowtm.org
     127.0.0.1 schsrch.xyz
     etc...
-  
+
   You then need to generate a fake certificate for all maowtm.org domains by
   (simply) doing:
 
