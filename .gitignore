@@ -5,5 +5,5 @@ launcher.js
 *.swo
 .env
 .well-known
-self-signed/key
-self-signed/self-signed.crt
+local-dev-cert/*.key
+local-dev-cert/*.crt
