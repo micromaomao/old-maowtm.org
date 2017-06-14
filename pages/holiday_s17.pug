@@ -52,7 +52,12 @@ block defines
       { signed: false }, /* day 6 */
       { signed: false }, /* day 7 */
       { signed: false }, /* day 8 */
-      {}, /* day 9 */
+      { signed: true, nTask: 1,
+        message: "The problem of massive procrastination haven't completely been solved. Just look at that red " +
+          'sign log \u261d\ufe0f. I have a somehow legitimate <del>excuse</del> reason for missing day 6, but' +
+          "day 7 and 8 is entirely because I'm putting off work and playing Minecraft.<br>" +
+          "The Extended Phenotype book is harder to understand than I have thought, and the author uses a lot " +
+          'of big words and complex expression here and there, which made the book even harder to read.'}, /* day 9 */
       {}, /* day 10 */
       {}, /* day 11 */
       {}, /* day 12 */
@@ -282,7 +287,7 @@ block additional
                 | The Extended Phenotype: The Long Reach of the Gene
               .progress
                 -for (let i = 0; i < 15; i ++)
-                  div(class='block ' + (i < 1 ? 'done' : (i === 14 ? 'optional' : 'undone')))
+                  div(class='block ' + (i < 2 ? 'done' : (i === 14 ? 'optional' : 'undone')))
                 |  (14 chapters + one optional afterword)
     h3#plans-optional Optional
     p
