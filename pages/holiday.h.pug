@@ -108,7 +108,7 @@ block content
           -haveEntity = true
           li
             h3
-              | Day #{i}: completed #{sign.nTask ? sign.nTask : 'undefined'} tasks.
+              | Day #{i}: completed #{sign.nTask ? sign.nTask : 'undefined'} task#{sign.nTask === 1 ? '' : 's'}.
               -if (streak > 1)
                 |  
                 span.streakcount #{streak}
