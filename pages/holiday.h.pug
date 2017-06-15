@@ -94,36 +94,40 @@ block content
       -let streak = 0
       -let unsignStreak = 0
       -let lastSigned = true
+      -let stop = false
       each sign, i in signingLogs
-        -if (!lastSigned && (sign.signed || sign.message))
-          li.gap
-            | #{unsignStreak} day#{unsignStreak > 1 ? 's' : ''} missed: 
-            -if (unsignStreak === 1)
-              | day #{i - 1}
-            -else
-              | from day #{i - unsignStreak} to day #{i - 1}
-        -if (sign.signed)
-          -streak++
-          -unsignStreak = 0
-          -haveEntity = true
-          li
-            h3
-              | Day #{i}: completed #{sign.nTask ? sign.nTask : 'undefined'} task#{sign.nTask === 1 ? '' : 's'}.
-              -if (streak > 1)
-                |  
-                span.streakcount #{streak}
-                |  days in a row!
-            -if (sign.message)
-              p!= sign.message
-            -else
-              p No message written.
-        -else
-          -streak = 0
-          -unsignStreak ++
-          -if (sign.message)
+        -if (!stop)
+          -if (!lastSigned && (sign.signed || (typeof sign.signed === 'undefined')))
             li.gap
-              | day #{i} unsigned with message:
-              p!= sign.message
-        -lastSigned = sign.signed
+              | #{unsignStreak} unsigned day#{unsignStreak > 1 ? 's' : ''} in a row: 
+              -if (unsignStreak === 1)
+                | day #{i - 1}
+              -else
+                | from day #{i - unsignStreak} to day #{i - 1}
+          -if (typeof sign.signed === 'undefined')
+            -stop = true
+          -if (sign.signed)
+            -streak++
+            -unsignStreak = 0
+            -haveEntity = true
+            li
+              h3
+                | Day #{i}: completed #{sign.nTask ? sign.nTask : 'undefined'} task#{sign.nTask === 1 ? '' : 's'}.
+                -if (streak > 1)
+                  |  
+                  span.streakcount #{streak}
+                  |  days in a row!
+              -if (sign.message)
+                p!= sign.message
+              -else
+                p No message written.
+          -else
+            -streak = 0
+            -unsignStreak ++
+            -if (sign.message)
+              li.gap
+                | day #{i} unsigned with message:
+                p!= sign.message
+          -lastSigned = sign.signed
       -if (!haveEntity)
         li.placeholder No days signed yet.
