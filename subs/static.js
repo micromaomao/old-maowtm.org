@@ -184,8 +184,14 @@ module.exports = function (db, lock) {
       }
       var headComment = '// Minified js. Source: https://github.com/micromaomao/maowtm.org/tree/master/static/' + fileName + '\n\n'
       try {
-        var result = headComment + UglifyJS.minify(data, {fromString: true}).code
-        done(null, result)
+        var result = UglifyJS.minify(data, {fromString: true})
+        if (result.code) {
+          done(null, headComment + result.code)
+        } else if (result.error) {
+          done(result.error)
+        } else {
+          done(new Error("Can't minify js."))
+        }
       } catch (e) {
         done(e)
       }

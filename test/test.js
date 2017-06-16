@@ -283,6 +283,23 @@ describe('new maowtm(...)', function () {
       shouldRedirectDomain('beta.schsrch.xyz', 'schsrch.xyz')
       shouldRedirectDomain('schsrch.org', 'schsrch.xyz')
       shouldRedirectDomain('www.schsrch.org', 'schsrch.xyz')
+
+      it('should 200 for scripts', function (done) {
+        request(app)
+          .get('/script/layout.js')
+          .set('Host', 'static.maowtm.org')
+          .expect(200)
+          .expect('Content-Type', /javascript/)
+          .end(done)
+      })
+      it('should 200 for scripts (again)', function (done) {
+        request(app)
+          .get('/script/layout.js')
+          .set('Host', 'static.maowtm.org')
+          .expect(200)
+          .expect('Content-Type', /javascript/)
+          .end(done)
+      })
     })
   }
 })()
