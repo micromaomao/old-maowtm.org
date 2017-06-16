@@ -62,7 +62,13 @@ block defines
       { signed: false, nTask: 0,
         message: 'Played Minecraft for essentially an entire day.<br>Suffering from a bit of stomach ache ' +
           'now possibly because I drank ice-cold stuff today morning.'}, /* day 10 */
-      {}, /* day 11 */
+      { signed: false, nTask: 1,
+        message: 'I spent a lot of time building the foundations for the new collection system of SchSrch ' +
+          "today, but no time worrying about exercising. I couldn't sleep before 23 as well because my mom " +
+          'organized my family to go out for a "night snack". Therefore today is still unsigned.<br>' +
+          'This is actually getting very worrying. I had said to myself yesterday that I "must sign today". ' +
+          "If I don't sign tomorrow, I will end up having more days unsigned than signed which basically " +
+          'means that my plan have failed.'}, /* day 11 */
       {}, /* day 12 */
       {}, /* day 13 */
       {}, /* day 14 */
@@ -258,7 +264,7 @@ block additional
             li
               | Build a basic savable plain-text only notepad, saving data on the cloud with named documents.
               .progress.inline
-                .block.undone
+                .block.done
             li
               | Build a login system and apply it to the notepad.
               .progress.inline
