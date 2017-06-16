@@ -184,7 +184,7 @@ module.exports = function (db, lock) {
       }
       var headComment = '// Minified js. Source: https://github.com/micromaomao/maowtm.org/tree/master/static/' + fileName + '\n\n'
       try {
-        var result = UglifyJS.minify(data, {fromString: true})
+        var result = UglifyJS.minify(data)
         if (result.code) {
           done(null, headComment + result.code)
         } else if (result.error) {
