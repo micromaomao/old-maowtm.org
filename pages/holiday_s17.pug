@@ -69,7 +69,13 @@ block defines
           'This is actually getting very worrying. I had said to myself yesterday that I "must sign today". ' +
           "If I don't sign tomorrow, I will end up having more days unsigned than signed which basically " +
           'means that my plan have failed.'}, /* day 11 */
-      {}, /* day 12 */
+      { signed: true, nTask: 1,
+        message: 'Although I did played a lot of Minecraft today, I still managed to get some tasks done. ' +
+          'I realized that if I started writing some code, I can keep doing that without getting tired and ' +
+          'will keep having more ideas. Therefore I should consider building on some of my projects when I ' +
+          "don't want to, for example, do other tasks.<br>" +
+          'Oh by the way, I finally managed to sign a day! My plan is still working!<br>Good night. ' +
+          'Keep it up! -- to myself.'}, /* day 12 */
       {}, /* day 13 */
       {}, /* day 14 */
       {}, /* day 15 */
@@ -179,7 +185,7 @@ block additional
               a(href='https://www.khanacademy.org/math/differential-equations') KhanAcademy differential equations topics
               | .
               .progress
-                -const khDEProgress = [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                -const khDEProgress = [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 -// State: 0 - undone, 1 - done
                 each state in khDEProgress
                   span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
