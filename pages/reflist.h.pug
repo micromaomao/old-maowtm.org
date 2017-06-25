@@ -1,0 +1,36 @@
+-let _refs = []
+-let _cRefSet = 0
+mixin ref (title, link, description)
+  -
+    let currentRefIndex = null
+    for (let i = 0; i < _refs.length; i ++) {
+      let cuRef = _refs[i]
+      if (cuRef.title === title && cuRef.link === link && cuRef.description === description /* undefined === undefined */) {
+        currentRefIndex = i + 1
+        break
+      }
+    }
+    let containId = false
+    if (currentRefIndex === null) {
+      currentRefIndex = _refs.push({title, link, description})
+      containId = true
+    }
+  sup.refsup(id=(containId ? `refsup_${_cRefSet}_${currentRefIndex}` : null))
+    a(href=`#ref_${_cRefSet}_${currentRefIndex}`) [#{currentRefIndex}]
+
+mixin reflist ()
+  -if (_refs.length)
+    ul.reflist
+      each ref, i in _refs
+        li(id=`ref_${_cRefSet}_${i+1}`)
+          | #{i+1}
+          a(href=`#refsup_${_cRefSet}_${i+1}`) &uarr;
+          | : 
+          -if (ref.link)
+            a(href=ref.link, target='_blank')= ref.title
+          -else
+            | #{ref.title}
+          -if (ref.description)
+            |  #{ref.description}
+  -_cRefSet ++
+  -_refs = []
