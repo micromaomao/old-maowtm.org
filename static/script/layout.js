@@ -14,20 +14,6 @@ function checkLayout () {
 function checkHash () {
   if (window.pageYOffset <= 50) {
     changeHash(null)
-  } else {
-    var elearr = document.querySelectorAll('[id]')
-    if (elearr.length > 0) {
-      var currentAnchor = Array.prototype.map.call(elearr, function (e) {
-        return {diffTop: Math.abs(e.getBoundingClientRect().top), e: e}
-      }).reduce(function (prev, curr) {
-        if (prev.diffTop < curr.diffTop) {
-          return prev
-        } else {
-          return curr
-        }
-      }).e
-      changeHash(currentAnchor.id)
-    }
   }
 }
 var lastHash = null
@@ -45,6 +31,7 @@ function changeHash (hash) {
 document.addEventListener('DOMContentLoaded', function (evt) {
   if (window.location.hash && window.location.hash.length > 0) {
     var hash = window.location.hash.replace(/^#/g, '')
+    lastHash = hash
     var ele = document.getElementById(hash)
     if (ele) {
       var y = ele.getBoundingClientRect().top
