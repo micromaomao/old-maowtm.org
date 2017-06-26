@@ -20,16 +20,16 @@
   "homepage": "https://github.com/micromaomao/maowtm.org#readme",
   "dependencies": {
     "compression": "^1.6.2",
-    "elasticsearch": "^13.1.0",
+    "elasticsearch": "^13.2.0",
     "express": "^4.15.3",
-    "mongoose": "^4.10.6",
+    "mongoose": "^4.11.0",
     "node-sass": "^4.5.3",
     "pug": "^2.0.0-rc.2",
     "redis": "^2.7.1",
     "redis-lock": "^0.1.0",
     "sharp": "^0.18.1",
     "spdy": "^3.4.7",
-    "uglify-js": "^3.0.15"
+    "uglify-js": "^3.0.20"
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.1",
