@@ -43,6 +43,16 @@ document.addEventListener('DOMContentLoaded', function (evt) {
     }
   }
 })
+window.addEventListener('hashchange', function (evt) {
+  var newUrl = evt.newURL || window.location.toString()
+  var nHash = newUrl.match(/#(.+)$/)
+  if (!nHash) {
+    lastHash = null
+  } else {
+    lastHash = nHash[1]
+  }
+})
+
 var checkInterval = setInterval(function () {
   checkLayout()
   if (!window.noHashChange) {
