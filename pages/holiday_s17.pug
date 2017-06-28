@@ -87,7 +87,8 @@ block defines
       { signed: false }, /* day 21 */
       { signed: false, nTask: 0,
         message: 'Jesus Christ, this procrastination thing is getting out of control.'}, /* day 22 */
-      {}, /* day 23 */
+      { signed: true, nTask: 2,
+        message: 'I should be back to normal!'}, /* day 23 */
       {}, /* day 24 */
       {}, /* day 25 */
       {}, /* day 26 */
@@ -186,7 +187,7 @@ block additional
               a(href='https://www.khanacademy.org/math/differential-equations') KhanAcademy differential equations topics
               | .
               .progress
-                -const khDEProgress = [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0]
+                -const khDEProgress = [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0]
                 -// State: 0 - undone, 1 - done
                 each state in khDEProgress
                   span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
