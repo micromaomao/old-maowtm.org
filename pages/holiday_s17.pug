@@ -89,7 +89,7 @@ block defines
         message: 'Jesus Christ, this procrastination thing is getting out of control.'}, /* day 22 */
       { signed: true, nTask: 2,
         message: 'I should be back to normal!'}, /* day 23 */
-      {}, /* day 24 */
+      { signed: true, nTask: 1 }, /* day 24 */
       {}, /* day 25 */
       {}, /* day 26 */
       {}, /* day 27 */
@@ -162,7 +162,7 @@ block additional
               |  videos.
               .progress
                 -for (let i = 0; i < 12; i ++)
-                  span(class='block ' + (i < 9 ? 'done' : 'undone'))
+                  span(class='block ' + (i < 10 ? 'done' : 'undone'))
                 |  (12 videos)
             li
               | <b>Physics</b>: Read through the textbook / 
