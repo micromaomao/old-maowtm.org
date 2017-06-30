@@ -90,7 +90,8 @@ block defines
       { signed: true, nTask: 2,
         message: 'I should be back to normal!'}, /* day 23 */
       { signed: true, nTask: 1 }, /* day 24 */
-      {}, /* day 25 */
+      { signed: true, nTask: 1.2,
+        message: 'I should probably get more things done. Still watching YouTube all day.'}, /* day 25 */
       {}, /* day 26 */
       {}, /* day 27 */
       {}, /* day 28 */
@@ -162,7 +163,7 @@ block additional
               |  videos.
               .progress
                 -for (let i = 0; i < 12; i ++)
-                  span(class='block ' + (i < 10 ? 'done' : 'undone'))
+                  span(class='block ' + (i < 11 ? 'done' : 'undone'))
                 |  (12 videos)
             li
               | <b>Physics</b>: Read through the textbook / 
