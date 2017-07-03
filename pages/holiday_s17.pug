@@ -96,7 +96,7 @@ block defines
         message: 'Unsigned because no workout.'}, /* day 26 */
       { signed: true, nTask: 1,
         message: 'Devoted much of my time into helping my mom.'}, /* day 27 */
-      {}, /* day 28 */
+      { signed: false, nTask: 1}, /* day 28 */
       {}, /* day 29 */
       {}, /* day 30 */
       {}, /* day 31 */
@@ -190,7 +190,7 @@ block additional
               a(href='https://www.khanacademy.org/math/differential-equations') KhanAcademy differential equations topics
               | .
               .progress
-                -const khDEProgress = [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0]
+                -const khDEProgress = [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0]
                 -// State: 0 - undone, 1 - done
                 each state in khDEProgress
                   span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
