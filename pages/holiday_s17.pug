@@ -99,7 +99,8 @@ block defines
       { signed: false, nTask: 1}, /* day 28 */
       { signed: true, nTask: 2.75,
         message: 'Cheat again on the "workout" part, sorry\u2026'}, /* day 29 */
-      {}, /* day 30 */
+      { signed: false, nTask: 2,
+        message: 'Guess I will have to take IELTS\u2026'}, /* day 30 */
       {}, /* day 31 */
       {}, /* day 32 */
       {}, /* day 33 */
@@ -191,7 +192,7 @@ block additional
               a(href='https://www.khanacademy.org/math/differential-equations') KhanAcademy differential equations topics
               | .
               .progress
-                -const khDEProgress = [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0]
+                -const khDEProgress = [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1]
                 -// State: 0 - undone, 1 - done
                 each state in khDEProgress
                   span(class='block ' + (state === 0 ? 'undone' : (state === 1 ? 'done' : 'unknow')))
@@ -215,7 +216,7 @@ block additional
               | Target on one or a few universities in that country, learning its strength, environments and requirements.
               .progress
                 .block.done
-                .block.undone
+                .block.done
                 .block.undone
                 |  (several times of research and advice-seeking)
             li
