@@ -30,6 +30,7 @@ block head
 block content
   h1.bigtitle= bigTitle
     .classstate= classstate.join(' -> ')
+    block titlebar-add
     .progress
       .top
         div(class='start' + (reach(start) ? ' reach' : ''))= RelativeTime(time, start)
