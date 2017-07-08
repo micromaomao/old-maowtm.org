@@ -327,6 +327,18 @@ module.exports = {
         answer: ['一周一次 / Once per week', '几周一次 / Once per several week', '一年一次 / Once per year', '几乎不 / Hardly']
       },
       {
+        question: '你的年龄段？ / What is your age group?',
+        answer: [
+          '≤15', '16-24', '25-34', '35-49', '50-64', '≥65'
+        ],
+        mode: 'single'
+      },
+      {
+        mode: 'input',
+        question: '你住在哪？ / Where are you living?',
+        placeholder: '中国大陆 / Mainland China'
+      },
+      {
         mode: 'open',
         question: '你一般买什么东西？ / What kind of item?'
       },
@@ -355,6 +367,11 @@ module.exports = {
         mode: 'single',
         question: '你出国或者回国的时候会带很多东西吗？ / When you go to a foreign country, do you bring a lot of items?',
         answer: ['会 / Yes', '没 / Not much']
+      },
+      {
+        mode: 'single',
+        question: '你出国旅游的频率？ / How often do you travel overseas?',
+        answer: ['几乎不 / hardly', '一年一到两次 / Once or twice per year', '一个月一次 / One per month']
       }
     ]
   }
