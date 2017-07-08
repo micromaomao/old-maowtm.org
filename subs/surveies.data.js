@@ -322,7 +322,7 @@ module.exports = {
     desc: 'Survey.',
     q: [
       {
-        question: 'Do you buy items on the Internet?'
+        question: 'Do you buy items on the Internet?',
         mode: 'single',
         answer: ['Yes', 'No']
       },
