@@ -340,10 +340,10 @@ module.exports = {
       },
       {
         mode: 'open',
-        question: '你一般买什么东西？ / What kind of item?'
+        question: '你一般买什么东西？ / What kind of item do you buy on the Internet usually?'
       },
       {
-        mode: 'single-orother',
+        mode: 'select-orother',
         question: '一般买哪的东西？ / Where are they from?',
         answer: ['国内 / China (including HK TW & MA)', '日本 / Japan', '欧洲 / Europe', '美国 / US']
       },
