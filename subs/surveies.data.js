@@ -322,16 +322,16 @@ module.exports = {
     desc: '小调查 / Survey',
     q: [
       {
-        question: '你网上购物的频率是？ / How often do you buy items on the Internet?',
-        mode: 'single',
-        answer: ['一周一次 / Once per week', '几周一次 / Once per several week', '一年一次 / Once per year', '几乎不 / Hardly']
-      },
-      {
         question: '你的年龄段？ / What is your age group?',
         answer: [
           '≤15', '16-24', '25-34', '35-49', '50-64', '≥65'
         ],
         mode: 'single'
+      },
+      {
+        question: '你网上购物的频率是？ / How often do you buy items on the Internet?',
+        mode: 'single',
+        answer: ['一周一次 / Once per week', '几周一次 / Once per several week', '一年一次 / Once per year', '几乎不 / Hardly']
       },
       {
         mode: 'input',
