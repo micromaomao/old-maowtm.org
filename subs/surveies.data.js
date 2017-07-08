@@ -315,5 +315,42 @@ module.exports = {
         placeholder: 'ph'
       }
     ]
+  },
+  'jose-internet-buying': {
+    lang: 'en',
+    title: 'Survey',
+    desc: 'Survey.',
+    q: [
+      {
+        question: 'Do you buy items on the Internet?'
+        mode: 'single',
+        answer: ['Yes', 'No']
+      },
+      {
+        mode: 'input',
+        question: 'If you do, what kind of item?',
+        optional: true
+      },
+      {
+        mode: 'input',
+        question: 'Where are they from?',
+        optional: true
+      },
+      {
+        mode: 'input',
+        question: 'Do you pay taxes on it?',
+        optional: true
+      },
+      {
+        mode: 'input',
+        question: "If it's possible, do you want to earn little money for helping people?",
+        optional: true
+      },
+      {
+        mode: 'input',
+        question: 'When you go to a foreign country, do you bring a lot of items?',
+        optional: true
+      }
+    ]
   }
 }
