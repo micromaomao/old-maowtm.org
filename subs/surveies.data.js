@@ -316,40 +316,45 @@ module.exports = {
       }
     ]
   },
-  'jose-internet-buying': {
-    lang: 'en',
-    title: 'Survey',
-    desc: 'Survey.',
+  'jose-proxy-purchasing': {
+    lang: 'zh/en',
+    title: '小调查 / Survey',
+    desc: '小调查 / Survey',
     q: [
       {
-        question: 'Do you buy items on the Internet?',
+        question: '你网上购物的频率是？ / How often do you buy items on the Internet?',
         mode: 'single',
-        answer: ['Yes', 'No']
+        answer: ['一周一次 / Once per week', '几周一次 / Once per several week', '一年一次 / Once per year', '几乎不 / Hardly']
       },
       {
         mode: 'open',
-        question: 'If you do, what kind of item?',
-        optional: true
+        question: '你一般买什么东西？ / What kind of item?'
       },
       {
-        mode: 'open',
-        question: 'Where are they from?',
-        optional: true
+        mode: 'single-orother',
+        question: '一般买哪的东西？ / Where are they from?',
+        answer: ['国内 / China (including HK TW & MA)', '日本 / Japan', '欧洲 / Europe', '美国 / US']
       },
       {
-        mode: 'open',
-        question: 'Do you pay taxes on it?',
-        optional: true
+        mode: 'single',
+        question: '交税吗？ / Do you pay taxes on them?',
+        answer: ['我交 / I explicitly pay taxes', '商家交 / Seller pays taxes', '都不交 / No one pays taxes']
       },
       {
-        mode: 'open',
-        question: "If it's possible, do you want to earn little money for helping people?",
-        optional: true
+        mode: 'single-orother',
+        question: '你帮别人代购过吗？ / Had you previously purchased oversea items on behalf of others?',
+        answer: [
+          "没有，也并不想专门帮 / No, and I don't want to do this often.",
+          '没有，但是可以考虑通过这个赚些钱 / Not yet, but I do want to do it for profit.',
+          '有，但没有想赚钱 / Yes, but not for profit.',
+          '很多次了，且也赚过一点钱 / Many times, and I did earned some money from it.',
+          '我专门做代购 / I do it regularly (and professionally)'
+        ]
       },
       {
-        mode: 'open',
-        question: 'When you go to a foreign country, do you bring a lot of items?',
-        optional: true
+        mode: 'single',
+        question: '你出国或者回国的时候会带很多东西吗？ / When you go to a foreign country, do you bring a lot of items?',
+        answer: ['会 / Yes', '没 / Not much']
       }
     ]
   }
