@@ -327,27 +327,27 @@ module.exports = {
         answer: ['Yes', 'No']
       },
       {
-        mode: 'input',
+        mode: 'open',
         question: 'If you do, what kind of item?',
         optional: true
       },
       {
-        mode: 'input',
+        mode: 'open',
         question: 'Where are they from?',
         optional: true
       },
       {
-        mode: 'input',
+        mode: 'open',
         question: 'Do you pay taxes on it?',
         optional: true
       },
       {
-        mode: 'input',
+        mode: 'open',
         question: "If it's possible, do you want to earn little money for helping people?",
         optional: true
       },
       {
-        mode: 'input',
+        mode: 'open',
         question: 'When you go to a foreign country, do you bring a lot of items?',
         optional: true
       }
