@@ -101,9 +101,9 @@ block defines
         message: 'Cheat again on the "workout" part, sorry\u2026'}, /* day 29 */
       { signed: false, nTask: 2,
         message: 'Guess I will have to take IELTS\u2026'}, /* day 30 */
-      {}, /* day 31 */
-      {}, /* day 32 */
-      {}, /* day 33 */
+      { signed: false, nTask: 0 }, /* day 31 */
+      { signed: false, nTask: 0 }, /* day 32 */
+      { signed: false, nTask: 1 }, /* day 33 */
       {}, /* day 34 */
       {}, /* day 35 */
       {}, /* day 36 */
@@ -285,7 +285,7 @@ block additional
             li
               | Build support for formatting and putting images and paper crops into the notepad.
               .progress.inline
-                .block.undone
+                .block.done
             li
               | Build support for annotating on the paper crops.
               .progress.inline
