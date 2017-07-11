@@ -15,7 +15,7 @@ MongoClient.connect('mongodb://127.6.0.233/maowtm', (err, db) => {
       process.exit(1)
     }
 
-    const buyWhereOptions = ['国内', '日本', '欧洲', '美国']
+    const buyWhereOptions = ['China (including HK TW & MA)', 'Japan', 'Europe', 'US']
     console.log(`ip,time,ageRange,buyHowOften,residence,buyWhat,${buyWhereOptions.join(',')},buyWhereOther,tax,prevPurchase,bringStuff,travelFreq`)
 
     docs.forEach(doc => {
@@ -41,7 +41,7 @@ MongoClient.connect('mongodb://127.6.0.233/maowtm', (err, db) => {
         q1.length.should.equal(1)
         q1[0].should.be.a.String()
         let buyHowOften = q1[0].match(/^q1s([0-3])$/)[1]
-        buyHowOften = ['一周一次', '几周一次', '一年一次', '几乎不'][parseInt(buyHowOften)]
+        buyHowOften = ['Once per week', 'Once per several week', 'Once per year', 'Hardly'][parseInt(buyHowOften)]
         q1 = null
 
         let q2 = json[2]
@@ -84,7 +84,7 @@ MongoClient.connect('mongodb://127.6.0.233/maowtm', (err, db) => {
         q5.length.should.equal(1)
         q5[0].should.be.a.String()
         let tax = q5[0].match(/^q5s([0-2])$/)[1]
-        tax = ['我交', '商家交', '都不交'][parseInt(tax)]
+        tax = ['I explicitly pay taxes', 'Seller pays taxes', 'No one pays taxes'][parseInt(tax)]
         q5 = null
 
         let q6 = json[6]
@@ -94,29 +94,30 @@ MongoClient.connect('mongodb://127.6.0.233/maowtm', (err, db) => {
         let prevPurchase = q6[0].match(/^q6s([0-4])$/)
         if (prevPurchase) {
           prevPurchase = [
-            "没有，也并不想专门帮",
-            '没有，但是可以考虑通过这个赚些钱',
-            '有，但没有想赚钱',
-            '很多次了，且也赚过一点钱',
-            '我专门做代购'
+            "No, and I don't want to do this often.",
+            'Not yet, but I do want to do it for profit.',
+            'Yes, but not for profit.',
+            'Many times, and I did earned some money from it.',
+            'I do it regularly (and professionally)'
           ][parseInt(prevPurchase[1])]
         } else {
           prevPurchase = q6[0].match(/^opsy: (.+)$/)
           if (!prevPurchase) throw new Error('...')
           prevPurchase = prevPurchase[1]
         }
+        prevPurchase = JSON.stringify(prevPurchase)
         q6 = null
 
         let q7 = json[7]
         q7.should.be.an.Array()
         q7.length.should.equal(1)
-        let bringStuff = ['会', '没'][parseInt(q7[0].match(/^q7s([0-1])$/)[1])]
+        let bringStuff = ['Yes', 'Not much'][parseInt(q7[0].match(/^q7s([0-1])$/)[1])]
         q7 = null
 
         let q8 = json[8]
         q8.should.be.an.Array()
         q8.length.should.equal(1)
-        let travelFreq = ['几乎不', '一年一到两次', '一个月一次'][parseInt(q8[0].match(/^q8s([0-2])$/)[1])]
+        let travelFreq = ['hardly', 'Once or twice per year', 'One per month'][parseInt(q8[0].match(/^q8s([0-2])$/)[1])]
         q8 = null
 
         let csvLine = `${ip},${time},${ageRange},${buyHowOften},${residence},${buyWhat},${buyWhere},${tax},${prevPurchase},${bringStuff},${travelFreq}`
