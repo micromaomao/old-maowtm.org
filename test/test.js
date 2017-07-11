@@ -892,9 +892,10 @@ describe('require("pages")', function () {
   const pages = require('../pages')()
   it('should have necessary pages', function (done) {
     should.exist(pages, 'expected pages module to exist.')
-    should.exist(pages.about, 'expected about page to exist.')
     should.exist(pages.layout, 'expected layout page to exist.')
     should.exist(pages.rbIndex, 'expected rbIndex page to exist.')
+    should.exist(pages['mainsite/about'], 'expected mainsite/about page to exist.')
+    should.exist(pages.error, 'expected error page to exist.')
     done()
   })
 })

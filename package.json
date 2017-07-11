@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/micromaomao/maowtm.org#readme",
   "dependencies": {
-    "compression": "^1.6.2",
+    "cheerio": "^1.0.0-rc.2",
+    "compression": "^1.7.0",
     "elasticsearch": "^13.2.0",
     "express": "^4.15.3",
     "jquery": "^3.2.1",
@@ -30,10 +31,9 @@
     "redis-lock": "^0.1.0",
     "sharp": "^0.18.2",
     "spdy": "^3.4.7",
-    "uglify-js": "^3.0.23"
+    "uglify-js": "^3.0.24"
   },
   "devDependencies": {
-    "cheerio": "^1.0.0-rc.2",
     "mocha": "*",
     "should": "^11.2.1",
     "standard": "*",

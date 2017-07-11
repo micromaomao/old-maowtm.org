@@ -1,0 +1,60 @@
+extends /layout
+
+block head
+  block defines
+  -
+    if (typeof page !== 'object')
+      throw new Error()
+
+  title= page.title
+  meta(property='og:url', content=`https://maowtm.org${pagePath}/`)
+  meta(property='og:type', content='article')
+  meta(property='og:locale', content='en_US')
+  meta(property='og:title', content=page.title)
+  meta(name='description', content=page.desc)
+  meta(property='og:description', content=page.desc)
+
+block content
+  include /reflist.h.pug
+  
+  mixin uselesswarn ()
+    .box.redbox
+      | This page, <b>#{page.title}</b>, isn't worth your time. I probably wrote this
+      | for my own future references, or this page may have been poorly written. You
+      | won't get anything useful out of this page, so go do something more meaningful.
+      | You have been warned.
+  mixin sectionmainpage (url, title)
+    -if (typeof title !== 'string') title = url
+    .box.dashinfobox
+      | Main page: 
+      a(href=`/${url}/`)= title
+  mixin personalopinion ()
+    .box.infobox
+      | Although this goes naturally for every article in this site, it's still worth
+      | explicitly reminding to you here that this article consists of massive amount
+      | of personal opinion that may not necessary be agreed by everyone. You can have
+      | disagreements, and I encourage you to 
+      a(href='/Contacts') contact me
+      |  via any means and tell me what do you think is wrong with this article, and I
+      | will consider your opinion and change mime if it makes sense, or I will address
+      | your argument here. In any case I will appreciate your respect. But since this
+      | is my personal "wiki" site, I can write anything I believe myself.
+
+  .topbar
+    .left= page.desc
+    .right
+      a(href='/Main_Page') main page
+      | &nbsp;
+      a(href=`https://github.com/micromaomao/maowtm.org/tree/master/pages/mainsite${pagePath}.pug`) view source
+      | &nbsp;
+      a(href=`https://github.com/micromaomao/maowtm.org/commits/master/pages/mainsite${pagePath}.pug`) view history
+  .content
+    h1= page.title
+    block text
+    +ifRef()
+      h2 References and Footnotes
+      .reflistcontain
+        +reflist
+
+block morefonts
+  link(href='https://fonts.googleapis.com/css?family=Inconsolata', rel="stylesheet")
