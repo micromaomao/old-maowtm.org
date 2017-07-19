@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const MongoClient = require('mongodb').MongoClient
-const should = require('should')
+require('should')
 
 MongoClient.connect('mongodb://127.6.0.233/maowtm', (err, db) => {
   if (err) {
@@ -9,7 +9,7 @@ MongoClient.connect('mongodb://127.6.0.233/maowtm', (err, db) => {
   }
 
   let rsps = db.collection('rbsurveyresponses')
-  rsps.find({surveyId : 'jose-proxy-purchasing'}).toArray((err, docs) => {
+  rsps.find({surveyId: 'jose-proxy-purchasing'}).toArray((err, docs) => {
     if (err) {
       console.error(err)
       process.exit(1)
@@ -70,7 +70,7 @@ MongoClient.connect('mongodb://127.6.0.233/maowtm', (err, db) => {
         })
         let q4warr = [...buyWhereOptions.map(x => false), '']
         q4arr.forEach(xr => {
-          if (Number.isSafeInteger(xr) && 0 <= xr && xr < buyWhereOptions.length) {
+          if (Number.isSafeInteger(xr) && xr >= 0 && xr < buyWhereOptions.length) {
             q4warr[xr] = true
           } else {
             q4warr[q4warr.length - 1] = xr
@@ -94,7 +94,7 @@ MongoClient.connect('mongodb://127.6.0.233/maowtm', (err, db) => {
         let prevPurchase = q6[0].match(/^q6s([0-4])$/)
         if (prevPurchase) {
           prevPurchase = [
-            "没有，也并不想专门帮",
+            '没有，也并不想专门帮',
             '没有，但是可以考虑通过这个赚些钱',
             '有，但没有想赚钱',
             '很多次了，且也赚过一点钱',
@@ -127,6 +127,5 @@ MongoClient.connect('mongodb://127.6.0.233/maowtm', (err, db) => {
       }
     })
     process.exit(0)
-
   })
 })
