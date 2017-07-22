@@ -2,7 +2,7 @@ const express = require('express')
 const _pages = require('../pages')
 let pages
 
-module.exports = function (db, lock) {
+module.exports = function (db, lock, rbs = []) {
   let mongoose = db
   pages = _pages(db)
   mongoose.Schema = require('mongoose').Schema
@@ -177,6 +177,18 @@ module.exports = function (db, lock) {
       })
     })
   })
+
+  for (let staticApp of rbs) {
+    if (!staticApp.path.startsWith('/')) throw new Error('path should be absolute.')
+    if (!staticApp.path.endsWith('/')) {
+      staticApp = Object.assign({}, staticApp, {
+        path: staticApp.path + '/'
+      })
+    }
+    rRb.use(staticApp.path, express.static(staticApp.dir, {
+      index: ['index.html']
+    }))
+  }
 
   return function (req, res, next) {
     if (req.hostname === 'rb.maowtm.org') {

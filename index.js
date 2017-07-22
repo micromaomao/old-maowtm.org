@@ -42,6 +42,7 @@ var maowtm = function (config) {
   this.mockSecure = config.mockSecure || false
   this.noInitImages = config.noInitImages || false
   this.apps = config.apps || []
+  this.rbs = config.rbs || []
   app.mockSecure = this.mockSecure
   var callback = config.callback
   function fail (error) {
@@ -112,7 +113,7 @@ var maowtm = function (config) {
     })
 
     app.use(require('./subs/main')(_this.db, _this.lock))
-    app.use(require('./subs/rb')(_this.db, _this.lock))
+    app.use(require('./subs/rb')(_this.db, _this.lock, _this.rbs))
 
     _this.apps.forEach(it => {
       let route = it.init({mongodb: _this.db, elasticsearch: _this.es})

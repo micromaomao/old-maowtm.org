@@ -43,5 +43,11 @@ Maowtm({
     //   hostname: 'schsrch.xyz',
     //   init: require('schsrch')
     // }
+  ],
+  rbs: [
+    // {
+    //   path: '/awesome/app/',
+    //   dir: path.join(__dirname, '../some-static-stuff/')
+    // }
   ]
 })
