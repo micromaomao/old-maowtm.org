@@ -115,6 +115,15 @@ var maowtm = function (config) {
     app.use(require('./subs/main')(_this.db, _this.lock))
     app.use(require('./subs/rb')(_this.db, _this.lock, _this.rbs))
 
+    app.use(function (req, res, next) {
+      if (req.hostname === 'beta.schsrch.xyz' && (req.method.toUpperCase() === 'GET' || req.method.toUpperCase() === 'HEAD') && req.path === '/') {
+        res.set('Access-Control-Allow-Origin', 'https://beta.schsrch.xyz')
+        res.redirect('https://schsrch.xyz' + req.path)
+      } else {
+        next()
+      }
+    })
+
     _this.apps.forEach(it => {
       let route = it.init({mongodb: _this.db, elasticsearch: _this.es})
       app.use(function (req, res, next) {
