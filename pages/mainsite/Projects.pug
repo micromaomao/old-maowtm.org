@@ -1,54 +1,17 @@
-mixin project(name, builtWith, url, _tags, big)
-  -let tags = _tags || [];
-  mixin stattag()
-    each tag in tags
-      span.stattag= tag
-      |  
-  -let xtoclass = (x => "b-" + x.toLowerCase().replace(/\+/g, 'p').replace(/[^A-Za-z0-9]/g, ''))
-  -let className = builtWith.map(xtoclass).join(' ')
-  -let logo = null
-  -if (big)
-    -className += ' big'
-    -if (typeof big === 'object')
-      -logo = big.logo
-      -className += ' havelogo'
-    -else
-      -className += ' nologo'
-  -else
-    -className += ' small'
-  li(class=className)
-    -if (logo)
-      .logo
-        img(src=logo)
-    mixin proj_main()
-      -if (big)
-        .stattags
-          +stattag()
-      h4
-        -if (!big)
-          +stattag()
-        a(href=url)= name
-      -if (!big)
-        p
-          block
-      -else
-        .desc-content
-          block
-      .builtwith
-        each val, index in builtWith
-          |  
-          span(class="built " + xtoclass(val))= val
-    -if (big)
-      .main
-        +proj_main()
-          block
-    -else
-      +proj_main()
-        block
-  -if (big)
-    br
-.tile-project#projects
-  h2 Projects
+extends ../mainbase
+
+block defines
+  -
+    const page = {
+      title: 'Projects',
+      desc: 'Stuff I have built.'
+    }
+
+block text
+  .box.dashinfobox
+    | This page lists projects created by Mao. For projects Mao have contributed to, see 
+    a(href='/Contributions') Contributions
+    | .
   p
     | I have a tons of little projects that I stooped maintaining as soon as development was finished.
     +ref('GitHub repositories', 'https://github.com/micromaomao?tab=repositories', "People rarely find my stuff useful, but I posted it on GitHub so I won't lost it.")
@@ -58,8 +21,59 @@ mixin project(name, builtWith, url, _tags, big)
     | .
   p
     | Here are some significant stuff worth mentioning on my personal page (this page) that would demonstrate my skills on programming. 
-  h3 Web Projects
-  ul
+  .__tableofcontents
+  mixin project(name, builtWith, url, _tags, big)
+    -let tags = _tags || [];
+    mixin stattag()
+      each tag in tags
+        span.stattag= tag
+        |  
+    -let xtoclass = (x => "b-" + x.toLowerCase().replace(/\+/g, 'p').replace(/[^A-Za-z0-9]/g, ''))
+    -let className = builtWith.map(xtoclass).join(' ')
+    -let logo = null
+    -if (big)
+      -className += ' big'
+      -if (typeof big === 'object')
+        -logo = big.logo
+        -className += ' havelogo'
+      -else
+        -className += ' nologo'
+    -else
+      -className += ' small'
+    li(class=className)
+      -if (logo)
+        .logo
+          img(src=logo)
+      mixin proj_main()
+        -if (big)
+          .stattags
+            +stattag()
+        h4
+          -if (!big)
+            +stattag()
+          a(href=url)= name
+        -if (!big)
+          p
+            block
+        -else
+          .desc-content
+            block
+        .builtwith
+          each val, index in builtWith
+            |  
+            span(class="built " + xtoclass(val))= val
+      -if (big)
+        .main
+          +proj_main()
+            block
+      -else
+        +proj_main()
+          block
+    -if (big)
+      br
+  h2 Web Projects
+  ul.projul
+    a#schsrch
     +project('SchSrch', ['Web', 'Javascript', 'Progressive Web Apps', 'node.js'],
       'https://schsrch.xyz/', ['In-progress', 'Lack testing'], {logo: mapStatic('/imgs/schsrch-icon.png')})
       p
@@ -129,8 +143,8 @@ mixin project(name, builtWith, url, _tags, big)
       | interpreter, with running code highlight, infinite
       +ref("Nothing is infinite. I mean that there's no hard limit other than your physical memory size.")
       |  bidirectional tape, tape inspecting...
-  h3 Desktop Apps
-  ul
+  h2 Desktop Apps
+  ul.projul
     +project("Shanbay Desktop", ["Electron", "Web", "React", "Javascript", "node.js"],
       "https://github.com/micromaomao/Better-Shanbay", ["Lack testing"], true)
       p
@@ -155,11 +169,20 @@ mixin project(name, builtWith, url, _tags, big)
         span.refscope I personally don't
         +ref("2016 Augest is my final attempt at doing this. I haven't used Shanbay anymore after that.", 'https://www.shanbay.com/checkin/user/calendar/52733386/201608')
         | .
-  h3 Command Line Utils
-  ul
+  h2 Command Line Utils
+  ul.projul
     +project('Ecbpass', ['Python'], 'https://github.com/micromaomao/ecbpass', ['Lack testing'])
       | I learned <b>Python</b> while building this. It is a simple tool that allows you to generate pseudorandom password for each site and no need
       | to store it or remember it.
     +project("Pomodoro-Timer", ["C++", "Linux"], "https://github.com/micromaomao/Pomodoro-Timer")
       | I learned about building stuff for <b>Linux</b> with <b>C++</b> with this project.
       | It is a not-simple-to-use, command line Pomodoro timer.
+
+  h2 See also
+  ul
+    li
+      a(href='/Programming_Skills') Programming Skills
+      | : Some stuff I know.
+    li
+      a(href='/Programmer_Thought') Thoughts as a Programmer
+      | : Some personal opinions.

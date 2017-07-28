@@ -1,0 +1,134 @@
+@import ../layout
+
+$page-content-maxwidth: 1000px
+
+.outdate-warning
+  background-color: $color-primary
+  color: white
+  text-align: center
+  padding: 0.5rem 0.2rem 0.5rem 0.2rem
+  > p
+    @extend .reset_hx
+    max-width: $page-content-maxwidth
+    display: block
+    margin-left: auto
+    margin-right: auto
+    .date-added
+      font-size: 80%
+      vertical-align: baseline
+
+.ongoing
+  color: $color-primary
+  margin: 0
+  padding: 0
+  &.hl
+    background-color: $color-primary
+    color: white
+  a, div
+    display: block
+    text-align: center
+    padding: 0.5rem 0.2rem
+    margin: 0
+
+body
+  margin: 0
+  padding: 0
+
+.reset_hx
+  font-weight: normal
+  margin-top: inherit
+  margin-bottom: inherit
+  padding: 0
+  list-style-type: none
+
+.top
+  color: $color-primary-text
+  background: mapStatic("imgs/banner.png"), #ffffff
+  background-size: auto
+  background-repeat: no-repeat
+  background-position: 50% 60%
+  text-align: center
+  overflow: hidden
+  position: relative
+  padding-top: 400px
+  padding-bottom: 20px
+
+  h1
+    @extend .reset_hx
+    @extend i
+    line-height: 1.3
+    font-size: 40px
+    color: $color-primary-text
+    background: transparent
+    text-transform: none
+    font-family: $ff-body
+  .quicklinks
+    margin: 0
+    a
+      padding: 10px
+      border-bottom: 1px dashed $color-primary
+      +transition(all, 300ms)
+    a:hover
+      text-shadow: 0 0 10px white, 0 0 20px white
+      color: $color-primary
+
+body.mobile
+  .top
+    padding-top: 40px
+    padding-bottom: 4rem
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQI12NgYGBIAwAAawBnwq0NKAAAAABJRU5ErkJggg==), mapStatic("imgs/banner.png"), #ffffff
+    color: white
+    background-size: cover
+    background-position: center
+    h1
+      font-size: 32px
+      color: white
+    .quicklinks
+      font-size: 20px
+      a
+        display: block
+        border-bottom: 0
+        padding: 5px
+
+.maincontent
+  @extend .content
+  max-width: $page-content-maxwidth
+  margin-left: auto
+  margin-right: auto
+  padding: 0.5rem 1rem
+
+  .bigger
+    font-size: 1.2rem
+
+  b.name
+    color: $color-primary
+
+  sup.red
+    background-color: red
+    color: white
+    font-size: 0.7rem
+
+  .cicon
+    border-radius: 50%
+    color: $color-background
+    width: 1.2rem
+    height: 1.2rem
+    display: inline-block
+    overflow: none
+    vertical-align: middle
+  =cicon_bg($icon-bg)
+    background: mapStatic($icon-bg), $color-primary
+    background-size: contain
+  .icon-program
+    +cicon_bg('/svg/icon-program.svg')
+  .icon-igcse
+    +cicon_bg("/svg/icon-igcse.svg")
+  .icon-sz
+    +cicon_bg("/svg/icon-sz.svg")
+  .icon-yr
+    +cicon_bg("/svg/icon-yr.svg")
+
+.reflistcontain
+  max-width: $page-content-maxwidth
+  margin-left: auto
+  margin-right: auto

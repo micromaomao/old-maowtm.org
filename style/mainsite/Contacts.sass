@@ -1,0 +1,40 @@
+@import ../mainbase
+
+h3
+  color: $color-orange
+h3.inline
+  display: inline-block
+  margin-right: 0.5rem
+  vertical-align: middle
+.inlineprecontain
+  display: inline-block
+  vertical-align: middle
+  max-width: 100%
+  *
+    vertical-align: middle
+  pre
+    max-width: 100%
+    display: inline-block
+
+pre
+  margin: 0
+  text-align: left
+  overflow-x: auto
+  display: inline-block
+  max-width: 100%
+  margin-left: auto
+  margin-right: auto
+  white-space: pre
+  background-color: rgba(white, 0.4)
+  border-left: $color-orange solid 2px
+  padding-left: 0.2rem
+  padding-right: 0.2rem
+
+body.mobile
+  h3.inline
+    display: block
+    margin-right: 0
+  .inlineprecontain
+    display: block
+    pre
+      display: block

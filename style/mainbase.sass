@@ -1,0 +1,73 @@
+@import layout
+
+$page-content-maxwidth: 1000px
+
+body
+  margin: 0
+  padding: 0
+
+.topbar
+  @extend .content
+  border-bottom: solid 1px $color-primary
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  justify-content: space-between
+  .left, .right
+    flex-shrink: 0
+    flex-grow: 0
+    max-width: 100%
+    > a
+      margin-right: 1rem
+
+@media print
+  .topbar
+    display: none
+
+.content
+  max-width: $page-content-maxwidth
+  margin-left: auto
+  margin-right: auto
+  padding: 0.5rem 1rem
+
+  > h1
+    color: $color-primary
+    margin: 0.5rem 0 1rem 0
+    padding: 0
+
+  > h2, > h3, > p, > .box, > ul, > ol
+    margin: 1rem 0 1rem 0
+    padding: 0
+
+  .infobox, .redbox
+    padding: 1rem
+  .infobox
+    background-color: lighten($color-blue, 25%)
+    border: solid 2px $color-blue
+  .redbox
+    background-color: lighten($color-primary, 40%)
+    border: solid 2px red
+  .dashinfobox
+    padding: 0.5rem
+    border-top: solid 1px $color-blue
+    border-bottom: solid 1px $color-blue
+
+  > ul, > ol
+    li
+      list-style-position: inside
+
+  i
+    background-color: transparent
+
+  .red
+    color: red
+
+  .box
+    .icon
+      height: 1.3rem
+      vertical-align: sub
+      margin-right: 0.7rem
+
+.reflistcontain
+  padding: 0
+  margin: 0

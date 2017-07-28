@@ -1,0 +1,26 @@
+@import ../mainbase
+
+p.skilli
+  .comment
+    opacity: 0.7
+
+.linuxpre
+  color: #5f767f
+  background-color: #fdf6e3
+  font-size: 14px
+  font-family: 'Inconsolata', monospace
+  font-size: 11pt
+.linuxpre::selection, .linuxpre *::selection
+  background-color: #5f767f
+  color: #fdf6e3
+
+body.mobile
+  .skilltag
+    border-top: none
+    > span
+      display: block
+      margin: 0 -8px 0 -8px
+    .name-trig-bg, .exp-trig-bg
+      display: none
+    .name
+      padding-left: 8px

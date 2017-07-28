@@ -55,6 +55,9 @@ body .content a
 body .content:hover a,
 body.mobile .content a
   color: $color-primary
+@media print
+  .content a
+    color: $color-primary
 
 body .content a:hover
   color: $color-primary-dark
@@ -112,6 +115,18 @@ sup.refsup:target, .reflist li:target
   background-color: lighten(yellow, 20%)
 sup.refsup
   font-family: sans-serif
-  font-size: 70%
+  font-size: 0.7rem
+  display: inline-block
 span.refscope
   background-color: rgba($color-primary, 0.1)
+
+.reflistcontain
+  @extend .content
+  margin: 0.5rem 0
+  padding: 0.5rem 1rem
+  .reflist
+    column-width: 400px
+    li
+      list-style-type: none
+    a:hover
+      border-bottom: none // bottom border don't seems to work well with columns.

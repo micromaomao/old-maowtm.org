@@ -4,8 +4,8 @@ const sass = require('node-sass')
 const path = require('path')
 
 var pages = {}
-var pagesfo = path.join(__dirname, '/pages/')
-var list = fs.readdirSync(pagesfo)
+var pageBasedir = path.join(__dirname, 'pages')
+var list = fs.readdirSync(pageBasedir)
 const ghUrl = 'https://github.com/micromaomao/maowtm.org/tree/master/'
 const imgsGet = '/imgs/'
 function pugMapStatic (url) {
@@ -25,17 +25,20 @@ function cssMapStatic (url) {
   }
   return sass.types.String('url(' + pugMapStatic(url) + ')')
 }
-function preProcess (html, pugFile, sassFile) {
+function pugComment (html, pugFile, sassFile) {
   return '<!-- Mixed and minified html + css:\n' +
     '     Source:      ' + ghUrl + 'pages/' + pugFile + '\n' +
     '     Style sheet: ' + (sassFile ? (ghUrl + 'style/' + sassFile) : 'none') + ' -->\n\n' + html.replace(/\s{0,}\n\s{0,}/g, ' ')
 }
-list.forEach(function (fname) {
-  var fnmatch = fname.match(/^([A-Za-z0-9\-_]+)\.pug/)
+function processPug (fname) {
+  var fnmatch = fname.match(/^([A-Za-z0-9\-_\/]+)\.pug/) // eslint-disable-line no-useless-escape
+  var pugFile = path.join(__dirname, 'pages', fname)
   if (fnmatch) {
     var name = fnmatch[1]
     var sassFile = path.join(__dirname, 'style', name + '.sass')
-    var pugfn = pug.compileFile(pagesfo + fname)
+    var pugFn = pug.compileFile(pugFile, {
+      basedir: pageBasedir
+    })
     fs.access(sassFile, fs.R_OK, function (err) {
       if (!err) {
         sass.render({
@@ -52,22 +55,44 @@ list.forEach(function (fname) {
           pages[name] = function (o) {
             o = o || {}
             o = Object.assign({}, o, {style: sassResult.css, mapStatic: pugMapStatic})
-            return preProcess(pugfn(o), fname, name + '.sass')
+            return pugComment(pugFn(o), fname, name + '.sass')
           }
         })
       } else {
         pages[name] = function (o) {
           o = o || {}
           o = Object.assign({}, o, {mapStatic: pugMapStatic})
-          return preProcess(pugfn(o), fname)
+          return pugComment(pugFn(o), fname)
         }
         console.log('pages: style for ' + fname + ' not find.')
       }
     })
   } else {
-    console.log('pages: skipped ' + fname + ' .')
+    fs.stat(pugFile, (err, stats) => {
+      if (err) {
+        console.error(err)
+        process.exit(1)
+        // TODO
+      }
+      if (stats.isDirectory()) {
+        fs.readdir(pugFile, (err, files) => {
+          if (err) {
+            console.error(err)
+            process.exit(1)
+          }
+          files.forEach(p => {
+            let nFname = path.join(fname, p)
+            processPug(nFname)
+          })
+        })
+      } else {
+        console.log('pages: skipped ' + fname + ' .')
+      }
+    })
   }
-})
+}
+
+list.forEach(processPug)
 
 // FIXME: Async leak (hard to reproduce as it requires accessing a page *immediately* after the server reports "ready".)
 /* TypeError: pages.about is not a function

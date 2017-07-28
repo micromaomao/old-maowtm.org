@@ -34,3 +34,7 @@ mixin reflist ()
             |  #{ref.description}
   -_cRefSet ++
   -_refs = []
+
+mixin ifRef ()
+  -if (_refs.length)
+    block
