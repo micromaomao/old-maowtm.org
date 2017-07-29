@@ -21,3 +21,8 @@ production code, ready to be run on the server anytime.
 [![Build Status](https://travis-ci.org/micromaomao/maowtm.org.svg?branch=dev)](https://travis-ci.org/micromaomao/maowtm.org)
 Dev:
 development code, may be buggy or non-complete.
+
+[![Coverage Status](https://coveralls.io/repos/github/micromaomao/maowtm.org/badge.svg?branch=draft)](https://coveralls.io/github/micromaomao/maowtm.org?branch=draft)
+[![Build Status](https://travis-ci.org/micromaomao/maowtm.org.svg?branch=draft)](https://travis-ci.org/micromaomao/maowtm.org)
+Draft:
+writing and stuff that haven't been completed.
