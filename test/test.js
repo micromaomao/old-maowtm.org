@@ -894,7 +894,7 @@ describe('require("pages")', function () {
     should.exist(pages, 'expected pages module to exist.')
     should.exist(pages.layout, 'expected layout page to exist.')
     should.exist(pages.rbIndex, 'expected rbIndex page to exist.')
-    should.exist(pages['mainsite/about'], 'expected mainsite/about page to exist.')
+    should.exist(pages['mainsite/Main_Page'], 'expected mainsite/Main_Page page to exist.')
     should.exist(pages.error, 'expected error page to exist.')
     done()
   })

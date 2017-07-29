@@ -80,7 +80,7 @@ module.exports = function (db, lock) {
         if ($this.is('h2')) {
           tocStructure.push({
             heading: $this.text(),
-            id: lastId ++,
+            id: lastId++,
             subheadings: []
           })
           $this.attr('id', `h${lastId - 1}`)
@@ -88,13 +88,13 @@ module.exports = function (db, lock) {
           if (tocStructure.length === 0) return
           tocStructure[tocStructure.length - 1].subheadings.push({
             heading: $this.text(),
-            id: lastId ++,
+            id: lastId++,
             subheadings: []
           })
           $this.attr('id', `h${lastId - 1}`)
         }
       })
-      function getLi (structure) {
+      function getLi (structure) { // eslint-disable-line
         let li = $('<li></li>')
         let a = $('<a></a>')
         a.text(structure.heading)
