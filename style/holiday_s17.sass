@@ -22,3 +22,21 @@ body.mobile
     margin: 0 0 0 4rem
     padding: 0.5rem
     font-size: 1rem
+
+.givenup
+  color: #888
+  h1, h2, h3, h4, h5, p
+    text-decoration: line-through
+    color: #999 !important
+  a
+    color: #888
+    transition: color 200ms
+    &:hover
+      color: #444 !important
+  .undone
+    background-color: #aaa !important
+  .optional
+    background-color: #ccc !important
+
+body .content:hover .givenup a
+  color: #666
