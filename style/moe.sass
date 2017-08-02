@@ -1,0 +1,29 @@
+@import layout
+
+body
+  $sakamoto-wid: 300px
+  position: relative
+  height: auto
+  max-width: 1000px
+  margin-left: auto
+  margin-right: auto
+  .sakamoto
+    position: absolute
+    width: $sakamoto-wid
+    height: 1.4 * $sakamoto-wid
+    top: 100%
+    right: 1rem
+    background-image: mapStatic('/imgs/sakamoto.png')
+    background-size: contain
+    background-position: center
+    pointer-events: none
+
+h1
+  color: $color-pink
+  ruby rt
+    text-transform: none
+
+.desc
+  @extend .content
+  .ln
+    color: $color-primary

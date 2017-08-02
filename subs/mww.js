@@ -10,7 +10,7 @@ module.exports = function (db, lock) {
   let rMww = express.Router()
 
   rMww.get('/', function (req, res, next) {
-    res.send('Hello!')
+    res.send(pages.moe())
   })
 
   return function (req, res, next) {
