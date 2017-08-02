@@ -114,6 +114,7 @@ var maowtm = function (config) {
 
     app.use(require('./subs/main')(_this.db, _this.lock))
     app.use(require('./subs/rb')(_this.db, _this.lock, _this.rbs))
+    app.use(require('./subs/mww')(_this.db, _this.lock))
 
     app.use(function (req, res, next) {
       if (req.hostname === 'beta.schsrch.xyz' && (req.method.toUpperCase() === 'GET' || req.method.toUpperCase() === 'HEAD') && req.path === '/') {

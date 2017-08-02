@@ -19,6 +19,10 @@ module.exports = function (db, lock) {
         res.redirect('https://maowtm.org/')
         return
       }
+      if (req.hostname === 'www.mww.moe') {
+        res.redirect('https://mww.moe')
+        return
+      }
     }
     next()
   })
