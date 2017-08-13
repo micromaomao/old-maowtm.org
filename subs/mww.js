@@ -13,6 +13,11 @@ module.exports = function (db, lock) {
     res.send(pages.moe())
   })
 
+  rMww.get('/get-204/', function (req, res, next) {
+    res.status(204)
+    res.end()
+  })
+
   return function (req, res, next) {
     if (req.hostname === 'mww.moe') {
       rMww(req, res, next)
