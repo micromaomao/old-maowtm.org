@@ -21,17 +21,17 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "compression": "^1.7.0",
-    "elasticsearch": "^13.2.0",
-    "express": "^4.15.3",
+    "elasticsearch": "^13.3.1",
+    "express": "^4.15.4",
     "jquery": "^3.2.1",
-    "mongoose": "^4.11.4",
+    "mongoose": "^4.11.7",
     "node-sass": "^4.5.3",
-    "pug": "^2.0.0-rc.2",
-    "redis": "^2.7.1",
+    "pug": "^2.0.0-rc.3",
+    "redis": "^2.8.0",
     "redis-lock": "^0.1.0",
     "sharp": "^0.18.2",
     "spdy": "^3.4.7",
-    "uglify-js": "^3.0.26"
+    "uglify-js": "^3.0.27"
   },
   "devDependencies": {
     "mocha": "*",
