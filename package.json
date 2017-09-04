@@ -24,19 +24,19 @@
     "elasticsearch": "^13.3.1",
     "express": "^4.15.4",
     "jquery": "^3.2.1",
-    "mongoose": "^4.11.7",
+    "mongoose": "^4.11.10",
     "node-sass": "^4.5.3",
     "pug": "^2.0.0-rc.3",
     "redis": "^2.8.0",
     "redis-lock": "^0.1.0",
     "sharp": "^0.18.2",
     "spdy": "^3.4.7",
-    "uglify-js": "^3.0.27"
+    "uglify-js": "^3.0.28"
   },
   "devDependencies": {
     "mocha": "*",
-    "should": "^11.2.1",
+    "should": "*",
     "standard": "*",
-    "supertest": "^3.0.0"
+    "supertest": "*"
   }
 }
