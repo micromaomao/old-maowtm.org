@@ -283,6 +283,8 @@ describe('new maowtm(...)', function () {
       shouldRedirectDomain('beta.schsrch.xyz', 'schsrch.xyz')
       shouldRedirectDomain('schsrch.org', 'schsrch.xyz')
       shouldRedirectDomain('www.schsrch.org', 'schsrch.xyz')
+      shouldRedirectDomain('fuckcie.com', 'schsrch.xyz')
+      shouldRedirectDomain('www.fuckcie.com', 'schsrch.xyz')
 
       it('should 200 for scripts', function (done) {
         request(app)

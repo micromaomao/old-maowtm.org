@@ -11,7 +11,7 @@ module.exports = function (db, lock) {
   rMisc.use(function (req, res, next) {
     if (req.method === 'GET') {
       if (req.hostname &&
-          (req.hostname.match(/^(beta|www)\.schsrch\.xyz$/) || req.hostname.match(/^(www\.)?schsrch\.org$/))) {
+          (/^(beta|www)\.schsrch\.xyz$/.test(req.hostname) || /^(www\.)?schsrch\.org$/.test(req.hostname) || /^(www\.)?fuckcie\.com$/.test(req.hostname))) {
         res.redirect('https://schsrch.xyz' + req.path)
         return
       }
