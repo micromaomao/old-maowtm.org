@@ -5,8 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "mocha && NODE_ENV=production mocha && standard",
-    "coverage": "node_modules/.bin/istanbul cover --report lcovonly node_modules/.bin/_mocha -- -R spec && standard"
+    "test": "mocha && NODE_ENV=production mocha --exit && standard",
+    "coverage": "node_modules/.bin/istanbul cover --report lcovonly node_modules/.bin/_mocha -- --exit -R spec && standard"
   },
   "repository": {
     "type": "git",
