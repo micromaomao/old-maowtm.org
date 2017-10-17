@@ -96,50 +96,21 @@ body.mobile
   margin-left: auto
   margin-right: auto
   padding: 0.5rem 1rem
-
-  .bigger
-    font-size: 1.2rem
+  font-size: 1.1rem
 
   b.name
     color: $color-primary
 
-  sup.red
-    background-color: red
-    color: white
-    font-size: 0.7rem
+  .smaller
+    display: block
+    font-size: 85%
+    padding-left: 0.5rem
 
-  .cicon
-    border-radius: 50%
-    color: $color-background
-    width: 1.2rem
-    height: 1.2rem
+body.mobile
+  .maincontent .smaller a
     display: inline-block
-    overflow: none
-    vertical-align: middle
-  =cicon_bg($icon-bg)
-    background: mapStatic($icon-bg), $color-primary
-    background-size: contain
-  .icon-program
-    +cicon_bg('/svg/icon-program.svg')
-  .icon-igcse
-    +cicon_bg("/svg/icon-igcse.svg")
-  .icon-sz
-    +cicon_bg("/svg/icon-sz.svg")
-  .icon-yr
-    +cicon_bg("/svg/icon-yr.svg")
 
 .reflistcontain
   max-width: $page-content-maxwidth
   margin-left: auto
   margin-right: auto
-
-.uselessboxcontain
-  background-color: lighten($color-primary, 40%)
-  border-left: solid 2px red
-  border-right: solid 2px red
-  padding: 0.5rem
-  margin-bottom: -0.5rem
-  .box.redbox
-    margin-left: auto
-    margin-right: auto
-    max-width: $page-content-maxwidth

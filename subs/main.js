@@ -13,11 +13,15 @@ module.exports = function (db, lock) {
   var dataMe = {
     birth: 998323200
   }
+  const startPage = '/Hello/'
   rMain.get('/', function (req, res) {
-    res.redirect('/Main_Page/')
+    res.redirect(startPage)
   })
   rMain.get('/about', function (req, res) {
-    res.redirect('/Main_Page/')
+    res.redirect(startPage)
+  })
+  rMain.get('/Main_Page/', function (req, res) {
+    res.redirect(startPage)
   })
   rMain.get('/data/me/', function (req, res) {
     dataMe.age = Math.floor(Date.now() / 1000) - dataMe.birth

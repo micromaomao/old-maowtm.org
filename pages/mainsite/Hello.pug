@@ -1,0 +1,150 @@
+extends /layout
+
+block head
+  title Mao Wtm
+  meta(property='og:url', content='https://maowtm.org/Main_Page/')
+  meta(property='og:type', content='article')
+  meta(property='og:locale', content='en_US')
+  meta(property='og:title', content='Mao Wtm')
+  -const desc = "I'm a stupid programmer. Welcome to my 'main' page."
+  meta(name='description', content=desc)
+  meta(property='og:description', content=desc)
+  meta(property='og:image', content=mapStatic("imgs/banner.png"))
+
+block content
+  .top
+    h1
+      | Mao Wtm
+  .maincontent
+    h2 Hi! :D
+    p
+      | I'm 
+      b.name Mao Wtm
+      | . I'm currently #{age} years old.
+    p
+      | What do you want to know about me?
+    ul.inputlist
+      li
+        a() Are you a programmer?
+        span.smaller
+          | (
+          a(href='/Projects/') What are your projects?
+          |  / 
+          a(href='/Programming_Skills/') What can you do?
+          |  / 
+          a() Are you known for anything?
+          |  / 
+          a() Do you have a job?
+          |  / 
+          a() How do you become a programmer?
+          |  / 
+          a() Why is coding a good thing to learn?
+          |  / 
+          a() Why should I support open source and free culture?
+          |  / 
+          a() Can you help me with programming?
+          | )
+      li
+        a() Are you in high school?
+        span.smaller
+          | (
+          a() How good are your grades?
+          |  / 
+          a() How to do well in school?
+          |  / 
+          a() What do you think about your career?
+          |  / 
+          a() What are your thoughts on the education system?
+          |  / 
+          a() What about your classmates?
+          | )
+      li
+        a() How would you describe your personalities?
+        span.smaller
+          | (
+          a() Are you an introvert?
+          |  / 
+          a() How sensitive are you?
+          |  / 
+          a() Can I be your friend?
+          | )
+      li
+        a() What about relationship (love) ?
+        span.smaller
+          | (
+          a() Do you have boy/girl friend?
+          |  / 
+          a() What is your gender and orientation?
+          |  / 
+          a() What do you think about love?
+          |  / 
+          a() What do you think about gender?
+          | )
+      li
+        a() What else do you like beside coding?
+        span.smaller
+          | (
+          a() What are your favorite song?
+          |  / 
+          a() What books do you like?
+          |  / 
+          a() What's your opinion on reading?
+          |  / 
+          a() What do you wish to get but are unable to afford?
+          |  / 
+          a() Do you draw?
+          |  / 
+          a() What is your favorite design?
+          |  / 
+          a() What is your favorite color?
+          |  / 
+          a() What habits are you trying to build?
+          | )
+      li
+        a() How old are you?
+        span.smaller
+          | (
+          a() When's your birthday?
+          |  / 
+          a() What it feels like to be so young?
+          | )
+      li
+        a() What languages do you speak?
+        span.smaller
+          | (
+          a() How well is your English?
+          |  / 
+          a() How well is your Chinese?
+          |  / 
+          a() Is Chinese hard?
+          |  / 
+          a() How do you learn English so fast?
+          |  / 
+          a() What style of speech do you like?
+          |  / 
+          a() Anything about linguistics?
+          |  / 
+          a() Other languages that you may wish to learn?
+          | )
+      li
+        a() Are you happy with your life?
+        span.smaller
+          | (
+          a() What behavior do you hate?
+          |  / 
+          a() What do you think should change?
+          |  / 
+          a() Why would you dislike yourself?
+          | )
+      li
+        a(href='/Contacts/') How do I reach you?
+        span.smaller
+          | (
+          a() Do you have Twitter?
+          |  / 
+          a() How do I chat with you?
+          |  / 
+          a() What are your public keys?
+          |  / 
+          a() What are your private keys?
+          | )
