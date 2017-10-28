@@ -1,0 +1,17 @@
+[Unit]
+Description=Maowtm.org WWW Server
+After=elasticsearch.service mongod.service redis-server.service
+Requires=elasticsearch.service mongod.service redis-server.service
+PartOf=elasticsearch.service mongod.service redis-server.service
+
+[Service]
+Type=simple
+User=root
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node /opt/www/maowtm.org/launcher.js $DAEMON_ARGS
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
