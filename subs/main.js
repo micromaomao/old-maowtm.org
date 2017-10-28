@@ -30,6 +30,13 @@ module.exports = function (db, lock) {
   rMain.get('/tweets', function (req, res) {
     res.redirect('https://twitter.com/WtmMao')
   })
+  rMain.get('/Privkeys/', function (req, res, next) {
+    let err = new Error("You don't have the required permission to view this page.")
+    err.status = 401
+    err.statusText = 'Access denied'
+    res.status(401)
+    res.send(pages.error({req, err}))
+  })
   rMain.get('/geterror', function (req, res) {
     throw new Error(req.query.msg ? `${req.query.msg} (error message given in url)` : 'Your error.')
   })

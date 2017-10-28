@@ -33,7 +33,10 @@ module.exports = function (db, lock) {
       next()
       return
     }
-    res.send(pages.error({err: 404, req}))
+    let err = new Error()
+    err.status = 404
+    err.statusText = "Not find :("
+    res.send(pages.error({err, req}))
   })
 
   return function (req, res, next) {

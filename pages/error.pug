@@ -6,13 +6,15 @@ block head
 block content
   img.logo(src=mapStatic("/svg/logo.svg"))
   h1
-    | #{err === 404 ? 404 : 500}... 
-    span.desc #{err === 404 ? "That's weird" : "It's broken!"}
+    | #{err.status || 500}&hellip; 
+    span.desc #{err.statusText || "It's broken!"}
 
-  -if (err === 404)
+  -if (err.status === 404)
     p
       | We don't know what to do with the requested path 
       code.path #{req.path}
+  -else if (err.status && err.status !== 500)
+    p= err.message
   -else
     p
       | Our server ran into a problem. Try reloading or 
@@ -20,7 +22,7 @@ block content
       | .
       br
       | Problem: 
-      code.errmsg= err
+      code.errmsg= err.message
     -if (stack)
       pre.stack
         -let lines = stack.split('\n')

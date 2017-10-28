@@ -140,14 +140,12 @@ var maowtm = function (config) {
 
     let nodeenv = process.env.NODE_ENV || ''
     app.use(function (err, req, res, next) {
-      res.status(500)
+      err.status = err.status || 500
+      res.status(err.status)
       let pageObj = {err, req}
-      if (typeof err !== 'string') {
-        pageObj.err = err.message
-        if (err.stack) {
-          pageObj.stack = err.stack.replace(new RegExp(path.join(__dirname, '..').replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1'), 'g'), '...') + // eslint-disable-line no-useless-escape
-            `\nServer running in NODE_ENV=${nodeenv}\nTime: ${Date.now() / 1000}`
-        }
+      if (err.stack) {
+        pageObj.stack = err.stack.replace(new RegExp(path.join(__dirname, '..').replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1'), 'g'), '...') + // eslint-disable-line no-useless-escape
+          `\nServer running in NODE_ENV=${nodeenv}\nTime: ${Date.now() / 1000}`
       }
       res.send(pages.error(pageObj))
       console.error(err)
