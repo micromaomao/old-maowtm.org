@@ -1,6 +1,7 @@
 language: node_js
 sudo: no
 dist: trusty
+group: edge
 node_js:
   - "7"
   - "8"
