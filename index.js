@@ -25,7 +25,7 @@ var maowtm = function (config) {
   config = config || {}
   this.config = config
   this._mongodb = config.db || 'mongodb://127.0.0.1'
-  this.db = mongoose.createConnection(this._mongodb)
+  this.db = mongoose.createConnection()
   this.es = new elasticsearch.Client({
     host: config.elasticsearch || '127.0.0.1'
   })
@@ -59,6 +59,7 @@ var maowtm = function (config) {
       process.exit(2)
     }
   }
+  this.db.openUri(this._mongodb).catch(err => fail(err))
   if ((!Array.isArray(this._listen) || this._listen.length > 0) && !this.mockSecure && !(this._ssl && this._ssl.cert && this._ssl.key)) {
     fail(new Error('No SSL certificate provided'))
     return

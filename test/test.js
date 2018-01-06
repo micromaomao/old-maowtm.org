@@ -85,7 +85,7 @@ describe('new maowtm(...)', function () {
       destory()
     })
     Maowtm(Object.assign({}, initParm, {
-      db: '127.255.255.255',
+      db: 'mongodb://127.255.255.255/test',
       redis: REDIS,
       callback: makeErrorCallback(function (d, err) {
         destory = d
