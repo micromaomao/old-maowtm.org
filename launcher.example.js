@@ -27,7 +27,7 @@
 
 const Maowtm = require('./index')
 Maowtm({
-  db: '127.0.0.1',
+  db: 'mongodb://127.0.0.1/maowtm',
   redis: '127.0.0.1',
   elasticsearch: '127.0.0.1:9200',
   listen: [
