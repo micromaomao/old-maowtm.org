@@ -18,6 +18,10 @@ module.exports = function (db, lock) {
     res.end()
   })
 
+  rMww.get('/apd/', function (req, res) {
+    res.send(pages.mwwAPD())
+  })
+
   return function (req, res, next) {
     if (req.hostname === 'mww.moe') {
       rMww(req, res, next)

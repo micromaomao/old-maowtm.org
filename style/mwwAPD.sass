@@ -1,0 +1,65 @@
+@import layout
+$theme-light: #ebecf2
+$theme: #383e79
+$termref: #008080
+body
+  margin: 0
+  padding: 0
+  background-color: $theme-light
+  text-align: center
+
+.topbar
+  margin: 0
+  padding: 0.5rem
+  background-color: $theme
+  border-bottom: solid 3pt white
+  font-size: 1.6rem
+  text-align: center
+  color: white
+
+i
+  background-color: transparent
+
+.desc, > p, .block
+  display: inline-block
+  text-align: left
+  width: auto
+.desc
+  margin: 1.5rem auto 0.5rem auto
+> p, .block
+  margin: 0.5rem auto
+  font-size: 1.2rem
+  text-align: left
+a
+  color: $termref
+.block.vspace
+  margin-top: 2rem
+.hdownload
+  background-color: $theme
+  color: white
+  font-size: 2rem
+  padding: 0.25rem 0.75rem
+  display: inline-block
+.downloadlist
+  text-align: left
+  max-width: 40em
+  margin-left: auto
+  margin-right: auto
+  a
+    display: block
+    text-decoration: none
+    color: $termref
+    cursor: pointer
+    background-color: white
+    padding: 0.25rem 0.5rem
+    margin: 0.25rem auto
+    font-size: 1.3rem
+    font-family: sans-serif
+.screenshot
+  max-width: 60rem
+  margin-left: auto
+  margin-right: auto
+  padding: 0
+  img
+    width: 100%
+    background-color: white
