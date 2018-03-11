@@ -26,12 +26,12 @@
     "jquery": "^3.3.1",
     "mongoose": "^5.0.9",
     "node-sass": "^4.7.2",
-    "pug": "^2.0.0",
+    "pug": "^2.0.1",
     "redis": "^2.8.0",
     "redis-lock": "^0.1.4",
     "sharp": "^0.20.0",
     "spdy": "^3.4.7",
-    "uglify-js": "^3.3.13"
+    "uglify-js": "^3.3.14"
   },
   "devDependencies": {
     "mocha": "*",
