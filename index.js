@@ -11,6 +11,7 @@ const redislock = require('redis-lock')
 const compression = require('compression')
 const path = require('path')
 const elasticsearch = require('elasticsearch')
+const WebSocket = require('ws')
 let pages
 
 process.on('unhandledRejection', (reason, promise) => {
@@ -43,6 +44,7 @@ var maowtm = function (config) {
   this.noInitImages = config.noInitImages || false
   this.apps = config.apps || []
   this.rbs = config.rbs || []
+  this.registeredWSHandlers = [] // { shouldHandle, onConnection }
   app.mockSecure = this.mockSecure
   var callback = config.callback
   function fail (error) {
@@ -127,7 +129,13 @@ var maowtm = function (config) {
     })
 
     _this.apps.forEach(it => {
-      let route = it.init({mongodb: _this.db, elasticsearch: _this.es})
+      let route = it.init({
+        mongodb: _this.db,
+        elasticsearch: _this.es,
+        addWSHandler: function (hnd) {
+          _this.registeredWSHandlers.push(hnd)
+        }
+      })
       app.use(function (req, res, next) {
         if (it.hostname === req.hostname) {
           route(req, res, next)
@@ -255,7 +263,30 @@ var maowtm = function (config) {
         }
       })
     }
-    _this.es.ping({}).then(() => doSetupServer().then(() => {
+    _this.es.ping({}).then(() => doSetupServer().then(() => new Promise((resolve, reject) => {
+      _this._servers.http2.forEach(server => {
+        let wss = new WebSocket.Server({
+          server,
+          backlog: 100,
+          maxPayload: 1024 * 1024 * 1 // 10MiB
+        })
+        wss.shouldHandle = function (req) {
+          let hnd = _this.registeredWSHandlers.find(hnd => hnd.hostname === req.headers.host)
+          if (!hnd) return false
+          return hnd.shouldHandle(req)
+        }
+        wss.on('connection', function (ws, req) {
+          let hnd = _this.registeredWSHandlers.find(hnd => hnd.hostname === req.headers.host)
+          if (!hnd) {
+            ws.close(1, `Unexpected host ${req.headers.host}`)
+            console.error(`ws: Unexpected 'connection' event on host ${req.headers.host}`)
+          } else {
+            hnd.onConnection(ws, req)
+          }
+        })
+      })
+      resolve()
+    })).then(() => {
       console.log('Server ready.')
       if (callback) {
         callback(null, app, function () {
