@@ -34,7 +34,13 @@ module.exports = function (db, lock, rbs = []) {
       res.send(pages.rbIndex({msgs, index: true}))
     })
   })
+
+  rRb.options('/pm/:to', function (req, res, next) {
+    res.set('Access-Control-Allow-Origin', '*')
+    res.end()
+  })
   rRb.get('/pm/:to', function (req, res, next) {
+    res.set('Access-Control-Allow-Origin', '*')
     let to = req.params.to.trim()
     if (to.toLowerCase() !== to) {
       res.redirect('/pm/' + encodeURIComponent(to.toLowerCase()))
@@ -49,6 +55,7 @@ module.exports = function (db, lock, rbs = []) {
     })
   })
   rRb.post('/pm/:to', function (req, res, next) {
+    res.set('Access-Control-Allow-Origin', '*')
     let ctype = req.get('Content-Type')
     let done = false
     if (ctype !== 'text/plain') {

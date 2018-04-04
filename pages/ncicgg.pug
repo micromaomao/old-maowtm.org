@@ -1,0 +1,47 @@
+extends layout
+
+block head
+  title 南山中英文学校要完。
+
+block content
+  .top
+    .h <i>南山中英文学校</i>要完
+    .hen <b>Nanshan Chinese International College</b> will GG.
+    .menu
+      a(href='#domain') 域名
+      .dot &nbsp;
+      a(href='#rant') 吐槽学校什么的
+      .dot &nbsp;
+      a(href='#disclaimer') Disclaimer
+
+  .main
+    h1#domain 域名
+    p
+      | 此域名目前还没有什么用途- - 留着以后可能会有用…？
+    p
+      | 如果需要使用的话请在校师生联系AS-2 Lynn…
+
+    h1#rant 吐槽学校什么的
+    textarea.inputArea(placeholder="这个学校要完 因为…")
+    br
+    button.submit(data-to='ncic') Submit
+    span.submitting
+    span.charleft
+    script(src=mapStatic("/script/rbIndex.js"))
+
+    -let now = new Date()
+    .msgs
+      each msg in msgs
+        .msg
+          p= msg.message
+          .time= RelativeTime(now, new Date(msg.time))
+      -if (msgs.length === 0)
+        p.desc There're no messages to display...
+
+    h1#disclaimer Disclaimer
+    p
+      | “<i>Nanshan Chinese International College</i>” is a trademark of 深圳市南山中英文学校. They used to have
+      | a website at <a href='http://www.nancic.com'>www.nancic.com</a>, but it has been down for a long time and
+      | they no longer have any accessible website.
+    p
+      | This website exists for parody purpose and does not represent, nor are we endorsed by, this organization.

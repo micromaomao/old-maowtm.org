@@ -46,7 +46,7 @@
         }
       }
     }
-    xhr.open('POST', '/pm/' + encodeURIComponent(sendTo))
+    xhr.open('POST', '//rb.maowtm.org/pm/' + encodeURIComponent(sendTo))
     xhr.setRequestHeader('Content-type', 'text/plain')
     xhr.send(content)
   }

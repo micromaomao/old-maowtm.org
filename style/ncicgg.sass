@@ -1,0 +1,77 @@
+@import layout
+$color-theme: #0055A2
+$color-light-theme: #00abed
+
+body
+  margin: 0
+  padding: 0
+  font-size: 18px
+
+.top
+  background-color: $color-theme
+  color: white
+  font-size: 1.2rem
+  padding: 0.5rem 1rem 0 1rem
+  i
+    background-color: transparent // override rule for i defined in layout.sass
+  .h
+    font-size: 1.5rem
+    line-height: 1
+  .hen
+    opacity: 0.7
+    font-size: 1.3rem
+    font-style: italic
+    line-height: 1.1
+  .menu
+    margin: 0.5rem 0.5rem 0 0.5rem
+    border-top: dashed 1px white
+    a
+      display: inline-block
+      padding: 0.3rem 0.6rem
+      margin:  0.1rem
+      text-decoration: none
+      color: inherit
+    .dot
+      $radius: 3px
+      display: inline-block
+      border-radius: $radius
+      width: $radius*2
+      height: $radius*2
+      vertical-align: middle
+      background-color: rgba(white, 0.8)
+  border-bottom: $color-light-theme 3px solid
+
+.main
+  display: block
+  margin: 1rem auto
+  max-width: 800px
+  padding: 0 0.5rem
+  h1
+    color: $color-theme
+  p
+    @extend .content
+  .inputArea
+    width: 100%
+    height: 4rem
+    font-size: 1rem
+  button.submit
+    @extend .primarybutton
+    margin-right: 1rem
+  .submitting
+    display: none
+    color: $color-primary
+    margin-right: 1rem
+  .charleft
+    vertical-align: middle
+    font-size: 0.8rem
+    color: $color-secondary-text
+  .charleft.red
+    color: $color-primary
+
+.msgs
+  .msg
+    p
+      border-bottom: solid $color-primary-light 1px
+    .time
+      font-size: 0.8rem
+      color: $color-primary

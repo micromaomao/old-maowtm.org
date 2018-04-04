@@ -23,6 +23,10 @@ module.exports = function (db, lock) {
         res.redirect('https://mww.moe')
         return
       }
+      if (req.hostname === 'www.ncic.gg') {
+        res.redirect('https://ncic.gg')
+        return
+      }
     }
     next()
   })
