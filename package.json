@@ -31,8 +31,8 @@
     "redis-lock": "^0.1.4",
     "sharp": "^0.20.1",
     "spdy": "^3.4.7",
-    "uglify-js": "^3.3.16",
-    "ws": "^5.1.0"
+    "uglify-js": "^3.3.18",
+    "ws": "^5.1.1"
   },
   "devDependencies": {
     "mocha": "*",
