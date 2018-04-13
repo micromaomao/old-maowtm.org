@@ -290,6 +290,9 @@ var maowtm = function (config) {
           } else {
             hnd.onConnection(ws, req)
           }
+          ws.on('close', () => {
+            console.log(`CLOSE WS on ${reqHost}${req.url}`)
+          })
         })
       })
       resolve()
