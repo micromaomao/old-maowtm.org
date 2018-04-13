@@ -272,7 +272,10 @@ var maowtm = function (config) {
           maxPayload: 1024 * 1024 * 1 // 10MiB
         })
         wss.shouldHandle = function (req) {
-          let hnd = _this.registeredWSHandlers.find(hnd => hnd.hostname === req.headers.host)
+          let reqHost = req.headers.host
+          if (reqHost.endsWith(':443')) reqHost = reqHost.substr(0, reqHost.length - 4)
+          console.log(`WS on ${reqHost}${req.url}`)
+          let hnd = _this.registeredWSHandlers.find(hnd => hnd.hostname === reqHost)
           if (!hnd) return false
           return hnd.shouldHandle(req)
         }
