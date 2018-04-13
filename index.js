@@ -280,9 +280,12 @@ var maowtm = function (config) {
           return hnd.shouldHandle(req)
         }
         wss.on('connection', function (ws, req) {
-          let hnd = _this.registeredWSHandlers.find(hnd => hnd.hostname === req.headers.host)
+          let reqHost = req.headers.host
+          if (reqHost.endsWith(':443')) reqHost = reqHost.substr(0, reqHost.length - 4)
+          console.log(`WS on ${reqHost}${req.url} connected.`)
+          let hnd = _this.registeredWSHandlers.find(hnd => hnd.hostname === reqHost)
           if (!hnd) {
-            ws.close(1002, `Unexpected host ${req.headers.host}`)
+            ws.close(1011, `Unexpected host ${req.headers.host}`)
             console.error(`ws: Unexpected 'connection' event on host ${req.headers.host}`)
           } else {
             hnd.onConnection(ws, req)
