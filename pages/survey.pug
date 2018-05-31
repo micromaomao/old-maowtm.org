@@ -21,7 +21,7 @@ block content
     -let queClass = ['que']
     -if (qst.singleLine) queClass.push('single-line')
     div(class=queClass.join(' '), id=('q' + idx), data-mod=mod, data-optional=qst.optional ? 'true' : undefined)
-      h2 #{idx + 1}: #{qst.question}
+      .h #{idx + 1}. #{qst.question}
       -if (mod === 'single')
         each ans, anidx in qst.answer
           .ans
