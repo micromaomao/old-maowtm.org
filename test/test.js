@@ -1224,7 +1224,7 @@ describe('require("pages")', function () {
                     que = ques.eq(i)
                     mod = que.data('mod')
                     mod.should.equal('single', 'Question 1 should be mode/single.')
-                    que.find('h2').text().should.equal('1: single', 'Question heading')
+                    que.find('.h').text().should.equal('1. single', 'Question heading')
                     ans = que.find('.ans')
                     ans.length.should.equal(5, '5 answers')
                     ans.each((idx, an) => {
@@ -1236,7 +1236,7 @@ describe('require("pages")', function () {
                     que = ques.eq(i)
                     mod = que.data('mod')
                     mod.should.equal('select', 'Question 2 should be mode/select.')
-                    que.find('h2').text().should.equal('2: select', 'Question heading')
+                    que.find('.h').text().should.equal('2. select', 'Question heading')
                     ans = que.find('.ans')
                     ans.length.should.equal(5, '5 answers')
                     ans.each((idx, an) => {
@@ -1248,7 +1248,7 @@ describe('require("pages")', function () {
                     que = ques.eq(i)
                     mod = que.data('mod')
                     mod.should.equal('single', 'Question 3 should be mode/single.')
-                    que.find('h2').text().should.equal('3: single-orother', 'Question heading')
+                    que.find('.h').text().should.equal('3. single-orother', 'Question heading')
                     ans = que.find('.ans')
                     ans.length.should.equal(6, '6 answers')
                     ans.each((idx, an) => {
@@ -1261,7 +1261,7 @@ describe('require("pages")', function () {
                     que = ques.eq(i)
                     mod = que.data('mod')
                     mod.should.equal('select', 'Question 4 should be mode/select.')
-                    que.find('h2').text().should.equal('4: select-orother', 'Question heading')
+                    que.find('.h').text().should.equal('4. select-orother', 'Question heading')
                     ans = que.find('.ans')
                     ans.length.should.equal(6, '6 answers')
                     ans.each((idx, an) => {
@@ -1274,7 +1274,7 @@ describe('require("pages")', function () {
                     que = ques.eq(i)
                     mod = que.data('mod')
                     mod.should.equal('input', 'Question 5 should be mode/input.')
-                    que.find('h2').text().should.equal('5: input', 'Question heading')
+                    que.find('.h').text().should.equal('5. input', 'Question heading')
                     ans = que.find('.ans')
                     ans.length.should.equal(1, '1 answers')
                     ans.find('input[type=text]').length.should.equal(1, 'Should have input box')
@@ -1283,7 +1283,7 @@ describe('require("pages")', function () {
                     que = ques.eq(i)
                     mod = que.data('mod')
                     mod.should.equal('open', 'Question 6 should be mode/open.')
-                    que.find('h2').text().should.equal('6: open', 'Question heading')
+                    que.find('.h').text().should.equal('6. open', 'Question heading')
                     ans = que.find('.ans')
                     ans.length.should.equal(1, '1 answers')
                     ans.find('textarea').length.should.equal(1, 'Should have input box')
