@@ -5,6 +5,7 @@ block head
 
 block content
   -const msgOneormore = lang.split('/').map(x => x === 'en' ? 'Choose one or more answer/s.' : (x === 'zh' ? '选择一或多项答案' : '')).join(' / ')
+  -const msgZeroormore = lang.split('/').map(x => x === 'en' ? 'Choose zero, one or more answer/s.' : (x === 'zh' ? '选择任意数量的答案' : '')).join(' / ')
   -const msgOtherPls = lang.split('/').map(x => x === 'en' ? 'Other (please specify)' : (x === 'zh' ? '其他（请指明）' : '')).join(' / ') + ':'
   -const msgFinish = lang.split('/').map(x => x === 'en' ? 'Finish!' : (x === 'zh' ? '完成！' : '')).join(' / ')
   .content
@@ -22,6 +23,10 @@ block content
     -if (qst.singleLine) queClass.push('single-line')
     div(class=queClass.join(' '), id=('q' + idx), data-mod=mod, data-optional=qst.optional ? 'true' : undefined)
       .h #{idx + 1}. #{qst.question}
+      -if (qst.descHtml)
+        != qst.descHtml
+      -else if (qst.desc)
+        p #{qst.desc}
       -if (mod === 'single')
         each ans, anidx in qst.answer
           .ans
@@ -36,7 +41,7 @@ block content
             input.opsy(type='text')
       -if (mod === 'select')
         .qdesc
-          i= msgOneormore
+          i= qst.optional ? msgZeroormore : msgOneormore
         each ans, anidx in qst.answer
           .ans
             -let ipid = 'q' + idx + 's' + anidx
@@ -54,9 +59,9 @@ block content
       -if (mod === 'open')
         .ans
           textarea(placeholder=(qst.placeholder))
-  br
-  button.submit= msgFinish 
-  .submiting Submiting your result...
-  .submError
+  .submitcontain
+    button.submit= msgFinish 
+    .submiting Submiting your result...
+    .submError
   script(src=mapStatic('/script-lab/jquery.min.js'))
   script(src=mapStatic('/script/survey.js'))

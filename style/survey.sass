@@ -1,6 +1,12 @@
 @import layout
 
+body > *
+  margin-left: auto
+  margin-right: auto
+  max-width: 1000px
+
 .que
+  @extend .content
   .h
     font-size: 130%
     margin: 0.5rem 0
@@ -50,11 +56,14 @@
     vertical-align: middle
 .que.error
   background-color: rgba($color-primary, 0.2)
-.submit
-  @extend .primarybutton
-.submiting
-  display: none
-  color: $color-primary
-.submError
-  display: none
-  color: $color-primary
+
+.submitcontain
+  margin-top: 1rem
+  .submit
+    @extend .primarybutton
+  .submiting
+    display: none
+    color: $color-primary
+  .submError
+    display: none
+    color: $color-primary

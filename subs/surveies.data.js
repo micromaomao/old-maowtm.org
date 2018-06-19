@@ -374,5 +374,111 @@ module.exports = {
         answer: ['几乎不 / hardly', '一年一到两次 / Once or twice per year', '一个月一次 / One per month']
       }
     ]
+  },
+  'schsrch-content-mr': {
+    lang: 'zh',
+    title: 'SchSrchの第二次小调查',
+    descHtml: '<p>此调查面向CIE IGCSE/AS/A Level学生…</p><p>我们希望了解一下网站的用户希望网站增加什么新内容/功能…</p><p>这篇调查可能会需要一点mental effort, we will appreciate your response\u2026</p>' +
+              '<p>You may also answer the open questions in English.</p>',
+    q: [
+      {
+        question: '2018年暑假之后 你将会是哪个年级的学生？',
+        mode: 'single-orother',
+        answer: [
+          'IG1',
+          'IG2',
+          'AS',
+          'A2 (A Level)',
+          '毕业'
+        ],
+        singleLine: true
+      },
+      {
+        question: '在你上个学期的学习中 有听说或者使用过SchSrch吗？',
+        mode: 'single',
+        answer: [
+          '有使用过',
+          '有听说过，但是没有用过，因为不刷paper',
+          '有听说过，但是没有用过，因为其他原因',
+          '没有听说过'
+        ]
+      },
+      {
+        question: '以下的科目中 有哪些你下学期将会学习的？',
+        mode: 'select',
+        answer: [
+          'Mathematics (IG)',
+          'Mathematics (AS & A-Level)',
+          'Mathematics (Further)',
+          'Economics',
+          'Business',
+          'History',
+          'Sociology',
+          'Physics',
+          'Chemistry',
+          '以上没有'
+        ]
+      },
+      {
+        question: '对于文科来说 除了past paper之外 你觉得哪些其他资源会帮助到你或你同学的学习？',
+        mode: 'open',
+        descHtml: '<p>如果你没有/将不会学习任何文科 请跳过此题。比如说 老师/同学写的essay范文，针对单个题目的详细分析 之类的…？请简单列举，并<b>写上哪些科目适用</b>… ' +
+              '如果可以的话也请简单描述有多大用处…</p><p>说实话Lynn自己也想不到什么其他的- -</p>',
+        optional: true
+      },
+      {
+        question: '对于理科来说 除了past paper之外 你觉得哪些其他资源会帮助到你或你同学的学习？',
+        mode: 'open',
+        descHtml: '<p>如果你没有/将不会学习任何理科 请跳过此题。比如说 ' +
+                  '更详细的mark scheme，什么资料整理（e.g. DCEAP 或者<a target="_blank" href="https://mww.moe/APD/">Lynn之前做的那个物理文字题集</a>） 之类的…？请简单列举，并<b>写上哪些科目适用</b>… ' +
+                  '如果可以的话也请简单描述有多大用处…</p><p>说实话Lynn自己也想不到 所以如果想不到也可以不填- -</p>',
+        optional: true
+      },
+      {
+        question: '如果你第4题列举了范文 那么如果网站准备请老师有偿写 并给学生收费下载 你怎么看？',
+        desc: '如果没有列举请跳过此题',
+        mode: 'select-orother',
+        optional: true,
+        answer: [
+          '我觉得这很有用 只要价格合理我就愿意下载',
+          '15-20元一篇一整道大题听起来是个合理的价格 只要写的好的话',
+          '10元一篇听起来是个合理的价格',
+          '5元一篇听起来是个合理的价格',
+          '我觉得用处不大 因为我可以从其他地方获得这样的帮助',
+          '我觉得用处不大 因为我对范文没有那么大需要',
+          '我不觉得有老师会愿意在SchSrch上写这些'
+        ]
+      },
+      {
+        question: '你考虑在网站上有偿发布essay吗？',
+        mode: 'select-orother',
+        answer: [
+          '听起来不错',
+          '然而没人会看我写的essay',
+          '我觉得学生应该多看老师写的而不是和我们同样不懂的学生写的',
+          '我写的不行 但是我身边的同学可能有愿意的',
+          '因为其他原因 不考虑'
+        ]
+      },
+      {
+        question: '对网站还有什么其他的建议 或者希望看到什么其他的功能吗',
+        mode: 'open',
+        optional: true,
+        desc: '选填'
+      },
+      {
+        question: '谢谢你愿意填写这份问卷 留下你的联系方式（邮箱或微信）以便我们可以get in touch 或者在以后网站有付费内容时给你优惠',
+        desc: '虽然你也可以不填…',
+        mode: 'open',
+        optional: true,
+        placeholder: '邮箱 m@maowtm.org；微信号 mao-w-'
+      },
+      {
+        question: 'Lastly, 如果对哪题的回答有需要补充的 请在这里填写',
+        mode: 'open',
+        optional: true,
+        desc: '选填'
+      }
+    ]
   }
 }

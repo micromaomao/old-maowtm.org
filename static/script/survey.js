@@ -57,7 +57,7 @@
             choose.push(cse)
           }
         }
-        if (choose.length === 0) {
+        if (choose.length === 0 && !que.data('optional')) {
           que.addClass('error')
           error = true
         }
