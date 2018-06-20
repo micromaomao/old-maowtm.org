@@ -407,9 +407,7 @@ module.exports = {
         question: '以下的科目中 有哪些是你下学期将会学习的？',
         mode: 'select',
         answer: [
-          'Mathematics (IG)',
-          'Mathematics (AS & A-Level)',
-          'Mathematics (Further)',
+          'Mathematics',
           'Economics',
           'Business',
           'History',
