@@ -1,6 +1,8 @@
 (function ($) {
   window.noHashChange = true
 
+  var submitHandlers = []
+
   var ques = $('.que')
 
   ques.each(function (idx, que) {
@@ -10,6 +12,18 @@
       que.find('.opsy').removeClass('error')
     })
     var mod = que.data('mod')
+    if (mod === 'code') {
+      var ph = que.find('.placeholder')
+      try {
+        window.codeQuestionHandler(que.data('codename'), que, function (submitHandler) {
+          submitHandlers[idx] = submitHandler
+        })
+        ph.remove()
+      } catch (e) {
+        ph.text('Error: ' + e.message)
+        que.addClass('error')
+      }
+    }
     if (mod !== 'single' && mod !== 'select') return
     que.find('.ans').each(function (ansidx, ans) {
       ans = $(ans)
@@ -35,7 +49,7 @@
   $('.submit').click(function () {
     var response = []
     var error = false
-    $('.que').each(function (idx, que) {
+    ques.each(function (idx, que) {
       var rsp
       que = $(que)
       que.removeClass('error')
@@ -74,6 +88,15 @@
         if (rsp.length === 0 && !que.data('optional')) {
           que.addClass('error')
           error = true
+        }
+      } else if (mod === 'code') {
+        var submitHandler = submitHandlers[idx]
+        try {
+          rsp = submitHandler()
+        } catch (e) {
+          que.addClass('error')
+          error = true
+          rsp = null
         }
       }
       response[idx] = rsp

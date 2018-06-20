@@ -21,7 +21,7 @@ block content
     -let mod = mds[0]
     -let queClass = ['que']
     -if (qst.singleLine) queClass.push('single-line')
-    div(class=queClass.join(' '), id=('q' + idx), data-mod=mod, data-optional=qst.optional ? 'true' : undefined)
+    div(class=queClass.join(' '), id=('q' + idx), data-mod=mod, data-optional=qst.optional ? 'true' : undefined, data-codename=qst.codename)
       .h #{idx + 1}. #{qst.question}
       -if (qst.descHtml)
         != qst.descHtml
@@ -59,9 +59,14 @@ block content
       -if (mod === 'open')
         .ans
           textarea(placeholder=(qst.placeholder))
+      -if (mod === 'code')
+        .placeholder
+          | Loading&hellip;
   .submitcontain
     button.submit= msgFinish 
     .submiting Submiting your result...
     .submError
   script(src=mapStatic('/script-lab/jquery.min.js'))
+  -if (addScript)
+    script(src=mapStatic(addScript))
   script(src=mapStatic('/script/survey.js'))

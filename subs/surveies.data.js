@@ -382,7 +382,7 @@ module.exports = {
               '<p>You may also answer the open questions in English.</p>',
     q: [
       {
-        question: '2018年暑假之后 你将会是哪个年级的学生？',
+        question: '这个暑假之后 你将会是哪个年级的学生？',
         mode: 'single-orother',
         answer: [
           'IG1',
@@ -404,7 +404,7 @@ module.exports = {
         ]
       },
       {
-        question: '以下的科目中 有哪些你下学期将会学习的？',
+        question: '以下的科目中 有哪些是你下学期将会学习的？',
         mode: 'select',
         answer: [
           'Mathematics (IG)',
@@ -420,45 +420,44 @@ module.exports = {
         ]
       },
       {
-        question: '对于文科来说 除了past paper之外 你觉得哪些其他资源会帮助到你或你同学的学习？',
-        mode: 'open',
-        descHtml: '<p>如果你没有/将不会学习任何文科 请跳过此题。比如说 老师/同学写的essay范文，针对单个题目的详细分析 之类的…？请简单列举，并<b>写上哪些科目适用</b>… ' +
-              '如果可以的话也请简单描述有多大用处…</p><p>说实话Lynn自己也想不到什么其他的- -</p>',
-        optional: true
+        question: '你觉得文科学习中 有范文会对你有多大帮助？',
+        mode: 'code',
+        codename: 'sample_helpfulness'
       },
       {
-        question: '对于理科来说 除了past paper之外 你觉得哪些其他资源会帮助到你或你同学的学习？',
-        mode: 'open',
-        descHtml: '<p>如果你没有/将不会学习任何理科 请跳过此题。比如说 ' +
-                  '更详细的mark scheme，什么资料整理（e.g. DCEAP 或者<a target="_blank" href="https://mww.moe/APD/">Lynn之前做的那个物理文字题集</a>） 之类的…？请简单列举，并<b>写上哪些科目适用</b>… ' +
-                  '如果可以的话也请简单描述有多大用处…</p><p>说实话Lynn自己也想不到 所以如果想不到也可以不填- -</p>',
-        optional: true
-      },
-      {
-        question: '如果你第4题列举了范文 那么如果网站准备请老师有偿写 并给学生收费下载 你怎么看？',
-        desc: '如果没有列举请跳过此题',
+        question: '如果网站准备请老师有偿写范文 并给学生收费下载 你怎么看？',
         mode: 'select-orother',
-        optional: true,
         answer: [
+          '我不学文科',
           '我觉得这很有用 只要价格合理我就愿意下载',
           '15-20元一篇一整道大题听起来是个合理的价格 只要写的好的话',
           '10元一篇听起来是个合理的价格',
           '5元一篇听起来是个合理的价格',
           '我觉得用处不大 因为我可以从其他地方获得这样的帮助',
-          '我觉得用处不大 因为我对范文没有那么大需要',
-          '我不觉得有老师会愿意在SchSrch上写这些'
+          '我觉得用处不大 因为我对范文没有那么大需要'
         ]
       },
       {
-        question: '你考虑在网站上有偿发布essay吗？',
+        question: '你考虑在网站上有偿发布你的essay吗？',
         mode: 'select-orother',
         answer: [
           '听起来不错',
           '然而没人会看我写的essay',
-          '我觉得学生应该多看老师写的而不是和我们同样不懂的学生写的',
-          '我写的不行 但是我身边的同学可能有愿意的',
-          '因为其他原因 不考虑'
+          '我身边的同学可能有愿意的',
+          '我觉得学生应该多看老师写的',
+          '不考虑'
         ]
+      },
+      {
+        question: '你觉得理科学习中 能有更详细的mark scheme会对你有多大的帮助？',
+        mode: 'code',
+        codename: 'mathy_ms_helpfulness'
+      },
+      {
+        question: '除了之前提到的之外 你觉得还有什么其他可能会对学习有帮助的资源吗？',
+        mode: 'open',
+        desc: '选填',
+        optional: true
       },
       {
         question: '对网站还有什么其他的建议 或者希望看到什么其他的功能吗',

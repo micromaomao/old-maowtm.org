@@ -1,4 +1,6 @@
 const express = require('express')
+const fs = require('fs')
+const path = require('path')
 const _pages = require('../pages')
 let pages
 
@@ -110,6 +112,14 @@ module.exports = function (db, lock, rbs = []) {
   })
 
   const surveies = require('./surveies.data.js')
+  for (let survid of Object.keys(surveies)) {
+    let srv = surveies[survid]
+    try {
+      if (fs.statSync(path.join(__dirname, '../static/script/', `survey-${survid.replace(/\//g, '-')}.js`)).isFile()) {
+        srv.addScript = `/script/survey-${survid.replace(/\//g, '-')}.js`
+      }
+    } catch (e) {}
+  }
   rRb.get('/survey/:id', (req, res, next) => {
     let svid = req.params.id
     if (!surveies[svid]) {
