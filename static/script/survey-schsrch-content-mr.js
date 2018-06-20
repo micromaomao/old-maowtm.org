@@ -27,6 +27,9 @@ window.codeQuestionHandler = function (codename, que, setSubmitHandler) {
     ans.append(rangeBarLabel)
 
     var additionalText = $('<textarea placeholder="可选补充说明"></textarea>')
+    if (codename === 'mathy_ms_helpfulness') {
+      additionalText.attr('placeholder', '可选补充说明，可以说说现在的mark scheme缺什么…？')
+    }
     ans.append(additionalText)
 
     var nomathaswell = $('<div><del>数学也不学？</del>如果你之前学了数学 但下学期不学 请说下这会对当时的你有多少帮助呗…</div>')
