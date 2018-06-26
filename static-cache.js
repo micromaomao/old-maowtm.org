@@ -8,6 +8,7 @@ if (!staticPath.match(/\/$/)) {
 }
 
 module.exports = function (requestPath, set, done) {
+  requestPath = decodeURIComponent(requestPath)
   var fpath = path.join(staticPath, requestPath)
 
   if (requestPath.match(/(^|\/)\.\.($|\/)/) || fpath.substr(0, staticPath.length) !== staticPath) {
