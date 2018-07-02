@@ -62,7 +62,7 @@ var maowtm = function (config) {
     }
   }
   this.es.ping({
-    requestTimeout: 100
+    requestTimeout: 1000
   }, err => {
     if (err) {
       fail(err)
