@@ -61,6 +61,13 @@ var maowtm = function (config) {
       process.exit(2)
     }
   }
+  this.es.ping({
+    requestTimeout: 100
+  }, err => {
+    if (err) {
+      fail(err)
+    }
+  })
   this.db.openUri(this._mongodb).catch(err => fail(err))
   if ((!Array.isArray(this._listen) || this._listen.length > 0) && !this.mockSecure && !(this._ssl && this._ssl.cert && this._ssl.key)) {
     fail(new Error('No SSL certificate provided'))
