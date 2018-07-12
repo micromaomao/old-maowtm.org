@@ -44,8 +44,8 @@ block defines
       { signed: false },
       { signed: false },
       { signed: true },
-      { signed: false },
-      { signed: false },
+      { signed: true },
+      { signed: true },
       { signed: false },
       { signed: false },
       { signed: false },
@@ -90,15 +90,23 @@ block additional
         | Study economics
         .subtasks
           .progress
+            | Part 1:&nbsp;
+            .block.done
+            .block.done
+            .block.done
+            .block.done
+            span.space
+            .block.undone
+            | &nbsp;(MCQ past paper)
+            span.space
+            | Part 4:&nbsp;
             .block.undone
             .block.undone
             .block.undone
             .block.undone
             span.space
             .block.undone
-            .block.undone
-            .block.undone
-            .block.undone
+            | &nbsp;(MCQ past paper)
       li
         | Prepare for SAT
         .subtasks
@@ -135,8 +143,11 @@ block additional
             .block.done
             .block.done
             .block.done
-            .block.undone
-            .block.undone
+            .block.done
+            .block.done
+            span.space
+            .block.optional
+            | &nbsp;(past paper)
             span.space
             | S2:&nbsp;
             .block.undone
@@ -144,6 +155,9 @@ block additional
             .block.undone
             .block.undone
             .block.undone
+            span.space
+            .block.optional
+            | &nbsp;(past paper)
       li
         | Draft PS
         .subtasks
@@ -155,15 +169,18 @@ block additional
         | SchSrch refactor & development
         .subtasks
           .progress
+            | New UI:&nbsp;
             .block.done
             .block.done
-            span.space
+            br
+            | Question tags/comments/community:&nbsp;
             .block.undone
             .block.undone
-            span.space
-            .block.undone
-            .block.undone
-            span.space
+            br
+            | User system:&nbsp;
+            .block.optional
+            .block.optional
+            br
             .block.done
       li
         | Linear algebra
