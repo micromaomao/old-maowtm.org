@@ -281,7 +281,7 @@ describe('new maowtm(...)', function () {
       shouldRedirectDomain('www.maowtm.org', 'maowtm.org')
       shouldRedirectDomain('www.schsrch.xyz', 'paper.sc')
       shouldRedirectDomain('beta.schsrch.xyz', 'paper.sc')
-      shouldRedirectDomain('schsrch.xyz', 'paper.sc')
+      // shouldRedirectDomain('schsrch.xyz', 'paper.sc')
       shouldRedirectDomain('schsrch.org', 'paper.sc')
       shouldRedirectDomain('www.schsrch.org', 'paper.sc')
       shouldRedirectDomain('fuckcie.com', 'paper.sc')
