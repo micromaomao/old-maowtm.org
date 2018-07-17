@@ -128,9 +128,11 @@ var maowtm = function (config) {
     app.use(require('./subs/ncicgg')(_this.db, _this.lock))
 
     app.use(function (req, res, next) {
-      if (req.hostname === 'beta.schsrch.xyz' && (req.method.toUpperCase() === 'GET' || req.method.toUpperCase() === 'HEAD') && req.path === '/') {
-        res.set('Access-Control-Allow-Origin', 'https://beta.schsrch.xyz')
-        res.redirect('https://schsrch.xyz' + req.path)
+      if (req.method.toUpperCase() !== 'GET' || req.hostname.toLowerCase() !== 'schsrch.xyz') return next()
+      if (/\/resources\/[0-9a-f]+-clientrender.js/.test(req.path)) {
+        res.status(200)
+        res.type('js')
+        res.send(`navigator.serviceWorker.getRegistration('/').then(reg => reg.unregister(), err => Promise.resolve()).then(() => { window.location = 'https://paper.sc' })`)
       } else {
         next()
       }

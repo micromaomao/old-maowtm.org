@@ -279,12 +279,13 @@ describe('new maowtm(...)', function () {
         })
       }
       shouldRedirectDomain('www.maowtm.org', 'maowtm.org')
-      shouldRedirectDomain('www.schsrch.xyz', 'schsrch.xyz')
-      shouldRedirectDomain('beta.schsrch.xyz', 'schsrch.xyz')
-      shouldRedirectDomain('schsrch.org', 'schsrch.xyz')
-      shouldRedirectDomain('www.schsrch.org', 'schsrch.xyz')
-      shouldRedirectDomain('fuckcie.com', 'schsrch.xyz')
-      shouldRedirectDomain('www.fuckcie.com', 'schsrch.xyz')
+      shouldRedirectDomain('www.schsrch.xyz', 'paper.sc')
+      shouldRedirectDomain('beta.schsrch.xyz', 'paper.sc')
+      shouldRedirectDomain('schsrch.xyz', 'paper.sc')
+      shouldRedirectDomain('schsrch.org', 'paper.sc')
+      shouldRedirectDomain('www.schsrch.org', 'paper.sc')
+      shouldRedirectDomain('fuckcie.com', 'paper.sc')
+      shouldRedirectDomain('www.fuckcie.com', 'paper.sc')
 
       it('should 200 for scripts', function (done) {
         request(app)

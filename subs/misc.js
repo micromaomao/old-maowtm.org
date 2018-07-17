@@ -12,7 +12,7 @@ module.exports = function (db, lock) {
     if (req.method === 'GET') {
       if (req.hostname &&
           (/^(beta|www)\.schsrch\.xyz$/.test(req.hostname) || /^(www\.)?schsrch\.org$/.test(req.hostname) || /^(www\.)?fuckcie\.com$/.test(req.hostname))) {
-        res.redirect('https://schsrch.xyz' + req.path)
+        res.redirect('https://paper.sc' + req.path)
         return
       }
       if (req.hostname === 'www.maowtm.org') {
