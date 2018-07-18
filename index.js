@@ -128,7 +128,7 @@ var maowtm = function (config) {
     app.use(require('./subs/ncicgg')(_this.db, _this.lock))
 
     app.use(function (req, res, next) {
-      if (req.method.toUpperCase() !== 'GET' || req.hostname.toLowerCase() !== 'schsrch.xyz') return next()
+      if (req.method.toUpperCase() !== 'GET' || req.hostname.toLowerCase() !== 'schsrch.xyz') return void next()
       if (/\/resources\/[0-9a-f]+-clientrender.js/.test(req.path)) {
         res.status(200)
         res.type('js')
@@ -136,6 +136,13 @@ var maowtm = function (config) {
       } else {
         next()
       }
+    })
+    app.use(function (req, res, next) {
+      if (req.method.toUpperCase() !== 'GET' || req.hostname.toLowerCase() !== 'schsrch.xyz') return void next()
+      if (req.query.__uncache) return void next()
+      if (req.path === '/sw.js') return void next()
+      if (req.path.startsWith('/resources/')) return void next()
+      res.redirect(301, 'https://paper.sc' + req.path)
     })
 
     _this.apps.forEach(it => {
