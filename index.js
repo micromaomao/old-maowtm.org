@@ -142,7 +142,7 @@ var maowtm = function (config) {
       if (req.query.__uncache) return void next()
       if (req.path === '/sw.js') return void next()
       if (req.path.startsWith('/resources/')) return void next()
-      res.redirect(301, 'https://paper.sc' + req.path)
+      res.redirect(301, 'https://paper.sc' + req.originalUrl)
     })
 
     _this.apps.forEach(it => {
