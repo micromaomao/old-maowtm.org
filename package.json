@@ -24,14 +24,14 @@
     "elasticsearch": "^15.1.1",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
-    "mongoose": "^5.2.4",
-    "node-sass": "^4.9.2",
+    "mongoose": "^5.2.8",
+    "node-sass": "^4.9.3",
     "pug": "^2.0.3",
     "redis": "^2.8.0",
     "redis-lock": "^0.1.4",
     "sharp": "^0.20.5",
     "spdy": "^3.4.7",
-    "uglify-js": "^3.4.5",
+    "uglify-js": "^3.4.7",
     "ws": "^5.2.2"
   },
   "devDependencies": {
