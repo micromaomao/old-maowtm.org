@@ -353,12 +353,12 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
           done(new Error('database not working.'))
           return
         }
-        Image.findOne({name: testImg}, function (err, imgDoc) {
+        Image.findOne({ name: testImg }, function (err, imgDoc) {
           if (err) {
             done(err)
           } else {
             if (imgDoc) {
-              CachedScale.remove({imgId: imgDoc._id}, done)
+              CachedScale.remove({ imgId: imgDoc._id }, done)
               console.log(' -> Removing all cachedScale of ' + testImg)
             } else {
               done()
@@ -370,9 +370,9 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         this.timeout(10000)
         let sImg = sharp(path.join(__dirname, testImg))
         sImg.metadata().then(metadata => {
-          sImg.toFormat('png', {compressionLevel: 9})
+          sImg.toFormat('png', { compressionLevel: 9 })
             .toBuffer()
-            .then(buffer => Image.update({name: testImg}, {name: testImg, width: metadata.width, src: buffer}, {upsert: true}))
+            .then(buffer => Image.update({ name: testImg }, { name: testImg, width: metadata.width, src: buffer }, { upsert: true }))
             .then(() => {
               console.log(' -> Add image ' + testImg + ' into database.')
               done()
@@ -395,7 +395,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         request(app)
           .get(testImgUrl)
           .set('Host', 'img.maowtm.org')
-          .query({width: 100})
+          .query({ width: 100 })
           .expect(200)
           .expect('Content-Type', imageTypeMatch)
           .end(function (err, res) {
@@ -410,7 +410,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         request(app)
           .get(testImgUrl)
           .set('Host', 'img.maowtm.org')
-          .query({width: 10000})
+          .query({ width: 10000 })
           .expect(302)
           .expect('Location', testImgUrl)
           .end(done)
@@ -419,7 +419,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         request(app)
           .get(testImgUrl)
           .set('Host', 'img.maowtm.org')
-          .query({width: 0})
+          .query({ width: 0 })
           .expect(302)
           .expect('Location', testImgUrl)
           .end(done)
@@ -428,7 +428,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         request(app)
           .get(testImgUrl)
           .set('Host', 'img.maowtm.org')
-          .query({width: -10000})
+          .query({ width: -10000 })
           .expect(302)
           .expect('Location', testImgUrl)
           .end(done)
@@ -437,7 +437,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         request(app)
           .get(testImgUrl)
           .set('Host', 'img.maowtm.org')
-          .query({width: 'null'})
+          .query({ width: 'null' })
           .expect(302)
           .expect('Location', testImgUrl)
           .end(done)
@@ -446,7 +446,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         request(app)
           .get(testImgUrl)
           .set('Host', 'img.maowtm.org')
-          .query({width: 100.25})
+          .query({ width: 100.25 })
           .expect(302)
           .expect('Location', testImgUrl + '?width=100')
           .end(done)
@@ -455,7 +455,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         request(app)
           .get(testImgUrl)
           .set('host', 'img.maowtm.org')
-          .query({width: 'null', other: 'yes'})
+          .query({ width: 'null', other: 'yes' })
           .expect(302)
           .expect('location', testImgUrl + '?other=yes')
           .end(done)
@@ -463,7 +463,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
       it('should redirect for not integer width (preserve other arguments)', function (done) {
         request(app)
           .get(testImgUrl)
-          .query({width: 100.25, other: 'yes'})
+          .query({ width: 100.25, other: 'yes' })
           .set('Host', 'img.maowtm.org')
           .expect(302)
           .expect('Location', /^\/.+\.[a-zA-Z]{3}\?(width|other)=/)
@@ -482,7 +482,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
       it('should give 404 for no existing image (with width given)', function (done) {
         request(app)
           .get('/404')
-          .query({width: 100})
+          .query({ width: 100 })
           .set('Host', 'img.maowtm.org')
           .expect(404)
           .end(done)
@@ -500,7 +500,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         var stub = 'Stub!'
         var stubId
         function before (done) {
-          Image.findOne({name: testImg}, function (err, imgDoc) {
+          Image.findOne({ name: testImg }, function (err, imgDoc) {
             if (err) {
               done(err)
               return
@@ -528,7 +528,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         }
         var _done = done
         done = function (err) {
-          CachedScale.remove({_id: stubId}, function (e) {
+          CachedScale.remove({ _id: stubId }, function (e) {
             if (e) {
               _done(e)
               return
@@ -545,7 +545,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
           request(app)
             .get(testImgUrl)
             .set('Host', 'img.maowtm.org')
-            .query({width: 300})
+            .query({ width: 300 })
             .expect(200)
             .expect('Content-Type', imageTypeMatch)
             .end(function (err, res) {
@@ -590,19 +590,19 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
         done(new Error('database not working.'))
         return
       }
-      Image.findOne({name: name}, function (err, imgFound) {
+      Image.findOne({ name: name }, function (err, imgFound) {
         if (err) {
           done(err)
           return
         }
         if (imgFound) {
-          Image.remove({_id: imgFound._id}, function (err) {
+          Image.remove({ _id: imgFound._id }, function (err) {
             if (err) {
               done(err)
               return
             }
             console.log(' -> Removed image ' + name + ' for test.')
-            CachedScale.remove({imgId: imgFound._id}, function (err) {
+            CachedScale.remove({ imgId: imgFound._id }, function (err) {
               if (err) {
                 done(err)
                 return
@@ -619,7 +619,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
     function generateImage (size, done) {
       sharp(path.join(__dirname, 'white.png'))
         .resize(size, size)
-        .toFormat('png', {compressionLevel: 9})
+        .toFormat('png', { compressionLevel: 9 })
         .toBuffer()
         .then(buff => {
           done(null, buff)
@@ -662,7 +662,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
                 done(err)
                 return
               }
-              Image.findOne({name: imgName}, function (err, doc) {
+              Image.findOne({ name: imgName }, function (err, doc) {
                 if (err) {
                   done(err)
                   return
@@ -749,7 +749,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
                 done(err)
                 return
               }
-              Image.findOne({name: imgName}, function (err, doc) {
+              Image.findOne({ name: imgName }, function (err, doc) {
                 if (err) {
                   done(err)
                   return
@@ -832,7 +832,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
             })
           },
           e: function () {
-            Image.findOne({name: imgName}, function (err, doc) {
+            Image.findOne({ name: imgName }, function (err, doc) {
               if (err) {
                 done(err)
                 return
@@ -1159,7 +1159,7 @@ describe('require("pages")', function () {
       const testUrl = `/survey/${testSurvey}/`
 
       before(done => {
-        RbSurveyResponse.remove({surveyId: testSurvey}, err => {
+        RbSurveyResponse.remove({ surveyId: testSurvey }, err => {
           if (err) {
             done(err)
             return
@@ -1337,7 +1337,7 @@ describe('require("pages")', function () {
               done(err)
               return
             }
-            RbSurveyResponse.find({surveyId: testSurvey}, (err, doc) => {
+            RbSurveyResponse.find({ surveyId: testSurvey }, (err, doc) => {
               if (err) {
                 done(err)
                 return

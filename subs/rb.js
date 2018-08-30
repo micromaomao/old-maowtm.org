@@ -12,13 +12,13 @@ module.exports = function (db, lock, rbs = []) {
   let rbAnoyMessageSchema = new mongoose.Schema({
     message: 'String',
     time: 'Number',
-    deleted: {type: 'Boolean', default: false},
-    to: {type: 'String', index: true}
+    deleted: { type: 'Boolean', default: false },
+    to: { type: 'String', index: true }
   })
   let RbAnoyMessage = mongoose.model('rbAnoyMessage', rbAnoyMessageSchema)
 
   let rbSurveyResponseSchema = new mongoose.Schema({
-    surveyId: {type: 'String', index: true},
+    surveyId: { type: 'String', index: true },
     time: 'Number',
     ip: 'String',
     response: 'String'
@@ -28,12 +28,12 @@ module.exports = function (db, lock, rbs = []) {
   let rRb = express.Router()
 
   rRb.get('/', function (req, res, next) {
-    RbAnoyMessage.find({deleted: false, to: 'maowtm'}).sort({time: -1}).exec((err, msgs) => {
+    RbAnoyMessage.find({ deleted: false, to: 'maowtm' }).sort({ time: -1 }).exec((err, msgs) => {
       if (err) {
         next(err)
         return
       }
-      res.send(pages.rbIndex({msgs, index: true}))
+      res.send(pages.rbIndex({ msgs, index: true }))
     })
   })
 
@@ -48,12 +48,12 @@ module.exports = function (db, lock, rbs = []) {
       res.redirect('/pm/' + encodeURIComponent(to.toLowerCase()))
       return
     }
-    RbAnoyMessage.find({deleted: false, to: to}).sort({time: -1}).exec((err, msgs) => {
+    RbAnoyMessage.find({ deleted: false, to: to }).sort({ time: -1 }).exec((err, msgs) => {
       if (err) {
         next(err)
         return
       }
-      res.send(pages.rbIndex({msgs, to: to}))
+      res.send(pages.rbIndex({ msgs, to: to }))
     })
   })
   rRb.post('/pm/:to', function (req, res, next) {
@@ -100,7 +100,7 @@ module.exports = function (db, lock, rbs = []) {
         res.send('Content is empty.')
         return
       }
-      let msg = new RbAnoyMessage({message: body, time: Date.now(), to: to})
+      let msg = new RbAnoyMessage({ message: body, time: Date.now(), to: to })
       msg.save(err => {
         if (err) {
           next(err)
@@ -127,7 +127,7 @@ module.exports = function (db, lock, rbs = []) {
       return
     }
     let sv = surveies[svid]
-    res.send(pages.survey(Object.assign({lang: 'en'}, sv, {id: svid})))
+    res.send(pages.survey(Object.assign({ lang: 'en' }, sv, { id: svid })))
   })
   rRb.get('/survey/:id/success', (req, res, next) => {
     let svid = req.params.id
@@ -136,7 +136,7 @@ module.exports = function (db, lock, rbs = []) {
       next()
       return
     }
-    res.send(pages.surveySuccess({lang: sv.lang || 'en'}))
+    res.send(pages.surveySuccess({ lang: sv.lang || 'en' }))
   })
   rRb.post('/survey/:id', function (req, res, next) {
     let ctype = req.get('Content-Type')
@@ -184,7 +184,7 @@ module.exports = function (db, lock, rbs = []) {
         res.send('Content is not valid JSON.')
         return
       }
-      let msg = new RbSurveyResponse({surveyId: svid, time: Date.now(), ip: req.ip, response: body})
+      let msg = new RbSurveyResponse({ surveyId: svid, time: Date.now(), ip: req.ip, response: body })
       msg.save(err => {
         if (err) {
           next(err)

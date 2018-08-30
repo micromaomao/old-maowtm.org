@@ -37,7 +37,7 @@ module.exports = function (db, lock) {
       next()
       return
     }
-    res.send(pages.error({err: 404, req}))
+    res.send(pages.error({ err: 404, req }))
   })
 
   return function (req, res, next) {

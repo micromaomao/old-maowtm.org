@@ -10,14 +10,14 @@ module.exports = function (db, lock) {
   let pages = require('../pages')(db)
   mongoose.Schema = require('mongoose').Schema
   let imageSchema = new mongoose.Schema({
-    name: {type: 'String', index: true},
+    name: { type: 'String', index: true },
     src: 'Buffer',
     width: 'Number'
   })
   let cachedScaleSchema = new mongoose.Schema({
-    imgId: {type: 'ObjectId', index: true},
-    scale: {type: 'Number', index: true},
-    format: {type: 'String', index: true},
+    imgId: { type: 'ObjectId', index: true },
+    scale: { type: 'Number', index: true },
+    format: { type: 'String', index: true },
     data: 'Buffer'
   })
 
@@ -57,9 +57,9 @@ module.exports = function (db, lock) {
     }
     let sImg = sharp(imageData)
     sImg.metadata().then(metadata =>
-      sImg.toFormat('png', {compressionLevel: 9}).toBuffer()
+      sImg.toFormat('png', { compressionLevel: 9 }).toBuffer()
         .then(buffer =>
-          Image.findOne({name: imgName}).then(existiingImgDoc => new Promise((resolve, reject) => {
+          Image.findOne({ name: imgName }).then(existiingImgDoc => new Promise((resolve, reject) => {
             if (existiingImgDoc) {
               new Image(existiingImgDoc).purge(function (err) {
                 if (err) {
@@ -71,7 +71,7 @@ module.exports = function (db, lock) {
             } else {
               resolve()
             }
-          })).then(() => new Image({name: imgName, src: buffer, width: metadata.width}).save()))
+          })).then(() => new Image({ name: imgName, src: buffer, width: metadata.width }).save()))
     ).then(() => callback(), err => callback(err))
   })
   /**
@@ -132,7 +132,7 @@ module.exports = function (db, lock) {
           format: format
         })
         sharp(th.src).metadata()
-          .then(metadata => sharp(th.src).resize(scale, Math.round((scale / metadata.width) * metadata.height)).toFormat('png', {compressionLevel: 9})
+          .then(metadata => sharp(th.src).resize(scale, Math.round((scale / metadata.width) * metadata.height)).toFormat('png', { compressionLevel: 9 })
             .toBuffer())
           .then(buffer => {
             cachedDoc.set('data', buffer)
@@ -154,13 +154,13 @@ module.exports = function (db, lock) {
     }
     var _id = this._id
     lock('imageCaching\t' + _id.toString(), function (done) {
-      CachedScale.remove({imgId: _id}, function (err) {
+      CachedScale.remove({ imgId: _id }, function (err) {
         if (err) {
           callback(err)
           done()
           return
         }
-        Image.remove({_id: _id}, function (err) {
+        Image.remove({ _id: _id }, function (err) {
           callback(err)
           done()
         })

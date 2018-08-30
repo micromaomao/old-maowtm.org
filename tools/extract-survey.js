@@ -9,7 +9,7 @@ MongoClient.connect('mongodb://127.6.0.233/maowtm', (err, db) => {
   }
 
   let rsps = db.collection('rbsurveyresponses')
-  rsps.find({surveyId: 'jose-proxy-purchasing'}).toArray((err, docs) => {
+  rsps.find({ surveyId: 'jose-proxy-purchasing' }).toArray((err, docs) => {
     if (err) {
       console.error(err)
       process.exit(1)

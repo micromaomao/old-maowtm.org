@@ -54,14 +54,14 @@ function processPug (fname) {
           }
           pages[name] = function (o) {
             o = o || {}
-            o = Object.assign({}, o, {style: sassResult.css, mapStatic: pugMapStatic})
+            o = Object.assign({}, o, { style: sassResult.css, mapStatic: pugMapStatic })
             return pugComment(pugFn(o), fname, name + '.sass')
           }
         })
       } else {
         pages[name] = function (o) {
           o = o || {}
-          o = Object.assign({}, o, {mapStatic: pugMapStatic})
+          o = Object.assign({}, o, { mapStatic: pugMapStatic })
           return pugComment(pugFn(o), fname)
         }
         console.log('pages: style for ' + fname + ' not find.')

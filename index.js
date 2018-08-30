@@ -167,7 +167,7 @@ var maowtm = function (config) {
     let nodeenv = process.env.NODE_ENV || ''
     app.use(function (err, req, res, next) {
       res.status(500)
-      let pageObj = {err, req}
+      let pageObj = { err, req }
       if (typeof err !== 'string') {
         pageObj.err = err.message
         if (err.stack) {
@@ -216,11 +216,11 @@ var maowtm = function (config) {
         function addImage (name, path) {
           return new Promise((resolve, reject) => {
             let distName = 's/' + name
-            let query = Image.findOne({name: distName}, 'name')
+            let query = Image.findOne({ name: distName }, 'name')
             query.then(img => {
               if (!img) {
                 console.log(`Adding image: ${distName}...`)
-                fs.readFile(path, {encoding: null}, (err, data) => {
+                fs.readFile(path, { encoding: null }, (err, data) => {
                   if (err) {
                     reject(err)
                     return

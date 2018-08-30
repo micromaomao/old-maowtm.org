@@ -18,7 +18,7 @@ module.exports = function (requestPath, set, done) {
   if (cached[fileName]) {
     done(null, cached[fileName])
   } else {
-    fs.readFile(fpath, {encoding: 'utf-8'}, function (err, data) {
+    fs.readFile(fpath, { encoding: 'utf-8' }, function (err, data) {
       if (err) {
         return done()
       }

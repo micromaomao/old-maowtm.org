@@ -24,7 +24,7 @@
       })
       ans.append(rangeBar)
 
-      var rangeBarLabel = $('<div style="display: flex; flex-direction: row; justify-content: space-between;"><div>没有一点帮助</div><div style="color: #888">拖动滑条</div><div>非常有帮助</div></div>').css({fontSize: '0.8rem'})
+      var rangeBarLabel = $('<div style="display: flex; flex-direction: row; justify-content: space-between;"><div>没有一点帮助</div><div style="color: #888">拖动滑条</div><div>非常有帮助</div></div>').css({ fontSize: '0.8rem' })
       ans.append(rangeBarLabel)
 
       var additionalText = $('<textarea placeholder="可选补充说明"></textarea>')
@@ -40,14 +40,14 @@
           var dis = naSelect.prop('checked')
           rangeBar.prop('disabled', dis)
           if (dis) {
-            rangeBar.css({opacity: '0.5'})
-            rangeBarLabel.css({opacity: '0.5'})
+            rangeBar.css({ opacity: '0.5' })
+            rangeBarLabel.css({ opacity: '0.5' })
             if (codename === 'mathy_ms_helpfulness') {
               naSelectLabel.after(nomathaswell)
             }
           } else {
-            rangeBar.css({opacity: '1'})
-            rangeBarLabel.css({opacity: '1'})
+            rangeBar.css({ opacity: '1' })
+            rangeBarLabel.css({ opacity: '1' })
             nomathaswell.remove()
           }
         }, 1)

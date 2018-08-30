@@ -32,7 +32,7 @@
       if (opsyBox.length === 1) {
         opsyBox.on('change keydown', function (evt) {
           setTimeout(function () {
-            ack.prop({checked: opsyBox.val().length > 0})
+            ack.prop({ checked: opsyBox.val().length > 0 })
           }, 1)
         })
         ack.on('change', function (evt) {
@@ -102,9 +102,9 @@
       response[idx] = rsp
     })
     if (!error) {
-      $('.submit').css({display: 'none'})
-      $('.submiting').css({display: 'block'})
-      $('.submError').css({display: 'none'})
+      $('.submit').css({ display: 'none' })
+      $('.submiting').css({ display: 'block' })
+      $('.submError').css({ display: 'none' })
       var subm = JSON.stringify(response)
       $.ajax('', {
         method: 'POST',
@@ -112,9 +112,9 @@
         data: subm,
         error: function (jqxhr, txt, err) {
           txt = jqxhr.responseText || txt || err
-          $('.submit').css({display: ''})
-          $('.submiting').css({display: 'none'})
-          $('.submError').css({display: 'block'}).text(txt)
+          $('.submit').css({ display: '' })
+          $('.submiting').css({ display: 'none' })
+          $('.submError').css({ display: 'block' }).text(txt)
         },
         success: function (data, status) {
           window.location = 'success/'

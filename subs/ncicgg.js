@@ -13,8 +13,8 @@ module.exports = function (db, lock) {
   let RbAnoyMessage = mongoose.model('rbAnoyMessage')
 
   rNcicgg.get('/', function (req, res, next) {
-    RbAnoyMessage.find({deleted: false, to: 'ncic'}).sort({time: -1}).then(msgs => {
-      res.send(pages.ncicgg({msgs, RelativeTime}))
+    RbAnoyMessage.find({ deleted: false, to: 'ncic' }).sort({ time: -1 }).then(msgs => {
+      res.send(pages.ncicgg({ msgs, RelativeTime }))
     }, err => {
       next(err)
     })
