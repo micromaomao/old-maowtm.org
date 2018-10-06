@@ -8,6 +8,20 @@ module.exports = function (db, lock) {
   mongoose.Schema = require('mongoose').Schema
   let rMisc = express.Router()
 
+  let rOffer = express.Router()
+
+  rOffer.get('/', function (req, res) {
+    res.send(pages.didigotoffer())
+  })
+
+  rMisc.use(function (req, res, next) {
+    if (req.hostname === 'didigotoffer.com') {
+      return rOffer(req, res, next)
+    } else {
+      return next()
+    }
+  })
+
   rMisc.use(function (req, res, next) {
     if (req.method === 'GET') {
       if (req.hostname &&
