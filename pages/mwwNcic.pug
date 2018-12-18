@@ -1,0 +1,28 @@
+extends layout
+
+block head
+  title Lynn's presentation
+block content
+  h1 Hints and solution to the array sum problem in the interview experience presentation
+
+  h2 Hints
+  ul.hints
+    li.hidden Can be done in <code>O(1)</code>
+    li.hidden For the perparation, you really just need to loop through the array once&hellip;
+    li.hidden &hellip;and compute and store one number for each element.
+  .buttons
+    button.primarybutton.shownexthint Show more hint
+    | &nbsp;
+    button.showsolution Show solution
+  h2.hiddensolution Solution
+  pre.hiddensolution.
+    arr := array in question
+    sum := 0
+    cache := new array of length len(arr)
+    for i := 0; i &lt; len(arr); i ++ {
+      sum += arr[i]
+      cache[i] = sum
+    }
+  p.hiddensolution The rest is left as an exercise for the reader.
+
+  script(src=mapStatic("/script/mwwNcic.js"))

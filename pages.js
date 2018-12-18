@@ -26,9 +26,12 @@ function cssMapStatic (url) {
   return sass.types.String('url(' + pugMapStatic(url) + ')')
 }
 function pugComment (html, pugFile, sassFile) {
+  if (pugFile !== 'mwwNcic.pug') {
+    html = html.replace(/\s{0,}\n\s{0,}/g, ' ')
+  }
   return '<!-- Mixed and minified html + css:\n' +
     '     Source:      ' + ghUrl + 'pages/' + pugFile + '\n' +
-    '     Style sheet: ' + (sassFile ? (ghUrl + 'style/' + sassFile) : 'none') + ' -->\n\n' + html.replace(/\s{0,}\n\s{0,}/g, ' ')
+    '     Style sheet: ' + (sassFile ? (ghUrl + 'style/' + sassFile) : 'none') + ' -->\n\n' + html
 }
 function processPug (fname) {
   var fnmatch = fname.match(/^([A-Za-z0-9\-_\/]+)\.pug/) // eslint-disable-line no-useless-escape

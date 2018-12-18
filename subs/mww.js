@@ -22,6 +22,10 @@ module.exports = function (db, lock) {
     res.send(pages.mwwAPD())
   })
 
+  rMww.get('/ncic/', function (req, res) {
+    res.send(pages.mwwNcic())
+  })
+
   return function (req, res, next) {
     if (req.hostname === 'mww.moe') {
       rMww(req, res, next)
