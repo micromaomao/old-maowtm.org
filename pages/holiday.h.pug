@@ -53,7 +53,8 @@ block content
         -let dateDay = absDate(cur).split('-')[2]
         -let todayReach = reach(cur)
         -let nextDayReach = reach(new Date(cur.getTime() + oneDayTime))
-        -let signed = signingLogs[dayN].signed
+        -let signed = false
+        -if (signingLogs) signed = signingLogs[dayN].signed
         -
           let reachState = (() => {
             if (todayReach) {
@@ -70,7 +71,7 @@ block content
   .griddesc
     div
       .fill.signed
-      | Day 
+      | Day
       a.signlink(href='#signing') signed
       .hiddenText &nbsp;
     div
@@ -86,49 +87,50 @@ block content
       | Not yet
   block additional
 
-  .signing
-    h2#signing Signing of day
-    block signing
-    h2 Signed day logs
-    ul
-      -let haveEntity = false
-      -let streak = 0
-      -let unsignStreak = 0
-      -let lastSigned = true
-      -let stop = false
-      each sign, i in signingLogs
-        -if (!stop)
-          -if (!lastSigned && (sign.signed || (typeof sign.signed === 'undefined')))
-            li.gap
-              | #{unsignStreak} unsigned day#{unsignStreak > 1 ? 's' : ''} in a row: 
-              -if (unsignStreak === 1)
-                | day #{i - 1}
-              -else
-                | from day #{i - unsignStreak} to day #{i - 1}
-          -if (typeof sign.signed === 'undefined')
-            -stop = true
-          -if (sign.signed)
-            -streak++
-            -unsignStreak = 0
-            -haveEntity = true
-            li
-              h3
-                | Day #{i}: completed #{sign.nTask ? sign.nTask : 'undefined'} task#{sign.nTask === 1 ? '' : 's'}.
-                -if (streak > 1)
-                  |  
-                  span.streakcount #{streak}
-                  |  days in a row!
-              -if (sign.message)
-                p!= sign.message
-              -else
-                p No message written.
-          -else
-            -streak = 0
-            -unsignStreak ++
-            -if (sign.message)
+  -if (signingLogs)
+    .signing
+      h2#signing Signing of day
+      block signing
+      h2 Signed day logs
+      ul
+        -let haveEntity = false
+        -let streak = 0
+        -let unsignStreak = 0
+        -let lastSigned = true
+        -let stop = false
+        each sign, i in signingLogs
+          -if (!stop)
+            -if (!lastSigned && (sign.signed || (typeof sign.signed === 'undefined')))
               li.gap
-                | day #{i} unsigned with message:
-                p!= sign.message
-          -lastSigned = sign.signed
-      -if (!haveEntity)
-        li.placeholder No days signed yet.
+                | #{unsignStreak} unsigned day#{unsignStreak > 1 ? 's' : ''} in a row:
+                -if (unsignStreak === 1)
+                  | day #{i - 1}
+                -else
+                  | from day #{i - unsignStreak} to day #{i - 1}
+            -if (typeof sign.signed === 'undefined')
+              -stop = true
+            -if (sign.signed)
+              -streak++
+              -unsignStreak = 0
+              -haveEntity = true
+              li
+                h3
+                  | Day #{i}: completed #{sign.nTask ? sign.nTask : 'undefined'} task#{sign.nTask === 1 ? '' : 's'}.
+                  -if (streak > 1)
+                    |
+                    span.streakcount #{streak}
+                    |  days in a row!
+                -if (sign.message)
+                  p!= sign.message
+                -else
+                  p No message written.
+            -else
+              -streak = 0
+              -unsignStreak ++
+              -if (sign.message)
+                li.gap
+                  | day #{i} unsigned with message:
+                  p!= sign.message
+            -lastSigned = sign.signed
+        -if (!haveEntity)
+          li.placeholder No days signed yet.
