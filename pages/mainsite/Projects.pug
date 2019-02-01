@@ -9,25 +9,25 @@ block defines
 
 block text
   .box.dashinfobox
-    | This page lists projects created by Mao. For projects Mao have contributed to, see 
+    | This page lists projects created by Mao. For projects Mao have contributed to, see&nbsp;
     a(href='/Contributions') Contributions
     | .
   p
     | I have a tons of little projects that I stooped maintaining as soon as development was finished.
     +ref('GitHub repositories', 'https://github.com/micromaomao?tab=repositories', "People rarely find my stuff useful, but I posted it on GitHub so I won't lost it.")
     +ref('Screenshot of `ls` on archives,', mapStatic('/imgs/old-project-archive-ls.png'), 'and that is not all. As I just said, most early works had been lost.')
-    |  Those projects are not worth mentioning here again. You can check these out on my 
+    |  Those projects are not worth mentioning here again. You can check these out on my&nbsp;
     a(href='https://github.com/micromaomao?tab=repositories') GitHub profile
     | .
   p
-    | Here are some significant stuff worth mentioning on my personal page (this page) that would demonstrate my skills on programming. 
+    | Here are some significant stuff worth mentioning on my personal page (this page) that would demonstrate my skills on programming.&nbsp;
   .__tableofcontents
   mixin project(name, builtWith, url, _tags, big)
     -let tags = _tags || [];
     mixin stattag()
       each tag in tags
         span.stattag= tag
-        |  
+        | &nbsp;
     -let xtoclass = (x => "b-" + x.toLowerCase().replace(/\+/g, 'p').replace(/[^A-Za-z0-9]/g, ''))
     -let className = builtWith.map(xtoclass).join(' ')
     -let logo = null
@@ -60,7 +60,7 @@ block text
             block
         .builtwith
           each val, index in builtWith
-            |  
+            | &nbsp;
             span(class="built " + xtoclass(val))= val
       -if (big)
         .main
@@ -86,7 +86,7 @@ block text
         |  It contains a <b>ServiceWorker</b> generated via a Webpack plugin.
         +ref('https://schsrch.xyz/sw.js', 'https://schsrch.xyz/sw.js')
         |  I learned how <b>Webpack</b> works while building this project, and I also
-        | learned about keeping the running state of an App by using 
+        | learned about keeping the running state of an App by using&nbsp;
         a(href='http://redux.js.org/') <b>Redux</b>
         +ref('Relevant code', 'https://github.com/micromaomao/schsrch/blob/master/view/appstate.js#L2')
         | . I also learned some <b>optimization</b> technique for building a (near) 60fps UI.
@@ -129,7 +129,7 @@ block text
         |  and I like Nodejs
         +ref('As of now all of my web projects are either hosted on my server with Nodejs, or hosted on github.io which is static.')
         | . I learned about building websites with Nodejs and some Web best practises. I
-        | also learned <b>Sass</b> by using it in this project. I also follow a 
+        | also learned <b>Sass</b> by using it in this project. I also follow a&nbsp;
         a(href='https://github.com/standard/standard') standard <b>coding style</b>
         |  in this project for all Javascript.
       p
@@ -152,7 +152,7 @@ block text
         +ref('Electron home page', 'https://electron.atom.io/', 'see the Chromium version thing.')
         | . I started trying out <b>React</b> while building this
         +ref('Relevant code', 'https://github.com/micromaomao/Shanbay-Desktop/blob/master/view/main.jsx#L3')
-        | , which led me to fall in love with 
+        | , which led me to fall in love with&nbsp;
         span.refscope functional-style stuff like React
         +ref('React doc on `Component.render`', 'https://facebook.github.io/react/docs/react-component.html#render', "- React make uses of functional programming concepts and treated `render` as a pure function of the component's state (and props).")
         | . I also used <b>Webpack</b> for the first time while building this project.
@@ -162,10 +162,10 @@ block text
         +ref('Relevant discussion', 'https://github.com/electron/electron/issues/2003#issuecomment-235408308')
         | , so it may be less practical.
       p
-        | This App is a 
+        | This App is a&nbsp;
         a(href="https://shanbay.com") Shanbay
         |  desktop client, and Shanbay is a website aimed to help you recite English
-        | vocabulary. However, I won't recommend doing that and 
+        | vocabulary. However, I won't recommend doing that and&nbsp;
         span.refscope I personally don't
         +ref("2016 Augest is my final attempt at doing this. I haven't used Shanbay anymore after that.", 'https://www.shanbay.com/checkin/user/calendar/52733386/201608')
         | .

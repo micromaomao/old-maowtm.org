@@ -16,7 +16,7 @@ block head
 
 block content
   include /reflist.h.pug
-  
+
   mixin uselesswarn ()
     .box.redbox
       | This page, <b>#{page.title}</b>, isn't worth your time. I probably wrote this
@@ -26,14 +26,14 @@ block content
   mixin sectionmainpage (url, title)
     -if (typeof title !== 'string') title = url
     .box.dashinfobox
-      | Main page: 
+      | Main page:&nbsp;
       a(href=`/${url}/`)= title
   mixin personalopinion ()
     .box.infobox
       | Although this goes naturally for every article in this site, it's still worth
       | explicitly reminding to you here that this article consists of massive amount
       | of personal opinion that may not necessary be agreed by everyone. You can have
-      | disagreements, and I encourage you to 
+      | disagreements, and I encourage you to&nbsp;
       a(href='/Contacts') contact me
       |  via any means and tell me what do you think is wrong with this article, and I
       | will consider your opinion and change mime if it makes sense, or I will address

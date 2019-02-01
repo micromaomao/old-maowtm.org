@@ -6,20 +6,20 @@ block head
 block content
   img.logo(src=mapStatic("/svg/logo.svg"))
   h1
-    | #{err === 404 ? 404 : 500}... 
+    | #{err === 404 ? 404 : 500}...&nbsp;
     span.desc #{err === 404 ? "That's weird" : "It's broken!"}
 
   -if (err === 404)
     p
-      | We don't know what to do with the requested path 
+      | We don't know what to do with the requested path&nbsp;
       code.path #{req.path}
   -else
     p
-      | Our server ran into a problem. Try reloading or 
+      | Our server ran into a problem. Try reloading or&nbsp;
       a(href="https://github.com/micromaomao/maowtm.org/issues") submit GitHub issue
       | .
       br
-      | Problem: 
+      | Problem:&nbsp;
       code.errmsg= err
     -if (stack)
       pre.stack
