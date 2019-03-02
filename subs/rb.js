@@ -48,6 +48,11 @@ module.exports = function (db, lock, rbs = []) {
       res.redirect('/pm/' + encodeURIComponent(to.toLowerCase()))
       return
     }
+    if (to === "secret-pyq") {
+      res.status(403)
+      res.send(pages.error({req, err: 403}))
+      return
+    }
     RbAnoyMessage.find({ deleted: false, to: to }).sort({ time: -1 }).exec((err, msgs) => {
       if (err) {
         next(err)

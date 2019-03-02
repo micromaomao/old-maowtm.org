@@ -24,6 +24,7 @@
     submitStuff(function (errmsg) {
       if (!errmsg) {
         submitting.style.display = ''
+        inputBox.value = inputBox.innerText = ''
         window.location.reload()
         return
       }

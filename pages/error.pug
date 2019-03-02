@@ -6,13 +6,18 @@ block head
 block content
   img.logo(src=mapStatic("/svg/logo.svg"))
   h1
-    | #{err === 404 ? 404 : 500}...&nbsp;
-    span.desc #{err === 404 ? "That's weird" : "It's broken!"}
+    | #{err === 404 ? 404 : (err === 403 ? 403 : 500)}...&nbsp;
+    span.desc #{err === 404 ? "That's weird" : (err === 403 ? "Poor you!" : "It's broken!")}
 
   -if (err === 404)
     p
       | We don't know what to do with the requested path&nbsp;
       code.path #{req.path}
+  -else if (err === 403)
+    p
+      | You don't have premission to access the resource at&nbsp;
+      code.path #{req.path}
+      | .
   -else
     p
       | Our server ran into a problem. Try reloading or&nbsp;

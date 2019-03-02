@@ -1,0 +1,20 @@
+extends layout
+
+block head
+  title 你好啊！
+
+block content
+  h1 你好啊！
+
+  p 真想不到居然有人会关心我到翻我朋友圈还打开这个东西哈哈哈
+
+  p 悄悄的留下足迹：
+
+  textarea.inputArea(placeholder="我喜欢你啊")
+  br
+  button.submit(data-to='secret-pyq') 发送
+  span.submitting
+  span.charleft
+  script(src=mapStatic("/script/rbIndex.js"))
+
+  p Mystery number: #{count}

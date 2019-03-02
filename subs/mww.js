@@ -26,6 +26,14 @@ module.exports = function (db, lock) {
     res.send(pages.mwwNcic())
   })
 
+  let RbAnoyMessage = mongoose.model('rbAnoyMessage')
+
+  rMww.get('/pyq/', function (req, res, next) {
+    RbAnoyMessage.count({to: "secret-pyq"}).then(count => {
+      res.send(pages.pyq({count}))
+    }, err => next(err))
+  })
+
   return function (req, res, next) {
     if (req.hostname === 'mww.moe') {
       rMww(req, res, next)
