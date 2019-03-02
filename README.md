@@ -1,14 +1,12 @@
-<h1 align="center">Maowtm.org website</h1>
+<h1 align="center">Maowtm.org server</h1>
 
-This is the full source code for [maowtm.org](https://maowtm.org).
-
-[![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-<br />
-The code follow <a href="https://github.com/feross/standard">feross/standard</a>.
-
-[![NSP Status](https://nodesecurity.io/orgs/maowtmorg/projects/c750c1c8-a57a-4dfb-a8f4-f2190a6ea3ca/badge)](https://nodesecurity.io/orgs/maowtmorg/projects/c750c1c8-a57a-4dfb-a8f4-f2190a6ea3ca)
+This is the full source code for the website and also the node/express-based web server behind [maowtm.org](https://maowtm.org).
 
 To run in local, copy ./launcher.example.js to ./launcher.js and open it, and follow the instruction.
+
+## Docker
+
+Dockerfile for this project can be found [here](https://github.com/micromaomao/maowtm.org-docker). The image is automatically build with [Travis CI](https://travis-ci.org/micromaomao/maowtm.org-docker) and pushed to Docker hub every day at [maowtm/maowtm](https://hub.docker.com/r/maowtm/maowtm)
 
 ## Branch
 
