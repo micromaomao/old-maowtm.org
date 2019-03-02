@@ -5,14 +5,14 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "mocha --exit && NODE_ENV=production mocha --exit && standard",
-    "coverage": "node_modules/.bin/istanbul cover --report lcovonly node_modules/.bin/_mocha -- --exit -R spec && standard"
+    "test": "mocha --exit && NODE_ENV=production mocha --exit",
+    "coverage": "node_modules/.bin/istanbul cover --report lcovonly node_modules/.bin/_mocha -- --exit -R spec"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/micromaomao/maowtm.org.git"
   },
-  "author": "Wtm mao <micromaomao@gmail.com>",
+  "author": "Mao Wtm <m@maowtm.org>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/micromaomao/maowtm.org/issues"
@@ -37,7 +37,6 @@
   "devDependencies": {
     "mocha": "*",
     "should": "*",
-    "standard": "*",
     "supertest": "*"
   }
 }
