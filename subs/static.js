@@ -239,6 +239,7 @@ module.exports = function (db, lock) {
     res.send(pages.imgIndex())
   })
   rImg.get(/^\/(.+)$/, function (req, res, next) {
+    res.set('Access-Control-Allow-Origin', '*')
     // let requestPage = /^text\/html/.test(req.get('accept'))
     let desiredWidth = parseInt(req.query.width)
     let desiredFormat = req.query.as || 'png'

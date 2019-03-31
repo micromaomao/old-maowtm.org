@@ -1,0 +1,46 @@
+extends /layout
+
+block head
+  title Mao Wtm
+  meta(property='og:url', content='https://maowtm.org/Main_Page/')
+  meta(property='og:type', content='article')
+  meta(property='og:locale', content='en_US')
+  meta(property='og:title', content='Mao Wtm')
+  -const desc = "I'm a stupid programmer. Welcome to my 'anout' page."
+  meta(name='description', content=desc)
+  meta(property='og:description', content=desc)
+  meta(property='og:image', content=mapStatic("imgs/logo.png"))
+
+block content
+  include /reflist.h.pug
+  .top
+  .maincontent
+    p
+      b.name Mao Wtm
+      +ref('This nickname is derived from my real name - 王庭茂.')
+      |  is a&nbsp;
+      span.cicon.icon-program
+      |  programmer known for absolutely nothing. Mao is also a&nbsp;
+      span.cicon.icon-igcse
+      u high school student
+      |  and is now&nbsp;
+      span.cicon.icon-yr
+      u #{age} years old
+      +ref('Aug 21, 2001 to now - Wolfram|Alpha', 'https://www.wolframalpha.com/input/?i=Aug+21,+2001+to+now')
+      | . Mao makes extensive uses of, and support open source software. Although Mao had never got any coding jobs,
+      | Mao has written many&nbsp;
+      a(href='https://github.com/micromaomao') side projects
+      | . Only&nbsp;
+      a(href='https://github.com/micromaomao/schsrch') one of the projects
+      |  have a significant user base and is constantly maintained by Mao.
+      | Mao don't have a wide range of coding skills and have only experienced with
+      | a limited number of frameworks, languages or platform
+      | , but Mao believes that new things can be learned quickly. Mao does reasonably well at school
+      |  so far. Mao sometime has trouble dealing with emotions and social relationships, and
+      | might be suffering from depression for a lot of reasons. Mao has finished university application
+      | and will likely go to&nbsp;
+      a(href='https://www.manchester.ac.uk/') University of Manchester
+      |  to study undergraduate Computer Science.
+  .reflistcontain
+    h2 References and Footnotes
+    +reflist

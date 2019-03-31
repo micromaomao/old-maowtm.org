@@ -14,17 +14,14 @@ module.exports = function (db, lock) {
     birth: 998323200
   }
   rMain.get('/', function (req, res) {
-    res.redirect('/Main_Page/')
+    res.send(pages.home())
   })
-  rMain.get('/about', function (req, res) {
-    res.redirect('/Main_Page/')
+  rMain.get('/Contacts/', function (req, res) {
+    res.redirect('/')
   })
   rMain.get('/data/me/', function (req, res) {
     dataMe.age = Math.floor(Date.now() / 1000) - dataMe.birth
     res.send(dataMe)
-  })
-  rMain.get('/tweets', function (req, res) {
-    res.redirect('https://twitter.com/WtmMao')
   })
   rMain.get('/geterror', function (req, res) {
     throw new Error(req.query.msg ? `${req.query.msg} (error message given in url)` : 'Your error.')

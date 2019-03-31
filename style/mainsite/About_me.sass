@@ -1,0 +1,106 @@
+@import ../layout
+
+$page-content-maxwidth: 1000px
+
+.outdate-warning
+  background-color: $color-primary
+  color: white
+  text-align: center
+  padding: 0.5rem 0.2rem 0.5rem 0.2rem
+  > p
+    @extend .reset_hx
+    max-width: $page-content-maxwidth
+    display: block
+    margin-left: auto
+    margin-right: auto
+    .date-added
+      font-size: 80%
+      vertical-align: baseline
+
+.ongoing
+  color: $color-primary
+  margin: 0
+  padding: 0
+  &.hl
+    background-color: $color-primary
+    color: white
+  a, div
+    display: block
+    text-align: center
+    padding: 0.5rem 0.2rem
+    margin: 0
+
+body
+  margin: 0
+  padding: 0
+
+.reset_hx
+  font-weight: normal
+  margin-top: inherit
+  margin-bottom: inherit
+  padding: 0
+  list-style-type: none
+
+.top
+  color: $color-primary-text
+  background: mapStatic("imgs/logo.png"), #ffffff
+  background-size: contain
+  background-repeat: no-repeat
+  background-position: center
+  padding-top: 200px
+  margin-top: 100px
+
+.maincontent
+  @extend .content
+  font-size: 24px
+  max-width: $page-content-maxwidth
+  margin-left: auto
+  margin-right: auto
+  padding: 0.5rem 1rem
+
+  .bigger
+    font-size: 1.2rem
+
+  b.name
+    color: $color-primary
+
+  sup.red
+    background-color: red
+    color: white
+    font-size: 0.7rem
+
+  .cicon
+    border-radius: 50%
+    color: $color-background
+    width: 1.2rem
+    height: 1.2rem
+    display: inline-block
+    overflow: none
+    vertical-align: middle
+  =cicon_bg($icon-bg)
+    background: mapStatic($icon-bg), $color-primary
+    background-size: contain
+  .icon-program
+    +cicon_bg('/svg/icon-program.svg')
+  .icon-igcse
+    +cicon_bg("/svg/icon-igcse.svg")
+  .icon-sz
+    +cicon_bg("/svg/icon-sz.svg")
+  .icon-yr
+    +cicon_bg("/svg/icon-yr.svg")
+
+.reflistcontain
+  max-width: $page-content-maxwidth
+  margin-left: auto
+  margin-right: auto
+
+.uselessboxcontain
+  background-color: lighten($color-primary, 40%)
+  border-left: solid 2px red
+  border-right: solid 2px red
+  padding: 0.5rem
+  margin-bottom: -0.5rem
+  .box.redbox
+    margin-left: auto
+    margin-right: auto
+    max-width: $page-content-maxwidth

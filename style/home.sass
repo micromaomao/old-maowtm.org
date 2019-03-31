@@ -1,0 +1,43 @@
+@import layout
+
+body
+  margin: 0
+  padding: 0
+  display: flex
+  flex-direction: column
+  align-content: center
+  justify-content: center
+  align-items: center
+  text-align: center
+  min-height: 100vh
+  background: center bottom / contain no-repeat scroll mapStatic('/imgs/home-background.png?as=jpg'), center bottom / contain no-repeat scroll mapStatic('/imgs/home-background.png?as=jpg&width=400'), center bottom / contain repeat-x scroll mapStatic('/imgs/home-background-empty.png')
+  font-size: 22px
+
+h1
+  font-size: 70px
+  margin-top: 1rem
+  margin-bottom: 1rem
+  color: $color-primary
+
+body.mobile h1
+  font-size: 40px
+
+.contact
+  padding-bottom: 1rem
+  .acontain
+    display: inline-block
+.links
+  padding-bottom: 100px
+  max-width: 600px
+  .acontain
+    display: inline-block
+    margin-left: 0.7rem
+    margin-right: 0.7rem
+  hr
+    display: block
+    height: 1px
+    border: none
+    background-color: rgba(#000, 0.5)
+    margin-top: 0.7rem
+    margin-bottom: 0.7rem
+    width: 100%

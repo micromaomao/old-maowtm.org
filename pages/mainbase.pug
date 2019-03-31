@@ -9,7 +9,7 @@ block head
   title= page.title
   meta(property='og:url', content=`https://maowtm.org${pagePath}/`)
   meta(property='og:type', content='article')
-  meta(property='og:locale', content='en_US')
+  meta(property='og:locale', content='en_GB')
   meta(property='og:title', content=page.title)
   meta(name='description', content=page.desc)
   meta(property='og:description', content=page.desc)
@@ -17,33 +17,16 @@ block head
 block content
   include /reflist.h.pug
 
-  mixin uselesswarn ()
-    .box.redbox
-      | This page, <b>#{page.title}</b>, isn't worth your time. I probably wrote this
-      | for my own future references, or this page may have been poorly written. You
-      | won't get anything useful out of this page, so go do something more meaningful.
-      | You have been warned.
   mixin sectionmainpage (url, title)
     -if (typeof title !== 'string') title = url
     .box.dashinfobox
       | Main page:&nbsp;
       a(href=`/${url}/`)= title
-  mixin personalopinion ()
-    .box.infobox
-      | Although this goes naturally for every article in this site, it's still worth
-      | explicitly reminding to you here that this article consists of massive amount
-      | of personal opinion that may not necessary be agreed by everyone. You can have
-      | disagreements, and I encourage you to&nbsp;
-      a(href='/Contacts') contact me
-      |  via any means and tell me what do you think is wrong with this article, and I
-      | will consider your opinion and change mime if it makes sense, or I will address
-      | your argument here. In any case I will appreciate your respect. But since this
-      | is my personal "wiki" site, I can write anything I believe myself.
 
   .topbar
     .left= page.desc
     .right
-      a(href='/Main_Page') main page
+      a(href='/') Home
       | &nbsp;
       a(href=`https://github.com/micromaomao/maowtm.org/tree/master/pages/mainsite${pagePath}.pug`) view source
       | &nbsp;
