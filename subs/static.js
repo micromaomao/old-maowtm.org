@@ -28,9 +28,7 @@ module.exports = function (db, lock) {
     'png',
     'jpg',
     'jpeg',
-    'gif',
     'webp',
-    'tiff'
   ]
 
   /**
@@ -132,7 +130,7 @@ module.exports = function (db, lock) {
           format: format
         })
         sharp(th.src).metadata()
-          .then(metadata => sharp(th.src).resize(scale, Math.round((scale / metadata.width) * metadata.height)).toFormat('png', { compressionLevel: 9 })
+          .then(metadata => sharp(th.src).resize(scale, Math.round((scale / metadata.width) * metadata.height)).toFormat(format, { compressionLevel: 9, quality: 95 })
             .toBuffer())
           .then(buffer => {
             cachedDoc.set('data', buffer)
@@ -243,6 +241,9 @@ module.exports = function (db, lock) {
     // let requestPage = /^text\/html/.test(req.get('accept'))
     let desiredWidth = parseInt(req.query.width)
     let desiredFormat = req.query.as || 'png'
+    if (desiredFormat === "jpg") {
+      desiredFormat = "jpeg"
+    }
     if (!validExtensions.find(x => x === desiredFormat)) {
       delete req.query.as
       let qr = qs.stringify(req.query)
