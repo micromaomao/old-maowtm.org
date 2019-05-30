@@ -343,7 +343,7 @@ function assertWidthAtLeast (res, done, widthTest, withIn) {
   }))
 
   function imageTest (app) {
-    const testImg = 'avatar.png'
+    const testImg = 'logo.png'
     const testImgUrl = '/' + testImg
     var Image = maow.db.model('image')
     var CachedScale = maow.db.model('cachedScale')
