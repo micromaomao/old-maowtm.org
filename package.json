@@ -6,7 +6,9 @@
   "private": true,
   "scripts": {
     "test": "mocha --exit && NODE_ENV=production mocha --exit",
-    "coverage": "node_modules/.bin/istanbul cover --report lcovonly node_modules/.bin/_mocha -- --exit -R spec"
+    "coverage": "node_modules/.bin/istanbul cover --report lcovonly node_modules/.bin/_mocha -- --exit -R spec",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -32,11 +34,13 @@
     "sharp": "^0.21.1",
     "spdy": "^4.0.0",
     "uglify-js": "^3.4.9",
-    "ws": "^6.1.2"
+    "ws": "^6.1.2",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "mocha": "*",
     "should": "*",
     "supertest": "*"
-  }
+  },
+  "snyk": true
 }
