@@ -166,8 +166,16 @@ module.exports = function (db, lock) {
     })
   })
 
-  var Image = mongoose.model('image', imageSchema)
-  var CachedScale = mongoose.model('cachedScale', cachedScaleSchema)
+  function register_model(name, schema) {
+    try {
+      return mongoose.model(name, schema)
+    } catch (e) {
+      return mongoose.model(name)
+    }
+  }
+
+  var Image = register_model('image', imageSchema)
+  var CachedScale = register_model('cachedScale', cachedScaleSchema)
 
   var rStatic = express.Router()
   let compressJs = process.env.NODE_ENV === 'production'

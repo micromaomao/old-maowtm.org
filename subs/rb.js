@@ -9,13 +9,21 @@ module.exports = function (db, lock, rbs = []) {
   pages = _pages(db)
   mongoose.Schema = require('mongoose').Schema
 
+  function register_model(name, schema) {
+    try {
+      return mongoose.model(name, schema)
+    } catch (e) {
+      return mongoose.model(name)
+    }
+  }
+
   let rbAnoyMessageSchema = new mongoose.Schema({
     message: 'String',
     time: 'Number',
     deleted: { type: 'Boolean', default: false },
     to: { type: 'String', index: true }
   })
-  let RbAnoyMessage = mongoose.model('rbAnoyMessage', rbAnoyMessageSchema)
+  let RbAnoyMessage = register_model('rbAnoyMessage', rbAnoyMessageSchema)
 
   let rbSurveyResponseSchema = new mongoose.Schema({
     surveyId: { type: 'String', index: true },
@@ -23,7 +31,7 @@ module.exports = function (db, lock, rbs = []) {
     ip: 'String',
     response: 'String'
   })
-  let RbSurveyResponse = mongoose.model('rbSurveyResponse', rbSurveyResponseSchema)
+  let RbSurveyResponse = register_model('rbSurveyResponse', rbSurveyResponseSchema)
 
   let rRb = express.Router()
 
