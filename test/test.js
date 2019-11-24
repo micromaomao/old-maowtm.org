@@ -226,6 +226,7 @@ describe('new maowtm(...)', function () {
         res.status.should.not.be.exactly(302)
       }
       it('should not redirect to directory (img.maowtm.org)', function (done) {
+        this.timeout(5000)
         request(app)
           .get('/404')
           .set('Host', 'img.maowtm.org')
