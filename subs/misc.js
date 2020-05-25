@@ -27,6 +27,10 @@ module.exports = function (db, lock) {
         res.redirect('https://ncic.gg')
         return
       }
+      if (req.hostname === 'merkleforest.xyz' || req.hostname === 'www.merkleforest.xyz') {
+        res.redirect('https://blog.maowtm.org/ct/en.html')
+        return
+      }
     }
     next()
   })
