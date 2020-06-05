@@ -1,0 +1,13 @@
+extends ../mainbase
+
+block defines
+  -
+    const page = {
+      title: 'Capstone Assessment Due In',
+      desc: ''
+    }
+
+block text
+  script(type="text/javascript",src=mapStatic("script/capstoneduein.js"))
+  .nbdays= Math.floor((new Date("2020-06-30 12:00:00 (British Summer Time)").getTime()-Date.now())/1000/60/60/24)
+  .days-text Days
