@@ -101,6 +101,7 @@ var maowtm = function (config) {
         res.set('X-XSS-Protection', '1; mode=block')
         res.set('X-Frame-Options', 'sameorigin')
         res.set('X-Content-Type-Options', 'nosniff')
+        res.set('Expect-CT', 'max-age=155520000, report-uri="https://maowtm.report-uri.com/r/d/ct/enforce"')
         next()
       }
     })
