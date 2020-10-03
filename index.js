@@ -86,7 +86,16 @@ var maowtm = function (config) {
 
     pages = require('./pages')(this.db)
 
-    app.use(compression())
+    app.use(compression({
+      filter: (req, res) => {
+        // Safari don't really support compression. (Error: can't decode raw data)
+        let ua = req.get('User-Agent');
+        if (ua && ua.indexOf('Safari') >= 0) {
+          return false;
+        }
+        return true;
+      }
+    }))
     app.use('/.well-known/', express.static(path.join(__dirname, '.well-known')))
     app.use(function (req, res, next) {
       if (!req.hostname) {
