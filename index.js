@@ -1,7 +1,7 @@
 // TODO: Fix neg problem on page.
 const express = require('express')
 const http = require('http')
-const spdy = require('spdy')
+const https = require('https')
 const fs = require('fs')
 const url = require('url')
 const mongoose = require('mongoose')
@@ -115,8 +115,6 @@ var maowtm = function (config) {
       }
     })
 
-    app.use(require('./subs/static')(_this.db, _this.lock))
-
     // Add trailing / for all GET for all router below. ( i.e. Not including static and img )
     app.use(function (req, res, next) {
       if (req.hostname.match(/^(img|static|file)/) || req.path.match(/\.[^/\\\s%]+$/)) {
@@ -133,9 +131,7 @@ var maowtm = function (config) {
     })
 
     app.use(require('./subs/main')(_this.db, _this.lock))
-    app.use(require('./subs/rb')(_this.db, _this.lock, _this.rbs))
     app.use(require('./subs/mww')(_this.db, _this.lock))
-    app.use(require('./subs/ncicgg')(_this.db, _this.lock))
 
     app.use(function (req, res, next) {
       if (req.method.toUpperCase() !== 'GET' || req.hostname.toLowerCase() !== 'schsrch.xyz') return void next()
@@ -189,106 +185,31 @@ var maowtm = function (config) {
       console.error(err)
     })
 
-    function doSetupServer () {
-      return new Promise((resolve, reject) => {
-        const httpsopts = (_this._ssl ? {
-          key: fs.readFileSync(_this._ssl.key),
-          cert: fs.readFileSync(_this._ssl.cert)
-        } : null)
-        if (httpsopts && _this._ssl.ca) {
-          httpsopts.ca = fs.readFileSync(_this._ssl.ca)
+    async function doSetupServer () {
+      const httpsopts = (_this._ssl ? {
+        key: fs.readFileSync(_this._ssl.key),
+        cert: fs.readFileSync(_this._ssl.cert)
+      } : null)
+      if (httpsopts && _this._ssl.ca) {
+        httpsopts.ca = fs.readFileSync(_this._ssl.ca)
+      }
+      _this._servers = {
+        http: [],
+        http2: []
+      }
+      if (!Array.isArray(_this._listen)) {
+        if (httpsopts) {
+          _this._servers.http2.push(https.createServer(httpsopts, app).listen(443, _this._listen))
         }
-        _this._servers = {
-          http: [],
-          http2: []
-        }
-        doAddImage().then(() => {
-          if (!Array.isArray(_this._listen)) {
-            if (httpsopts) {
-              _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, _this._listen))
-            }
-            _this._servers.http.push(http.createServer(app).listen(80, _this._listen))
-          } else {
-            _this._listen.forEach(function (address) {
-              if (httpsopts) {
-                _this._servers.http2.push(spdy.createServer(httpsopts, app).listen(443, address))
-              }
-              _this._servers.http.push(http.createServer(app).listen(80, address))
-            })
+        _this._servers.http.push(http.createServer(app).listen(80, _this._listen))
+      } else {
+        _this._listen.forEach(function (address) {
+          if (httpsopts) {
+            _this._servers.http2.push(https.createServer(httpsopts, app).listen(443, address))
           }
-          resolve()
-        }).catch(reject)
-      })
-    }
-    const Image = _this.db.model('image')
-    function doAddImage () {
-      return new Promise((resolve, reject) => {
-        function addImage (name, path) {
-          return new Promise((resolve, reject) => {
-            let distName = 's/' + name
-            let query = Image.findOne({ name: distName }, 'name')
-            query.then(img => {
-              if (!img) {
-                console.log(`Adding image: ${distName}...`)
-                fs.readFile(path, { encoding: null }, (err, data) => {
-                  if (err) {
-                    reject(err)
-                    return
-                  }
-                  Image.addImage(distName, data, err => {
-                    if (err) {
-                      reject(new Error(`error when trying to add image ${name}: ${err.toString()}`))
-                      return
-                    }
-                    resolve()
-                  })
-                })
-              } else {
-                resolve()
-              }
-            }).catch(err => {
-              reject(new Error(`Can't check image cache: ${err}`))
-            })
-          })
-        }
-        function addImageInDir (dir) {
-          return new Promise((resolve, reject) => {
-            let currentDirPath = path.join(__dirname, 'static', 'imgs', dir)
-            fs.readdir(currentDirPath, (err, imgFiles) => {
-              if (err) {
-                reject(err)
-                return
-              }
-              let promises = []
-              imgFiles.forEach(name => {
-                promises.push(new Promise((resolve, reject) => {
-                  let currentName = path.join(dir, name)
-                  let currentFileName = path.join(currentDirPath, name)
-                  fs.stat(currentFileName, (err, stat) => {
-                    if (err) {
-                      reject(err)
-                      return
-                    }
-                    if (stat.isFile()) {
-                      addImage(currentName, currentFileName).then(resolve, reject)
-                    } else if (stat.isDirectory()) {
-                      addImageInDir(currentName).then(resolve, reject)
-                    } else {
-                      resolve()
-                    }
-                  })
-                }))
-              })
-              Promise.all(promises).then(resolve, reject)
-            })
-          })
-        }
-        if (_this.noInitImages) {
-          resolve()
-        } else {
-          addImageInDir('').then(resolve, reject)
-        }
-      })
+          _this._servers.http.push(http.createServer(app).listen(80, address))
+        })
+      }
     }
     _this.es.ping({}).then(() => doSetupServer().then(() => new Promise((resolve, reject) => {
       _this._servers.http2.forEach(server => {
