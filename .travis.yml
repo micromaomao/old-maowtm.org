@@ -5,7 +5,7 @@ group: edge
 node_js:
   - "10"
 env:
-  - CXX=g++-6 MONGODB=mongodb://127.0.0.1/test REDIS=127.0.0.1 ES=127.0.0.1:9200
+  - CXX=g++-6 MONGODB=mongodb://127.0.0.1/test ES=127.0.0.1:9200
 install:
   - npm install -g npm@latest
   - npm install
@@ -13,7 +13,6 @@ install:
   - npm install istanbul
 services:
   - mongodb
-  - redis-server
   - elasticsearch
 addons:
   apt:

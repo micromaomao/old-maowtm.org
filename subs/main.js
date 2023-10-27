@@ -4,7 +4,7 @@ const RelativeTime = require('./reltime.js')
 const cheerio = require('cheerio')
 var pages
 
-module.exports = function (db, lock) {
+module.exports = function (db) {
   var mongoose = db
   pages = _pages(db)
   mongoose.Schema = require('mongoose').Schema

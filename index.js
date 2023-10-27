@@ -6,8 +6,6 @@ const fs = require('fs')
 const url = require('url')
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
-const redis = require('redis')
-const redislock = require('redis-lock')
 const compression = require('compression')
 const path = require('path')
 const elasticsearch = require('elasticsearch')
@@ -30,11 +28,6 @@ var maowtm = function (config) {
   this.es = new elasticsearch.Client({
     host: config.elasticsearch || '127.0.0.1'
   })
-  this._redis = config.redis || '127.0.0.1'
-  this.redis = redis.createClient({
-    host: this._redis
-  })
-  this.lock = redislock(this.redis)
   // this._listen can be a array of address.
   this._listen = config.listen || []
   this._ssl = config.ssl
@@ -130,8 +123,8 @@ var maowtm = function (config) {
       }
     })
 
-    app.use(require('./subs/main')(_this.db, _this.lock))
-    app.use(require('./subs/mww')(_this.db, _this.lock))
+    app.use(require('./subs/main')(_this.db))
+    app.use(require('./subs/mww')(_this.db))
 
     app.use(function (req, res, next) {
       if (req.method.toUpperCase() !== 'GET' || req.hostname.toLowerCase() !== 'schsrch.xyz') return void next()
@@ -168,7 +161,7 @@ var maowtm = function (config) {
       })
     })
 
-    app.use(require('./subs/misc')(_this.db, _this.lock))
+    app.use(require('./subs/misc')(_this.db))
 
     let nodeenv = process.env.NODE_ENV || ''
     app.use(function (err, req, res, next) {

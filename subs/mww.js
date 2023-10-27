@@ -2,7 +2,7 @@ const express = require('express')
 const _pages = require('../pages')
 let pages
 
-module.exports = function (db, lock) {
+module.exports = function (db) {
   let mongoose = db
   pages = _pages(db)
   mongoose.Schema = require('mongoose').Schema

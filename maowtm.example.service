@@ -1,8 +1,8 @@
 [Unit]
 Description=Maowtm.org WWW Server
-After=elasticsearch.service mongod.service redis-server.service
-Requires=elasticsearch.service mongod.service redis-server.service
-PartOf=elasticsearch.service mongod.service redis-server.service
+After=elasticsearch.service mongod.service
+Requires=elasticsearch.service mongod.service
+PartOf=elasticsearch.service mongod.service
 
 [Service]
 Type=simple
@@ -14,4 +14,3 @@ RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
-

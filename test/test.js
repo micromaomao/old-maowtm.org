@@ -7,7 +7,7 @@ const request = require('supertest')
 const cheerio = require('cheerio')
 const path = require('path')
 
-const { MONGODB: DB, REDIS, ES } = process.env
+const { MONGODB: DB, ES } = process.env
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled promise rejection: ' + reason)
@@ -17,16 +17,14 @@ process.on('unhandledRejection', (reason, promise) => {
 
 try {
   DB.should.be.a.String().and.should.not.be.empty()
-  REDIS.should.be.a.String().and.should.not.be.empty()
   ES.should.be.a.String().and.should.not.be.empty()
 } catch (e) {
-  console.log('You need to provide env MONGODB, REDIS and ES. E.g. MONGODB=127.0.0.1')
+  console.log('You need to provide env MONGODB and ES. E.g. MONGODB=127.0.0.1 ES=http://127.0.0.1:9200')
   process.exit(1)
 }
 
 const initParm = {
   db: DB,
-  redis: REDIS,
   elasticsearch: ES,
   noInitImages: true
 }
@@ -85,7 +83,6 @@ describe('new maowtm(...)', function () {
     })
     Maowtm(Object.assign({}, initParm, {
       db: 'mongodb://127.255.255.255/test',
-      redis: REDIS,
       callback: makeErrorCallback(function (d, err) {
         destory = d
         done(err)
@@ -99,7 +96,6 @@ describe('new maowtm(...)', function () {
     })
     Maowtm(Object.assign({}, initParm, {
       db: DB,
-      redis: REDIS,
       listen: '127.6.0.233',
       callback: makeErrorCallback(function (d, err) {
         destory = d
@@ -116,7 +112,6 @@ describe('new maowtm(...)', function () {
     })
     Maowtm(Object.assign({}, initParm, {
       db: DB,
-      redis: REDIS,
       callback: function (err, app, finalize) {
         destory = finalize
         if (err) {
@@ -140,7 +135,6 @@ describe('new maowtm(...)', function () {
   var destory, appTest
   Maowtm(Object.assign({}, initParm, {
     db: DB,
-    redis: REDIS,
     callback: function (err, app, finalize) {
       destory = finalize
       if (err) {
